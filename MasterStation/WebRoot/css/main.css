@@ -1,0 +1,35 @@
+body{
+	background:#D2E9FF;	
+}
+.top_menu{
+	width:100%;
+	height:70px;
+}
+.main_layout{
+	width:100%;
+	height:100%;
+}
+.main_layout table{
+	width:100%;
+	height:100%;
+	border-collapse: collapse;
+}
+.main_layout table td{
+	vertical-align:top;
+	text-align:center;
+	border:1px solid green;
+}
+.main_layout table .left_td{
+	width:170px;
+}
+.main_layout table .left_td .left_frame{
+	width:100%;
+	margin:0px;
+}
+.main_layout table .center_td{
+	
+}
+.main_layout table .center_td .center_frame{
+	width:100%;
+	height:100%;
+}

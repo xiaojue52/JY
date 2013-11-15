@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+ 
+ <package name="Root" extends="struts-default" namespace="/">
+  <action name="login" class="loginAction" method="login">
+   <result name="success" type="redirect">/main.jsp</result>
+   <result name="failure" type="redirect">/index.jsp</result>
+  </action>
+  <action name="logout" class="logoutAction" method="logout">
+   <result name="success" type="redirect">/index.jsp</result>
+  </action>
+  <action name="listUsers" class="listUsersAction">
+   <result name="success">/account/user_list.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  <action name="updateUser" class="updateUserAction" method="updateUser">
+   <result name="users" type="redirect">/listUsers.action</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  <action name="updatePassword" class="updateUserAction" method="updatePassword">
+   <result name="account" type="redirect">/logout.action</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+   <result name="passworderror">/account/account.jsp</result>
+  </action>
+  <action name="deleteUser" class="deleteUserAction">
+   <result name="success" type="redirect">/listUsers.action</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  <action name="showUser" class="showUserAction">
+   <result name="success">/account/user_details.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+   <result name="failue" type="redirect">/mainAction.action</result>
+  </action>
+  <action name="addUser" class="addUserAction">
+   <result name="success" type="redirect">/listUsers.action</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  </package>
+
+<package name="Device" extends="struts-default" namespace="/">
+  <action name="listDevices" class="listDevicesAction">
+   <result name="success">/device/devicelist.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  <action name="showDevice" class="showDeviceRecordAction">
+   <result name="success">/device/deviceDetails.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  <action name="updateDevice" class="updateDeviceAction">
+   <result name="success" type="redirect">/listDevices.action</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+</package>
+<package name="Main" extends="struts-default" namespace="/">
+  <action name="mainAction" class="MainAction" method="getCurrent">
+   <result name="success">/monitor/monitor.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  <action name="getDataByTime" class="MainAction" method="getDataByTime">
+   <result name="success">/main.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+</package>
+
+<package name="Exception" extends="struts-default" namespace="/">
+<action name="unhandledException" class="UnhandledExceptionAction">
+   <result name="success">/exception/unhandledexception.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  <action name="deleteUnhandledException" class="DeleteUnhandledExceptionAction">
+   <result name="success" type="redirect">unhandledException.action</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+</package>
+
+<package name="History" extends="struts-default" namespace="/">
+<action name="listHistory" class="ListHistoryAction" method="listHistory">
+   <result name="success">/history/history.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+  <action name="listExceptionHistory" class="ListHistoryAction" method="listExceptionHistory">
+   <result name="success">/history/exceptionhistory.jsp</result>
+   <result name="unlogin" type="redirect">/index.jsp</result>
+  </action>
+</package>
+
+<package name="Trees" extends="struts-default" namespace="/"> 
+	<action name="createTree" class="CreateTreeAction" method="getTreeData"> 
+ 	</action> 
+ </package> 
+<package name="json" extends="json-default" namespace="/">
+	<action name="showCabinetRecord" class="CabinetAction" method="showCabinetRecord"> 
+ 		<result name="json"></result>
+ 	</action>
+ 	<action name="showDeviceRecord" class="DeviceAction" method="showDeviceRecord"> 
+ 		<result name="json"></result>
+ 	</action>
+ 	<action name="showDetectorRecord" class="DetectorAction" method="showDetectorRecord"> 
+ 		<result name="json"></result>
+ 	</action>
+ 	
+ 	<action name="addLine" class="LineAction" method="addLineAction"> 
+ 		<result name="success">/system/system_tree.jsp</result>
+ 	</action>
+ 	<action name="addCabinet" class="CabinetAction" method="addCabinetAction"> 
+ 		<result name="success">/system/system_tree.jsp</result>
+ 	</action>
+ 	<action name="addDevice" class="DeviceAction" method="addDeviceAction"> 
+ 		<result name="success">/system/system_tree.jsp</result>
+ 	</action>
+ 	
+ 	<action name="updateCabinet" class="CabinetAction" method="updateCabinetAction"> 
+ 		<result name="success">/system/system_tree.jsp</result>
+ 	</action>
+ 	<action name="updateDevice" class="DeviceAction" method="updateDeviceAction"> 
+ 		<result name="success">/system/system_tree.jsp</result>
+ 	</action>
+</package>
+
+<!--include file="struts-jfreechart.xml"></include-->
+</struts>   

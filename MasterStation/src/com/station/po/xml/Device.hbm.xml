@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+ <class name="com.station.po.Device" table="DEVICES">
+	<id name="id" type="java.lang.Integer" column="id">
+   	<generator class="increment"/>
+ 	 </id>
+  <property name="name" type="string" column="name"/>
+  <property name="warningTemperature" type="java.lang.Double" column="warning_Temperature"/>
+  <property name="deviceBox" type="string" column="device_box"/>
+  <property name="note" type="string" column="note"/>
+  <property name="currentData" type="java.lang.Double" column="current_Data"/>
+  <property name="enviTemp" type="java.lang.Double" column="envi_temp"/>
+  <property name="status" type="string" column="status"/>
+  <property name="owner" type="string" column="owner"/>
+  <property name="reason" type="string" column="reason"/>
+  <property name="createDate" type="java.sql.Date" column="create_Date"/>
+  <property name="createTime" type="java.sql.Time" column="create_Time"/>
+  <property name="identify" type="string" column="identify"/>
+  <property name="subBox" type="string" column="subBox"/>
+ </class>
+</hibernate-mapping>

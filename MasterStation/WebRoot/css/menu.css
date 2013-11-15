@@ -1,0 +1,20 @@
+.nav_title{
+	background:#336666;	
+	font-size:20px;
+}
+.left_option{
+	font-size:16px;
+	height:25px;
+}
+
+.child_menu{
+	font-size:12px;
+}
+a:hover{
+	background:#66B3FF;	
+}
+.top_frame{
+	padding-top:48px;
+	padding-right:10px;
+    text-align:right;
+}
