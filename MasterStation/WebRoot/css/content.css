@@ -1,4 +1,80 @@
 .page{
-	position:absolute;
+	position:fixed;
 	display:none;
+	background-color:#ffffff;
+	width:600;
+	height:400;
+	top:50px;
+	left:300px;
+	text-align:center;
+	font-size:16px;
+}
+.page .detectorPage{
+	margin:0 auto;	
+	position:absolute;
+	top:150px;
+	left:8px;
+}
+.page .cabinetPage{
+	margin:0 auto;	
+	position:absolute;
+	top:60px;
+	left:8px;
+}
+.page .linePage{
+	margin:0 auto;	
+	position:absolute;
+	top:150px;
+	left:150px;
+}
+.page .title{
+	font-size:30px;
+	margin-top:-50px;
+	padding-bottom:20px;
+}
+#gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	border-width: 1px;
+	border-collapse: collapse;
+	width:100%;
+}
+#gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #000000;
+	background-color: #BBFFFF;
+}
+#gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #000000;
+	background-color: #ffffff;
+	font-size:16px;
+}
+.baseInfo{
+	height:100px;
+}
+.baseInfo div{
+	height:30px;
+}
+.gprsInfo{
+	position:fixed;
+	height:100px;	
+	top:280px;
+	margin-left:10px;
+}
+.gprsInfo div{
+	height:30px;
+}
+.alertInfo{
+	position:fixed;
+	height:100px;
+	top:270px;
+	margin-left:300px;
+}
+.alertInfo div{
+	height:30px;
 }

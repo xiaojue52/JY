@@ -30,8 +30,6 @@
    <result name="users" type="redirect">/listUsers.action</result>
   </action>
   <action name="updatePassword" class="updateUserAction" method="updatePassword">
-   <result name="account" type="redirect">/logout.action</result>
-   <result name="passworderror">/account/account.jsp</result>
   </action>
   <action name="deleteUser" class="deleteUserAction">
    <result name="success" type="redirect">/listUsers.action</result>

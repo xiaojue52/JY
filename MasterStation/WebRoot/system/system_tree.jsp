@@ -16,6 +16,8 @@
 		<link rel="stylesheet" type="text/css" href="js/ext/resources/css/ext-all.css" /> 
 		<script src="js/ext/adapter/ext/ext-base.js" type="text/javascript"></script>
 		<script src="js/ext/ext-all.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="css/common.css" /> 
+		<link rel="stylesheet" type="text/css" href="css/toolbar.css" /> 
 		<script type="text/javascript">
                Ext.BLANK_IMAGE_URL = 'js/ext/resources/images/default/tree/s.gif';
                </script> 
@@ -24,7 +26,9 @@
 	</head>
 
 	<body>
-		<div>线路：<input type="text"/>柜体类型：<input type="text"/>编号：<input type="text"/>管理者：<input type="text"/><input type="button" value="查询"/></div>
-		<table><tr><td><div id="tree_div"></div> </td><td><jsp:include page="/system/content.jsp"></jsp:include></td></tr></table>
+		<div class="toolbar">
+			<div>线路：<input type="text"/>柜体类型：<input type="text"/>编号：<input type="text"/>管理者：<input type="text"/><input class="comButton" type="button" value="查询"/></div>
+		</div>
+		<table><tr><td width="170px"><div id="tree_div"></div> </td><td><div><jsp:include page="/system/content.jsp"></jsp:include></div></td></tr></table>
 	</body>
 </html>

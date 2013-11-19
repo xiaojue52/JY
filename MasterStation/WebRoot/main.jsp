@@ -17,6 +17,7 @@
 <html>
 	<head>
 		<base href="<%=basePath%>">
+		
 		<link rel="stylesheet" type="text/css"
 			href="js/ext/resources/css/ext-all.css" />
 		<link rel="stylesheet" type="text/css"
@@ -28,6 +29,8 @@
 		<script type="text/javascript" src="js/viewport.js"></script>
 		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script src="js/set-src.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="css/alert-page.css" />
+		<script type="text/javascript" src="js/modify-password.js"></script>
 		<title>监测主站</title>
 	</head>
 
@@ -39,8 +42,8 @@
 				<iframe src="mainAction.action" class="center_frame"
 					id="content_iframe" width=100% height=100% frameborder='0'></iframe>
 		</div>
-		<div id="south-div">
-			版权所有 翻版必究
+		<div id="south-div"> 
+			c版权所有 翻版必究 
 		</div>
 		<div id="monitor_div" class="panelDiv">
 			<input type="button" onclick="setFrameSrc('mainAction.action');" value="系统监控" class="itemDiv"/>
@@ -60,5 +63,12 @@
 		<div id="data_div" class="panelDiv">
 			<input type="button" onclick='setFrameSrc("listHistory.action");' class="itemDiv" value="数据对比"/>
 		</div>
+		<div id="BgDiv"></div>
+			<div id="DialogDiv" style="display:none">
+				<h2>操作<a id="btnClose" onclick="closePage();">关闭</a></h2>
+				<div id="modifyPassword_dialogDiv">
+    	    		<jsp:include page="/account/account.jsp"></jsp:include>
+    	    	</div>
+			</div>
 	</body>
 </html>

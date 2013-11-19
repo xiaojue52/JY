@@ -1,9 +1,16 @@
 package com.station.account.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.po.JYUser;
 import com.station.service.JYUserService;
@@ -17,12 +24,6 @@ public class UpdateUserAction extends ActionSupport {
 	private Integer resetPassword = 0;
 	private int ret = 0;
 
-	public int getRet() {
-		return ret;
-	}
-	public void setRet(int ret) {
-		this.ret = ret;
-	}
 	public Integer getResetPassword() {
 		return resetPassword;
 	}
@@ -67,7 +68,7 @@ public class UpdateUserAction extends ActionSupport {
 		userService.updateUser(user);
 		return "users";
 	}
-	public String updatePassword() throws Exception {
+	public void updatePassword() throws Exception {
 		// TODO Auto-generated method stub
 		HttpSession session = ServletActionContext.getRequest ().getSession();
 		String userId = (String) session.getAttribute("userId");
@@ -77,10 +78,24 @@ public class UpdateUserAction extends ActionSupport {
 			user.setPassword(newPassword);
 			userService.updateUser(user);
 			ret = 0;
-			return "account";
 		}else{
 			ret = -1;
-			return "passworderror";
+		}
+        Map<String,Object> dataMap = new HashMap<String,Object>();
+        dataMap.put("ret", ret);
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			Gson gson = new Gson(); 
+			String jsonString = gson.toJson(dataMap); 
+			out.println(jsonString);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

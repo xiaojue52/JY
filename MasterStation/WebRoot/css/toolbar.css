@@ -1,8 +1,10 @@
 .toolbar{
 	width:100%;
+	min-width:1000px;
+	height:50px;
 }
 .toolbar_left_menu{
-	position:absolute;
+	position:fixed;
 	top:8px;
 	right:8px;
 }
