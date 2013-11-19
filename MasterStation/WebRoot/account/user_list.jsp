@@ -16,8 +16,8 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/toolbar.css" />
 		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/alertPage.css" />
-		<script type="text/javascript" src="js/alertPage.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/alert-page.css" />
+		<script type="text/javascript" src="js/alert-page.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
 		<script type="text/javascript">
    function del(){

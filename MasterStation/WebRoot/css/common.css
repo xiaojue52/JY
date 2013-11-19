@@ -33,4 +33,10 @@ a:hover{
 }
 .errorMessage{
 	color:#FF0000;
-}	
+}
+.comText{
+	font-size:15px;	
+}
+.comInput{
+	width:120px;	
+}
