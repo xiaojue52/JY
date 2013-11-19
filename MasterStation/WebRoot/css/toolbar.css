@@ -1,0 +1,10 @@
+.toolbar{
+	width:100%;
+}
+.toolbar_left_menu{
+	position:absolute;
+	top:8px;
+	right:8px;
+}
+
+

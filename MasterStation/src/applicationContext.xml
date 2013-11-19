@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver">
+		</property>
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl">
+		</property>
+		<property name="username" value="test"></property>
+		<property name="password" value="test"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle9Dialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+
+		<property name="mappingResources">
+			<list>
+				<value>com/station/po/xml/JYUser.hbm.xml</value>
+				<value>com/station/po/xml/JYLine.hbm.xml</value>
+				<value>com/station/po/xml/JYKeyGenerator.hbm.xml</value>
+				<value>com/station/po/xml/JYCabinet.hbm.xml</value>
+				<value>com/station/po/xml/JYDevice.hbm.xml</value>
+				<value>com/station/po/xml/JYDetector.hbm.xml</value>
+				<value>com/station/po/xml/Device.hbm.xml</value>
+				<value>com/station/po/xml/UnhandledException.hbm.xml</value>
+				<value>com/station/po/xml/DeviceHistory.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 事物回滚 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="allManagerMethod"
+			expression="execution(* com.station.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod" />
+	</aop:config>
+
+	<!-- dao -->
+	<bean id="jyUserDAO" class="com.station.dao.impl.JYUserDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyLineDAO" class="com.station.dao.impl.JYLineDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyCabinetDAO" class="com.station.dao.impl.JYCabinetDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyDeviceDAO" class="com.station.dao.impl.JYDeviceDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyDetectorDAO" class="com.station.dao.impl.JYDetectorDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="deviceDAO" class="com.station.dao.impl.DeviceDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="unhandledExceptionDAO" class="com.station.dao.impl.UnhandledExceptionDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="deviceHistoryDAO" class="com.station.dao.impl.DeviceHistoryDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- service -->
+	<bean id="jyUserService" class="com.station.service.impl.JYUserServiceImpl">
+		<property name="userDAO">
+			<ref bean="jyUserDAO" />
+		</property>
+	</bean>
+	<bean id="jyLineService" class="com.station.service.impl.JYLineServiceImpl">
+		<property name="lineDAO">
+			<ref bean="jyLineDAO" />
+		</property>
+	</bean>
+	<bean id="jyCabinetService" class="com.station.service.impl.JYCabinetServiceImpl">
+		<property name="cabinetDAO">
+			<ref bean="jyCabinetDAO" />
+		</property>
+	</bean>
+	<bean id="jyDeviceService" class="com.station.service.impl.JYDeviceServiceImpl">
+		<property name="deviceDAO">
+			<ref bean="jyDeviceDAO" />
+		</property>
+		<property name="detectorDAO">
+			<ref bean="jyDetectorDAO" />
+		</property>
+	</bean>
+	<bean id="jyDetectorService" class="com.station.service.impl.JYDetectorServiceImpl">
+		<property name="detectorDAO">
+			<ref bean="jyDetectorDAO" />
+		</property>
+	</bean>
+	<bean id="deviceService" class="com.station.service.impl.DeviceServiceImpl">
+		<property name="deviceDAO">
+			<ref bean="deviceDAO" />
+		</property>
+	</bean>
+	<bean id="unhandledExceptionService" class="com.station.service.impl.UnhandleExceptionServiceImpl">
+		<property name="unhandledExceptionDAO">
+			<ref bean="unhandledExceptionDAO" />
+		</property>
+	</bean>
+	<bean id="deviceHistoryService" class="com.station.service.impl.DeviceHistoryServiceImpl">
+		<property name="deviceHistoryDAO">
+			<ref bean="deviceHistoryDAO" />
+		</property>
+	</bean>
+
+	<!-- action -->
+	<bean id="loginAction" class="com.station.account.action.LoginAction">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+	<bean id="logoutAction" class="com.station.account.action.LogoutAction"></bean>
+
+	<bean id="listUsersAction" class="com.station.account.action.ListUsersAction">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+	<bean id="deleteUserAction" class="com.station.account.action.DeleteUserAction">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+	<bean id="updateUserAction" class="com.station.account.action.UpdateUserAction">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+	<bean id="showUserAction" class="com.station.account.action.ShowUserRecordAction">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+	<bean id="addUserAction" class="com.station.account.action.AddUserAction">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+
+	<!-- 设备 -->
+
+	<bean id="listDevicesAction" class="com.station.device.action.ListDevicesAction">
+		<property name="deviceService">
+			<ref bean="deviceService" />
+		</property>
+	</bean>
+
+	<bean id="showDeviceRecordAction" class="com.station.device.action.ShowDeviceRecordAction">
+		<property name="deviceService">
+			<ref bean="deviceService" />
+		</property>
+	</bean>
+	<bean id="updateDeviceAction" class="com.station.device.action.UpdateDeviceAction">
+		<property name="deviceService">
+			<ref bean="deviceService" />
+		</property>
+	</bean>
+
+	<!-- exception -->
+	<bean id="UnhandledExceptionAction"
+		class="com.station.exception.action.ListUnhandledExceptionDevicesAction">
+		<property name="unhandledExceptionService">
+			<ref bean="unhandledExceptionService" />
+		</property>
+	</bean>
+	<bean id="DeleteUnhandledExceptionAction"
+		class="com.station.exception.action.DeleteUnhandledExceptionDevicesAction">
+		<property name="unhandledExceptionService">
+			<ref bean="unhandledExceptionService" />
+		</property>
+	</bean>
+
+	<!-- 监控界面 -->
+	<bean id="MainAction" class="com.station.main.action.MainAction">
+		<property name="deviceService">
+			<ref bean="deviceService" />
+		</property>
+	</bean>
+
+	<!-- 历史数据 -->
+	<bean id="ListHistoryAction" class="com.station.history.action.ListHistoryAction">
+		<property name="deviceHistoryService">
+			<ref bean="deviceHistoryService" />
+		</property>
+	</bean>
+
+	<!-- 获取数据 -->
+	<bean class="com.station.data.DaoDriver">
+		<property name="unhandledExceptionService">
+			<ref bean="unhandledExceptionService" />
+		</property>
+		<property name="deviceService">
+			<ref bean="deviceService" />
+		</property>
+		<property name="deviceHistoryService">
+			<ref bean="deviceHistoryService" />
+		</property>
+
+	</bean>
+	<bean id="listUsers" class="com.station.data.DataList">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+
+
+	<bean id="CreateTreeAction" class="com.station.tree.action.CreateTreeAction">
+		<property name="lineService">
+			<ref bean="jyLineService" />
+		</property>
+		<property name="cabinetService">
+			<ref bean="jyCabinetService" />
+		</property>
+		<property name="deviceService">
+			<ref bean="jyDeviceService" />
+		</property>
+		<property name="detectorService">
+			<ref bean="jyDetectorService" />
+		</property>
+	</bean>
+
+	<bean id="CabinetAction" class="com.station.tree.action.CabinetAction">
+		<property name="cabinetService">
+			<ref bean="jyCabinetService" />
+		</property>
+		<property name="lineService">
+			<ref bean="jyLineService" />
+		</property>
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+	<bean id="DeviceAction" class="com.station.tree.action.DeviceAction">
+		<property name="deviceService">
+			<ref bean="jyDeviceService" />
+		</property>
+		<property name="cabinetService">
+			<ref bean="jyCabinetService" />
+		</property>
+	</bean>
+	<bean id="DetectorAction" class="com.station.tree.action.DetectorAction">
+		<property name="detectorService">
+			<ref bean="jyDetectorService" />
+		</property>
+	</bean>
+
+	<bean id="LineAction" class="com.station.tree.action.LineAction">
+		<property name="lineService">
+			<ref bean="jyLineService" />
+		</property>
+	</bean>
+	
+	<bean id="DataList" class="com.station.data.DataList">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+	</bean>
+</beans>
