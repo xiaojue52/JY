@@ -24,72 +24,52 @@
 
 <div>
 	<div id="devicePage" class="page">
+	<div class="devicePage">
+	<div class="title">
+				<span>变送器</span>
+			</div>
 		<s:form action="addDevice.action">
-			<tr>
-				<td>
-					变送器
-				</td>
-			</tr>
-
-			<tr>
-				<td>
+					<div>
 					变送器编号：
-				</td>
-				<td>
+
 					<input name="device.deviceNumber" id="deviceNumber" type="text"
 						value="JY000001" />
-				</td>
-				<td>
-					变送器名称：
-				</td>
-				<td>
-					<input name="device.name" id="deviceName" type="text"
-						value="30861间隔" />
-				</td>
-			</tr>
-			<tr>
-				<td>
+
 					所属柜体：
-				</td>
-				<td>
+
 					<input id="cabinet" type="text" value="" readonly="readonly"
 						class="readonly" />
-				</td>
-			</tr>
-			<tr>
-				<td>
+					</div>
+					<div>
+					变送器名称：
+
+					<input name="device.name" id="deviceName" type="text"
+						value="30861间隔" />
+					
+					管理者：
+
+					<input type="text" value="张三" readonly="readonly" class="readonly" />
+					
+					</div>
+					<div>
 					状态：
-				</td>
-				<td>
+
 					<input id="deviceStatus" type="text" value="" readonly="readonly"
 						class="readonly" />
-				</td>
-				<td>
-					管理者：
-				</td>
-				<td>
-					<input type="text" value="张三" readonly="readonly" class="readonly" />
-				</td>
-			</tr>
-			<tr>
-				<td>
+					
+					</div>
+					<div>
 					备注：
-				</td>
-				<td>
+
 					<textarea name="device.note" id="deviceNote" cols="30" rows="5"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="submit" value="确定" />
-				</td>
-			</tr>
-			<tr>
-				<td>
+					</div>
+					<div>
+					<input class="comButton deviceButton" type="submit" value="确定" />
+					</div>
 					<input id="cabinetId" name="device.cabinet.cabId" type="hidden" />
-				</td>
-			</tr>
+
 		</s:form>
+		</div>
 	</div>
 
 	<div id="detectorPage" class="page">
@@ -97,39 +77,27 @@
 			<div class="title">
 				<span>采集器</span>
 			</div>
-			<table id="gridtable">
-				<tr>
-					<td>
+			<div>
 						所属变送器编号：
-					</td>
-					<td>
+
 						<input id="parentDeviceNumber" type="text" value="JY000001"
 							readonly="readonly" class="readonly" />
-					</td>
-					<td>
+
 						管理者：
-					</td>
-					<td>
+
 						<input type="text" value="张三" readonly="readonly" class="readonly" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						所属柜体：
-					</td>
-					<td>
+	       </div>
+	       <div>
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp所属柜体：
+
 						<input id="parentCabinet" type="text" value="#3860环网柜"
 							readonly="readonly" class="readonly" />
-					</td>
-					<td>
+	
 						所属间隔：
-					</td>
-					<td>
+	
 						<input id="parentDeviceName" type="text" value="30861间隔"
 							readonly="readonly" class="readonly" />
-					</td>
-				</tr>
-			</table>
+			</div>
 		</div>
 	</div>
 
@@ -154,7 +122,7 @@
 			</div>
 			<s:form action="addCabinet.action">
 			<div class="baseInfo">
-				<div>
+				<div class="baseTitle">
 					基本信息
 				</div>
 				<div>
@@ -245,7 +213,7 @@
 									<input type="text" value="15" />
 </div>
 </div>
-				<div><input type="submit" value="确定" /></div>
+				<div><input class="comButton cabinetButton" type="submit" value="确定" /></div>
 
 				<input id="lineId" name="cabinet.line.lineId" type="hidden" />
 				<input id="userId" type="hidden" />
