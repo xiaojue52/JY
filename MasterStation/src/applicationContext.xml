@@ -29,12 +29,15 @@
 
 		<property name="mappingResources">
 			<list>
+				<value>com/station/po/xml/JYConstant.hbm.xml</value>
 				<value>com/station/po/xml/JYUser.hbm.xml</value>
 				<value>com/station/po/xml/JYLine.hbm.xml</value>
 				<value>com/station/po/xml/JYKeyGenerator.hbm.xml</value>
 				<value>com/station/po/xml/JYCabinet.hbm.xml</value>
 				<value>com/station/po/xml/JYDevice.hbm.xml</value>
-				<value>com/station/po/xml/JYDetector.hbm.xml</value>
+				<value>com/station/po/xml/JYDetector.hbm.xml</value>	
+				<value>com/station/po/xml/JYHistory.hbm.xml</value>
+				<value>com/station/po/xml/JYAlarmType.hbm.xml</value>
 				<value>com/station/po/xml/Device.hbm.xml</value>
 				<value>com/station/po/xml/UnhandledException.hbm.xml</value>
 				<value>com/station/po/xml/DeviceHistory.hbm.xml</value>
@@ -88,6 +91,21 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="jyKeyGeneratorDAO" class="com.station.dao.impl.JYKeyGeneratorDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyConstantDAO" class="com.station.dao.impl.JYConstantDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyAlarmTypeDAO" class="com.station.dao.impl.JYAlarmTypeDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
 	<bean id="deviceDAO" class="com.station.dao.impl.DeviceDAOImpl">
 		<property name="sessionFactory">
@@ -133,6 +151,21 @@
 	<bean id="jyDetectorService" class="com.station.service.impl.JYDetectorServiceImpl">
 		<property name="detectorDAO">
 			<ref bean="jyDetectorDAO" />
+		</property>
+	</bean>
+	<bean id="jyKeyGeneratorService" class="com.station.service.impl.JYKeyGeneratorServiceImpl">
+		<property name="keyGeneratorDAO">
+			<ref bean="jyKeyGeneratorDAO" />
+		</property>
+	</bean>
+	<bean id="jyConstantService" class="com.station.service.impl.JYConstantServiceImpl">
+		<property name="constantDAO">
+			<ref bean="jyConstantDAO" />
+		</property>
+	</bean>
+	<bean id="jyAlarmTypeService" class="com.station.service.impl.JYAlarmTypeServiceImpl">
+		<property name="alarmTypeDAO">
+			<ref bean="jyAlarmTypeDAO" />
 		</property>
 	</bean>
 	<bean id="deviceService" class="com.station.service.impl.DeviceServiceImpl">
@@ -277,6 +310,9 @@
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>
+		<property name="constantService">
+			<ref bean="jyConstantService" />
+		</property>
 	</bean>
 	<bean id="DeviceAction" class="com.station.tree.action.DeviceAction">
 		<property name="deviceService">
@@ -301,6 +337,23 @@
 	<bean id="DataList" class="com.station.data.DataList">
 		<property name="userService">
 			<ref bean="jyUserService" />
+		</property>
+		<property name="constantService">
+			<ref bean="jyConstantService" />
+		</property>
+	</bean>
+	<bean id="InitData" class="com.station.constant.InitData">
+		<property name="userService">
+			<ref bean="jyUserService" />
+		</property>
+		<property name="keyGeneratorService">
+			<ref bean="jyKeyGeneratorService" />
+		</property>
+		<property name="constantService">
+			<ref bean="jyConstantService" />
+		</property>
+		<property name="alarmTypeService">
+			<ref bean="jyAlarmTypeService" />
 		</property>
 	</bean>
 </beans>

@@ -40,6 +40,9 @@ Ext.onReady(function(){
     	                $("#cabNumber").val(obj.cabinet.cabNumber);
     	                $("#simNumber").val(obj.cabinet.simNumber);
     	                $("#simSNumber").val(obj.cabinet.simSNumber);
+    	                $("#cabType").val(obj.cabinet.cabType.id);
+    	                $("#powerLevel").val(obj.cabinet.powerLevel.id);
+    	                $("#user").val(obj.cabinet.user.userId);
     	                $("#cabinetPage form").attr({"action":"updateCabinet.action?cabinet.cabId="+node.id});
     	                $(".page").hide();
     	    			$("#cabinetPage").show();
@@ -58,7 +61,7 @@ Ext.onReady(function(){
     	                $("#deviceNumber").val(obj.device.deviceNumber);
     	                $("#deviceName").val(obj.device.name);
     	                $("#cabinetId").val(node.parentNode.id);
-    	                $("#cabinet").val(obj.device.cabinet.cabNumber+obj.device.cabinet.cabType);
+    	                $("#cabinet").val(obj.device.cabinet.cabNumber+obj.device.cabinet.cabType.value);
     	                $("#deviceStatus").val(obj.device.status);
     	                $("#deviceNote").val(obj.device.note);
     	                $("#devicePage form").attr({"action":"updateDevice.action?device.deviceId="+node.id});
@@ -78,7 +81,7 @@ Ext.onReady(function(){
     	                //alert(obj.cabinet.line.name);
     	                $("#parentDeviceNumber").val(obj.detector.device.deviceNumber);
     	                $("#parentDeviceName").val(obj.detector.device.name);
-    	                $("#parentCabinet").val(obj.detector.device.cabinet.cabNumber+obj.detector.device.cabinet.cabType);
+    	                $("#parentCabinet").val(obj.detector.device.cabinet.cabNumber+obj.detector.device.cabinet.cabType.value);
     	                $(".page").hide();
     	    			$("#detectorPage").show();
     	            }  
@@ -91,6 +94,8 @@ Ext.onReady(function(){
     });  
     tree.on('contextmenu', function(node, event){
     	event.stopEvent();
+    	if (node.attributes.level==3||node.attributes.level==4)
+    		return;
     	rightMenu.showAt(event.getXY());
     	rightMenu.items.get(0).node = node;
     	rightMenu.items.get(1).node = node;

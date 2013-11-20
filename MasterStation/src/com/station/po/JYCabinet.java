@@ -4,9 +4,10 @@ public class JYCabinet {
 	private String cabId;
 	private JYLine line;
 	private String cabNumber;
-	private String cabType;
 	private JYUser user;
-	private String powerLevel;
+	//private String powerLevel;
+	private JYConstant powerLevel;
+	private JYConstant cabType;
 	private String simNumber;
 	private String simSNumber;
 	private Integer tag;
@@ -35,18 +36,18 @@ public class JYCabinet {
 	public void setCabNumber(String cabNumber) {
 		this.cabNumber = cabNumber;
 	}
-	public String getCabType() {
-		return cabType;
-	}
-	public void setCabType(String cabType) {
-		this.cabType = cabType;
-	}
 
-	public String getPowerLevel() {
+	public JYConstant getPowerLevel() {
 		return powerLevel;
 	}
-	public void setPowerLevel(String powerLevel) {
+	public void setPowerLevel(JYConstant powerLevel) {
 		this.powerLevel = powerLevel;
+	}
+	public JYConstant getCabType() {
+		return cabType;
+	}
+	public void setCabType(JYConstant cabType) {
+		this.cabType = cabType;
 	}
 	public String getSimNumber() {
 		return simNumber;

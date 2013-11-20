@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.po.JYCabinet;
 import com.station.service.JYCabinetService;
+import com.station.service.JYConstantService;
 import com.station.service.JYLineService;
 import com.station.service.JYUserService;
 
@@ -20,7 +21,11 @@ public class CabinetAction extends ActionSupport{
 	private JYCabinetService cabinetService;
 	private JYLineService lineService;
 	private JYUserService userService;
+	private JYConstantService constantService;
 	
+	public void setConstantService(JYConstantService constantService) {
+		this.constantService = constantService;
+	}
 	public void setLineService(JYLineService lineService) {
 		this.lineService = lineService;
 	}
@@ -61,12 +66,16 @@ public class CabinetAction extends ActionSupport{
 	public String addCabinetAction(){
 		cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
 		cabinet.setUser(userService.findUserById(cabinet.getUser().getUserId()));
+		cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
+		cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
 		cabinetService.saveJYCabinet(cabinet);
 		return SUCCESS;
 	}
 	public String updateCabinetAction(){
 		cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
 		cabinet.setUser(userService.findUserById(cabinet.getUser().getUserId()));
+		cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
+		cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
 		cabinetService.updateJYCabinet(cabinet);
 		return SUCCESS;
 	}

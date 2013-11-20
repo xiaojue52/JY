@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.LoginStatus;
+import com.station.md5.MD5;
 import com.station.po.JYUser;
 import com.station.service.JYUserService;
 
@@ -66,7 +67,8 @@ public class LoginAction extends ActionSupport {
 			myUser = list.get(i);
 			user = myUser.getUsername();
 			pwd = myUser.getPassword();
-			if ((username.equals(user))&&(password.equals(pwd))){
+			String str = MD5.CreateMD5String(password);
+			if ((username.equals(user))&&(str.equals(pwd))){
 				LoginStatus.storeUserDataInSession(myUser);
 				return true;
 			}

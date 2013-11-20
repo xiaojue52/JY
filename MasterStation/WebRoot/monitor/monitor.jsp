@@ -175,32 +175,6 @@ String path = request.getContextPath();
 									</tr>
 								</s:iterator>
 							</table>
-							<input id="methodCode" type="hidden" value="<%=methodCode %>"/>
-		<input id="timer" type="hidden" value="${timer }"/>
-		<script>
-			(function(){
-				var timer = $('#timer').val();
-				var methodCode = document.getElementById('methodCode').value;
-				if (methodCode!=null){
-					switch(methodCode){
-					case "0":
-					    $('#sort_discript').text("当前数据！");
-					    setTimeout(getDataByDevice,10000);
-						break;
-					case "1":
-						$('#sort_discript').text("每隔"+timer/1000+"秒读取一次数据！");
-						setTimeout(getDataByTimer,timer);
-						break;
-				}
-				}		
-			})();
-			function getDataByTimer(){
-				window.location = "getDataByTime.action";
-			}
-			function getDataByDevice(){
-				window.location = "mainAction.action";
-			}
-		</script>
 			</body>
 </html>
 		

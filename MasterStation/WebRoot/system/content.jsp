@@ -16,6 +16,8 @@
 					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 	DataList dataList = (DataList) wac.getBean("DataList");
 	List<JYUser> userList = dataList.getUser();
+	List<JYConstant> powerLevelList = dataList.getPowerLevelConstant();
+	List<JYConstant> cabTypeList = dataList.getCabTpyeConstant();
 	//System.out.print(list.size());
 %>
 
@@ -54,7 +56,7 @@
 					<div>
 					状态：
 
-					<input id="deviceStatus" type="text" value="" readonly="readonly"
+					<input name="device.status" id="deviceStatus" type="text" value="" readonly="readonly"
 						class="readonly" />
 					
 					</div>
@@ -139,28 +141,34 @@
 				<div>
 					柜体类型：
 
-					<select name="cabinet.cabType">
-						<option value="环网柜">
-							环网柜
+					<select name="cabinet.cabType.id" id="cabType">
+						<%
+							for (int i = 0; i < cabTypeList.size(); i++) {
+						%>
+						<option value='<%=cabTypeList.get(i).getId()%>'>
+							<%=cabTypeList.get(i).getValue()%>
 						</option>
-						<option value="变电柜">
-							变电柜
-						</option>
+						<%
+							}
+						%>
 					</select>
 					电压等级：
 
-					<select name="cabinet.powerLevel">
-						<option value="10kv">
-							10kv
+					<select name="cabinet.powerLevel.id" id="powerLevel">
+						<%
+							for (int i = 0; i < powerLevelList.size(); i++) {
+						%>
+						<option value='<%=powerLevelList.get(i).getId()%>'>
+							<%=powerLevelList.get(i).getValue()%>
 						</option>
-						<option value="20kv">
-							20kv
-						</option>
+						<%
+							}
+						%>
 					</select>
 
 					管理者：
 
-					<select id="userSelection" name="cabinet.user.userId">
+					<select id="user" name="cabinet.user.userId">
 						<%
 							for (int i = 0; i < userList.size(); i++) {
 						%>
@@ -194,23 +202,23 @@
 				<div>
 									报警阀值设置
 
-									<input type="checkbox" />
+									<input type="checkbox" id="checkbox" checked="checked"/>
 									启用全局
 				</div>
 				<div>
 									T1(°)：
 
-									<input type="text" value="75" />
+									<input type="text" value="75" class="readonly" readonly="readonly"/>
 				</div>
 				<div>
 									T2(°)：
 
-									<input type="text" value="15" />
+									<input type="text" value="15" class="readonly" readonly="readonly"/>
 				</div>
 				<div>
 									T3(°)：
 
-									<input type="text" value="15" />
+									<input type="text" value="15" class="readonly" readonly="readonly"/>
 </div>
 </div>
 				<div><input class="comButton cabinetButton" type="submit" value="确定" /></div>

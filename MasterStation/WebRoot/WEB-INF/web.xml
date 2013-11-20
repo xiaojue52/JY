@@ -45,9 +45,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/application*.xml</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+
 	<!--end-->
 	<servlet>
 		<description>get the server data without refreshing page</description>
@@ -60,6 +58,9 @@
 		<servlet-name>getData</servlet-name>
 		<url-pattern>/getData</url-pattern>
 	</servlet-mapping>
+	<listener>
+		<listener-class>com.station.constant.InitProjectListener</listener-class>
+	</listener>
 	<!-- 配置socket -->
 	<listener>
 		<listener-class>com.station.socket.SocketServletContextListener</listener-class>

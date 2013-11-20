@@ -12,6 +12,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.md5.MD5;
 import com.station.po.JYUser;
 import com.station.service.JYUserService;
 
@@ -63,8 +64,10 @@ public class UpdateUserAction extends ActionSupport {
 		// TODO Auto-generated method stub
 		if (resetPassword==0){
 			user.setPassword(userService.findUserById(user.getUserId()).getPassword());
-		}else
-			user.setPassword("000000");
+		}else {
+			String str = MD5.CreateMD5String("000000");
+			user.setPassword(str);
+		}
 		userService.updateUser(user);
 		return "users";
 	}
@@ -74,8 +77,8 @@ public class UpdateUserAction extends ActionSupport {
 		String userId = (String) session.getAttribute("userId");
 		user = userService.findUserById(userId);
 		//user.setUserLevel(user_tag);
-		if (user.getPassword().equals(password)){
-			user.setPassword(newPassword);
+		if (user.getPassword().equals(MD5.CreateMD5String(password))){
+			user.setPassword(MD5.CreateMD5String(newPassword));
 			userService.updateUser(user);
 			ret = 0;
 		}else{

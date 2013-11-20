@@ -5,20 +5,25 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.po.JYConstant;
 import com.station.po.JYUser;
+import com.station.service.JYConstantService;
 import com.station.service.JYUserService;
 
 @SuppressWarnings("serial")
 public class DataList extends ActionSupport {
 
 	private JYUserService userService;
+	private JYConstantService constantService;
 
+	public void setConstantService(JYConstantService constantService) {
+		this.constantService = constantService;
+	}
 	public void setUserService(JYUserService userService) {
 		this.userService = userService;
 	}
 	public List<JYUser> getUser(){
 		HttpSession session = ServletActionContext.getRequest ().getSession();
-		//String username = (String) session.getAttribute("username");
 		String userLevel =  (String) session.getAttribute("userLevel");
 		String userId = (String)session.getAttribute("userId");
 		if (userLevel!=null&&userLevel.equals("super_admin")){
@@ -34,5 +39,16 @@ public class DataList extends ActionSupport {
 			list.add(user);
 			return list;
 		}
+		
+	}
+	public List<JYConstant> getCabTpyeConstant(){
+		String hql = "from JYConstant constant where constant.type = 'CabType'";
+		List<JYConstant> list = this.constantService.findJYConstantByHql(hql);
+		return list;
+	}
+	public List<JYConstant> getPowerLevelConstant(){
+		String hql = "from JYConstant constant where constant.type = 'PowerLevel'";
+		List<JYConstant> list = this.constantService.findJYConstantByHql(hql);
+		return list;
 	}
 }

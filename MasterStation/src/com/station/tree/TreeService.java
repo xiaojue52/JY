@@ -34,10 +34,10 @@ public class TreeService {
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){
 			if (jsonString ==null){
-				jsonString = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType()+"',id:'"+list.get(0).getCabId()+"',level:2}";
+				jsonString = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(0).getCabId()+"',level:2}";
 				continue;
 			}
-			jsonString = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(0).getCabType()+"',id:'"+list.get(i).getCabId()+"',level:2}";
+			jsonString = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2}";
 		}
 		jsonString = "["+jsonString+"]";
 		//System.out.print(jsonString);	

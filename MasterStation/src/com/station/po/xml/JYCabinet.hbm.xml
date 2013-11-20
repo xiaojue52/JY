@@ -21,9 +21,17 @@
   		not-null="true" lazy="false">
   		<column name="user_Id"></column>
   	</many-to-one>
+  	<many-to-one name="cabType"
+  		class="com.station.po.JYConstant" outer-join="true"
+  		not-null="true" lazy="false">
+  		<column name="constant_cabType_Id"></column>
+  	</many-to-one>
+  	<many-to-one name="powerLevel"
+  		class="com.station.po.JYConstant" outer-join="true"
+  		not-null="true" lazy="false">
+  		<column name="constant_powerLevel_Id"></column>
+  	</many-to-one>
   <property name="cabNumber" type="string" column="cab_Number" length="20"/>
-  <property name="cabType" type="string" column="cab_Type" length="20"/>
-  <property name="powerLevel" type="string" column="power_Level" length="10"/>
   <property name="simNumber" type="string" column="sim_Number" length="11"/>
   <property name="simSNumber" type="string" column="sim_S_Number" length="20"/>
   <property name="tag" type="java.lang.Integer" column="tag"/>
