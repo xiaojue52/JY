@@ -44,6 +44,37 @@ Ext.onReady(function(){
     	                $("#powerLevel").val(obj.cabinet.powerLevel.id);
     	                $("#user").val(obj.cabinet.user.userId);
     	                $("#cabinetPage form").attr({"action":"updateCabinet.action?cabinet.cabId="+node.id});
+    	                
+    	                if (obj.cabinet.alarmTypeCollect.id == "-1"){
+    	                	removeChecked(1);
+    	                	removeChecked(2);
+    	                	removeChecked(3);
+    	                }else
+    	                {
+    	                	if (obj.cabinet.alarmTypeCollect.alarmType1.enable==0){
+    	                		removeChecked(1);
+    	                	}else
+    	                	{
+    	                		addChecked(1);
+    	                		$("#input1").val(obj.cabinet.alarmTypeCollect.alarmType1.value);
+    	                	}
+    	                	if (obj.cabinet.alarmTypeCollect.alarmType2.enable==0){
+    	                		removeChecked(2);
+    	                	}
+    	                	else
+    	                	{
+    	                		addChecked(2);
+    	                		$("#input2").val(obj.cabinet.alarmTypeCollect.alarmType2.value);
+    	                	}
+    	                	if (obj.cabinet.alarmTypeCollect.alarmType3.enable==0){
+    	                		removeChecked(3);
+    	                	}
+    	                	else
+    	                	{
+    	                		addChecked(3);
+    	                		$("#input3").val(obj.cabinet.alarmTypeCollect.alarmType3.value);
+    	                	}
+    	                }
     	                $(".page").hide();
     	    			$("#cabinetPage").show();
     	            }  
@@ -65,6 +96,8 @@ Ext.onReady(function(){
     	                $("#deviceStatus").val(obj.device.status);
     	                $("#deviceNote").val(obj.device.note);
     	                $("#devicePage form").attr({"action":"updateDevice.action?device.deviceId="+node.id});
+    	                $("#deviceUser").val(obj.device.cabinet.user.username);	
+    	             
     	                $(".page").hide();
     	    			$("#devicePage").show();
     	            }  
@@ -82,6 +115,7 @@ Ext.onReady(function(){
     	                $("#parentDeviceNumber").val(obj.detector.device.deviceNumber);
     	                $("#parentDeviceName").val(obj.detector.device.name);
     	                $("#parentCabinet").val(obj.detector.device.cabinet.cabNumber+obj.detector.device.cabinet.cabType.value);
+    	                $("#detectorUser").val(obj.detector.device.cabinet.user.username);
     	                $(".page").hide();
     	    			$("#detectorPage").show();
     	            }  
@@ -113,6 +147,10 @@ Ext.onReady(function(){
 	                $("#cabNumber").val("");
 	                $("#simNumber").val("");
 	                $("#simSNumber").val("");
+	                removeChecked(1);
+	                removeChecked(2);
+	                removeChecked(3);
+	                $("#cabinetPage form").attr({"action":"addCabinet.action"});
     				$(".page").hide();
 	    			$("#cabinetPage").show();
     				break;	
@@ -123,6 +161,7 @@ Ext.onReady(function(){
 	                $("#cabinetId").val(this.node.id);
 	                $("#deviceStatus").val("离线");
 	                $("#deviceNote").val("");
+	                $("#devicePage form").attr({"action":"addDevice.action"});
     				$(".page").hide();
 	    			$("#devicePage").show();
     				break;	
@@ -142,3 +181,35 @@ Ext.onReady(function(){
     tree.render(Ext.get("tree_div"));  
       
 });
+function checkBoxSwitch(id){
+	if (document.getElementById("checkbox"+id).checked==true){
+		//removeChecked(id);
+		$("#input"+id).removeClass("readonly");
+		$("#input"+id).removeAttr("readonly");
+		$("#checkbox"+id).attr("checked","checked");
+		$("#enable"+id).val(1);
+	}
+	else
+	{
+		//alert('2');
+		//addChecked(id);
+		$("#input"+id).addClass("readonly");
+		$("#input"+id).attr("readonly","readonly");
+		$("#checkbox"+id).removeAttr("checked");
+		$("#enable"+id).val(0);
+	}
+}
+function addChecked(id){
+	document.getElementById("checkbox"+id).checked = true;
+	$("#input"+id).removeClass("readonly");
+	$("#input"+id).removeAttr("readonly");
+	$("#checkbox"+id).attr("checked","checked");
+	$("#enable"+id).val(1);
+}
+function removeChecked(id){
+	document.getElementById("checkbox"+id).checked = false;
+	$("#input"+id).addClass("readonly");
+	$("#input"+id).attr("readonly","readonly");
+	$("#checkbox"+id).removeAttr("checked");
+	$("#enable"+id).val(0);
+}

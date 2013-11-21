@@ -20,7 +20,7 @@ public class JYAlarmTypeServiceImpl implements JYAlarmTypeService {
 	}
 
 	@Override
-	public JYAlarmType findJYAlarmTypeById(Integer id) {
+	public JYAlarmType findJYAlarmTypeById(String id) {
 		// TODO Auto-generated method stub
 		return alarmTypeDAO.findJYAlarmTypeById(id);
 	}

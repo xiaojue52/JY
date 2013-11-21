@@ -1,5 +1,6 @@
 package com.station.po;
 
+
 public class JYCabinet {
 	private String cabId;
 	private JYLine line;
@@ -11,6 +12,14 @@ public class JYCabinet {
 	private String simNumber;
 	private String simSNumber;
 	private Integer tag;
+	private JYAlarmTypeCollect alarmTypeCollect;
+	
+	public JYAlarmTypeCollect getAlarmTypeCollect() {
+		return alarmTypeCollect;
+	}
+	public void setAlarmTypeCollect(JYAlarmTypeCollect alarmTypeCollect) {
+		this.alarmTypeCollect = alarmTypeCollect;
+	}
 	public String getCabId() {
 		return cabId;
 	}

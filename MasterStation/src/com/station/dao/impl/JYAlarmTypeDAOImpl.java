@@ -16,7 +16,7 @@ public class JYAlarmTypeDAOImpl extends HibernateDaoSupport implements JYAlarmTy
 	}
 
 	@Override
-	public JYAlarmType findJYAlarmTypeById(Integer id) {
+	public JYAlarmType findJYAlarmTypeById(String id) {
 		// TODO Auto-generated method stub
 		JYAlarmType data = (JYAlarmType) this.getHibernateTemplate().get(JYAlarmType.class, id);
 		return data;

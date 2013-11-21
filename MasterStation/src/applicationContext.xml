@@ -38,6 +38,7 @@
 				<value>com/station/po/xml/JYDetector.hbm.xml</value>	
 				<value>com/station/po/xml/JYHistory.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmType.hbm.xml</value>
+				<value>com/station/po/xml/JYAlarmTypeCollect.hbm.xml</value>
 				<value>com/station/po/xml/Device.hbm.xml</value>
 				<value>com/station/po/xml/UnhandledException.hbm.xml</value>
 				<value>com/station/po/xml/DeviceHistory.hbm.xml</value>
@@ -106,6 +107,11 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="jyAlarmTypeCollectDAO" class="com.station.dao.impl.JYAlarmTypeCollectDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
 	<bean id="deviceDAO" class="com.station.dao.impl.DeviceDAOImpl">
 		<property name="sessionFactory">
@@ -166,6 +172,11 @@
 	<bean id="jyAlarmTypeService" class="com.station.service.impl.JYAlarmTypeServiceImpl">
 		<property name="alarmTypeDAO">
 			<ref bean="jyAlarmTypeDAO" />
+		</property>
+	</bean>
+	<bean id="jyAlarmTypeCollectService" class="com.station.service.impl.JYAlarmTypeCollectServiceImpl">
+		<property name="alarmTypeCollectDAO">
+			<ref bean="jyAlarmTypeCollectDAO" />
 		</property>
 	</bean>
 	<bean id="deviceService" class="com.station.service.impl.DeviceServiceImpl">
@@ -313,6 +324,12 @@
 		<property name="constantService">
 			<ref bean="jyConstantService" />
 		</property>
+		<property name="alarmTypeService">
+			<ref bean="jyAlarmTypeService" />
+		</property>
+		<property name="alarmTypeCollectService">
+			<ref bean="jyAlarmTypeCollectService" />
+		</property>
 	</bean>
 	<bean id="DeviceAction" class="com.station.tree.action.DeviceAction">
 		<property name="deviceService">
@@ -354,6 +371,9 @@
 		</property>
 		<property name="alarmTypeService">
 			<ref bean="jyAlarmTypeService" />
+		</property>
+		<property name="alarmTypeCollectService">
+			<ref bean="jyAlarmTypeCollectService" />
 		</property>
 	</bean>
 </beans>

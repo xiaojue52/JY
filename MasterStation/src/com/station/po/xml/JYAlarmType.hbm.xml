@@ -4,13 +4,12 @@
 
 <hibernate-mapping>
  <class name="com.station.po.JYAlarmType" table="JY_Alarm_type">
-	<id name="deviceId" type="string" column="device_id" length="20">
+	<id name="id" type="string" column="id" length="40">
    	<generator class="assigned" />
  	 </id>
   <many-to-one name="type"
-  		class="com.station.po.JYConstant" outer-join="true"
-  		not-null="true" lazy="false">
-  		<column name="alarm_type"></column>
+  		class="com.station.po.JYConstant" outer-join="true" lazy="false" cascade="save-update,persist">
+  		<column name="alarm_type_id"></column>
   	</many-to-one>	 
   <property name="value" type="java.lang.Float" column="value"/>
   <property name="enable" type="java.lang.Integer" column="enable"/>

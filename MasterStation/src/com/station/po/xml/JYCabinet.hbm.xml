@@ -31,6 +31,11 @@
   		not-null="true" lazy="false">
   		<column name="constant_powerLevel_Id"></column>
   	</many-to-one>
+	<many-to-one name="alarmTypeCollect"
+  		class="com.station.po.JYAlarmTypeCollect" outer-join="true"
+  		lazy="false" cascade="save-update,persist">
+  		<column name="alarm_type_collect_id"></column>
+  	</many-to-one>
   <property name="cabNumber" type="string" column="cab_Number" length="20"/>
   <property name="simNumber" type="string" column="sim_Number" length="11"/>
   <property name="simSNumber" type="string" column="sim_S_Number" length="20"/>

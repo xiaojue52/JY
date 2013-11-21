@@ -10,7 +10,7 @@ public interface JYAlarmTypeService {
 
 	public void removeJYAlarmType(JYAlarmType arg0);
 
-	public JYAlarmType findJYAlarmTypeById(Integer id);
+	public JYAlarmType findJYAlarmTypeById(String id);
 
 	public List<JYAlarmType> findJYAlarmTypeByHql(String hql);
 

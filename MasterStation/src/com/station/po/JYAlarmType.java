@@ -1,21 +1,23 @@
 package com.station.po;
 
 public class JYAlarmType {
-	private String deviceId;
-	private String type;
+	private String id;
+	private JYConstant type;
 	private Float value;
 	private Integer enable;
 	private Integer isDefault;
-	public String getDeviceId() {
-		return deviceId;
+
+	public String getId() {
+		return id;
 	}
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getType() {
+
+	public JYConstant getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(JYConstant type) {
 		this.type = type;
 	}
 	public Float getValue() {

@@ -2,9 +2,11 @@ package com.station.constant;
 
 import com.station.md5.MD5;
 import com.station.po.JYAlarmType;
+import com.station.po.JYAlarmTypeCollect;
 import com.station.po.JYConstant;
 import com.station.po.JYKeyGenerator;
 import com.station.po.JYUser;
+import com.station.service.JYAlarmTypeCollectService;
 import com.station.service.JYAlarmTypeService;
 import com.station.service.JYConstantService;
 import com.station.service.JYKeyGeneratorService;
@@ -15,7 +17,12 @@ public class InitData {
 	private JYKeyGeneratorService keyGeneratorService;
 	private JYConstantService constantService;
 	private JYAlarmTypeService alarmTypeService;
+	private JYAlarmTypeCollectService alarmTypeCollectService;
 	
+	public void setAlarmTypeCollectService(
+			JYAlarmTypeCollectService alarmTypeCollectService) {
+		this.alarmTypeCollectService = alarmTypeCollectService;
+	}
 	public void setAlarmTypeService(JYAlarmTypeService alarmTypeService) {
 		this.alarmTypeService = alarmTypeService;
 	}
@@ -28,7 +35,7 @@ public class InitData {
 	public void setUserService(JYUserService userService) {
 		this.userService = userService;
 	}
-	public void initUserTable(){
+	private void initUserTable(){
 		String hql = "from JYUser user where user.username = 'admin'";
 		if (this.userService.findUserByHql(hql).size()==0){
 			JYUser user = new JYUser();
@@ -36,9 +43,13 @@ public class InitData {
 			user.setPassword(MD5.CreateMD5String("admin"));
 			user.setUserLevel("super_admin");
 			this.userService.saveUser(user);
+			user.setUsername("--");
+			user.setPassword(MD5.CreateMD5String("--------"));
+			user.setUserLevel("com_admin");
+			this.userService.saveUser(user);
 		}
 	}
-	public void initKeyGeneratorTable(){
+	private void initKeyGeneratorTable(){
 		String hql = "from JYKeyGenerator key";
 		if (this.keyGeneratorService.findJYKeyGeneratorByHql(hql).size()==0){
 			JYKeyGenerator key = new JYKeyGenerator();
@@ -50,7 +61,7 @@ public class InitData {
 			this.keyGeneratorService.saveJYKeyGenerator(key);
 		}
 	}
-	public void initConstantTable(){
+	private void initConstantTable(){
 		String hql = "from JYConstant key";
 		if (this.constantService.findJYConstantByHql(hql).size()==0){
 			JYConstant key = new JYConstant();
@@ -102,12 +113,57 @@ public class InitData {
 			this.constantService.saveJYConstant(key);
 		}
 	}
-	public void initAlarmTypeTable(){
-		String hql = "from JYAlarmTypeTable key";
+	private void initAlarmTypeTable(){
+		String hql = "from JYAlarmType key";
 		if (this.alarmTypeService.findJYAlarmTypeByHql(hql).size()==0){
 			JYAlarmType key = new JYAlarmType();
-			//to-do
+			JYConstant type = null;
+			type = this.constantService.findJYConstantByHql(Constant.alarmType1Hql).get(0);
+			key.setId("-11000");
+			key.setEnable(1);
+			key.setValue(15.0f);
+			key.setType(type);
+			key.setIsDefault(0);
+			this.alarmTypeService.saveJYAlarmType(key);
+			
+			type = this.constantService.findJYConstantByHql(Constant.alarmType2Hql).get(0);
+			key.setId("-11001");
+			key.setEnable(1);
+			key.setValue(25.0f);
+			key.setType(type);
+			key.setIsDefault(0);
+			this.alarmTypeService.saveJYAlarmType(key);
+			
+			type = this.constantService.findJYConstantByHql(Constant.alarmType3Hql).get(0);
+			key.setId("-11002");
+			key.setEnable(1);
+			key.setValue(35.0f);
+			key.setType(type);
+			key.setIsDefault(0);
+			this.alarmTypeService.saveJYAlarmType(key);
 		}
+	}
+	private void initAlarmTypeCollectTable(){
+		String hql = "from JYAlarmTypeCollect key";
+		if (this.alarmTypeCollectService.findJYAlarmTypeCollectByHql(hql).size()==0){
+			JYAlarmTypeCollect key = new JYAlarmTypeCollect();
+			JYAlarmType type1 = this.alarmTypeService.findJYAlarmTypeById("-11000");
+			JYAlarmType type2 = this.alarmTypeService.findJYAlarmTypeById("-11001");
+			JYAlarmType type3 = this.alarmTypeService.findJYAlarmTypeById("-11002");
+			
+			key.setId("-1");
+			key.setAlarmType1(type1);
+			key.setAlarmType2(type2);
+			key.setAlarmType3(type3);
+			this.alarmTypeCollectService.saveJYAlarmTypeCollect(key);
+		}
+	}
+	public void initTable(){
+		initConstantTable();
+		initKeyGeneratorTable();
+		initUserTable();
+		initAlarmTypeTable();
+		initAlarmTypeCollectTable();
 	}
 
 }

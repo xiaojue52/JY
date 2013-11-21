@@ -87,9 +87,9 @@ public class ListUsersAction extends ActionSupport {
 
 		if (LoginStatus.checkUserAccess()==1) {
 			if (query == null)
-				hql = "from JYUser user where (user_level = 'user' or user_level = 'com_admin') order by id desc";
+				hql = "from JYUser user where username !='--' and (user_level = 'user' or user_level = 'com_admin') order by id desc";
 			else
-				hql = "from JYUser user " + query +" and (user_level = 'user' or user_level = 'com_admin') order by id desc";
+				hql = "from JYUser user " + query +" and username !='--' (and user_level = 'user' or user_level = 'com_admin') order by id desc";
 		} else
 			hql = null;
 		sqlUserColumn = null;

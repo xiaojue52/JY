@@ -58,7 +58,7 @@ public class LoginAction extends ActionSupport {
 			return "failure";
 	}
 	private boolean verify(){
-		String hql = "from JYUser";
+		String hql = "from JYUser user where user.username != '--'";
 		list = userService.findUserByHql(hql);
 		JYUser myUser = new JYUser();
 		String user;
