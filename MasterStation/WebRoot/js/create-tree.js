@@ -24,23 +24,11 @@ Ext.onReady(function(){
         tree.loader.baseParams.level = node.attributes.level; 
     });  
     tree.on("load",function(node){
-    	//alert(node.attributes.level);
-    	if (node.attributes.level < 3){
-    		Ext.each(node.childNodes,function(n){
-    			//if(n.isFirst()){
-    				if(!n.isLeaf()){
-    					if(!n.isLoaded()){
-    						alert(n.id);
-    						n.reload();
-    					}
-    				}
-    				//return;
-    			//}
-    		});
-    	}
+
     });  
+         
     tree.on("click", function(node){  
-    	//alert(node.attributes.level);
+
     	switch(node.attributes.level){
     		case 2:
     			Ext.Ajax.request({  

@@ -61,6 +61,7 @@ public class CreateTreeAction extends ActionSupport {
 			out = response.getWriter();
 			String jsonString = "[]";
 			TreeService treeService = new TreeService();
+			System.out.print(id+"\n");
 			if (level == null || level.length() == 0) {
 				jsonString = "[]";
 			} else if (level.equals("0")) {

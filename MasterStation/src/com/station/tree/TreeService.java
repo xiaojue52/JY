@@ -18,7 +18,7 @@ public class TreeService {
 		String jsonString = null;
 		for (int i=0;i<lines.size();i++){
 			if (jsonString ==null){
-				jsonString = "{text:'"+lines.get(0).getName()+"',id:'"+lines.get(0).getLineId()+"',level:1}";
+				jsonString = "{text:'"+lines.get(0).getName()+"',id:'"+lines.get(0).getLineId()+"',level:1,children:[{text:'222',id:'Line18',level:1}],expanded:true}";
 				continue;
 			}
 			//int j = i+1;
