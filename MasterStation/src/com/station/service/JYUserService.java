@@ -9,7 +9,7 @@ import com.station.po.JYUser;
 public interface JYUserService {
 	public void saveUser(JYUser user);
 
-	public void removeUser(JYUser user);
+	public int removeUser(JYUser user);
 
 	public JYUser findUserById(String id);
 

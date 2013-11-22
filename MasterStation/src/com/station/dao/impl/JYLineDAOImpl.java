@@ -43,9 +43,8 @@ public class JYLineDAOImpl extends HibernateDaoSupport implements JYLineDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<JYLine> findAllLine() {
+	public List<JYLine> findAllLineByHql(String hql) {
 		// TODO Auto-generated method stub
-		String hql = "from JYLine line";
 		return (List<JYLine>) this.getHibernateTemplate().find(hql);
 	}
 

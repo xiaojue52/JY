@@ -50,5 +50,9 @@ public class LineAction extends ActionSupport{
 		lineService.saveLine(line);
 		return SUCCESS;
 	}
-
+	public String deleteLineAction(){
+		line = lineService.findLineById(line.getLineId());
+		lineService.removeLine(line);
+		return SUCCESS;
+	}
 }

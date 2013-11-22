@@ -12,7 +12,7 @@ public interface JYLineDAO {
 
 	public JYLine findLineById(String id);
 
-	public List<JYLine> findAllLine();
+	public List<JYLine> findAllLineByHql(String hql);
 
 	public void updateLine(JYLine arg0);
 	

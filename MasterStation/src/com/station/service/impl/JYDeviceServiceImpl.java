@@ -64,12 +64,14 @@ public class JYDeviceServiceImpl implements JYDeviceService {
 	@Override
 	public void removeJYDevice(JYDevice arg0) {
 		// TODO Auto-generated method stub
-		deviceDAO.removeJYDevice(arg0);
+		arg0.setTag(0);
+		deviceDAO.updateJYDevice(arg0);
 	}
 
 	@Override
 	public void saveJYDevice(JYDevice arg0) {
 		// TODO Auto-generated method stub
+		arg0.setTag(1);
 		deviceDAO.saveJYDevice(arg0);
 		for (int i=0;i<4;i++){
 			detector = new JYDetector();
@@ -98,6 +100,7 @@ public class JYDeviceServiceImpl implements JYDeviceService {
 	@Override
 	public void updateJYDevice(JYDevice arg0) {
 		// TODO Auto-generated method stub
+		arg0.setTag(1);
 		deviceDAO.updateJYDevice(arg0);
 	}
 

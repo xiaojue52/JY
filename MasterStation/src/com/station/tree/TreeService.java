@@ -13,7 +13,8 @@ import com.station.service.JYLineService;
 
 public class TreeService {
 	public String getLineNodes(JYLineService lineService) {
-		List<JYLine> lines = lineService.findAllLine();
+		String hql = "from JYLine line where tag = 1 order by id desc";
+		List<JYLine> lines = lineService.findAllLineByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<lines.size();i++){
 			if (jsonString ==null){
@@ -29,7 +30,7 @@ public class TreeService {
 	}
 
 	public String getCabinetNodes(JYCabinetService cabinetService, String lineId) {
-		String hql = "from JYCabinet cabinet where cabinet.line.lineId = '"+lineId+"'";
+		String hql = "from JYCabinet cabinet where cabinet.line.lineId = '"+lineId+"' and tag = 1 order by id desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){
@@ -46,7 +47,7 @@ public class TreeService {
 	}
 
 	public String getDeviceNodes(JYDeviceService deviceService, String cabId) {
-		String hql = "from JYDevice device where device.cabinet.cabId = '"+cabId+"'";
+		String hql = "from JYDevice device where device.cabinet.cabId = '"+cabId+"' and tag = 1 order by id desc";
 		List<JYDevice> list = deviceService.findJYDeviceByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){
@@ -63,7 +64,7 @@ public class TreeService {
 	}
 
 	public String getDetectorNodes(JYDetectorService detectorService, String deviceId) {
-		String hql = "from JYDetector detector where detector.device.deviceId = '"+deviceId+"'";
+		String hql = "from JYDetector detector where detector.device.deviceId = '"+deviceId+"' and tag = 1 order by id desc";
 		List<JYDetector> list = detectorService.findJYDetectorByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){

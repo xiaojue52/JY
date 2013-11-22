@@ -23,7 +23,22 @@ Ext.onReady(function(){
         tree.loader.baseParams.id = node.id;  
         tree.loader.baseParams.level = node.attributes.level; 
     });  
-      
+    tree.on("load",function(node){
+    	//alert(node.attributes.level);
+    	if (node.attributes.level < 3){
+    		Ext.each(node.childNodes,function(n){
+    			//if(n.isFirst()){
+    				if(!n.isLeaf()){
+    					if(!n.isLoaded()){
+    						alert(n.id);
+    						n.reload();
+    					}
+    				}
+    				//return;
+    			//}
+    		});
+    	}
+    });  
     tree.on("click", function(node){  
     	//alert(node.attributes.level);
     	switch(node.attributes.level){
@@ -128,8 +143,18 @@ Ext.onReady(function(){
     });  
     tree.on('contextmenu', function(node, event){
     	event.stopEvent();
-    	if (node.attributes.level==3||node.attributes.level==4)
+    	if (node.attributes.level==4)
     		return;
+    	if (node.attributes.level==3){
+    		rightMenu2.showAt(event.getXY());
+        	rightMenu2.items.get(0).node = node;
+        	return;
+    	}
+    	if (node.attributes.level==0){
+    		rightMenu1.showAt(event.getXY());
+        	rightMenu1.items.get(0).node = node;
+        	return;
+    	}
     	rightMenu.showAt(event.getXY());
     	rightMenu.items.get(0).node = node;
     	rightMenu.items.get(1).node = node;
@@ -170,14 +195,30 @@ Ext.onReady(function(){
     				break;
     		}
     	}else if (this.menuId==1){
-    		switch(node.attributes.level){
+    		switch(this.node.attributes.level){
+    			case 1:
+    				window.location = "deleteLine.action?line.lineId="+this.node.id;
+    				break;
+    			case 2:
+    				window.location = "deleteCabinet.action?cabinet.cabId="+this.node.id;
+    				break;
+    			case 3:
+    				window.location = "deleteDevice.action?device.deviceId="+this.node.id;
+    				break;
+    			default:
+    				break;
     		}
     	}
     }
     var rightMenu = new Ext.menu.Menu({
     	items:[{menuId:0,text:"增加子节点",handler:onItemClick},{menuId:1,text:"删除节点",handler:onItemClick}]
     }); 
-    
+    var rightMenu1 = new Ext.menu.Menu({
+    	items:[{menuId:0,text:"增加子节点",handler:onItemClick}]
+    });
+    var rightMenu2 = new Ext.menu.Menu({
+    	items:[{menuId:1,text:"删除节点",handler:onItemClick}]
+    });
     tree.render(Ext.get("tree_div"));  
       
 });

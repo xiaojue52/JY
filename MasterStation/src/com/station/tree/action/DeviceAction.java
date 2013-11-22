@@ -61,5 +61,10 @@ public class DeviceAction extends ActionSupport{
 		deviceService.updateJYDevice(device);
 		return SUCCESS;
 	}
+	public String deleteDeviceAction(){
+		device = deviceService.findJYDeviceById(device.getDeviceId());
+		deviceService.removeJYDevice(device);
+		return SUCCESS;
+	}
 
 }

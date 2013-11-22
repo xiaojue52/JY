@@ -13,5 +13,6 @@
  	 </id>
  	
   <property name="name" type="string" column="name" length="40"/>
+  <property name="tag" type="java.lang.Integer" column="tag"/>
  </class>
 </hibernate-mapping>

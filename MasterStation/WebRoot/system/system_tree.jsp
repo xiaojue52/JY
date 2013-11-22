@@ -7,7 +7,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 	String username = (String) request.getSession().getAttribute("username");		
-	//if (username == null)
+	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
 %>
 

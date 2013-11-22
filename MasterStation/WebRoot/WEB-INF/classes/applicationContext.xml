@@ -135,15 +135,39 @@
 		<property name="userDAO">
 			<ref bean="jyUserDAO" />
 		</property>
+		<property name="cabinetDAO">
+			<ref bean="jyCabinetDAO" />
+		</property>
 	</bean>
 	<bean id="jyLineService" class="com.station.service.impl.JYLineServiceImpl">
 		<property name="lineDAO">
 			<ref bean="jyLineDAO" />
 		</property>
+		<property name="cabinetDAO">
+			<ref bean="jyCabinetDAO" />
+		</property>
+		<property name="userDAO">
+			<ref bean="jyUserDAO" />
+		</property>
 	</bean>
 	<bean id="jyCabinetService" class="com.station.service.impl.JYCabinetServiceImpl">
 		<property name="cabinetDAO">
 			<ref bean="jyCabinetDAO" />
+		</property>
+				<property name="lineDAO">
+			<ref bean="jyLineDAO" />
+		</property>
+		<property name="userDAO">
+			<ref bean="jyUserDAO" />
+		</property>
+		<property name="constantDAO">
+			<ref bean="jyConstantDAO" />
+		</property>
+		<property name="alarmTypeDAO">
+			<ref bean="jyAlarmTypeDAO" />
+		</property>
+		<property name="alarmTypeCollectDAO">
+			<ref bean="jyAlarmTypeCollectDAO" />
 		</property>
 	</bean>
 	<bean id="jyDeviceService" class="com.station.service.impl.JYDeviceServiceImpl">
@@ -314,21 +338,6 @@
 	<bean id="CabinetAction" class="com.station.tree.action.CabinetAction">
 		<property name="cabinetService">
 			<ref bean="jyCabinetService" />
-		</property>
-		<property name="lineService">
-			<ref bean="jyLineService" />
-		</property>
-		<property name="userService">
-			<ref bean="jyUserService" />
-		</property>
-		<property name="constantService">
-			<ref bean="jyConstantService" />
-		</property>
-		<property name="alarmTypeService">
-			<ref bean="jyAlarmTypeService" />
-		</property>
-		<property name="alarmTypeCollectService">
-			<ref bean="jyAlarmTypeCollectService" />
 		</property>
 	</bean>
 	<bean id="DeviceAction" class="com.station.tree.action.DeviceAction">

@@ -97,14 +97,14 @@
 				<input id="detectorUser" type="text" value="张三" readonly="readonly" class="readonly" />
 			</div>
 			<div>
-				所属柜体：
 
-				<input id="parentCabinet" type="text" value="#3860环网柜"
-					readonly="readonly" class="readonly" />
-
-				所属间隔：
+				所属变送器名称：
 
 				<input id="parentDeviceName" type="text" value="30861间隔"
+					readonly="readonly" class="readonly" />
+					所属柜体：
+
+				<input id="parentCabinet" type="text" value="#3860环网柜"
 					readonly="readonly" class="readonly" />
 			</div>
 		</div>

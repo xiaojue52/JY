@@ -31,8 +31,10 @@ public class DeleteUserAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-		userService.removeUser(user);
-		return this.SUCCESS;
+		if(userService.removeUser(user)==1)
+			return this.SUCCESS;
+		else
+			return "error";
 	}
 	
 }

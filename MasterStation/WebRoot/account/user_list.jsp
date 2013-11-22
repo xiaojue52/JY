@@ -43,6 +43,9 @@
 		<s:if test="ret==-1">
 		<div><span class="errorMessage">用户名冲突，用户已存在请改名！</span></div>
 		</s:if>
+		<s:if test="ret==-2">
+		<div><span class="errorMessage">删除用户失败！请解除用户拥有的柜体！</span></div>
+		</s:if>
 		<table class="gridtable">
 			<tr>
 				<th>

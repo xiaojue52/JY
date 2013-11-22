@@ -72,6 +72,8 @@ public class ListUsersAction extends ActionSupport {
 		this.pageBean = userService.getPerPage(10, page, hql);
 		if (errorCode == -1){
 			ret = -1;
+		}else if(errorCode == -2){
+			ret = -2;
 		}else
 			ret = 0;
 		errorCode = 0;

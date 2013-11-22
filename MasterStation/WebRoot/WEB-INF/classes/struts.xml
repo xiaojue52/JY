@@ -33,6 +33,7 @@
   </action>
   <action name="deleteUser" class="deleteUserAction">
    <result name="success" type="redirect">/listUsers.action</result>
+   <result name="error" type="redirect">/listUsers.action?errorCode=-2</result>
   </action>
   <action name="showUser" class="showUserAction" method="showUserAction">
    <result name="json"></result>
@@ -97,22 +98,34 @@
  	</action>
  	
  	<action name="addLine" class="LineAction" method="addLineAction"> 
- 		<result name="success">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/system/system_tree.jsp</result>
  	</action>
  	<action name="addCabinet" class="CabinetAction" method="addCabinetAction"> 
- 		<result name="success">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/system/system_tree.jsp</result>
  	</action>
  	<action name="addDevice" class="DeviceAction" method="addDeviceAction"> 
- 		<result name="success">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/system/system_tree.jsp</result>
  	</action>
  	
  	<action name="updateCabinet" class="CabinetAction" method="updateCabinetAction"> 
- 		<result name="success">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/system/system_tree.jsp</result>
  	</action>
  	<action name="updateDevice" class="DeviceAction" method="updateDeviceAction"> 
- 		<result name="success">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 	</action>
+ 	
+ 	
+</package>
+<package name="delete_system" extends="abstract_struts" namespace="/system">
+	<action name="deleteDevice" class="DeviceAction" method="deleteDeviceAction"> 
+ 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 	</action>
+ 	<action name="deleteLine" class="LineAction" method="deleteLineAction"> 
+ 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 	</action>
+ 	<action name="deleteCabinet" class="CabinetAction" method="deleteCabinetAction"> 
+ 		<result name="success" type="redirect">/system/system_tree.jsp</result>
  	</action>
 </package>
-
 <!--include file="struts-jfreechart.xml"></include-->
 </struts>   
