@@ -83,7 +83,10 @@
 </package>
 
 <package name="Trees" extends="abstract_struts" namespace="/"> 
-	<action name="createTree" class="CreateTreeAction" method="getTreeData"> 
+	<action name="createTree" class="CreateTreeAction" method="createTreeAction"> 
+		<result name="success">/system/system_tree.jsp</result>
+ 	</action> 
+ 	<action name="getTreeData" class="CreateTreeAction" method="getTreeData"> 
  	</action> 
  </package> 
 <package name="json" extends="abstract_struts" namespace="/">
@@ -98,33 +101,33 @@
  	</action>
  	
  	<action name="addLine" class="LineAction" method="addLineAction"> 
- 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/createTree.action</result>
  	</action>
  	<action name="addCabinet" class="CabinetAction" method="addCabinetAction"> 
- 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/createTree.action</result>
  	</action>
  	<action name="addDevice" class="DeviceAction" method="addDeviceAction"> 
- 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/createTree.action</result>
  	</action>
  	
  	<action name="updateCabinet" class="CabinetAction" method="updateCabinetAction"> 
- 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/createTree.action</result>
  	</action>
  	<action name="updateDevice" class="DeviceAction" method="updateDeviceAction"> 
- 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/createTree.action</result>
  	</action>
  	
  	
 </package>
-<package name="delete_system" extends="abstract_struts" namespace="/system">
+<package name="delete_system" extends="abstract_struts" namespace="/">
 	<action name="deleteDevice" class="DeviceAction" method="deleteDeviceAction"> 
- 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/createTree.action</result>
  	</action>
  	<action name="deleteLine" class="LineAction" method="deleteLineAction"> 
- 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/createTree.action</result>
  	</action>
  	<action name="deleteCabinet" class="CabinetAction" method="deleteCabinetAction"> 
- 		<result name="success" type="redirect">/system/system_tree.jsp</result>
+ 		<result name="success" type="redirect">/createTree.action</result>
  	</action>
 </package>
 <!--include file="struts-jfreechart.xml"></include-->

@@ -15,6 +15,7 @@ public class SqlQueryColumn {
 	private String username;
 	private String company;
 
+
 	public String getUsername() {
 		return username;
 	}

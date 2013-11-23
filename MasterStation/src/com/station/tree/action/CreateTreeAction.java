@@ -19,6 +19,52 @@ public class CreateTreeAction extends ActionSupport {
 	private JYDetectorService detectorService;
 	private String id;
 	private String level;
+	private int tag = 0;
+	private String queryLine = "-1";
+	private String queryType = "-1";
+	private String queryNumber = "-1";
+	private String queryUser = "-1";
+
+	public String getQueryLine() {
+		return queryLine;
+	}
+
+	public void setQueryLine(String queryLine) {
+		this.queryLine = queryLine;
+	}
+
+
+	public String getQueryType() {
+		return queryType;
+	}
+
+	public void setQueryType(String queryType) {
+		this.queryType = queryType;
+	}
+
+	public String getQueryNumber() {
+		return queryNumber;
+	}
+
+	public void setQueryNumber(String queryNumber) {
+		this.queryNumber = queryNumber;
+	}
+
+	public String getQueryUser() {
+		return queryUser;
+	}
+
+	public void setQueryUser(String queryUser) {
+		this.queryUser = queryUser;
+	}
+
+	public int getTag() {
+		return tag;
+	}
+
+	public void setTag(int tag) {
+		this.tag = tag;
+	}
 
 	public String getLevel() {
 		return level;
@@ -61,19 +107,26 @@ public class CreateTreeAction extends ActionSupport {
 			out = response.getWriter();
 			String jsonString = "[]";
 			TreeService treeService = new TreeService();
-			System.out.print(id+"\n");
+			//System.out.print("id:"+id+"..level:"+level+"..tag:"+tag);
 			if (level == null || level.length() == 0) {
 				jsonString = "[]";
-			} else if (level.equals("0")) {
-				jsonString = treeService.getLineNodes(lineService);
+			} else if (level.equals("0")&&tag==0) {
+				jsonString = treeService.getLineNodes(lineService,cabinetService);
 			} else if (level.equals("1")) {
 				jsonString = treeService.getCabinetNodes(cabinetService,id);
 			} else if (level.equals("2")) {
 				jsonString = treeService.getDeviceNodes(deviceService,id);
 			} else if (level.equals("3")){
 				jsonString = treeService.getDetectorNodes(detectorService,id);
+			} else if (level.equals("0")&&tag==1){
+				jsonString = treeService.queryCabinet(cabinetService, this.queryLine, this.queryType, this.queryNumber, this.queryUser);
 			}
 			level = null;
+			tag = 0;
+			queryLine = "-1";
+			queryType = "-1";
+			queryNumber = "-1";
+			queryUser = "-1";
 			out.println(jsonString);
 			out.flush();
 			out.close();
@@ -81,5 +134,9 @@ public class CreateTreeAction extends ActionSupport {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public String createTreeAction(){
+	
+		return SUCCESS;
 	}
 }

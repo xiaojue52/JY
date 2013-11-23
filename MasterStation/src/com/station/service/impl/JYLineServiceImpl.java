@@ -78,6 +78,7 @@ public class JYLineServiceImpl implements JYLineService {
 		for (int i=0;i<list.size();i++){
 			String hql2 =  "from JYUser user where user.username = '--'";
 			list.get(i).setUser(this.userDAO.findUserByHql(hql2).get(0));
+			list.get(i).setTag(0);
 			this.cabinetDAO.updateJYCabinet(list.get(i));
 		}
 	}

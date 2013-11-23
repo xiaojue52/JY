@@ -52,7 +52,7 @@
 			<input type="button" onclick="setFrameSrc('listUsers.action');" value="用户管理" class="itemDiv"/>
 		</div>	
 		<div id="system_div" class="panelDiv">
-					<input type="button"  onclick="setFrameSrc('system/system_tree.jsp');" class="itemDiv" value="设备管理"/>
+					<input type="button"  onclick="setFrameSrc('createTree.action');" class="itemDiv" value="设备管理"/>
 				<input type="button"  onclick="setFrameSrc('system/conf.jsp');" class="itemDiv" value="系统参数设置"/>
 		</div>
 		<div id="history_div" class="panelDiv">

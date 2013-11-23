@@ -1,10 +1,11 @@
-
+var windowTree;
 Ext.onReady(function(){  
     //Ext.BLANK_IMAGE_URL = "ext/resources/images/default/s.gif";  
+	
     var rootNode = new Ext.tree.AsyncTreeNode({  
         text : "设备管理",  
         id : "0",  
-        expanded : true , 
+        //expanded : true , 
         level:0,
         autoScroll:true
     });  
@@ -12,7 +13,7 @@ Ext.onReady(function(){
     var tree = new Ext.tree.TreePanel({  
         root : rootNode,  
         loader : new Ext.tree.TreeLoader({  
-            dataUrl : "createTree.action"  
+            dataUrl : "getTreeData.action"  
         }),  
         width : 200,  
         height : 400,  
@@ -207,9 +208,33 @@ Ext.onReady(function(){
     var rightMenu2 = new Ext.menu.Menu({
     	items:[{menuId:1,text:"删除节点",handler:onItemClick}]
     });
-    tree.render(Ext.get("tree_div"));  
+    
+    if (tag==0){
+    	tree.root.reload();
+    }
+    tree.render(Ext.get("tree_div")); 
+    windowTree = tree;
       
 });
+function queryDevice(){
+	//alert(windowTree.loader.baseParams.id);
+	var queryLine = $('#queryLine').val();
+	var queryType = $('#queryType').val();
+	var queryNumber = $('#queryNumber').val();
+	var queryUser = $('#queryUser').val();
+	//alert(queryLine);
+	if (queryLine.length==0)queryLine='-1';
+	if (queryType.length==0)queryType='-1';
+	if (queryNumber.length==0)queryNumber='-1';
+	if (queryUser.length==0)queryUser='-1';
+	windowTree.loader.baseParams.queryLine = queryLine;
+	windowTree.loader.baseParams.queryType = queryType;
+	windowTree.loader.baseParams.queryNumber = queryNumber;
+	windowTree.loader.baseParams.queryUser = queryUser;
+	windowTree.loader.baseParams.tag = 1;
+	//alert(queryLine.length);
+	windowTree.root.reload();
+}
 function checkBoxSwitch(id){
 	if (document.getElementById("checkbox"+id).checked==true){
 		//removeChecked(id);

@@ -1,5 +1,6 @@
 package com.station.tree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.station.po.JYCabinet;
@@ -12,23 +13,80 @@ import com.station.service.JYDeviceService;
 import com.station.service.JYLineService;
 
 public class TreeService {
-	public String getLineNodes(JYLineService lineService) {
+	public String getLineNodes(JYLineService lineService,JYCabinetService cabinetService) {
+		
 		String hql = "from JYLine line where tag = 1 order by id desc";
 		List<JYLine> lines = lineService.findAllLineByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<lines.size();i++){
+			String children = this.getCabinetNodes(cabinetService, lines.get(i).getLineId());
+			//System.out.print(children);
+			if (!children.equals("[null]"))
+				children = "children:"+children+",expanded:true";
+			else
+				children = "children:[]";
 			if (jsonString ==null){
-				jsonString = "{text:'"+lines.get(0).getName()+"',id:'"+lines.get(0).getLineId()+"',level:1,children:[{text:'222',id:'Line18',level:1}],expanded:true}";
+				jsonString = "{text:'"+lines.get(0).getName()+"',id:'"+lines.get(0).getLineId()+"',level:1,"+children+"}";
 				continue;
 			}
 			//int j = i+1;
-			jsonString = jsonString +",{text:'"+lines.get(i).getName()+"',id:'"+lines.get(i).getLineId()+"',level:1}";
+			jsonString = jsonString +",{text:'"+lines.get(i).getName()+"',id:'"+lines.get(i).getLineId()+"',level:1,"+children+"}";
 		}
 		jsonString = "["+jsonString+"]";
 		//System.out.print(jsonString);	
 		return jsonString;
 	}
+	public String queryCabinet(JYCabinetService cabinetService, String queryLine, String queryType, String queryNumber, String queryUser){
+		if (queryLine.equals("-1"))queryLine = "%"; 
+		if (queryType.equals("-1")) queryType = "%"; 
+		if (queryNumber.equals("-1")) queryNumber = "%";
+		if (queryUser.equals("-1")) queryUser = "%";
 
+		String hql = "from JYCabinet cabinet where cabinet.line.name like '%"+queryLine+"%' and cabinet.cabType.value like '%"+queryType+"%' and cabinet.cabNumber like '%"+queryNumber+"%' and cabinet.user.username like '%"+queryUser+"%' and tag = 1 order by cabinet.line.id desc";
+		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
+		String jsonString = null;
+
+		List<String> listJson = new ArrayList<String>();
+		List<JYLine> listLine = new ArrayList<JYLine>();
+		while (list.size()>0){
+			String lineId = list.get(0).getLine().getLineId();
+			listLine.add(list.get(0).getLine());
+			String json = null;
+			json = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(0).getCabId()+"',level:2}";
+			list.remove(0);
+			int i=0;
+			while (list.size()!=i){
+				
+				if (lineId.equals(list.get(i).getLine().getLineId())){
+					json = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2}";
+					list.remove(i);
+					i --;
+				}
+				i ++;
+			}
+			
+			listJson.add(json);
+		}
+		//System.out.print(jsonString);	
+		
+		for (int i=0;i<listLine.size();i++){
+			String children = "["+listJson.get(i)+"]";
+			//System.out.print(children);
+			if (!children.equals("[null]"))
+				children = "children:"+children+",expanded:true";
+			else
+				children = "children:[]";
+			if (jsonString ==null){
+				jsonString = "{text:'"+listLine.get(0).getName()+"',id:'"+listLine.get(0).getLineId()+"',level:1,"+children+"}";
+				continue;
+			}
+			//int j = i+1;
+			jsonString = jsonString +",{text:'"+listLine.get(i).getName()+"',id:'"+listLine.get(i).getLineId()+"',level:1,"+children+"}";
+		}
+		jsonString = "["+jsonString+"]";
+		
+		return jsonString;
+	}
 	public String getCabinetNodes(JYCabinetService cabinetService, String lineId) {
 		String hql = "from JYCabinet cabinet where cabinet.line.lineId = '"+lineId+"' and tag = 1 order by id desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
@@ -38,7 +96,7 @@ public class TreeService {
 				jsonString = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(0).getCabId()+"',level:2}";
 				continue;
 			}
-			jsonString = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2}";
+			jsonString = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2}";
 		}
 		jsonString = "["+jsonString+"]";
 		//System.out.print(jsonString);	
