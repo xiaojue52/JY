@@ -24,6 +24,16 @@ public class CreateTreeAction extends ActionSupport {
 	private String queryType = "-1";
 	private String queryNumber = "-1";
 	private String queryUser = "-1";
+	private String toExpendLineId = "-1";
+
+	
+	public String getToExpendLineId() {
+		return toExpendLineId;
+	}
+
+	public void setToExpendLineId(String toExpendLineId) {
+		this.toExpendLineId = toExpendLineId;
+	}
 
 	public String getQueryLine() {
 		return queryLine;
@@ -107,11 +117,11 @@ public class CreateTreeAction extends ActionSupport {
 			out = response.getWriter();
 			String jsonString = "[]";
 			TreeService treeService = new TreeService();
-			//System.out.print("id:"+id+"..level:"+level+"..tag:"+tag);
+			System.out.print("id:"+id+"..level:"+level+"..tag:"+tag);
 			if (level == null || level.length() == 0) {
 				jsonString = "[]";
 			} else if (level.equals("0")&&tag==0) {
-				jsonString = treeService.getLineNodes(lineService,cabinetService);
+				jsonString = treeService.getLineNodes(lineService,cabinetService,toExpendLineId);
 			} else if (level.equals("1")) {
 				jsonString = treeService.getCabinetNodes(cabinetService,id);
 			} else if (level.equals("2")) {
@@ -136,7 +146,7 @@ public class CreateTreeAction extends ActionSupport {
 		}
 	}
 	public String createTreeAction(){
-	
+		System.out.print(this.toExpendLineId);
 		return SUCCESS;
 	}
 }

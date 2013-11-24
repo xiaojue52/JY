@@ -1,0 +1,79 @@
+.config_page{
+	background-color:#444;
+	width:800px;
+	margin:0 auto;
+	margin-top:10px;
+	background-color:#f5f5f5;
+    border:1px solid #dedede;
+}
+.config_page .config_time{
+	margin:0 auto;
+	width:80%;
+	height:40px;
+	padding-top:20px;
+	padding-left:10px;
+	border:1px solid #dedede;
+	margin-top:10px;
+	text-align:center;
+}
+.config_page .config_time span{
+	margin-left:20px;
+}
+.config_page .config_calculate{
+	margin:0 auto;
+	width:80%;
+	height:140px;
+	padding-top:10px;
+	padding-left:10px;
+	border:1px solid #dedede;
+	margin-top:10px;
+	text-align:center;
+}
+
+.config_page .config_type{
+	margin:0 auto;
+	width:80%;
+	height:180px;
+	padding-top:5px;
+	padding-left:10px;
+	border:1px solid #dedede;
+	margin-top:10px;
+	text-align:center;
+}
+.config_page .config_cost{
+	margin:0 auto;
+	width:80%;
+	height:40px;
+	padding-top:20px;
+	padding-left:10px;
+	border:1px solid #dedede;
+	margin-top:10px;
+	margin-bottom:10px;
+	text-align:center;
+}
+
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	border-width: 1px;
+	border-collapse: collapse;
+	width:630px;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 4px;
+	border-style: solid;
+	border-color: #000000;
+	background-color: #BBFFFF;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 4px;
+	border-style: solid;
+	border-color: #000000;
+	background-color: #ffffff;
+}
+.config_page .config_cost span{
+	margin-left:20px;
+}
+

@@ -13,18 +13,19 @@ import com.station.service.JYDeviceService;
 import com.station.service.JYLineService;
 
 public class TreeService {
-	public String getLineNodes(JYLineService lineService,JYCabinetService cabinetService) {
+	public String getLineNodes(JYLineService lineService,JYCabinetService cabinetService, String toExpendLineId) {
 		
 		String hql = "from JYLine line where tag = 1 order by id desc";
 		List<JYLine> lines = lineService.findAllLineByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<lines.size();i++){
-			String children = this.getCabinetNodes(cabinetService, lines.get(i).getLineId());
+			String children = "";
+			if (toExpendLineId.equals(lines.get(i).getLineId())){
+				//children = this.getCabinetNodes(cabinetService, lines.get(i).getLineId());
+				children = "expanded:true";
+			}
 			//System.out.print(children);
-			if (!children.equals("[null]"))
-				children = "children:"+children+",expanded:true";
-			else
-				children = "children:[]";
+			children = "expanded:false";
 			if (jsonString ==null){
 				jsonString = "{text:'"+lines.get(0).getName()+"',id:'"+lines.get(0).getLineId()+"',level:1,"+children+"}";
 				continue;
@@ -44,7 +45,7 @@ public class TreeService {
 
 		String hql = "from JYCabinet cabinet where cabinet.line.name like '%"+queryLine+"%' and cabinet.cabType.value like '%"+queryType+"%' and cabinet.cabNumber like '%"+queryNumber+"%' and cabinet.user.username like '%"+queryUser+"%' and tag = 1 order by cabinet.line.id desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
-		String jsonString = null;
+		
 
 		List<String> listJson = new ArrayList<String>();
 		List<JYLine> listLine = new ArrayList<JYLine>();
@@ -58,7 +59,7 @@ public class TreeService {
 			while (list.size()!=i){
 				
 				if (lineId.equals(list.get(i).getLine().getLineId())){
-					json = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2}";
+					json = json +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2}";
 					list.remove(i);
 					i --;
 				}
@@ -68,7 +69,7 @@ public class TreeService {
 			listJson.add(json);
 		}
 		//System.out.print(jsonString);	
-		
+		String jsonString = null;
 		for (int i=0;i<listLine.size();i++){
 			String children = "["+listJson.get(i)+"]";
 			//System.out.print(children);
