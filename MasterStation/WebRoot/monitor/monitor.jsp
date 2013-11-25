@@ -1,5 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ page language="java"
+	import="org.springframework.web.context.WebApplicationContext"%>
+<%@ page language="java" import="com.station.data.DataList"%>
+<%@ page language="java" import="com.station.po.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -10,17 +15,18 @@ String path = request.getContextPath();
 	//System.out.print("\n"+path+"\n"+basePath);
 	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
-	Integer methodCode = (Integer) request.getAttribute("methodCode");
-	String detect_sort = null;
-	if (methodCode!=null){
-		switch (methodCode){
-			case 0:
-				detect_sort = "实时";
-				break;
-			case 1:
-				detect_sort = "定时";
-				break;
-		}
+	List<JYUser> userList = new ArrayList<JYUser>();
+	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
+	
+	if (username!=null)
+	{
+	WebApplicationContext wac = (WebApplicationContext) config
+			.getServletContext()
+			.getAttribute(
+					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+	DataList dataList = (DataList) wac.getBean("DataList");
+	userList = dataList.getUser();
+	cabTypeList = dataList.getCabTpyeConstant();
 	}
 %>
 <html>
@@ -28,7 +34,7 @@ String path = request.getContextPath();
 		<base href="<%=basePath%>">
 
 		<title>系统监控</title>
-		<link href="css/frame.css" rel="stylesheet" type="text/css">
+		<link href="css/toolbar.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -40,57 +46,63 @@ String path = request.getContextPath();
 	</head>
 
 	<body>
-<div class="center_title_frame">
-					<span class="center_title">
-					<font size="5" face="楷体_GB2312"><strong><%=detect_sort %>监控</strong></font>
-					</span><span id="sort_discript"></span>
-			       </div>
-			       <div><s:form action="mainAction.action">设备名称：<input type="text" name="sqlDeviceColumn.name"/>所属网柜：<input type="text" name="sqlDeviceColumn.deviceBox"/><input type="submit" value="查询"/></s:form></div>
+			       <div class="toolbar">
+			       <span>线路：<input id='queryLine' type="text"/></span>
+			       <span>柜体编号：<input id='queryNumber' type="text"/></span>
+				   <span>柜体类型：<select id="queryType">
+							<%
+								for (int i = 0; i < cabTypeList.size(); i++) {
+							%>
+							<option value='<%=cabTypeList.get(i).getValue()%>'>
+								<%=cabTypeList.get(i).getValue()%>
+							</option>
+							<%
+								}
+							%>
+						</select></span>
+						
+						<span>管理者：<select id="queryUser">
+							<%
+								for (int i = 0; i < userList.size(); i++) {
+							%>
+							<option value='<%=userList.get(i).getUsername()%>'>
+								<%=userList.get(i).getUsername()%>
+							</option>
+							<%
+								}
+							%>
+						</select></span><span><input class="toolbarButton" type="button" value="查询" onclick="queryDevice();"/></span>
+						<span><input class="toolbarButton" type="button" value="实时查询" onclick="queryDevice();"/></span>
+		</div>
 							<table class="gridtable">
 								<tr>
 									<th>
-										设备名称
+										<span>序号</span>
 									</th>
 									<th>
-										当前温度（°）
+										<span>站房名称</span>
 									</th>
 									<th>
-										警戒温度（°）
+										<span>柜内设备数据</span>
 									</th>
 									<th>
-										环境温度（°）
+										<span>采集时间</span>
 									</th>
 									<th>
-										所属柜子
+										<span>设备状态</span>
 									</th>
 									<th>
-										所属间隔
+										<span>管理者</span>
 									</th>
 									<th>
-										管理者
-									</th>
-									
-									<th>
-										状态
-									</th>
-									<th>
-										故障原因
-									</th>
-									<th>
-										温度读取日期
-									</th>
-									<th>
-										温度读取时间
-									</th>
-									<th>
-										备注
-									</th>
-									<th>
-										操作
+										<span>操作</span>
 									</th>
 								</tr>
 								<s:iterator value="pageBean.list" var="device">
 									<tr>
+										<td>
+											<input type="checkbox"/>
+										</td>
 										<td>
 											<s:property value="name" />
 										</td>
@@ -105,34 +117,9 @@ String path = request.getContextPath();
 										</td>
 										<td>
 											<s:property value="deviceBox" />
-										</td>
+										</td>										
 										<td>
-											<s:property value="subBox" />
-										</td>
-										<td>
-											<s:property value="owner" />
-										</td>
-										
-										<td>
-											<s:property value="status" />
-										</td>
-										<td>
-											<s:property value="reason" />
-										</td>
-										<td>
-									<s:date name="#device.createDate" format="yyyy-MM-dd" />
-										
-									</td>
-									<td>
-									<s:date name="#device.createTime" format="HH:mm:ss" />
-										
-									</td>
-										<td>
-											<s:property value="note" />
-										</td>
-										<td>
-											<a href="history/chart.jsp">查看趋势图</a>
-											<a href="listExceptionHistory.action?sqlDeviceHistoryColumn.identify=<s:property value="identify" />">历史报警</a>
+											<a href="listException.action">历史报警</a>
 											<a href="listHistory.action?sqlDeviceHistoryColumn.identify=<s:property value="identify" />">历史温度</a>
 										</td>
 									</tr>

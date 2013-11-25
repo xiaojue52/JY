@@ -3,7 +3,7 @@
 	display:none;
 	width:600;
 	height:400;
-	top:50px;
+	top:60px;
 	left:300px;
 	text-align:center;
 	font-size:16px;
@@ -28,12 +28,15 @@
 .page .cabinetPage .title{
 	position:fixed;
 	margin-left:220px;
+	width:130px;
 }
 .page .linePage{
 	margin:0 auto;	
 	position:absolute;
 	top:150px;
 	left:150px;
+	background-color:#f5f5f5;
+    border:1px solid #dedede;
 }
 .page .title{
 	font-size:30px;
@@ -54,10 +57,13 @@
 }
 .baseInfo{
 	position:fixed;
+	width:530px;
 	height:100px;
 	margin-top:20px;
 	margin-left:30px;
 	text-align:left;
+	background-color:#f5f5f5;
+    border:1px solid #dedede;
 }
 .baseInfo div{
 	height:30px;
@@ -69,8 +75,11 @@
 .gprsInfo{
 	position:fixed;
 	height:100px;	
+	width:250px;
 	top:280px;
 	margin-left:10px;
+	background-color:#f5f5f5;
+    border:1px solid #dedede;
 }
 .gprsInfo div{
 	height:30px;
@@ -81,13 +90,15 @@
 	width:260px;
 	top:270px;
 	margin-left:300px;
+	background-color:#f5f5f5;
+    border:1px solid #dedede;
 }
 .alertInfo div{
 	height:30px;
 }
 .cabinetButton{
 	position:fixed;
-	margin-top:290px;
+	margin-top:300px;
 	margin-left:260px;
 }
 .page .devicePage{

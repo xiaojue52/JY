@@ -7,12 +7,11 @@ import com.station.po.Device;
 import com.station.po.DeviceHistory;
 import com.station.po.UnhandledException;
 import com.station.service.DeviceHistoryService;
-import com.station.service.DeviceService;
 import com.station.service.UnhandledExceptionService;
 
 public class ParseSocketData {
 	public static String exception = "异常";
-	public static String normal = "正常";
+	/*public static String normal = "正常";
 	public static String hTemp = "温度过高";
 	public static String dNormal = "设备正常";
 	public static String offLine = "设备离线";
@@ -82,5 +81,5 @@ public class ParseSocketData {
 		}
 		else
 			return false;
-	}
+	}*/
 }

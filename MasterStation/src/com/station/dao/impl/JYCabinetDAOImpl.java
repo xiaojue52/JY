@@ -45,13 +45,6 @@ public class JYCabinetDAOImpl extends HibernateDaoSupport implements JYCabinetDA
 	@Override
 	public List<JYCabinet> findJYCabinetByHql(String hql) {
 		// TODO Auto-generated method stub
-		//String hql = "from JYCabinet cabinet";
-		/*Configuration config = new Configuration().configure(); 
-		SessionFactory factory = config.buildSessionFactory(); 
-		Session session = factory.openSession(); 
-		Query query = session.createQuery("from JYCabinet cabinet"); 
-		List<JYCabinet> list = query.list(); 
-		return list;*/
 		return (List<JYCabinet>) this.getHibernateTemplate().find(hql);
 	}
 

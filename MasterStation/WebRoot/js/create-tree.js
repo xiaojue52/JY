@@ -227,11 +227,15 @@ function queryDevice(){
 	if (queryType.length==0)queryType='-1';
 	if (queryNumber.length==0)queryNumber='-1';
 	if (queryUser.length==0)queryUser='-1';
+	if (queryLine=="-1"&&queryType=='-1'&&queryNumber=='-1'&&queryUser=='-1'){
+		windowTree.loader.baseParams.tag = 0;
+	}else
+		windowTree.loader.baseParams.tag = 1;
 	windowTree.loader.baseParams.queryLine = queryLine;
 	windowTree.loader.baseParams.queryType = queryType;
 	windowTree.loader.baseParams.queryNumber = queryNumber;
 	windowTree.loader.baseParams.queryUser = queryUser;
-	windowTree.loader.baseParams.tag = 1;
+	
 	//alert(queryLine.length);
 	windowTree.root.reload();
 }

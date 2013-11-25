@@ -1,12 +1,15 @@
 package com.station.po;
 
+import java.sql.Time;
 import java.sql.Date;
 
 public class JYHistory {
 	private Integer id;
-	private Date collectDatetime;
+	private Date collectDate;
+	private Time CollectTime;
 	private JYDetector detector;
 	private Float value;
+
 
 	public Integer getId() {
 		return id;
@@ -16,12 +19,20 @@ public class JYHistory {
 		this.id = id;
 	}
 
-	public Date getCollectDatetime() {
-		return collectDatetime;
+	public Date getCollectDate() {
+		return collectDate;
 	}
 
-	public void setCollectDatetime(Date collectDatetime) {
-		this.collectDatetime = collectDatetime;
+	public void setCollectDate(Date collectDate) {
+		this.collectDate = collectDate;
+	}
+
+	public Time getCollectTime() {
+		return CollectTime;
+	}
+
+	public void setCollectTime(Time collectTime) {
+		CollectTime = collectTime;
 	}
 
 	public JYDetector getDetector() {

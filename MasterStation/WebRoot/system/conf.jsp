@@ -17,7 +17,7 @@
 		<title>参数设置</title>
 		<base href="<%=basePath%>">
 		<link href="<%=path%>/css/config.css" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="<%=path%>/js/menu.js"></script>
+		
 		<script type="text/javascript" src="<%=path%>/js/jquery-1.9.1.js"></script>
 	</head>
 
@@ -80,6 +80,7 @@
 			</div>
 			<div class="config_type">
 				<span><strong>报警条件设置</strong> </span>
+				<s:form action="updateAlarmType.action" method="post">
 				<table class="gridtable">
 					<tr>
 						<th>
@@ -95,43 +96,47 @@
 					<tr>
 						<td>
 							1
-							<input type="checkbox" />
+							<input id="alarmTypeEnable1" type="checkbox" onclick="setEnable(1)"/>
+							<input id="enable1" type="hidden" name="alarmType1.enable" value="<s:property value="alarmType1.enable"/>" />
 						</td>
 						<td>
 							报警温度超出设定阀值（T1°）
 						</td>
 						<td>
 							T1=
-							<input type="text" value="75" />
+							<input type="text" value="<s:property value="alarmType1.value"/>" name="alarmType1.value"/>
 						</td>
 					</tr>
 					<tr>
 					<td>
 							2
-							<input type="checkbox" />
+							<input id="alarmTypeEnable2" type="checkbox" onclick="setEnable(2)"/>
+							<input id="enable2" type="hidden" name="alarmType2.enable" value="<s:property value="alarmType2.enable"/>"/>
 						</td>
 						<td>
 							三相之间的温度差查过设定值（T2°）
 						</td>
 						<td>
 							T2=
-							<input type="text" value="75" />
+							<input type="text" value="<s:property value="alarmType2.value"/>" name="alarmType2.value"/>
 						</td></tr>
 					<tr>
 					<td>
 							3
-							<input type="checkbox" />
+							<input id="alarmTypeEnable3" type="checkbox" onclick="setEnable(3)"/>
+							<input type="hidden" id="enable3" name="alarmType3.enable" value="<s:property value="alarmType3.enable"/>"/>
 						</td>
 						<td>
 							三相与环境温度差超过设定值（T3°）
 						</td>
 						<td>
 							T3=
-							<input type="text" value="75" />
+							<input type="text" value="<s:property value="alarmType3.value"/>" name="alarmType3.value"/>
 						</td></tr>
 
 				</table>
-				<span> <br /> <input type="button" value="确定"> </span>
+				<span> <br /> <input type="submit" value="确定"> </span>
+				</s:form>
 			</div>
 			<div class="config_cost">
 				<span><strong>余额提醒设置</strong> </span><span>每月提醒日期：<select>
@@ -148,5 +153,6 @@
 				</span>
 			</div>
 		</div>
+		<script type="text/javascript" src="<%=path%>/js/config.js"></script>
 	</body>
 </html>

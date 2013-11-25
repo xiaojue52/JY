@@ -1,5 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java"
+	import="org.springframework.web.context.WebApplicationContext"%>
+<%@ page language="java" import="com.station.data.DataList"%>
+<%@ page language="java" import="com.station.po.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
@@ -9,6 +13,19 @@
 	String username = (String) request.getSession().getAttribute("username");		
 	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
+	List<JYUser> userList = new ArrayList<JYUser>();
+	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
+	
+	if (username!=null)
+	{
+	WebApplicationContext wac = (WebApplicationContext) config
+			.getServletContext()
+			.getAttribute(
+					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+	DataList dataList = (DataList) wac.getBean("DataList");
+	userList = dataList.getUser();
+	cabTypeList = dataList.getCabTpyeConstant();
+	}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -31,7 +48,29 @@
 		var tag = '<s:property value="tag"/>'; 
 		</script>
 		<div class="toolbar">
-			<span>线路：<input id='queryLine' type="text"/>柜体类型：<input id='queryType' type="text"/>编号：<input id='queryNumber' type="text"/>管理者：<input id='queryUser' type="text"/><input style="margin-left:10px" class="comButton" type="button" value="查询" onclick="queryDevice();"/></span>
+			<span>线路：<input id='queryLine' type="text"/></span>
+			<span>柜体编号：<input id='queryNumber' type="text"/></span>
+			<span>柜体类型：<select id="queryType">
+							<%
+								for (int i = 0; i < cabTypeList.size(); i++) {
+							%>
+							<option value='<%=cabTypeList.get(i).getValue()%>'>
+								<%=cabTypeList.get(i).getValue()%>
+							</option>
+							<%
+								}
+							%>
+						</select></span><span>管理者：<select id="queryUser">
+							<%
+								for (int i = 0; i < userList.size(); i++) {
+							%>
+							<option value='<%=userList.get(i).getUsername()%>'>
+								<%=userList.get(i).getUsername()%>
+							</option>
+							<%
+								}
+							%>
+						</select></span><span><input class="toolbarButton" type="button" value="查询" onclick="queryDevice();"/></span>
 		</div>
 		<table><tr><td width="170px"><div id="tree_div"></div> </td><td><div><jsp:include page="/system/content.jsp"></jsp:include></div></td></tr></table>
 	</body>

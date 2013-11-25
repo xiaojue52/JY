@@ -7,7 +7,7 @@ public class JYAlarm {
 	private Date alarmDatetime;
 	private String alarmText;
 	private String alarmType;
-	private String user;
+	private String user; //维修人员
 	private String status;
 	public String getAlarmId() {
 		return alarmId;

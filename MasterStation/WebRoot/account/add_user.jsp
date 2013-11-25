@@ -82,8 +82,8 @@
 					</td>
 					<td align="center">		
 						<input type="button"
-							onClick="window.location = '<%=path%>/listUsers.action';"
-							value="取消" class="comButton"/>
+							
+							value="取消" class="btnClose comButton"/>
 					</td>
 				</tr>
 			</s:form>

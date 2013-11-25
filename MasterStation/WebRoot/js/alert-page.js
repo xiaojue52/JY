@@ -12,8 +12,9 @@ $(function() {
 			$("#DialogDiv").css("top", "100px");
 			$("#DialogDiv").css("display", "block");
 			document.documentElement.scrollTop = 0;
+			return false;
 		});
-	$("#btnClose").click(function() {
+	$(".btnClose").click(function() {
 		$("#BgDiv").css("display", "none");
 		$("#DialogDiv").css("display", "none");
 	});

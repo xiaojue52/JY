@@ -14,17 +14,17 @@ public class DaoDriver {
 			UnhandledExceptionService unhandledExceptionService) {
 		this.unhandledExceptionService = unhandledExceptionService;
 		GetDateByServlet.setUnhandledExceptionService(this.unhandledExceptionService);
-		ParseSocketData.setUnhandledExceptionService(this.unhandledExceptionService);
+		//ParseSocketData.setUnhandledExceptionService(this.unhandledExceptionService);
 	}
 
 	public void setDeviceService(DeviceService deviceService) {
 		this.deviceService = deviceService;
-		ParseSocketData.setDeviceService(this.deviceService);
+		//ParseSocketData.setDeviceService(this.deviceService);
 	}
 
 	public void setDeviceHistoryService(DeviceHistoryService deviceHistoryService) {
 		this.deviceHistoryService = deviceHistoryService;
-		ParseSocketData.setDeviceHistoryService(this.deviceHistoryService);
+		//ParseSocketData.setDeviceHistoryService(this.deviceHistoryService);
 	}
 	
 }

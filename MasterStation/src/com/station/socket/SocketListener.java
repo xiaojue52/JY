@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class SocketListener extends Thread {
 	private ServerSocket server = null;
-	private final int port = 10000;
+	/*private final int port = 10000;
 	
 	// @SuppressWarnings("unchecked")
 	private Map<String, Socket> clientMap = new HashMap<String, Socket>();
@@ -120,9 +120,6 @@ public class SocketListener extends Thread {
 		}).start();
 	}
 
-	/**
-	 * 关闭当前线程
-	 */
 	public void closeSocketServer() {
 		try {
 			if (null != server && !server.isClosed()) {
@@ -182,5 +179,5 @@ public class SocketListener extends Thread {
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 }

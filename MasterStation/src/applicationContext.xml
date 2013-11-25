@@ -112,6 +112,11 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="jyHistoryDAO" class="com.station.dao.impl.JYHistoryDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
 	<bean id="deviceDAO" class="com.station.dao.impl.DeviceDAOImpl">
 		<property name="sessionFactory">
@@ -203,6 +208,11 @@
 			<ref bean="jyAlarmTypeCollectDAO" />
 		</property>
 	</bean>
+	<bean id="jyHistoryService" class="com.station.service.impl.JYHistoryServiceImpl">
+		<property name="historyDAO">
+			<ref bean="jyHistoryDAO" />
+		</property>
+	</bean>
 	<bean id="deviceService" class="com.station.service.impl.DeviceServiceImpl">
 		<property name="deviceDAO">
 			<ref bean="deviceDAO" />
@@ -273,14 +283,8 @@
 	</bean>
 
 	<!-- exception -->
-	<bean id="UnhandledExceptionAction"
-		class="com.station.exception.action.ListUnhandledExceptionDevicesAction">
-		<property name="unhandledExceptionService">
-			<ref bean="unhandledExceptionService" />
-		</property>
-	</bean>
-	<bean id="DeleteUnhandledExceptionAction"
-		class="com.station.exception.action.DeleteUnhandledExceptionDevicesAction">
+	<bean id="ExceptionAction"
+		class="com.station.exception.action.ExceptionAction">
 		<property name="unhandledExceptionService">
 			<ref bean="unhandledExceptionService" />
 		</property>
@@ -295,8 +299,8 @@
 
 	<!-- 历史数据 -->
 	<bean id="ListHistoryAction" class="com.station.history.action.ListHistoryAction">
-		<property name="deviceHistoryService">
-			<ref bean="deviceHistoryService" />
+		<property name="historyService">
+			<ref bean="jyHistoryService" />
 		</property>
 	</bean>
 
@@ -383,6 +387,11 @@
 		</property>
 		<property name="alarmTypeCollectService">
 			<ref bean="jyAlarmTypeCollectService" />
+		</property>
+	</bean>
+	<bean id="AlarmTypeAction" class="com.station.system.action.AlarmTypeAction">
+		<property name="alarmTypeService">
+			<ref bean="jyAlarmTypeService" />
 		</property>
 	</bean>
 </beans>

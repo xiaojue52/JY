@@ -32,13 +32,11 @@
 	<body>
 		<div class="toolbar">
 			<s:form action="listUsers.action">
-				<span> 用户名：<input type="text" name="sqlUserColumn.username"/>所在单位：<input
-					type="text" name="sqlUserColumn.company"/>
-				<input type="submit" value="查询" class="comButton"/> </span>
+				<span> 用户名：<input type="text" name="sqlUserColumn.username"/></span><span>所在单位：<input
+					type="text" name="sqlUserColumn.company"/></span>
+				<span><input type="submit" value="查询" class="toolbarButton"/> </span>
+				<span><button id="btnShow" class="toolbarButton">添加用户</button></span>
 			</s:form>	
-				
-			<span class="toolbar_left_menu">
-				<button id="btnShow" class="comButton">添加用户</button></span>
 		</div>
 		<s:if test="ret==-1">
 		<div><span class="errorMessage">用户名冲突，用户已存在请改名！</span></div>
@@ -49,25 +47,25 @@
 		<table class="gridtable">
 			<tr>
 				<th>
-					用户编号
+					<span>用户编号</span>
 				</th>
 				<th>
-					用户名
+					<span>用户名</span>
 				</th>
 				<th>
-					手机号码
+					<span>手机号码</span>
 				</th>
 				<th>
-					所在单位
+					<span>所在单位</span>
 				</th>
 				<th>
-					职务级别
+					<span>职务级别</span>
 				</th>
 				<th>
-					系统角色
+					<span>系统角色</span>
 				</th>
 				<th>
-					操作
+					<span>操作</span>
 				</th>
 			</tr>
 
@@ -145,7 +143,7 @@
 		</table>
 		<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none">
-				<h2>操作<a id="btnClose">关闭</a></h2>
+				<h2>操作<a class="btnClose">关闭</a></h2>
 				<div id="addUser_dialogDiv">
     	    		<jsp:include page="/account/add_user.jsp"></jsp:include>
     	    	</div>

@@ -35,7 +35,7 @@
 	<div id="devicePage" class="page">
 		<div class="devicePage">
 			<div class="title">
-				<span>变送器</span>
+				<span><b>变送器</b></span>
 			</div>
 			<s:form action="addDevice.action">
 				<div>
@@ -84,7 +84,7 @@
 	<div id="detectorPage" class="page">
 		<div class="detectorPage">
 			<div class="title">
-				<span>采集器</span>
+				<span><b>采集器</b></span>
 			</div>
 			<div>
 				所属变送器编号：
@@ -113,7 +113,7 @@
 	<div id="linePage" class="page">
 		<div class="linePage">
 			<div class="title">
-				<span>添加线路</span>
+				<span><b>添加线路</b></span>
 			</div>
 			<s:form action="addLine.action">
 			线路名称：
@@ -127,12 +127,12 @@
 	<div id="cabinetPage" class="page">
 		<div class="cabinetPage">
 			<div class="title">
-				<span>柜体信息</span>
+				<span><b>柜体信息</b></span>
 			</div>
 			<s:form action="addCabinet.action">
 				<div class="baseInfo">
 					<div class="baseTitle">
-						基本信息
+						<b>基本信息</b>
 					</div>
 					<div>
 						所属线路：
@@ -190,7 +190,7 @@
 				</div>
 				<div class="gprsInfo">
 					<div>
-						GPRS模块信息
+						<b>GPRS模块信息</b>
 					</div>
 					<div>
 						SIM卡号：
@@ -207,7 +207,7 @@
 				</div>
 				<div class="alertInfo">
 					<div>
-						报警阀值设置
+						<b>报警阀值设置</b>
 					</div>
 					<div>
 						<input type="checkbox" id="checkbox1" onclick="checkBoxSwitch('1')" />

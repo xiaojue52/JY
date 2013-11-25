@@ -43,7 +43,7 @@
 					id="content_iframe" width=100% height=100% frameborder='0'></iframe>
 		</div>
 		<div id="south-div"> 
-			c版权所有 翻版必究 
+			版权所有 翻版必究 
 		</div>
 		<div id="monitor_div" class="panelDiv">
 			<input type="button" onclick="setFrameSrc('mainAction.action');" value="系统监控" class="itemDiv"/>
@@ -53,10 +53,10 @@
 		</div>	
 		<div id="system_div" class="panelDiv">
 					<input type="button"  onclick="setFrameSrc('createTree.action');" class="itemDiv" value="设备管理"/>
-				<input type="button"  onclick="setFrameSrc('system/conf.jsp');" class="itemDiv" value="系统参数设置"/>
+				<input type="button"  onclick="setFrameSrc('showAlarmType.action');" class="itemDiv" value="系统参数设置"/>
 		</div>
 		<div id="history_div" class="panelDiv">
-				<input type="button"  onclick="setFrameSrc('unhandledException.action');" class="itemDiv" value="报警记录"/>
+				<input type="button"  onclick="setFrameSrc('listException.action');" class="itemDiv" value="报警记录"/>
 
 				<input type="button"  onclick="setFrameSrc('listHistory.action');" class="itemDiv" value="历史记录"/>
 		</div>
