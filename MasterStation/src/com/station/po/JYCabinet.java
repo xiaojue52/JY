@@ -1,5 +1,7 @@
 package com.station.po;
 
+import java.util.List;
+
 
 public class JYCabinet {
 	private String cabId;
@@ -13,7 +15,15 @@ public class JYCabinet {
 	private String simSNumber;
 	private Integer tag;
 	private JYAlarmTypeCollect alarmTypeCollect;
+	private List<JYDevice> deviceList;
 	
+	
+	public List<JYDevice> getDeviceList() {
+		return deviceList;
+	}
+	public void setDeviceList(List<JYDevice> deviceList) {
+		this.deviceList = deviceList;
+	}
 	public JYAlarmTypeCollect getAlarmTypeCollect() {
 		return alarmTypeCollect;
 	}

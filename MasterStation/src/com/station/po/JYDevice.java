@@ -1,5 +1,7 @@
 package com.station.po;
 
+import java.util.List;
+
 public class JYDevice {
 	private String deviceId;
 	private String deviceNumber;
@@ -8,6 +10,14 @@ public class JYDevice {
 	private String status;
 	private String note;
 	private Integer tag;
+	private List<JYDetector> detectorList;
+	
+	public List<JYDetector> getDetectorList() {
+		return detectorList;
+	}
+	public void setDetectorList(List<JYDetector> detectorList) {
+		this.detectorList = detectorList;
+	}
 	public String getDeviceId() {
 		return deviceId;
 	}

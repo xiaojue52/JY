@@ -97,7 +97,7 @@ public class TreeService {
 				jsonString = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(0).getCabId()+"',level:2,icon:'images/cabinet.png'}";
 				continue;
 			}
-			jsonString = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2,,icon:'images/cabinet.png'}";
+			jsonString = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2,icon:'images/cabinet.png'}";
 		}
 		jsonString = "["+jsonString+"]";
 		//System.out.print(jsonString);	
@@ -114,7 +114,7 @@ public class TreeService {
 				jsonString = "{text:'"+list.get(0).getName()+"',id:'"+list.get(0).getDeviceId()+"',level:3,icon:'images/device.png'}";
 				continue;
 			}
-			jsonString = jsonString +",{text:'"+list.get(i).getName()+"',id:'"+list.get(i).getDeviceId()+"',level:3,,icon:'images/device.png'}";
+			jsonString = jsonString +",{text:'"+list.get(i).getName()+"',id:'"+list.get(i).getDeviceId()+"',level:3,icon:'images/device.png'}";
 		}
 		jsonString = "["+jsonString+"]";
 		//System.out.print(jsonString);	

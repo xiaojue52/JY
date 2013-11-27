@@ -20,4 +20,6 @@ public interface JYCabinetService {
 	public int getTotalCount(String hql);
 
 	public PageBean getPerPage(int countPerpage,int currentPage, String hql);
+	
+	public void removeJYCabinets(List<JYCabinet> list);
 }

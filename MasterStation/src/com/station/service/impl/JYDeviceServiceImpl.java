@@ -2,21 +2,22 @@ package com.station.service.impl;
 
 import java.util.List;
 
-import com.station.dao.JYDetectorDAO;
 import com.station.dao.JYDeviceDAO;
 import com.station.pagebean.PageBean;
 import com.station.po.JYDetector;
 import com.station.po.JYDevice;
+import com.station.service.JYDetectorService;
 import com.station.service.JYDeviceService;
 
 public class JYDeviceServiceImpl implements JYDeviceService {
 
 	private JYDeviceDAO deviceDAO;
-	private JYDetectorDAO detectorDAO;
+	private JYDetectorService detectorService;
 	private JYDetector detector;
 
-	public void setDetectorDAO(JYDetectorDAO detectorDAO) {
-		this.detectorDAO = detectorDAO;
+
+	public void setDetectorService(JYDetectorService detectorService) {
+		this.detectorService = detectorService;
 	}
 
 	public void setDeviceDAO(JYDeviceDAO deviceDAO) {
@@ -66,8 +67,16 @@ public class JYDeviceServiceImpl implements JYDeviceService {
 		// TODO Auto-generated method stub
 		arg0.setTag(0);
 		deviceDAO.updateJYDevice(arg0);
+		String hql = "from JYDetector detector where detector.device.deviceId = '"+arg0.getDeviceId()+"'";
+		List<JYDetector> list = detectorService.findJYDetectorByHql(hql);
+		detectorService.removeJYDetectors(list);
 	}
-
+	@Override
+	public void removeJYDevices(List<JYDevice> list){
+		for (int i=0;i<list.size();i++){
+			this.removeJYDevice(list.get(i));
+		}
+	}
 	@Override
 	public void saveJYDevice(JYDevice arg0) {
 		// TODO Auto-generated method stub
@@ -93,7 +102,7 @@ public class JYDeviceServiceImpl implements JYDeviceService {
 					break;
 			}
 			detector.setTag(1);
-			detectorDAO.saveJYDetector(detector);
+			detectorService.saveJYDetector(detector);
 		}	
 	}
 

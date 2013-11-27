@@ -20,4 +20,6 @@ public interface JYDeviceService {
 	public int getTotalCount(String hql);
 
 	public PageBean getPerPage(int countPerpage,int currentPage, String hql);
+	
+	public void removeJYDevices(List<JYDevice> list);
 }

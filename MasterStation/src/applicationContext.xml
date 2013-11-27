@@ -39,7 +39,6 @@
 				<value>com/station/po/xml/JYHistory.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmType.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmTypeCollect.hbm.xml</value>
-				<value>com/station/po/xml/Device.hbm.xml</value>
 				<value>com/station/po/xml/UnhandledException.hbm.xml</value>
 				<value>com/station/po/xml/DeviceHistory.hbm.xml</value>
 			</list>
@@ -118,12 +117,6 @@
 		</property>
 	</bean>
 
-	<bean id="deviceDAO" class="com.station.dao.impl.DeviceDAOImpl">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-
 	<bean id="unhandledExceptionDAO" class="com.station.dao.impl.UnhandledExceptionDAOImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -148,39 +141,42 @@
 		<property name="lineDAO">
 			<ref bean="jyLineDAO" />
 		</property>
-		<property name="cabinetDAO">
-			<ref bean="jyCabinetDAO" />
-		</property>
-		<property name="userDAO">
-			<ref bean="jyUserDAO" />
+		<property name="cabinetService">
+			<ref bean="jyCabinetService" />
 		</property>
 	</bean>
 	<bean id="jyCabinetService" class="com.station.service.impl.JYCabinetServiceImpl">
 		<property name="cabinetDAO">
 			<ref bean="jyCabinetDAO" />
 		</property>
-				<property name="lineDAO">
-			<ref bean="jyLineDAO" />
+		<property name="lineService">
+			<ref bean="jyLineService" />
 		</property>
-		<property name="userDAO">
-			<ref bean="jyUserDAO" />
+		<property name="userService">
+			<ref bean="jyUserService" />
 		</property>
-		<property name="constantDAO">
-			<ref bean="jyConstantDAO" />
+		<property name="constantService">
+			<ref bean="jyConstantService" />
 		</property>
-		<property name="alarmTypeDAO">
-			<ref bean="jyAlarmTypeDAO" />
+		<property name="alarmTypeService">
+			<ref bean="jyAlarmTypeService" />
 		</property>
-		<property name="alarmTypeCollectDAO">
-			<ref bean="jyAlarmTypeCollectDAO" />
+		<property name="alarmTypeCollectService">
+			<ref bean="jyAlarmTypeCollectService" />
+		</property>
+		<property name="deviceService">
+			<ref bean="jyDeviceService" />
+		</property>
+		<property name="detectorService">
+			<ref bean="jyDetectorService" />
 		</property>
 	</bean>
 	<bean id="jyDeviceService" class="com.station.service.impl.JYDeviceServiceImpl">
 		<property name="deviceDAO">
 			<ref bean="jyDeviceDAO" />
 		</property>
-		<property name="detectorDAO">
-			<ref bean="jyDetectorDAO" />
+		<property name="detectorService">
+			<ref bean="jyDetectorService" />
 		</property>
 	</bean>
 	<bean id="jyDetectorService" class="com.station.service.impl.JYDetectorServiceImpl">
@@ -214,16 +210,11 @@
 		</property>
 	</bean>
 	<bean id="jyMonitorService" class="com.station.service.impl.JYMonitorServiceImpl">
-		<property name="cabinetDAO">
-			<ref bean="jyCabinetDAO" />
+		<property name="cabinetService">
+			<ref bean="jyCabinetService" />
 		</property>
 	</bean>
 	
-	<bean id="deviceService" class="com.station.service.impl.DeviceServiceImpl">
-		<property name="deviceDAO">
-			<ref bean="deviceDAO" />
-		</property>
-	</bean>
 	<bean id="unhandledExceptionService" class="com.station.service.impl.UnhandleExceptionServiceImpl">
 		<property name="unhandledExceptionDAO">
 			<ref bean="unhandledExceptionDAO" />
@@ -295,9 +286,6 @@
 	<bean class="com.station.data.DaoDriver">
 		<property name="unhandledExceptionService">
 			<ref bean="unhandledExceptionService" />
-		</property>
-		<property name="deviceService">
-			<ref bean="deviceService" />
 		</property>
 		<property name="deviceHistoryService">
 			<ref bean="deviceHistoryService" />

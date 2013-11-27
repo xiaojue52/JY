@@ -3,7 +3,6 @@ package com.station.service;
 import java.util.List;
 
 import com.station.pagebean.PageBean;
-import com.station.po.Device;
 import com.station.po.UnhandledException;
 
 
@@ -24,5 +23,4 @@ public interface UnhandledExceptionService {
 
 	public PageBean getPerPage(int countPerpage,int currentPage, String hql);
 	
-	public UnhandledException getUnhandledException(Device data);
 }

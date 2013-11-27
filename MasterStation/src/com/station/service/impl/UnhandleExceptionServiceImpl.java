@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.station.dao.UnhandledExceptionDAO;
 import com.station.pagebean.PageBean;
-import com.station.po.Device;
 import com.station.po.UnhandledException;
 import com.station.service.UnhandledExceptionService;
 
@@ -82,21 +81,4 @@ public class UnhandleExceptionServiceImpl implements UnhandledExceptionService {
 		return unhandledExceptionDAO.getTotalCount(hql);
 	}
 
-	@Override
-	public UnhandledException getUnhandledException(Device data) {
-		// TODO Auto-generated method stub
-		UnhandledException unhandledException = new UnhandledException();
-		unhandledException.setCreateDate(data.getCreateDate());
-		unhandledException.setCreateTime(data.getCreateTime());
-		unhandledException.setCurrentData(data.getCurrentData());
-		unhandledException.setDeviceBox(data.getDeviceBox());
-		unhandledException.setIdentify(data.getIdentify());
-		unhandledException.setName(data.getName());
-		unhandledException.setNote(data.getNote());
-		unhandledException.setOwner(data.getOwner());
-		unhandledException.setReason(data.getReason());
-		unhandledException.setStatus(data.getStatus());
-		unhandledException.setWarningTemperature(data.getWarningTemperature());
-		return unhandledException;
-	}
 }

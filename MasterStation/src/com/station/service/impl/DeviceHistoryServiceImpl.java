@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.station.dao.DeviceHistoryDAO;
 import com.station.pagebean.PageBean;
-import com.station.po.Device;
 import com.station.po.DeviceHistory;
 import com.station.service.DeviceHistoryService;
 
@@ -87,24 +86,6 @@ public class DeviceHistoryServiceImpl implements DeviceHistoryService {
 	public int getTotalCount(String hql) {
 		// TODO Auto-generated method stub
 		return deviceHistoryDAO.getTotalCount(hql);
-	}
-
-	@Override
-	public DeviceHistory getDeviceHistory(Device data) {
-		// TODO Auto-generated method stub
-		DeviceHistory deviceHistory = new DeviceHistory();
-		deviceHistory.setCreateDate(data.getCreateDate());
-		deviceHistory.setCreateTime(data.getCreateTime());
-		deviceHistory.setCurrentData(data.getCurrentData());
-		deviceHistory.setDeviceBox(data.getDeviceBox());
-		deviceHistory.setIdentify(data.getIdentify());
-		deviceHistory.setName(data.getName());
-		deviceHistory.setNote(data.getNote());
-		deviceHistory.setOwner(data.getOwner());
-		deviceHistory.setReason(data.getReason());
-		deviceHistory.setStatus(data.getStatus());
-		deviceHistory.setWarningTemperature(data.getWarningTemperature());
-		return deviceHistory;
 	}
 
 }

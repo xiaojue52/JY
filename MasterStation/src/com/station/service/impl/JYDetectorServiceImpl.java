@@ -59,7 +59,12 @@ public class JYDetectorServiceImpl implements JYDetectorService {
 		arg0.setTag(0);
 		detectorDAO.updateJYDetector(arg0);
 	}
-
+	@Override
+	public void removeJYDetectors(List<JYDetector> list){
+		for (int i=0;i<list.size();i++){
+			this.removeJYDetector(list.get(i));
+		}
+	}
 	@Override
 	public void saveJYDetector(JYDetector arg0) {
 		// TODO Auto-generated method stub
@@ -69,7 +74,7 @@ public class JYDetectorServiceImpl implements JYDetectorService {
 	@Override
 	public void updateJYDetector(JYDetector arg0) {
 		// TODO Auto-generated method stub
-		arg0.setTag(0);
+		arg0.setTag(1);
 		detectorDAO.updateJYDetector(arg0);
 	}
 

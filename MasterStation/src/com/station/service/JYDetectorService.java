@@ -20,4 +20,6 @@ public interface JYDetectorService {
 	public int getTotalCount(String hql);
 
 	public PageBean getPerPage(int countPerpage,int currentPage, String hql);
+	
+	public void removeJYDetectors(List<JYDetector> list);
 }

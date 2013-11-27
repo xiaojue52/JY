@@ -88,13 +88,12 @@ String path = request.getContextPath();
 	  <table class="gridtable">
 			
 			<tr>
-				<th width="10%">
-					<span>序号</span>
+				<th width="4%">
 				</th>
-				<th width="15%">
+				<th width="17%">
 					<span>站房名称</span>
 				</th>
-				<th width="15%">
+				<th width="17%">
 					<span>柜内设备数据</span>
 				</th>
 				<th width="15%">
@@ -106,21 +105,26 @@ String path = request.getContextPath();
 				<th width="15%">
 					<span>管理者</span>
 				</th>
-				<th width="15%">
+				<th width="17%">
 					<span>操作</span>
 				</th>
 			</tr>
-			<s:iterator value="pageBean.list" var="account">
+			<s:iterator value="pageBean.list" var="cabinet" status='st'>
 				<tr>
 					<td width="10%">
 						<input type="checkbox"/>
-						<s:property value="id" />
 					</td>
 					<td width="15%">
-						<s:property value="name" />
+						<s:property value="#cabinet.cabNumber" /><s:property value="#cabinet.cabType.value" />
 					</td>
 					<td width="15%">
-						<s:property value="currentData" />
+						<s:iterator value="#cabinet.deviceList" var="device">
+							<s:property value="#device.name" />:
+								<s:iterator value="#device.detectorList" var="detector">
+									<s:property value="#detector.name" />:
+								</s:iterator>
+						<br/>
+						</s:iterator>
 					</td>
 					<td width="15%">
 						<s:property value="warningTemperature" />
@@ -129,7 +133,7 @@ String path = request.getContextPath();
 						<s:property value="enviTemp" />
 					</td>
 					<td width="15%">
-						<s:property value="deviceBox" />
+						<s:property value="#cabinet.user.username" />
 					</td>
 					<td width="15%">
 						<a href="listException.action">历史报警</a>

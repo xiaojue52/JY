@@ -1,28 +1,21 @@
 package com.station.service.impl;
 
 import java.util.List;
-
-import com.station.dao.JYCabinetDAO;
 import com.station.dao.JYLineDAO;
-import com.station.dao.JYUserDAO;
 import com.station.pagebean.PageBean;
 import com.station.po.JYCabinet;
 import com.station.po.JYLine;
+import com.station.service.JYCabinetService;
 import com.station.service.JYLineService;
 
 public class JYLineServiceImpl implements JYLineService {
 
 	private JYLineDAO lineDAO;
-	private JYCabinetDAO cabinetDAO;
-	private JYUserDAO userDAO;
+	private JYCabinetService cabinetService;
 
 
-	public void setUserDAO(JYUserDAO userDAO) {
-		this.userDAO = userDAO;
-	}
-
-	public void setCabinetDAO(JYCabinetDAO cabinetDAO) {
-		this.cabinetDAO = cabinetDAO;
+	public void setCabinetService(JYCabinetService cabinetService) {
+		this.cabinetService = cabinetService;
 	}
 
 	public void setLineDAO(JYLineDAO lineDAO) {
@@ -73,14 +66,8 @@ public class JYLineServiceImpl implements JYLineService {
 		arg0.setTag(0);
 		lineDAO.updateLine(arg0);
 		String hql = "from JYCabinet cabinet where cabinet.line.lineId = '"+arg0.getLineId()+"'";
-		List<JYCabinet> list = cabinetDAO.findJYCabinetByHql(hql);
-		//System.out.print(list.size());	
-		for (int i=0;i<list.size();i++){
-			String hql2 =  "from JYUser user where user.username = '--'";
-			list.get(i).setUser(this.userDAO.findUserByHql(hql2).get(0));
-			list.get(i).setTag(0);
-			this.cabinetDAO.updateJYCabinet(list.get(i));
-		}
+		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
+		this.cabinetService.removeJYCabinets(list);
 	}
 
 	@Override
