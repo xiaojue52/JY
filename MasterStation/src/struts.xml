@@ -44,17 +44,6 @@
   </action>
   </package>
 
-<package name="Device" extends="abstract_struts" namespace="/">
-  <action name="listDevices" class="listDevicesAction">
-   <result name="success">/device/devicelist.jsp</result>
-  </action>
-  <action name="showDevice" class="showDeviceRecordAction">
-   <result name="success">/device/deviceDetails.jsp</result>
-  </action>
-  <action name="updateDevice" class="updateDeviceAction">
-   <result name="success" type="redirect">/listDevices.action</result>
-  </action>
-</package>
 <package name="Main" extends="abstract_struts" namespace="/">
   <action name="mainAction" class="MainAction" method="getCurrent">
    <result name="success">/monitor/monitor.jsp</result>
@@ -71,7 +60,7 @@
 </package>
 
 <package name="History" extends="abstract_struts" namespace="/">
-<action name="listHistory" class="ListHistoryAction" method="listHistoryAction">
+<action name="listHistory" class="HistoryAction" method="listHistoryAction">
    <result name="success">/history/history.jsp</result>
   </action>
 </package>

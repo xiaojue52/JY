@@ -10,16 +10,8 @@
 <html>
 	<head>
 		<title>系统登录</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
 		<META http-equiv=Content-Type content="text/html; charset=UTF-8">
-		<LINK href="css/index.css" type=text/css rel=STYLESHEET>
-		<style type="text/css">
-<!--
-.STYLE1 {
-	color: #000000;
-	font-weight: bold;
-}
--->
-</style>
 <script>
 		if (window.parent.document.getElementById("content_iframe")!=null){
 			window.parent.location = "index.jsp";
@@ -45,92 +37,39 @@
 			document.getElementById("loginForm").submit();
 		}
 	}
+	
 </script>
-		<script src="<%=path %>/js/menu.js" type="text/javascript"></script>
+<style>
+#imgDiv{
+		background-image: url('images/login.jpg');
+		margin-top: -227px;
+		margin-left: -300px;
+		left:50%;
+		top:50%;
+	}
+	.wordDiv{
+		color: #9B9B9B;
+	}
+</style>
 	</head>
-	<body bgColor=#ffffff leftMargin=0 topMargin=0 rightMargin=0
-		marginheight="0" marginwidth="0" onload="startTime()">
-		<center>
-
-			<div>
-				<jsp:include page="/frame/index_top.jsp"></jsp:include>
+	<body>
+ <form id="loginForm" action="login.action" method="post">
+    	<div id="imgDiv" style="height: 455px;width: 600px;position: absolute;">
+    		<div class="wordDiv" style="margin-top:160px;margin-left: 130px;">请输入你的姓名:</div>
+			<div style="margin-left: 130px;margin-top: 5px;">
+				<input id="username" type="text" name="username" style="width:350px;"
+					/>
 			</div>
-
-			<DIV id=content>
-				<DIV class=module_darkgray>
-					<DIV class=topleft_darkgray></DIV>
-					<DIV class=topright_darkgray></DIV>
-					<DIV class=moduleborder>
-						<DIV class=module_inset_darkgray>
-							<DIV class=bottomedge_inset_darkgray>
-								<DIV class=topleft_inset_darkgray></DIV>
-								<DIV class=topright_inset_darkgray></DIV>
-								<div>
-									<table>
-										<tr>
-											<td style="color: #00688B; width: 400px;" align="center"
-												width="50%">
-												<div align="center">
-													<strong><font size="4">用户登录</font>
-													</strong>
-												</div>
-												<div>
-													<form action="login.action" method="post" id="loginForm">
-														<table width="100%" style="color: #00688B; width: 300px;">
-															<tr>
-																<td align="right">
-																	<font size="2"><strong><font face="宋体">用户名</font>
-																	</strong>
-																	</font>
-																	<br>
-																</td>
-																<td>
-																	<input name="username" id="username" />
-																</td>
-															</tr>
-															<tr>
-																<td align="right">
-																	<font face="宋体" size="2"><strong>密&nbsp;
-																			码</strong>
-																	</font>
-																</td>
-																<td>
-																	<input name="password" id="password" type="password" />
-																</td>
-															</tr>
-															<tr>
-																<td align="center" colspan="2">
-																	<input type="button" value="登录" onClick="verify()" />
-																	<input type="reset" value="重置" />
-																</td>
-															</tr>
-														</table>
-													</form>
-												</div>
-											</td>
-											<td style="padding-top: 0px; position: static;" align="left">
-												<IMG height="200" src="images/index_cable.jpg" width="450">
-											</td>
-										</tr>
-									</table>
-								</div>
-							</DIV>
-						</div>
-					</div>
-				</DIV>
+			<div class="wordDiv" style="margin-top:20px;margin-left: 130px;">请输入你的登录口令:</div>
+			<div style="margin-left: 130px;margin-top: 5px;">
+				<input id="password" type="password" name="password" style="width:350px;"
+					/>
 			</div>
-			<DIV>
-				<TABLE cellSpacing=0 cellPadding=0 width=776 align=center border=0>
-					<TBODY>
-						<TR>
-							<TD vAlign=top align=center width=776>
-								电缆接头温度在线监测项目
-							</TD>
-						</TR>
-					</TBODY>
-				</TABLE>
-			</DIV>
-
-		</center>
+			<div style="margin-top:20px;margin-right: 130px;" align="right">
+				<input type="submit" value="登  录" onclick="verify();"/>
+			</div>
+			<div class="wordDiv" style="margin-top:40px;" align="center">如果您没有注册账号或已经忘记密码，请联系管理员!</div>
+		</div>
+    </form>
 	</body>
 </html>

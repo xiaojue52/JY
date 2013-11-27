@@ -1,20 +1,24 @@
 .page{
+	font-size: 12px;
 	position:fixed;
 	display:none;
 	width:600;
 	height:400;
-	top:60px;
+	top:80px;
 	left:300px;
 	text-align:center;
 	font-size:16px;
 	background-color:#f5f5f5;
-    border:1px solid #dedede;
+    border:1px solid #83b1f2;
+    
 }
 .page .detectorPage{
+	width:555px;;
 	margin:0 auto;	
 	position:absolute;
 	top:150px;
 	left:20px;
+	border:1px solid #83b1f2;
 }
 .detectorPage div{
 	height:30px;
@@ -22,13 +26,15 @@
 .page .cabinetPage{
 	margin:0 auto;	
 	position:absolute;
-	top:60px;
+	top:50px;
 	left:8px;
+	border:1px solid #83b1f2;
 }
 .page .cabinetPage .title{
 	position:fixed;
 	margin-left:220px;
 	width:130px;
+	margin-top:-20px;
 }
 .page .linePage{
 	margin:0 auto;	
@@ -36,7 +42,6 @@
 	top:150px;
 	left:150px;
 	background-color:#f5f5f5;
-    border:1px solid #dedede;
 }
 .page .title{
 	font-size:30px;
@@ -63,7 +68,7 @@
 	margin-left:30px;
 	text-align:left;
 	background-color:#f5f5f5;
-    border:1px solid #dedede;
+    border:1px solid #83b1f2;
 }
 .baseInfo div{
 	height:30px;
@@ -79,7 +84,7 @@
 	top:280px;
 	margin-left:10px;
 	background-color:#f5f5f5;
-    border:1px solid #dedede;
+   	border:1px solid #83b1f2;
 }
 .gprsInfo div{
 	height:30px;
@@ -91,7 +96,7 @@
 	top:270px;
 	margin-left:300px;
 	background-color:#f5f5f5;
-    border:1px solid #dedede;
+    border:1px solid #83b1f2;
 }
 .alertInfo div{
 	height:30px;
@@ -103,10 +108,13 @@
 }
 .page .devicePage{
 	margin:0 auto;	
+	width:550px;
+	height:180px;
 	position:absolute;
 	top:100px;
-	left:8px;
+	left:20px;
 	text-align:left;
+	border:1px solid #83b1f2;
 }
 .devicePage div{
 	height:30px;
@@ -119,4 +127,7 @@
 	position:fixed;
 	margin-top:100px;
 	margin-left:230px;
+}
+input[type=submit]{
+	width:48px;
 }

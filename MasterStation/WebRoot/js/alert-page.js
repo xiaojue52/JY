@@ -18,6 +18,7 @@ $(function() {
 		$("#BgDiv").css("display", "none");
 		$("#DialogDiv").css("display", "none");
 	});
+	
 });
 
 function getUserDetails(id){

@@ -37,11 +37,14 @@
 #DialogDiv h2 {
 	height: 25px;
 	font-size: 14px;
-	background-color: #BBFFFF;
 	position: relative;
 	padding-left: 10px;
-	margin-top:0px;
+	margin-top:-2px;
+	margin-left:-1px;
+	margin-right:-1px;
 	line-height: 25px;
+	background-image: url(../images/dialog_ct.png);
+	background-repeat:repeat;
 }
 
 #DialogDiv h2 a {

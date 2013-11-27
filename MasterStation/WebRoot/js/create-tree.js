@@ -26,8 +26,9 @@ Ext.onReady(function(){
     });  
     tree.on("load",function(node){
 
+    		//n.getUI().getIconEl().src = "../images/setting.png"
     });  
-         
+
     tree.on("click", function(node){  
 
     	switch(node.attributes.level){
@@ -200,6 +201,7 @@ Ext.onReady(function(){
     	}
     }
     var rightMenu = new Ext.menu.Menu({
+    	shadow : "sides",
     	items:[{menuId:0,text:"增加子节点",handler:onItemClick},{menuId:1,text:"删除节点",handler:onItemClick}]
     }); 
     var rightMenu1 = new Ext.menu.Menu({

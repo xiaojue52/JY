@@ -6,12 +6,6 @@
 			+ path + "/";
 	String username = (String) request.getSession().getAttribute(
 			"username");
-	String password = (String) request.getSession().getAttribute(
-			"password");
-	Integer userId = (Integer) request.getSession().getAttribute(
-			"user_id");
-	String userTag = (String) request.getSession().getAttribute("Tag");
-	//System.out.print("\n" + password);
 	if (username == null)
 		response.sendRedirect(basePath+"index.jsp");
 %>
@@ -31,7 +25,6 @@
 	-->
 		<title>Line Chart</title>
 		<script src="<%=path%>/js/jscharts.js"></script>
-		<link href="css/frame.css" rel="stylesheet" type="text/css">
 		<meta name="viewport" content="initial-scale = 1, user-scalable = no">
 		<style>
 canvas {
@@ -40,19 +33,8 @@ canvas {
 </style>
 	</head>
 	<body>
-		<div>
-			<jsp:include page="/frame/top.jsp"></jsp:include>
-		</div>
 
 		<div>
-			<table>
-				<tr>
-					<td>
-						<div>
-							<jsp:include page="/frame/left.jsp"></jsp:include>
-						</div>
-					</td>
-					<td>
 
 						<div id="graph">
 							Loading...
@@ -108,13 +90,7 @@ canvas {
 	myChart.setLegendForLine('gray', 'Click me');
 	myChart.draw();
 </script>
-					</td>
-				</tr>
-			</table>
 		</div>
-		<div>
-        <img src="JFreeChartAction.action"/>
-        </div>
 	</body>
 </html>
 

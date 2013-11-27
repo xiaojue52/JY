@@ -1,7 +1,7 @@
 
 table.gridtable {
 	font-family: verdana,arial,sans-serif;
-	font-size:11px;
+	font-size:12px;
 	border-width: 2px;
 	border-collapse: collapse;
 	width:100%;
@@ -10,21 +10,24 @@ table.gridtable th {
 	border-width: 1px;
 	border-style: solid;
 	border-color: #cad9ea;
-	background-image: url(../images/th_bg1.gif);
+	background-image: url(../images/form/table_th.png);
 	background-repeat::repeat-x;
 	height:30px;
 }
 table.gridtable td {
 	border-width: 1px;
-	padding: 8px;
+	padding: 4px;
 	border-style: solid;
 	border-color: #cad9ea;
 	background-color: #ffffff;
+	text-align:center;
+	font-size:12px;
 }
 table.gridtable span {
 	height:18px;
 	display:block;
 	overflow:hidden;
 	padding-top:8px;
+	text-align:center;
 }
 

@@ -17,7 +17,7 @@
 		<title>参数设置</title>
 		<base href="<%=basePath%>">
 		<link href="<%=path%>/css/config.css" rel="stylesheet" type="text/css">
-		
+		<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="<%=path%>/js/jquery-1.9.1.js"></script>
 	</head>
 

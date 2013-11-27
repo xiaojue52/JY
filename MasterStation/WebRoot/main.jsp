@@ -17,13 +17,14 @@
 <html>
 	<head>
 		<base href="<%=basePath%>">
-		
 		<link rel="stylesheet" type="text/css"
 			href="js/ext/resources/css/ext-all.css" />
 		<link rel="stylesheet" type="text/css"
 			href="css/common.css" />
 		<link rel="stylesheet" type="text/css"
 			href="css/main.css" />
+		<link rel="stylesheet" type="text/css"
+			href="css/common.css" />
 		<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
 		<script type="text/javascript" src="js/ext/ext-all.js"></script>
 		<script type="text/javascript" src="js/viewport.js"></script>
@@ -46,22 +47,22 @@
 			版权所有 翻版必究 
 		</div>
 		<div id="monitor_div" class="panelDiv">
-			<input type="button" onclick="setFrameSrc('mainAction.action');" value="系统监控" class="itemDiv"/>
+			<button onclick="setFrameSrc('mainAction.action');" class="itemDiv">系统监控</button>
 		</div>
 		<div id="user_div" class="panelDiv">
-			<input type="button" onclick="setFrameSrc('listUsers.action');" value="用户管理" class="itemDiv"/>
+			<button onclick="setFrameSrc('listUsers.action');" class="itemDiv">用户管理</button>
 		</div>	
 		<div id="system_div" class="panelDiv">
-					<input type="button"  onclick="setFrameSrc('createTree.action');" class="itemDiv" value="设备管理"/>
-				<input type="button"  onclick="setFrameSrc('showAlarmType.action');" class="itemDiv" value="系统参数设置"/>
+					<button  onclick="setFrameSrc('createTree.action');" class="itemDiv">设备管理</button>
+				<button  onclick="setFrameSrc('showAlarmType.action');" class="itemDiv">系统参数设置</button>
 		</div>
 		<div id="history_div" class="panelDiv">
-				<input type="button"  onclick="setFrameSrc('listException.action');" class="itemDiv" value="报警记录"/>
+				<button  onclick="setFrameSrc('listException.action');" class="itemDiv">报警记录</button>
 
-				<input type="button"  onclick="setFrameSrc('listHistory.action');" class="itemDiv" value="历史记录"/>
+				<button  onclick="setFrameSrc('listHistory.action');" class="itemDiv">历史记录</button>
 		</div>
 		<div id="data_div" class="panelDiv">
-			<input type="button" onclick='setFrameSrc("listHistory.action");' class="itemDiv" value="数据对比"/>
+			<button onclick='setFrameSrc("history/chart.jsp");' class="itemDiv" >数据对比</button>
 		</div>
 		<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none">

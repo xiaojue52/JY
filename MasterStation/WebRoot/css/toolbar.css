@@ -1,8 +1,11 @@
 .toolbar{
-	width:100%;
-	min-width:1000px;
-	height:50px;
+	min-width:900px;
 	padding-top:10px;
+	width:99%;
+	border:solid 1px #89B5FE; 
+	margin-top:5px;padding-top:10px;
+	padding-left:5px;
+	font-size: 12px;
 }
 .toolbar span{
 	margin-left:10px;
@@ -13,30 +16,28 @@
 	right:8px;
 }
 .toolbar .toolbarButton{
-	background-color:#f5f5f5;
-    border:1px solid #dedede;
-    border-top:1px solid #eee;
-    border-left:1px solid #eee;
-
-    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
-    font-size:12px;
-    line-height:130%;
-    text-decoration:none;
-    font-weight:bold;
-    color:#565656;
-    cursor:pointer;
-    padding:5px 10px 6px 7px; /* Links */
+	background:transparent url(../images/form/btn_bg.jpg) repeat scroll 0 0;
+	border:1px solid #83b1f2;
+	font-size:12px;
+	height:24px;
+	line-height:22px;
+	margin-right:4px;
 }
 .toolbar .toolbarButton:hover{
     background-color:#E6EFC2;
     border:1px solid #C6D880;
-    color:#529214;
 }
 .toolbar .toolbarButton:active{
     background-color:#529214;
     border:1px solid #529214;
-    color:#fff;
 }
 .toolbar input[type=text]{
-	width:100px;
+	width:120px;
+	font-size: 12px;
+	background:url(../images/form/textinput_bg.jpg) repeat-x scroll left top #ffffff;
+	border-color:#a2b3bd;
+	border-style:solid;
+	border-width:1px;
+	color:#336699;
+	height: 20px;
 }

@@ -213,6 +213,12 @@
 			<ref bean="jyHistoryDAO" />
 		</property>
 	</bean>
+	<bean id="jyMonitorService" class="com.station.service.impl.JYMonitorServiceImpl">
+		<property name="cabinetDAO">
+			<ref bean="jyCabinetDAO" />
+		</property>
+	</bean>
+	
 	<bean id="deviceService" class="com.station.service.impl.DeviceServiceImpl">
 		<property name="deviceDAO">
 			<ref bean="deviceDAO" />
@@ -263,25 +269,6 @@
 		</property>
 	</bean>
 
-	<!-- 设备 -->
-
-	<bean id="listDevicesAction" class="com.station.device.action.ListDevicesAction">
-		<property name="deviceService">
-			<ref bean="deviceService" />
-		</property>
-	</bean>
-
-	<bean id="showDeviceRecordAction" class="com.station.device.action.ShowDeviceRecordAction">
-		<property name="deviceService">
-			<ref bean="deviceService" />
-		</property>
-	</bean>
-	<bean id="updateDeviceAction" class="com.station.device.action.UpdateDeviceAction">
-		<property name="deviceService">
-			<ref bean="deviceService" />
-		</property>
-	</bean>
-
 	<!-- exception -->
 	<bean id="ExceptionAction"
 		class="com.station.exception.action.ExceptionAction">
@@ -292,13 +279,13 @@
 
 	<!-- 监控界面 -->
 	<bean id="MainAction" class="com.station.main.action.MainAction">
-		<property name="deviceService">
-			<ref bean="deviceService" />
+		<property name="monitorService">
+			<ref bean="jyMonitorService" />
 		</property>
 	</bean>
 
 	<!-- 历史数据 -->
-	<bean id="ListHistoryAction" class="com.station.history.action.ListHistoryAction">
+	<bean id="HistoryAction" class="com.station.history.action.HistoryAction">
 		<property name="historyService">
 			<ref bean="jyHistoryService" />
 		</property>

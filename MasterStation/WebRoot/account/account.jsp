@@ -45,10 +45,10 @@
 				</tr>
 				<tr>
 					<td align="center">
-						<input class="comButton" type="button" value="提交" onClick="verify();" />
+						<input style="width:48px;" class="comButton" type="button" value="提交" onClick="verify();" />
 					</td>
 					<td align="center">
-						<input class="comButton" type="button" value="取消" onClick="closePage();"/>
+						<input style="width:48px;" class="comButton" type="button" value="取消" onClick="closePage();"/>
 					</td>
 				</tr>
 			</table>

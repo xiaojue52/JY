@@ -1,4 +1,5 @@
 function showPage() {
+	
 	$("#BgDiv").css( {
 		display : "block",
 		height : $(document).height()

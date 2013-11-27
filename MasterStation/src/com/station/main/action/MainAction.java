@@ -7,12 +7,12 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.LoginStatus;
 import com.station.pagebean.PageBean;
 import com.station.query.column.SqlQueryColumn;
-import com.station.service.DeviceService;
+import com.station.service.JYMonitorService;
 import com.station.socket.SocketListener;
 
 @SuppressWarnings("serial")
 public class MainAction extends ActionSupport {
-	private DeviceService deviceService;
+	private JYMonitorService monitorService;
 	private int methodCode = 0;
 	private PageBean pageBean;
 	private int page = 1;
@@ -48,18 +48,14 @@ public class MainAction extends ActionSupport {
 		this.pageBean = pageBean;
 	}
 
-	public DeviceService getDeviceService() {
-		return deviceService;
+	public void setMonitorService(JYMonitorService monitorService) {
+		this.monitorService = monitorService;
 	}
-	public void setDeviceService(DeviceService deviceService) {
-		this.deviceService = deviceService;
-	}
-
 	public String getCurrent() throws Exception{
 		
 		this.methodCode = 0;
-		final String hql = this.createSql();
-		this.pageBean = deviceService.getPerPage(9, page, hql);
+		final String hql = "from JYCabinet cabinet";
+		this.pageBean = monitorService.getPerPage(9, page, hql);
 		page = 1;
 		HttpServletRequest request = ServletActionContext.getRequest ();
 		request.setAttribute("methodCode",this.methodCode );
@@ -73,7 +69,7 @@ public class MainAction extends ActionSupport {
 		//socketListener.sendCommandWithIdentify("1");
 		this.methodCode = 1;
 		final String hql = this.createSql();
-		this.pageBean = deviceService.getPerPage(9, page, hql);
+		this.pageBean = monitorService.getPerPage(9, page, hql);
 		page = 1;
 		HttpServletRequest request = ServletActionContext.getRequest ();
 		request.setAttribute("methodCode",this.methodCode );
@@ -82,23 +78,7 @@ public class MainAction extends ActionSupport {
 	}
 
 	public String createSql(){
-		String hql;
-		String query = null;
-		
-		if (sqlDeviceColumn!=null)	
-			query = sqlDeviceColumn.getQueryString();
-			
-		if(LoginStatus.checkUserAccess()==1){
-			if (query==null)
-				hql="from Device device";
-			else
-				hql="from Device device "+query;
-		}else if (query==null)
-			hql="from Device device where owner = '"+LoginStatus.getUsername()+"' or owner='-'";
-		else
-			hql="from Device device "+query +" and owner = '"+LoginStatus.getUsername()+"' or owner='-'";
-		sqlDeviceColumn = null;
-		return hql;
+		return null;
 	}
 	
 }

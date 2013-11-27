@@ -27,11 +27,11 @@ public class TreeService {
 			//System.out.print(children);
 			children = "expanded:false";
 			if (jsonString ==null){
-				jsonString = "{text:'"+lines.get(0).getName()+"',id:'"+lines.get(0).getLineId()+"',level:1,"+children+"}";
+				jsonString = "{text:'"+lines.get(0).getName()+"',id:'"+lines.get(0).getLineId()+"',level:1,"+children+",icon:'images/line.png'}";
 				continue;
 			}
 			//int j = i+1;
-			jsonString = jsonString +",{text:'"+lines.get(i).getName()+"',id:'"+lines.get(i).getLineId()+"',level:1,"+children+"}";
+			jsonString = jsonString +",{text:'"+lines.get(i).getName()+"',id:'"+lines.get(i).getLineId()+"',level:1,"+children+",icon:'images/line.png'}";
 		}
 		jsonString = "["+jsonString+"]";
 		//System.out.print(jsonString);	
@@ -53,13 +53,13 @@ public class TreeService {
 			String lineId = list.get(0).getLine().getLineId();
 			listLine.add(list.get(0).getLine());
 			String json = null;
-			json = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(0).getCabId()+"',level:2}";
+			json = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(0).getCabId()+"',level:2,icon:'images/cabinet.png'}";
 			list.remove(0);
 			int i=0;
 			while (list.size()!=i){
 				
 				if (lineId.equals(list.get(i).getLine().getLineId())){
-					json = json +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2}";
+					json = json +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2,icon:'images/cabinet.png'}";
 					list.remove(i);
 					i --;
 				}
@@ -78,11 +78,11 @@ public class TreeService {
 			else
 				children = "children:[]";
 			if (jsonString ==null){
-				jsonString = "{text:'"+listLine.get(0).getName()+"',id:'"+listLine.get(0).getLineId()+"',level:1,"+children+"}";
+				jsonString = "{text:'"+listLine.get(0).getName()+"',id:'"+listLine.get(0).getLineId()+"',level:1,"+children+",icon:'images/line.png'}";
 				continue;
 			}
 			//int j = i+1;
-			jsonString = jsonString +",{text:'"+listLine.get(i).getName()+"',id:'"+listLine.get(i).getLineId()+"',level:1,"+children+"}";
+			jsonString = jsonString +",{text:'"+listLine.get(i).getName()+"',id:'"+listLine.get(i).getLineId()+"',level:1,"+children+",icon:'images/line.png'}";
 		}
 		jsonString = "["+jsonString+"]";
 		
@@ -94,10 +94,10 @@ public class TreeService {
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){
 			if (jsonString ==null){
-				jsonString = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(0).getCabId()+"',level:2}";
+				jsonString = "{text:'"+list.get(0).getCabNumber()+list.get(0).getCabType().getValue()+"',id:'"+list.get(0).getCabId()+"',level:2,icon:'images/cabinet.png'}";
 				continue;
 			}
-			jsonString = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2}";
+			jsonString = jsonString +",{text:'"+list.get(i).getCabNumber()+list.get(i).getCabType().getValue()+"',id:'"+list.get(i).getCabId()+"',level:2,,icon:'images/cabinet.png'}";
 		}
 		jsonString = "["+jsonString+"]";
 		//System.out.print(jsonString);	
@@ -111,10 +111,10 @@ public class TreeService {
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){
 			if (jsonString ==null){
-				jsonString = "{text:'"+list.get(0).getName()+"',id:'"+list.get(0).getDeviceId()+"',level:3}";
+				jsonString = "{text:'"+list.get(0).getName()+"',id:'"+list.get(0).getDeviceId()+"',level:3,icon:'images/device.png'}";
 				continue;
 			}
-			jsonString = jsonString +",{text:'"+list.get(i).getName()+"',id:'"+list.get(i).getDeviceId()+"',level:3}";
+			jsonString = jsonString +",{text:'"+list.get(i).getName()+"',id:'"+list.get(i).getDeviceId()+"',level:3,,icon:'images/device.png'}";
 		}
 		jsonString = "["+jsonString+"]";
 		//System.out.print(jsonString);	

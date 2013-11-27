@@ -28,14 +28,15 @@
 	}
 %>
 
-<link rel="stylesheet" type="text/css" href="css/content.css">
+
 <link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/content.css">
 
 <div>
 	<div id="devicePage" class="page">
 		<div class="devicePage">
 			<div class="title">
-				<span><b>变送器</b></span>
+				<span style="font-size:24px;"><b>变送器</b></span>
 			</div>
 			<s:form action="addDevice.action">
 				<div>
@@ -84,7 +85,7 @@
 	<div id="detectorPage" class="page">
 		<div class="detectorPage">
 			<div class="title">
-				<span><b>采集器</b></span>
+				<span style="font-size:24px;"><b>采集器</b></span>
 			</div>
 			<div>
 				所属变送器编号：
@@ -113,7 +114,7 @@
 	<div id="linePage" class="page">
 		<div class="linePage">
 			<div class="title">
-				<span><b>添加线路</b></span>
+				<span style="font-size:24px;"><b>添加线路</b></span>
 			</div>
 			<s:form action="addLine.action">
 			线路名称：
@@ -121,13 +122,16 @@
 				<input class="comButton" type="submit" value="确定"
 					style="margin-left: 10px" />
 			</s:form>
+			<br/>
+			<br/>
+			<span>添加设备说明：添加线路->在所选线路上右击添加柜体<br/><br/>->在所选柜体上右击添加变送器->完成</span>
 		</div>
 	</div>
 
 	<div id="cabinetPage" class="page">
 		<div class="cabinetPage">
 			<div class="title">
-				<span><b>柜体信息</b></span>
+				<span style="font-size:24px;"><b>柜体信息</b></span>
 			</div>
 			<s:form action="addCabinet.action">
 				<div class="baseInfo">

@@ -4,12 +4,11 @@ Ext.onReady(function() {
 		items : [ {
 			region : 'north',
 			contentEl : 'north-div',
-			border : true,
+			border : false,
 			split : true,
-			height : 80,
-			maxSize : 120,
-			minSize : 50,
-			frame : true
+			height : 56,
+			maxSize : 56,
+			minSize : 56,
 		}, {
 			region : 'south',
 			contentEl : 'south-div',
@@ -28,7 +27,7 @@ Ext.onReady(function() {
 			title : '欢迎光临！',
 			maxSize : 120,
 			minSize : 50,
-			height : 500,
+			height : 600,
 			loadMask : {
 				msg : '正在加载数据，请稍侯……'
 			},
@@ -38,6 +37,7 @@ Ext.onReady(function() {
             id: 'west-panel', // see Ext.getCmp() below
             title: '功能清单',
             split: true,
+            border : true,
             width: 200,
             minSize: 175,
             maxSize: 400,
@@ -51,28 +51,29 @@ Ext.onReady(function() {
             	contentEl : 'monitor_div',
                 title: '系统监控',
                 border: false,
+                iconCls: "monitor_png"
             }, {
                 title: '系统管理',
                 contentEl : 'system_div',
                 border: false,
-                //iconCls: 'settings'
+                iconCls: 'settings_png'
             },
             {
                 title: '用户管理',
                 contentEl : 'user_div',
                 border: false,
-                //iconCls: 'settings'
+                iconCls: 'user_png'
             },
             {
                 title: '历史记录',
                 contentEl : 'history_div',
                 border: false,
-                //iconCls: 'settings'
+                iconCls: 'history_png'
             },{
                 title: '数据对比',
                 contentEl : 'data_div',
                 border: false,
-                //iconCls: 'settings'
+                iconCls: 'data_png'
             }]
 		} ]
 	});
