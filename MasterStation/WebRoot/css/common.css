@@ -35,6 +35,7 @@ a:hover{
 }
 
 html{
+	height:100%;
 	scrollbar-face-color: #DDEEFF; /*主色调*/
 	scrollbar-highlight-color: #FFFFFF; 
 	scrollbar-shadow-color: #99BBCC; /*描边颜色*/
@@ -45,7 +46,7 @@ html{
 } 
 
 /*文本框样式*/
-input[type=text]{
+input[type=text],[type=password]{
 	width:120px;
 	font-size: 12px;
 	background:url(../images/form/textinput_bg.jpg) repeat-x scroll left top #ffffff;
@@ -161,6 +162,22 @@ input[type=button],[type=submit]{
 	height:24px;
 	line-height:22px;
 	margin-right:4px;
+}
+input[type=submit]:hover{
+    background-color:#E6EFC2;
+    border:1px solid #C6D880;
+}
+input[type=button]:hover{
+	background-color:#E6EFC2;
+    border:1px solid #C6D880;
+}
+input[type=button]:active{
+	background-color:#529214;
+    border:1px solid #529214;
+}
+input[type=submit]:active{
+    background-color:#529214;
+    border:1px solid #529214;
 }
 input[readonly]{
 	color: #aaa

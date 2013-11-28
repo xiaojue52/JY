@@ -38,13 +38,14 @@ String path = request.getContextPath();
 		<link href="css/toolbar.css" rel="stylesheet" type="text/css">
 		<link href="css/common.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<script src="<%=path%>/js/jquery-1.9.1.js" type="text/javascript"></script>
-		<script src="<%=path%>/js/control.js" type="text/javascript"></script>
+		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+		<script src="js/control.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -109,25 +110,33 @@ String path = request.getContextPath();
 					<span>操作</span>
 				</th>
 			</tr>
-			<s:iterator value="pageBean.list" var="cabinet" status='st'>
-				<tr>
+			<s:iterator value="pageBean.list" var="cabinet" status="status">
+				<s:if test="#status.count%2==0">
+					<tr bgcolor="#F2F2F2">
+				</s:if>
+				<s:else>
+					<tr>
+				</s:else>
 					<td width="10%">
 						<input type="checkbox"/>
+						<s:property value="#status.count" /><br/>
 					</td>
 					<td width="15%">
+						<s:property value="#cabinet.line.name" /><br/>
 						<s:property value="#cabinet.cabNumber" /><s:property value="#cabinet.cabType.value" />
 					</td>
 					<td width="15%">
 						<s:iterator value="#cabinet.deviceList" var="device">
 							<s:property value="#device.name" />:
 								<s:iterator value="#device.detectorList" var="detector">
-									<s:property value="#detector.name" />:
+									<s:property value="#detector.name" />:<s:property value="#detector.history.value" />
 								</s:iterator>
 						<br/>
 						</s:iterator>
 					</td>
 					<td width="15%">
-						<s:property value="warningTemperature" />
+						<s:date name="#cabinet.deviceList[0].detectorList[0].history.collectDate" format="yyyy-MM-dd" /><br/>
+						<s:date name="#cabinet.deviceList[0].detectorList[0].history.collectTime" format="HH:mm:ss"/>
 					</td>
 					<td width="15%">
 						<s:property value="enviTemp" />
@@ -136,7 +145,7 @@ String path = request.getContextPath();
 						<s:property value="#cabinet.user.username" />
 					</td>
 					<td width="15%">
-						<a href="listException.action">历史报警</a>
+						<a href="listAlarm.action">历史报警</a>
 											<a href="listHistory.action?sqlDeviceHistoryColumn.identify=<s:property value="identify" />">历史温度</a>
 					</td>
 				</tr>

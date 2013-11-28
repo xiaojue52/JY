@@ -20,77 +20,48 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-		<title>Line Chart</title>
-		<script src="<%=path%>/js/jscharts.js"></script>
-		<meta name="viewport" content="initial-scale = 1, user-scalable = no">
-		<style>
-canvas {
-	
-}
-</style>
-	</head>
-	<body>
-
-		<div>
-
-						<div id="graph">
-							Loading...
-						</div>
-
-
-						<script type="text/javascript">
-	var myChart = new JSChart('graph', 'line');
-	myChart.setDataArray( [ [ 1, 80 ], [ 2, 40 ], [ 3, 60 ], [ 4, 65 ],
-			[ 5, 50 ], [ 6, 50 ], [ 7, 60 ], [ 8,
-
-			80 ], [ 9, 150 ], [ 10, 100 ] ], 'blue');
-	myChart.setDataArray( [ [ 1, 100 ], [ 2, 55 ], [ 3, 80 ], [ 4, 115 ],
-			[ 5, 80 ], [ 6, 70 ], [ 7, 30 ],
-
-			[ 8, 130 ], [ 9, 160 ], [ 10, 170 ] ], 'green');
-	myChart.setDataArray( [ [ 1, 150 ], [ 2, 25 ], [ 3, 100 ], [ 4, 80 ],
-			[ 5, 20 ], [ 6, 65 ], [ 7, 0 ],
-
-			[ 8, 155 ], [ 9, 190 ], [ 10, 200 ] ], 'gray');
-	myChart.setSize(550, 300);
-	myChart.setAxisValuesNumberY(5);
-	myChart.setIntervalStartY(0);
-	myChart.setIntervalEndY(200);
-	myChart.setLabelX( [ 2, 'p1' ]);
-	myChart.setLabelX( [ 4, 'p2' ]);
-	myChart.setLabelX( [ 6, 'p3' ]);
-	myChart.setLabelX( [ 8, 'p4' ]);
-	myChart.setLabelX( [ 10, 'p5' ]);
-	myChart.setAxisValuesNumberX(5);
-	myChart.setShowXValues(false);
-	myChart.setTitleColor('#454545');
-	myChart.setAxisValuesColor('#454545');
-	myChart.setLineColor('#A4D314', 'green');
-	myChart.setLineColor('#BBBBBB', 'gray');
-	myChart.setTooltip( [ 1, ' ' ]);
-	myChart.setTooltip( [ 2, ' ' ]);
-	myChart.setTooltip( [ 3, ' ' ]);
-	myChart.setTooltip( [ 4, ' ' ]);
-	myChart.setTooltip( [ 5, ' ' ]);
-	myChart.setTooltip( [ 6, ' ' ]);
-	myChart.setTooltip( [ 7, ' ' ]);
-	myChart.setTooltip( [ 8, ' ' ]);
-	myChart.setTooltip( [ 9, ' ' ]);
-	myChart.setTooltip( [ 10, ' ' ]);
-	myChart.setFlagColor('#9D16FC');
-	myChart.setFlagRadius(4);
-	myChart.setAxisPaddingRight(100);
-	myChart.setLegendShow(true);
-	myChart.setLegendPosition(490, 80);
-	myChart.setLegendForLine('blue', 'Click me');
-	myChart.setLegendForLine('green', 'Click me');
-	myChart.setLegendForLine('gray', 'Click me');
-	myChart.draw();
-</script>
+		<title>温度对比</title>
+		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+		</head>
+		<link rel="stylesheet" type="text/css" href="css/toolbar.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/datepicker.css" />
+		<script src="js/datepicker.js" type="text/javascript"></script>
+	<body>	
+	<div class="toolbar">
+		<span>
+			<input type="button" value="日温度对比" onclick="dayBtnClick()"/>
+		</span>
+		<span>	
+			<input type="button" value="月温度对比" onclick="monthBtnClick()"/>
+		</span>
+		<span>
+			<input type="button" value="监测单元温度对比" onclick="moreBtnClick()"/>
+		</span>	
+		<br/><br/>
+		<div id="dayMenu">
+		<span><input type="button" value="选择变送器" onclick="alert('待开发')"/><input type="text" readonly='readonly'/></span>
+		<span>选择日期：</span><span><input id="dayLineDatepicter" type="text" readonly='readonly' onfocus="setday(this)"/></span>
+		<span><input type="button" value="生成曲线" onclick="Chart.dayChart()"/></span>
 		</div>
+		<div id="monthMenu" style="display:none">
+		<span><input type="button" value="选择变送器" onclick="alert('待开发')"/><input type="text" readonly='readonly'/></span>
+		<span>选择月份：</span><span><input id="monthLineDatepicker" type="text" readonly='readonly' onfocus="setmonth(this)"/></span>
+		<span><input type="button" value="生成曲线" onclick="Chart.monthChart()"/></span>
+		</div>
+		<div id="moreMenu" style="display:none">
+		<span><input type="button" value="选择监测单元" onclick="alert('待开发')"/><input type="text" readonly='readonly'/></span>
+		<span>开始日期：</span><span><input id="moreLineStartDate" type="text" readonly='readonly' onfocus="setday(this)"/></span>
+		<span>结束日期：</span><span><input id="moreLineEndDate" type="text" readonly='readonly' onfocus="setday(this)"/></span>
+		<span><input type="button" value="生成曲线" onclick="Chart.moreChart()"/></span>
+		</div>
+		<br/>
+	</div>
+	<br/>
+	<script src="js/Highcharts-3.0.7/js/highcharts.js"></script>
+	<script src="js/Highcharts-3.0.7/js/modules/exporting.js"></script>
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<script src="js/create-chart.js"></script>
 	</body>
 </html>
 

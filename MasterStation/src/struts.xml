@@ -53,9 +53,9 @@
   </action>
 </package>
 
-<package name="Exception" extends="abstract_struts" namespace="/">
-<action name="listException" class="ExceptionAction" method="listExceptionAction">
-   <result name="success">/exception/exception.jsp</result>
+<package name="Alarm" extends="abstract_struts" namespace="/">
+<action name="listAlarm" class="AlarmAction" method="listAlarmAction">
+   <result name="success">/alarm/alarm.jsp</result>
   </action>
 </package>
 

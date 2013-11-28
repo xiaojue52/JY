@@ -11,7 +11,14 @@ public class JYDevice {
 	private String note;
 	private Integer tag;
 	private List<JYDetector> detectorList;
+	private JYAlarm alarm;
 	
+	public JYAlarm getAlarm() {
+		return alarm;
+	}
+	public void setAlarm(JYAlarm alarm) {
+		this.alarm = alarm;
+	}
 	public List<JYDetector> getDetectorList() {
 		return detectorList;
 	}

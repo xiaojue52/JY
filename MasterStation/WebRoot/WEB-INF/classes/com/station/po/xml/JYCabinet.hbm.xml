@@ -15,7 +15,11 @@
   		class="com.station.po.JYLine" outer-join="true"
   		not-null="true" lazy="false">
   		<column name="line_Id"></column>
-  	</many-to-one>	 
+  	</many-to-one>	
+  	<many-to-one name="alarm"
+  		class="com.station.po.JYAlarm" outer-join="true" lazy="false">
+  		<column name="alarm_Id"></column>
+  	</many-to-one> 
   	<many-to-one name="user"
   		class="com.station.po.JYUser" outer-join="true"
   		not-null="true" lazy="false">

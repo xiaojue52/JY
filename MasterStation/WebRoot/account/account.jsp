@@ -12,7 +12,7 @@
 	<body>
 		<div>
 			<div><span class="errorMessage"> </span></div>
-			<table id="form" style="margin-top:50px">
+			<table id="form" style="margin-top:30px">
 				<tr>
 					<td align="right">
 						<span class="comText">用户名:</span>
@@ -45,9 +45,11 @@
 				</tr>
 				<tr>
 					<td align="center">
+						<br/><br/>
 						<input style="width:48px;" class="comButton" type="button" value="提交" onClick="verify();" />
 					</td>
 					<td align="center">
+						<br/><br/>
 						<input style="width:48px;" class="comButton" type="button" value="取消" onClick="closePage();"/>
 					</td>
 				</tr>

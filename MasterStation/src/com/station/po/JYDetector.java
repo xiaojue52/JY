@@ -6,6 +6,14 @@ public class JYDetector {
 	private JYDevice device;
 	private String unit;
 	private Integer tag;
+	private JYHistory history;
+	
+	public JYHistory getHistory() {
+		return history;
+	}
+	public void setHistory(JYHistory history) {
+		this.history = history;
+	}
 	public String getDetectorId() {
 		return detectorId;
 	}

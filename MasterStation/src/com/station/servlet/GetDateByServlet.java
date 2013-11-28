@@ -8,20 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.station.constant.ParseStringToDecimal;
-import com.station.service.UnhandledExceptionService;
-import com.station.tree.TreeService;
 
 @SuppressWarnings("serial")
 public class GetDateByServlet extends HttpServlet {
-
-	private static UnhandledExceptionService unhandledExceptionService;
-	private List<com.station.po.UnhandledException> list;
-
-
-	public static void setUnhandledExceptionService(
-			UnhandledExceptionService unhandledExceptionService) {
-		GetDateByServlet.unhandledExceptionService = unhandledExceptionService;
-	}
+	private List list;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -93,11 +83,6 @@ public class GetDateByServlet extends HttpServlet {
 	private int getCurrentData(HttpServletResponse resp, String tag,
 			String username) {
 		int count = 0;
-		if (tag != null && tag.equals("admin"))
-			list = unhandledExceptionService.findAllDevice();
-		else if (tag != null && username != null) {
-			list = unhandledExceptionService.findDevicesByOwner(username);
-		}
 		resp.setContentType("text/html;charset=utf-8");
 		resp.setHeader("Cache-Control", "no-cache");
 		count = list.size();

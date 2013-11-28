@@ -3,17 +3,32 @@ package com.station.po;
 import java.sql.Date;
 
 public class JYAlarm {
-	private String alarmId;
+	private String id;
 	private Date alarmDatetime;
 	private String alarmText;
 	private String alarmType;
-	private String user; //维修人员
+	private String repairUser; //维修人员
 	private String status;
-	public String getAlarmId() {
-		return alarmId;
+	private int isCabinet;
+	private String deviceId;
+
+	public String getDeviceId() {
+		return deviceId;
 	}
-	public void setAlarmId(String alarmId) {
-		this.alarmId = alarmId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+	public int getIsCabinet() {
+		return isCabinet;
+	}
+	public void setIsCabinet(int isCabinet) {
+		this.isCabinet = isCabinet;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public Date getAlarmDatetime() {
 		return alarmDatetime;
@@ -33,11 +48,12 @@ public class JYAlarm {
 	public void setAlarmType(String alarmType) {
 		this.alarmType = alarmType;
 	}
-	public String getUser() {
-		return user;
+
+	public String getRepairUser() {
+		return repairUser;
 	}
-	public void setUser(String user) {
-		this.user = user;
+	public void setRepairUser(String repairUser) {
+		this.repairUser = repairUser;
 	}
 	public String getStatus() {
 		return status;

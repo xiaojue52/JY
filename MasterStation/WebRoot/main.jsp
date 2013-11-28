@@ -39,7 +39,7 @@
 		<div id="north-div">
 			<jsp:include page="/frame/top.jsp"></jsp:include>
 		</div>
-		<div id="center-div">
+		<div id="center-div" style="height:100%">
 				<iframe src="mainAction.action" class="center_frame"
 					id="content_iframe" width=100% height=100% frameborder='0'></iframe>
 		</div>
@@ -57,7 +57,7 @@
 				<button  onclick="setFrameSrc('showAlarmType.action');" class="itemDiv">系统参数设置</button>
 		</div>
 		<div id="history_div" class="panelDiv">
-				<button  onclick="setFrameSrc('listException.action');" class="itemDiv">报警记录</button>
+				<button  onclick="setFrameSrc('listAlarm.action');" class="itemDiv">报警记录</button>
 
 				<button  onclick="setFrameSrc('listHistory.action');" class="itemDiv">历史记录</button>
 		</div>
@@ -65,7 +65,7 @@
 			<button onclick='setFrameSrc("history/chart.jsp");' class="itemDiv" >数据对比</button>
 		</div>
 		<div id="BgDiv"></div>
-			<div id="DialogDiv" style="display:none">
+			<div id="DialogDiv" style="display:none;width:280px;">
 				<h2>操作<a id="btnClose" onclick="closePage();">关闭</a></h2>
 				<div id="modifyPassword_dialogDiv">
     	    		<jsp:include page="/account/account.jsp"></jsp:include>

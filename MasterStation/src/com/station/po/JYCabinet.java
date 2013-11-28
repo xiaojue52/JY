@@ -16,8 +16,15 @@ public class JYCabinet {
 	private Integer tag;
 	private JYAlarmTypeCollect alarmTypeCollect;
 	private List<JYDevice> deviceList;
+	private JYAlarm alarm;
 	
 	
+	public JYAlarm getAlarm() {
+		return alarm;
+	}
+	public void setAlarm(JYAlarm alarm) {
+		this.alarm = alarm;
+	}
 	public List<JYDevice> getDeviceList() {
 		return deviceList;
 	}

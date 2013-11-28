@@ -24,7 +24,7 @@
 						用户名：
 					</td>
 					<td>
-						<input name="user.username" />
+						<input type="text" name="user.username" />
 					</td>
 				</tr>
 				<tr>
@@ -32,7 +32,7 @@
 						初始密码：
 					</td>
 					<td>
-						<input name="user.password" value="000000" readonly="readonly"
+						<input type="text" name="user.password" value="000000" readonly="readonly"
 							class="readonly" />
 					</td>
 				</tr>
@@ -41,7 +41,7 @@
 						手机号码：
 					</td>
 					<td>
-						<input name="user.contact" />
+						<input type="text" name="user.contact" />
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +49,7 @@
 						所在单位：
 					</td>
 					<td>
-						<input name="user.company" />
+						<input type="text" name="user.company" />
 					</td>
 				</tr>
 				<tr>
@@ -57,7 +57,7 @@
 						职位级别：
 					</td>
 					<td>
-						<input name="user.jobLevel" />
+						<input type="text" name="user.jobLevel" />
 					</td>
 				</tr>
 				<tr>

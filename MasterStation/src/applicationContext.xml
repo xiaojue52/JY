@@ -39,8 +39,7 @@
 				<value>com/station/po/xml/JYHistory.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmType.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmTypeCollect.hbm.xml</value>
-				<value>com/station/po/xml/UnhandledException.hbm.xml</value>
-				<value>com/station/po/xml/DeviceHistory.hbm.xml</value>
+				<value>com/station/po/xml/JYAlarm.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -116,13 +115,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-
-	<bean id="unhandledExceptionDAO" class="com.station.dao.impl.UnhandledExceptionDAOImpl">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-	<bean id="deviceHistoryDAO" class="com.station.dao.impl.DeviceHistoryDAOImpl">
+	<bean id="jyAlarmDAO" class="com.station.dao.impl.JYAlarmDAOImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -214,15 +207,9 @@
 			<ref bean="jyCabinetService" />
 		</property>
 	</bean>
-	
-	<bean id="unhandledExceptionService" class="com.station.service.impl.UnhandleExceptionServiceImpl">
-		<property name="unhandledExceptionDAO">
-			<ref bean="unhandledExceptionDAO" />
-		</property>
-	</bean>
-	<bean id="deviceHistoryService" class="com.station.service.impl.DeviceHistoryServiceImpl">
-		<property name="deviceHistoryDAO">
-			<ref bean="deviceHistoryDAO" />
+	<bean id="jyAlarmService" class="com.station.service.impl.JYAlarmServiceImpl">
+		<property name="alarmDAO">
+			<ref bean="jyAlarmDAO" />
 		</property>
 	</bean>
 
@@ -260,11 +247,11 @@
 		</property>
 	</bean>
 
-	<!-- exception -->
-	<bean id="ExceptionAction"
-		class="com.station.exception.action.ExceptionAction">
-		<property name="unhandledExceptionService">
-			<ref bean="unhandledExceptionService" />
+	<!-- alarm -->
+	<bean id="AlarmAction"
+		class="com.station.alarm.action.AlarmAction">
+		<property name="alarmService">
+			<ref bean="jyAlarmService" />
 		</property>
 	</bean>
 
@@ -283,15 +270,7 @@
 	</bean>
 
 	<!-- 获取数据 -->
-	<bean class="com.station.data.DaoDriver">
-		<property name="unhandledExceptionService">
-			<ref bean="unhandledExceptionService" />
-		</property>
-		<property name="deviceHistoryService">
-			<ref bean="deviceHistoryService" />
-		</property>
 
-	</bean>
 	<bean id="listUsers" class="com.station.data.DataList">
 		<property name="userService">
 			<ref bean="jyUserService" />

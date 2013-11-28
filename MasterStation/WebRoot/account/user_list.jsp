@@ -32,10 +32,10 @@
 
 	<body>
 		<div class="toolbar">
-			<s:form action="listUsers.action">
+			<s:form action="">
 				<span> 用户名：<input type="text" name="sqlUserColumn.username"/></span><span>所在单位：<input
 					type="text" name="sqlUserColumn.company"/></span>
-				<span><input type="submit" value="查询" class="toolbarButton"/> </span>
+				<span><input type="button" value="查询" class="toolbarButton"/> </span>
 				<span><button id="btnShow" class="toolbarButton">添加用户</button></span>
 			</s:form>	
 		</div>
@@ -77,8 +77,13 @@
 					<span>操作</span>
 				</th>
 			</tr>
-			<s:iterator value="pageBean.list" var="account">
-				<tr>
+			<s:iterator value="pageBean.list" var="account" status="status">
+				<s:if test="#status.count%2==0">
+					<tr bgcolor="#F2F2F2">
+				</s:if>
+				<s:else>
+					<tr>
+				</s:else>
 					<td width="10%">
 						<s:property value="userId" />
 					</td>
@@ -199,7 +204,7 @@
 		</div>
 	</div>		
 		<div id="BgDiv"></div>
-			<div id="DialogDiv" style="display:none">
+			<div id="DialogDiv" style="display:none;width:300px;height:310px;">
 				<h2>操作<a class="btnClose">关闭</a></h2>
 				<div id="addUser_dialogDiv">
     	    		<jsp:include page="/account/add_user.jsp"></jsp:include>

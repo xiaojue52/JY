@@ -43,7 +43,7 @@
 					变送器编号：
 
 					<input name="device.deviceNumber" id="deviceNumber" type="text"
-						value="JY000001" />
+						value="" />
 
 					所属柜体：
 
@@ -54,11 +54,11 @@
 					变送器名称：
 
 					<input name="device.name" id="deviceName" type="text"
-						value="30861间隔" />
+						value="" />
 
 					管理者：
 
-					<input id="deviceUser" type="text" value="张三" readonly="readonly" class="readonly" />
+					<input id="deviceUser" type="text" value="" readonly="readonly" class="readonly" />
 
 				</div>
 				<div>
@@ -87,27 +87,31 @@
 			<div class="title">
 				<span style="font-size:24px;"><b>采集器</b></span>
 			</div>
-			<div>
+			<table style="margin-left:10px;margin-top:-10px;margin-bottom:10px;">
+			<tr>
+			<td>
 				所属变送器编号：
 
-				<input id="parentDeviceNumber" type="text" value="JY000001"
-					readonly="readonly" class="readonly" />
-
+				<input id="parentDeviceNumber" type="text" value=""
+					readonly="readonly" class="readonly" /></td>
+			<td>
 				管理者：
 
-				<input id="detectorUser" type="text" value="张三" readonly="readonly" class="readonly" />
-			</div>
-			<div>
-
+				<input id="detectorUser" type="text" value="" readonly="readonly" class="readonly" />
+				</td>
+			</tr>
+			<tr>
+				<td>
 				所属变送器名称：
 
-				<input id="parentDeviceName" type="text" value="30861间隔"
-					readonly="readonly" class="readonly" />
-					所属柜体：
+				<input id="parentDeviceName" type="text" value=""
+					readonly="readonly" class="readonly" /></td>
+				<td>所属柜体：
 
-				<input id="parentCabinet" type="text" value="#3860环网柜"
-					readonly="readonly" class="readonly" />
-			</div>
+				<input id="parentCabinet" type="text" value=""
+					readonly="readonly" class="readonly" /></td>
+			</tr>
+			</table>
 		</div>
 	</div>
 
@@ -146,7 +150,7 @@
 
 						柜体编号：
 
-						<input name="cabinet.cabNumber" id="cabNumber" value="#3860"
+						<input name="cabinet.cabNumber" id="cabNumber" value=""
 							type="text" />
 					</div>
 					<div>
@@ -200,13 +204,13 @@
 						SIM卡号：
 
 						<input name="cabinet.simNumber" id="simNumber" type="text"
-							value="111111111" />
+							value="" />
 					</div>
 					<div>
 						SIM卡串号：
 
 						<input name="cabinet.simSNumber" id="simSNumber" type="text"
-							value="111111111" />
+							value="" />
 					</div>
 				</div>
 				<div class="alertInfo">

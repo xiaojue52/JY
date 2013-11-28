@@ -21,7 +21,7 @@
 						用户名：
 					</td>
 					<td>
-						<input id="user_username" name="user.username" value=""
+						<input type="text" id="user_username" name="user.username" value=""
 							readonly="readonly" class="readonly" />
 					</td>
 				</tr>
@@ -30,7 +30,7 @@
 						手机号码：
 					</td>
 					<td>
-						<input id="user_contact" name="user.contact" value="" />
+						<input type="text"  id="user_contact" name="user.contact" value="" />
 					</td>
 				</tr>
 				<tr>
@@ -38,7 +38,7 @@
 						所在单位：
 					</td>
 					<td>
-						<input id="user_company" name="user.company" value="" />
+						<input type="text"  id="user_company" name="user.company" value="" />
 					</td>
 				</tr>
 				<tr>
@@ -46,7 +46,7 @@
 						职位级别：
 					</td>
 					<td>
-						<input id="user_jobLevel" name="user.jobLevel" value="" />
+						<input type="text"  id="user_jobLevel" name="user.jobLevel" value="" />
 					</td>
 				</tr>
 				<tr>

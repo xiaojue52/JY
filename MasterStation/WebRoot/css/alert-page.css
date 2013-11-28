@@ -22,16 +22,19 @@
 
 #DialogDiv {
 	position: absolute;
-	width:360px;
 	left: 50%;
 	top: 50%;
-	margin-left: -180px;
+	margin-left: -150px;
 	height: 300px;
 	z-index: 100;
-	background-color: #fff;
+	background-color: #f5f5f5;
 	border: 1px #8FA4F5 solid;
 	padding: 1px;
 	overflow:hide;
+	
+	-moz-border-radius: 5px;      /* Gecko browsers */
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 
 #DialogDiv h2 {
@@ -45,6 +48,9 @@
 	line-height: 25px;
 	background-image: url(../images/dialog_ct.png);
 	background-repeat:repeat;
+	border-radius: 5px 5px 0px 0px;
+	-moz-border-radius: 5px 5px 0px 0px;     /* Gecko browsers */
+    -webkit-border-radius: 5px 5px 0px 0px;
 }
 
 #DialogDiv h2 a {

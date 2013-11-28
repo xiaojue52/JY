@@ -16,6 +16,10 @@
   		not-null="true" lazy="false">
   		<column name="device_Id"></column>
   	</many-to-one>	 
+  	<many-to-one name="history"
+  		class="com.station.po.JYHistory" outer-join="true" lazy="false">
+  		<column name="history_Id"></column>
+  	</many-to-one>	
   <property name="name" type="string" column="name" length="20"/>
   <property name="unit" type="string" column="unit" length="5"/>
   <property name="tag" type="java.lang.Integer" column="tag"/>

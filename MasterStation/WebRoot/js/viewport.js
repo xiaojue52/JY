@@ -25,9 +25,6 @@ Ext.onReady(function() {
 			border : true,
 			collapsible : false,
 			title : '欢迎光临！',
-			maxSize : 120,
-			minSize : 50,
-			height : 600,
 			loadMask : {
 				msg : '正在加载数据，请稍侯……'
 			},
