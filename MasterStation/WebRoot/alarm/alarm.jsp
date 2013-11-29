@@ -176,24 +176,46 @@
 									<s:date name="#alarm.alarmDatetime" format="HH:mm:ss" />
 								</td>
 								<td width="10%">
-
+									<s:if test="#alarm.cabinet !=null">
+										<s:property value="#alarm.cabinet.line.name" /><br/>
+										<s:property value="#alarm.cabinet.cabNumber" />
+										<s:property value="#alarm.cabinet.cabType.value" />
+									</s:if>
+									<s:elseif test="#alarm.device !=null">
+										<s:property value="#alarm.device.cabinet.line.name" /><br/>
+										<s:property value="#alarm.device.cabinet.cabNumber" />
+										<s:property value="#alarm.device.cabinet.cabType.value" /><br/>
+										<s:property value="#alarm.device.name" />
+									</s:elseif>
 								</td>
 
 								<td width="10%">
-
+									<s:property value="alarmText" />
 								</td>
 								<td width="10%">
-
+										<s:if test="#alarm.cabinet !=null">
+											<s:property value="#alarm.cabinet.user.username" /><br/>
+										</s:if>
+										<s:elseif test="#alarm.device !=null">
+									
+									   		<s:property value="#alarm.device.cabinet.user.username" />
+										
+										</s:elseif>
 								</td>
 								<td width="10%">
-									<s:property value="status" />
+									<s:if test="status==0">
+										未维修
+									</s:if>
+									<s:else>
+										已维修
+									</s:else>
 								</td>
 								<td width="10%">
 									<s:property value="repairUser" />
 
 								</td>
 								<td width="10%">
-
+									<s:property value="note" />
 
 								</td>
 								<td width="10%">

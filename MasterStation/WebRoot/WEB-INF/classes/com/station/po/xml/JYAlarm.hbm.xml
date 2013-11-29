@@ -8,11 +8,17 @@
     <generator class="uuid.hex" />
    </id> 
   <property name="alarmText" type="string" column="alarm_Text" length="400"/>
-  <property name="alarmType" type="string" column="alarm_Type" length="400"/>
+  <property name="note" type="string" column="note" length="400"/>
   <property name="repairUser" type="string" column="repair_User" length="20"/>
-  <property name="status" type="string" column="status" length="40"/>
+  <property name="status" type="java.lang.Integer" column="status"/>
   <property name="alarmDatetime" type="java.sql.Date" column="alarm_Datetime"/>
-  <property name="isCabinet" type="java.lang.Integer" column="isCabinet"/>
-  <property name="deviceId" type="string" column="device_id" length="40"/>
+  <many-to-one name="cabinet"
+  		class="com.station.po.JYCabinet" outer-join="true" lazy="false">
+  		<column name="cab_id"></column>
+  	</many-to-one>	
+  <many-to-one name="device"
+  		class="com.station.po.JYDevice" outer-join="true" lazy="false">
+  		<column name="device_id"></column>
+  	</many-to-one>		
  </class>
 </hibernate-mapping>

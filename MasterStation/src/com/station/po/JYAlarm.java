@@ -6,23 +6,24 @@ public class JYAlarm {
 	private String id;
 	private Date alarmDatetime;
 	private String alarmText;
-	private String alarmType;
+	private String note;
 	private String repairUser; //维修人员
-	private String status;
-	private int isCabinet;
-	private String deviceId;
+	private int status;
+	private JYCabinet cabinet;
+	private JYDevice device;
 
-	public String getDeviceId() {
-		return deviceId;
+	
+	public JYCabinet getCabinet() {
+		return cabinet;
 	}
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
+	public void setCabinet(JYCabinet cabinet) {
+		this.cabinet = cabinet;
 	}
-	public int getIsCabinet() {
-		return isCabinet;
+	public JYDevice getDevice() {
+		return device;
 	}
-	public void setIsCabinet(int isCabinet) {
-		this.isCabinet = isCabinet;
+	public void setDevice(JYDevice device) {
+		this.device = device;
 	}
 	public String getId() {
 		return id;
@@ -42,23 +43,23 @@ public class JYAlarm {
 	public void setAlarmText(String alarmText) {
 		this.alarmText = alarmText;
 	}
-	public String getAlarmType() {
-		return alarmType;
-	}
-	public void setAlarmType(String alarmType) {
-		this.alarmType = alarmType;
-	}
 
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	public String getRepairUser() {
 		return repairUser;
 	}
 	public void setRepairUser(String repairUser) {
 		this.repairUser = repairUser;
 	}
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	

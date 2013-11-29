@@ -90,23 +90,24 @@ String path = request.getContextPath();
 			
 			<tr>
 				<th width="4%">
+				   <span>序号</span>
 				</th>
-				<th width="17%">
+				<th width="10%">
 					<span>站房名称</span>
 				</th>
-				<th width="17%">
+				<th width="40%">
 					<span>柜内设备数据</span>
 				</th>
-				<th width="15%">
+				<th width="10%">
 					<span>采集时间</span>
 				</th>
-				<th width="15%">
+				<th width="16%">
 					<span>设备状态</span>
 				</th>
-				<th width="15%">
+				<th width="10%">
 					<span>管理者</span>
 				</th>
-				<th width="17%">
+				<th width="10%">
 					<span>操作</span>
 				</th>
 			</tr>
@@ -117,36 +118,49 @@ String path = request.getContextPath();
 				<s:else>
 					<tr>
 				</s:else>
-					<td width="10%">
+					<td width="4%">
 						<input type="checkbox"/>
 						<s:property value="#status.count" /><br/>
 					</td>
-					<td width="15%">
+					<td width="10%">
 						<s:property value="#cabinet.line.name" /><br/>
 						<s:property value="#cabinet.cabNumber" /><s:property value="#cabinet.cabType.value" />
 					</td>
-					<td width="15%">
+					<td width="40%">
+					<table>
 						<s:iterator value="#cabinet.deviceList" var="device">
-							<s:property value="#device.name" />:
+						
+							<tr>
+							<td>
+							<b><s:property value="#device.name" /></b>
+							</td>
 								<s:iterator value="#device.detectorList" var="detector">
-									<s:property value="#detector.name" />:<s:property value="#detector.history.value" />
+								<td>
+									<s:property value="#detector.name" />:<s:property value="#detector.history.value" /><s:property value="#detector.unit" />
+								</td>
 								</s:iterator>
-						<br/>
+							</tr>	
+						
 						</s:iterator>
+						</table>
 					</td>
-					<td width="15%">
+					<td width="10%">
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.collectDate" format="yyyy-MM-dd" /><br/>
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.collectTime" format="HH:mm:ss"/>
 					</td>
-					<td width="15%">
-						<s:property value="enviTemp" />
+					<td width="16%">
+						<s:property value="#cabinet.alarm.alarmText" />
+						<s:iterator value="#cabinet.deviceList" var="device">
+							<br/>
+							<s:property value="#device.alarm.alarmText" />
+						</s:iterator>
 					</td>
-					<td width="15%">
+					<td width="10%">
 						<s:property value="#cabinet.user.username" />
 					</td>
-					<td width="15%">
-						<a href="listAlarm.action">历史报警</a>
-											<a href="listHistory.action?sqlDeviceHistoryColumn.identify=<s:property value="identify" />">历史温度</a>
+					<td width="10%">
+						<a href="listAlarm.action">历史报警</a><br/>
+						<a href="listHistory.action?sqlDeviceHistoryColumn.identify=<s:property value="identify" />">历史温度</a>
 					</td>
 				</tr>
 			</s:iterator>

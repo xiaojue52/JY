@@ -169,6 +169,7 @@
 								</td>
 								<td width="10%">
 									<s:property value="value" />
+									<s:property value="detector.unit" />
 								</td>
 								<td width="10%">
 									<s:property value="detector.device.cabinet.user.username" />
