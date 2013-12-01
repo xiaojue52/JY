@@ -118,10 +118,12 @@ String path = request.getContextPath();
 	  <table id="table_tr" class="gridtable">		
 			<s:iterator value="pageBean.list" var="cabinet" status="status">
 				<s:if test="#status.count%2==0">
-					<tr bgcolor="#F2F2F2">
+					<tr bgcolor="#F2F2F2" onmouseout="javascript:this.bgColor='#F2F2F2'"
+ onmouseover="javascript:this.bgColor='#f5fafe'" >
 				</s:if>
 				<s:else>
-					<tr>
+					<tr onmouseout="javascript:this.bgColor='#ffffff'"
+ onmouseover="javascript:this.bgColor='#f5fafe'">
 				</s:else>
 					<td width="4%">
 						<input type="checkbox"/>
@@ -176,38 +178,48 @@ String path = request.getContextPath();
 					<tbody>
 						<tr>
 							<td>
-								<select class="pagination-page-list">
-									<option value="10">
-										10
-									</option>
-									<option value="20">
-										20
-									</option>
-									<option value="30">
-										30
-									</option>
-									<option value="40">
-										40
-									</option>
-									<option value="50">
-										50
-									</option>
+								<select class="pagination-page-list" name="pageList" onchange="window.location='mainAction.action?pageList='+this.options[this.options.selectedIndex].value">
+									<s:iterator value="pageNumberList" var="number">
+									 
+										<s:if test="#number==pageList">
+										<option value="${number }" selected="selected">${number }</option>
+										</s:if>
+										<s:else>
+										<option value="${number }">${number }</option>
+										</s:else>
+									</s:iterator>
 								</select>
 							</td>
 							<td>
 								<div class="pagination-btn-separator"></div>
 							</td>
 							<td>
-								<a href="javascript:void(0)"
-									class="pagination-first-btn p-plain p-btn-disabled"><span
-									class="pagination-first  p-btn">&nbsp;</span>
+							    <s:if test="CurrentPage>1">
+								<a href="mainAction.action?page=1"
+									class="pagination-first-btn p-plain">
+									<span class="pagination-first  p-btn">&nbsp;</span>
 								</a>
+								</s:if>	
+								<s:else>
+								<a href="javascript:void(0)"
+									class="pagination-first-btn p-plain p-btn-disabled">
+									<span class="pagination-first  p-btn">&nbsp;</span>
+								</a>
+								</s:else>
 							</td>
 							<td>
-								<a href="javascript:void(0)"
-									class="pagination-prev-btn p-plain p-btn-disabled"><span
+								<s:if test="CurrentPage>1">
+								<a href="mainAction.action?page=${CurrentPage-1 }"
+									class="pagination-prev-btn p-plain"><span
 									class="pagination-prev  p-btn">&nbsp;</span>
 								</a>
+								</s:if>	
+								<s:else>
+								<a href="javascript:void(0)"
+									class="pagination-prev-btn p-plain p-btn-disabled">
+									<span class="pagination-prev  p-btn">&nbsp;</span>
+								</a>
+								</s:else>
 							</td>
 							<td>
 								<div class="pagination-btn-separator"></div>
@@ -219,28 +231,44 @@ String path = request.getContextPath();
 								<s:property value="CurrentPage" />
 							</td>
 							<td>
-								<span style="padding-right: 6px;">页  共<s:property value="TotalPage" />页</span>
+								<span style="padding-right: 6px;">页  共${TotalPage}页</span>
 							</td>
 							<td>
 								<div class="pagination-btn-separator"></div>
 							</td>
 							<td>
-								<a href="javascript:void(0)"
+								<s:if test="%{CurrentPage< TotalPage}">
+								<a href="mainAction.action?page=${CurrentPage+1 }"
+									class="pagination-next-btn p-plain"><span
+									class="pagination-next p-btn">&nbsp;</span>
+								</a>
+								</s:if>
+								<s:else>
+								<a href="javascript:viod(0)"
 									class="pagination-next-btn p-plain p-btn-disabled"><span
 									class="pagination-next p-btn">&nbsp;</span>
 								</a>
+								</s:else>
 							</td>
 							<td>
+								<s:if test="%{(CurrentPage+1) > TotalPage}">
 								<a href="javascript:void(0)"
 									class="pagination-last-btn p-plain p-btn-disabled"><span
 									class="pagination-last p-btn ">&nbsp;</span>
 								</a>
+								</s:if>
+								<s:else>
+								<a href="mainAction.action?page=${TotalPage}"
+									class="pagination-last-btn p-plain"><span
+									class="pagination-last p-btn ">&nbsp;</span>
+								</a>
+								</s:else>
 							</td>
 							<td>
 								<div class="pagination-btn-separator"></div>
 							</td>
 							<td>
-								<a href="javascript:void(0)" class="pagination-load-btn p-plain"><span
+								<a href="mainAction.action?page=${CurrentPage}" class="pagination-load-btn p-plain"><span
 									class="pagination-load p-btn">&nbsp;</span>
 								</a>
 							</td>
@@ -250,10 +278,11 @@ String path = request.getContextPath();
 				</table>
 				
 				<div class="pagination-info">
-					当前显示1到10条，共<s:property value="TotalCount" />条
+					当前显示${(CurrentPage-1)*pageList+1 }到${CurrentPage*pageList }条，共${TotalCount}条
 				</div>
 				</s:iterator>
 			</div>
+				
 		</div>
 		<script>
 			var table_tr = document.getElementById('table_tr');

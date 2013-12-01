@@ -1,5 +1,8 @@
 package com.station.account.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.pagebean.PageBean;
 import com.station.service.JYUserService;
@@ -14,6 +17,30 @@ public class ListUsersAction extends ActionSupport {
 	private int ret;
 	private String username;
 	private String company;
+	private int pageList = 10;
+	private List<Integer> pageNumberList = new ArrayList<Integer>();
+	
+
+	public List<Integer> getPageNumberList() {
+		pageNumberList.clear();
+		pageNumberList.add(10);
+		pageNumberList.add(20);
+		pageNumberList.add(30);
+		pageNumberList.add(40);
+		return pageNumberList;
+	}
+
+	public void setPageNumberList(List<Integer> pageNumberList) {
+		this.pageNumberList = pageNumberList;
+	}
+
+	public int getPageList() {
+		return pageList;
+	}
+
+	public void setPageList(int pageList) {
+		this.pageList = pageList;
+	}
 
 	public String getUsername() {
 		return username;
@@ -73,7 +100,7 @@ public class ListUsersAction extends ActionSupport {
 
 	public String execute() throws Exception {
 		String hql = this.createSql();
-		this.pageBean = userService.getPerPage(100, page, hql);
+		this.pageBean = userService.getPerPage(pageList, page, hql);
 		if (errorCode == -1){
 			ret = -1;
 		}else if(errorCode == -2){

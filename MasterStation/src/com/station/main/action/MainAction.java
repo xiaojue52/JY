@@ -1,6 +1,9 @@
 package com.station.main.action;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -19,6 +22,29 @@ public class MainAction extends ActionSupport {
 	private SqlQueryColumn sqlDeviceColumn;
 	private static SocketListener socketListener;
     private int timer = 3000;
+    private int pageList = 10;
+	private List<Integer> pageNumberList = new ArrayList<Integer>();
+	
+
+	public void setPageList(int pageList) {
+		this.pageList = pageList;
+	}
+
+	public List<Integer> getPageNumberList() {
+		pageNumberList.clear();
+		pageNumberList.add(10);
+		pageNumberList.add(20);
+		pageNumberList.add(30);
+		pageNumberList.add(40);
+		return pageNumberList;
+	}
+
+	public void setPageNumberList(List<Integer> pageNumberList) {
+		this.pageNumberList = pageNumberList;
+	}
+	public int getPageList() {
+		return pageList;
+	}
     
 	public int getTimer() {
 		return timer;
@@ -55,8 +81,8 @@ public class MainAction extends ActionSupport {
 		
 		this.methodCode = 0;
 		final String hql = "from JYCabinet cabinet";
-		this.pageBean = monitorService.getPerPage(9, page, hql);
-		page = 1;
+		this.pageBean = monitorService.getPerPage(pageList, page, hql);
+		//page = 1;
 		HttpServletRequest request = ServletActionContext.getRequest ();
 		request.setAttribute("methodCode",this.methodCode );
 		
@@ -69,8 +95,8 @@ public class MainAction extends ActionSupport {
 		//socketListener.sendCommandWithIdentify("1");
 		this.methodCode = 1;
 		final String hql = this.createSql();
-		this.pageBean = monitorService.getPerPage(9, page, hql);
-		page = 1;
+		this.pageBean = monitorService.getPerPage(pageList, page, hql);
+		//page = 1;
 		HttpServletRequest request = ServletActionContext.getRequest ();
 		request.setAttribute("methodCode",this.methodCode );
 		

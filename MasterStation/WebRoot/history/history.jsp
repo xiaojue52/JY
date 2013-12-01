@@ -199,11 +199,13 @@
 						
 						<s:iterator value="pageBean.list" var="history" status="status">
 							<s:if test="#status.count%2==0">
-								<tr bgcolor="#F2F2F2">
-							</s:if>
-							<s:else>
-								<tr>
-							</s:else>
+					<tr bgcolor="#F2F2F2" onmouseout="javascript:this.bgColor='#F2F2F2'"
+ onmouseover="javascript:this.bgColor='#f5fafe'" >
+				</s:if>
+				<s:else>
+					<tr onmouseout="javascript:this.bgColor='#ffffff'"
+ onmouseover="javascript:this.bgColor='#f5fafe'">
+				</s:else>
 								<td width="15%">
 									<s:date name="#history.collectDate" format="yyyy-MM-dd" />
 								</td>
@@ -234,88 +236,116 @@
 					</table>
 				</div>
 				<div class="datagrid-pager pagination" id="datagrid_89353_pager">
-					<s:iterator value="pageBean">
-						<table border="0" cellpadding="0" cellspacing="0">
-							<tbody>
-								<tr>
-									<td>
-										<select class="pagination-page-list">
-											<option value="10">
-												10
-											</option>
-											<option value="20">
-												20
-											</option>
-											<option value="30">
-												30
-											</option>
-											<option value="40">
-												40
-											</option>
-											<option value="50">
-												50
-											</option>
-										</select>
-									</td>
-									<td>
-										<div class="pagination-btn-separator"></div>
-									</td>
-									<td>
-										<a href="javascript:void(0)"
-											class="pagination-first-btn p-plain p-btn-disabled"><span
-											class="pagination-first  p-btn">&nbsp;</span> </a>
-									</td>
-									<td>
-										<a href="javascript:void(0)"
-											class="pagination-prev-btn p-plain p-btn-disabled"><span
-											class="pagination-prev  p-btn">&nbsp;</span> </a>
-									</td>
-									<td>
-										<div class="pagination-btn-separator"></div>
-									</td>
-									<td>
-										<span style="padding-left: 6px;">第</span>
-									</td>
-									<td>
-										<s:property value="CurrentPage" />
-									</td>
-									<td>
-										<span style="padding-right: 6px;">页 共<s:property
-												value="TotalPage" />页</span>
-									</td>
-									<td>
-										<div class="pagination-btn-separator"></div>
-									</td>
-									<td>
-										<a href="javascript:void(0)"
-											class="pagination-next-btn p-plain p-btn-disabled"><span
-											class="pagination-next p-btn">&nbsp;</span> </a>
-									</td>
-									<td>
-										<a href="javascript:void(0)"
-											class="pagination-last-btn p-plain p-btn-disabled"><span
-											class="pagination-last p-btn ">&nbsp;</span> </a>
-									</td>
-									<td>
-										<div class="pagination-btn-separator"></div>
-									</td>
-									<td>
-										<a href="javascript:void(0)"
-											class="pagination-load-btn p-plain"><span
-											class="pagination-load p-btn">&nbsp;</span> </a>
-									</td>
-									<td id="pagination-toolbar-datagrid_89353"></td>
-								</tr>
-							</tbody>
-						</table>
-
-						<div class="pagination-info">
-							当前显示1到10条，共
-							<s:property value="TotalCount" />
-							条
-						</div>
-					</s:iterator>
+			<s:iterator value="pageBean">
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td>
+								<select class="pagination-page-list" name="pageList" onchange="window.location='listHistory.action?pageList='+this.options[this.options.selectedIndex].value">
+									<s:iterator value="pageNumberList" var="number">
+									 
+										<s:if test="#number==pageList">
+										<option value="${number }" selected="selected">${number }</option>
+										</s:if>
+										<s:else>
+										<option value="${number }">${number }</option>
+										</s:else>
+									</s:iterator>
+								</select>
+							</td>
+							<td>
+								<div class="pagination-btn-separator"></div>
+							</td>
+							<td>
+							    <s:if test="CurrentPage>1">
+								<a href="listHistory.action?page=1"
+									class="pagination-first-btn p-plain">
+									<span class="pagination-first  p-btn">&nbsp;</span>
+								</a>
+								</s:if>	
+								<s:else>
+								<a href="javascript:void(0)"
+									class="pagination-first-btn p-plain p-btn-disabled">
+									<span class="pagination-first  p-btn">&nbsp;</span>
+								</a>
+								</s:else>
+							</td>
+							<td>
+								<s:if test="CurrentPage>1">
+								<a href="listHistory.action?page=${CurrentPage-1 }"
+									class="pagination-prev-btn p-plain"><span
+									class="pagination-prev  p-btn">&nbsp;</span>
+								</a>
+								</s:if>	
+								<s:else>
+								<a href="javascript:void(0)"
+									class="pagination-prev-btn p-plain p-btn-disabled">
+									<span class="pagination-prev  p-btn">&nbsp;</span>
+								</a>
+								</s:else>
+							</td>
+							<td>
+								<div class="pagination-btn-separator"></div>
+							</td>
+							<td>
+								<span style="padding-left: 6px;">第</span>
+							</td>
+							<td>
+								<s:property value="CurrentPage" />
+							</td>
+							<td>
+								<span style="padding-right: 6px;">页  共${TotalPage}页</span>
+							</td>
+							<td>
+								<div class="pagination-btn-separator"></div>
+							</td>
+							<td>
+								<s:if test="%{CurrentPage< TotalPage}">
+								<a href="listHistory.action?page=${CurrentPage+1 }"
+									class="pagination-next-btn p-plain"><span
+									class="pagination-next p-btn">&nbsp;</span>
+								</a>
+								</s:if>
+								<s:else>
+								<a href="javascript:viod(0)"
+									class="pagination-next-btn p-plain p-btn-disabled"><span
+									class="pagination-next p-btn">&nbsp;</span>
+								</a>
+								</s:else>
+							</td>
+							<td>
+								<s:if test="%{(CurrentPage+1) > TotalPage}">
+								<a href="javascript:void(0)"
+									class="pagination-last-btn p-plain p-btn-disabled"><span
+									class="pagination-last p-btn ">&nbsp;</span>
+								</a>
+								</s:if>
+								<s:else>
+								<a href="listHistory.action?page=${TotalPage}"
+									class="pagination-last-btn p-plain"><span
+									class="pagination-last p-btn ">&nbsp;</span>
+								</a>
+								</s:else>
+							</td>
+							<td>
+								<div class="pagination-btn-separator"></div>
+							</td>
+							<td>
+								<a href="listHistory.action?page=${CurrentPage}" class="pagination-load-btn p-plain"><span
+									class="pagination-load p-btn">&nbsp;</span>
+								</a>
+							</td>
+							<td id="pagination-toolbar-datagrid_89353"></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div class="pagination-info">
+					当前显示${(CurrentPage-1)*pageList+1 }到${CurrentPage*pageList }条，共${TotalCount}条
 				</div>
+				</s:iterator>
+			</div>
+				
 			</div>
 		</div>
 		</div>

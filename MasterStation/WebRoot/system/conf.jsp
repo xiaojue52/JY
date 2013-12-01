@@ -114,7 +114,7 @@
 							<input id="enable2" type="hidden" name="alarmType2.enable" value="<s:property value="alarmType2.enable"/>"/>
 						</td>
 						<td>
-							三相之间的温度差查过设定值（T2°）
+							三相之间的温度差超过设定值（T2°）
 						</td>
 						<td>
 							T2=
