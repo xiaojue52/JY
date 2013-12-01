@@ -23,24 +23,24 @@
   <action name="logout" class="logoutAction" method="logout">
    <result name="success" type="redirect">/index.jsp</result>
   </action>
-  <action name="listUsers" class="listUsersAction">
+  <action name="listUser" class="listUsersAction">
    <result name="success">/account/user_list.jsp</result>
   </action>
   <action name="updateUser" class="updateUserAction" method="updateUser">
-   <result name="users" type="redirect">/listUsers.action</result>
+   <result name="users" type="redirect">/listUser.action</result>
   </action>
   <action name="updatePassword" class="updateUserAction" method="updatePassword">
   </action>
   <action name="deleteUser" class="deleteUserAction">
-   <result name="success" type="redirect">/listUsers.action</result>
-   <result name="error" type="redirect">/listUsers.action?errorCode=-2</result>
+   <result name="success" type="redirect">/listUser.action</result>
+   <result name="error" type="redirect">/listUser.action?errorCode=-2</result>
   </action>
   <action name="showUser" class="showUserAction" method="showUserAction">
    <result name="json"></result>
   </action>
   <action name="addUser" class="addUserAction">
-   <result name="success" type="redirect">/listUsers.action</result>
-   <result name="error" type="redirect">/listUsers.action?errorCode=-1</result>
+   <result name="success" type="redirect">/listUser.action</result>
+   <result name="error" type="redirect">/listUser.action?errorCode=-1</result>
   </action>
   </package>
 

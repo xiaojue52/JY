@@ -15,13 +15,13 @@
 			<table id="form" style="margin-top:30px">
 				<tr>
 					<td align="right">
-						<span class="comText">用户名:</span>
+						<span>用户名:</span>
 					</td>
 					<td><input class="comInput" type="text" value="<%=username%>" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td align="right">
-						<span class="comText">旧密码:</span>
+						<span>旧密码:</span>
 					</td>
 					<td>
 						<input class="comInput" type="password" id="password"/>
@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						<span class="comText">新密码:</span>
+						<span>新密码:</span>
 					</td>
 					<td>
 						<input class="comInput" id="newPassword" type="password">
@@ -37,7 +37,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						<span class="comText">确认密码:</span>
+						<span>确认密码:</span>
 					</td>
 					<td>
 						<input class="comInput" id="verifyPassword" type="password">

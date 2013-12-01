@@ -18,7 +18,7 @@
 			<s:form action="updateUser.action" method="post" id="form">
 				<tr>
 					<td align="right">
-						用户名：
+						<span>用户名：</span>
 					</td>
 					<td>
 						<input type="text" id="user_username" name="user.username" value=""
@@ -27,7 +27,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						手机号码：
+						<span>手机号码：</span>
 					</td>
 					<td>
 						<input type="text"  id="user_contact" name="user.contact" value="" />
@@ -35,7 +35,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						所在单位：
+						<span>所在单位：</span>
 					</td>
 					<td>
 						<input type="text"  id="user_company" name="user.company" value="" />
@@ -43,7 +43,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						职位级别：
+						<span>职位级别：</span>
 					</td>
 					<td>
 						<input type="text"  id="user_jobLevel" name="user.jobLevel" value="" />
@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						系统角色：
+						<span>系统角色：</span>
 					</td>
 					<td>
 						<select id="user_userLevel" name="user.userLevel">
@@ -60,7 +60,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						重置密码：
+						<span>重置密码：</span>
 					</td>
 					<td>
 						<select name="resetPassword">

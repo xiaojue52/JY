@@ -30,6 +30,7 @@ public class CabinetAction extends ActionSupport{
 	}
 	public void showCabinetRecord(){
 		cabinet = cabinetService.findJYCabinetById(cabinet.getCabId());
+		cabinet.setAlarm(null);
         Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("cabinet", cabinet);
 		HttpServletResponse response = ServletActionContext.getResponse();

@@ -21,7 +21,7 @@
 			<s:form action="addUser.action" method="post" id="form">
 				<tr>
 					<td align="right">
-						用户名：
+						<span>用户名：</span>
 					</td>
 					<td>
 						<input type="text" name="user.username" />
@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						初始密码：
+						<span>初始密码：</span>
 					</td>
 					<td>
 						<input type="text" name="user.password" value="000000" readonly="readonly"
@@ -38,7 +38,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						手机号码：
+						<span>手机号码：</span>
 					</td>
 					<td>
 						<input type="text" name="user.contact" />
@@ -46,7 +46,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						所在单位：
+						<span>所在单位：</span>
 					</td>
 					<td>
 						<input type="text" name="user.company" />
@@ -54,7 +54,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						职位级别：
+						<span>职位级别：</span>
 					</td>
 					<td>
 						<input type="text" name="user.jobLevel" />
@@ -62,7 +62,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						系统角色：
+						<span>系统角色：</span>
 					</td>
 					<td>
 						<select name="user.userLevel">

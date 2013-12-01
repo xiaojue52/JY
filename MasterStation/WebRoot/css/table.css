@@ -2,7 +2,7 @@
 table.gridtable {
 	font-family: verdana,arial,sans-serif;
 	font-size:12px;
-	border-width: 2px;
+	border-width: 1px;
 	border-collapse: collapse;
 	width:100%;
 }

@@ -53,6 +53,7 @@
 				<span>柜体编号：<input id='queryNumber' type="text" />
 				</span>
 				<span>柜体类型：<select id="queryType">
+						<option value='-1'>全部</option>
 						<%
 								for (int i = 0; i < cabTypeList.size(); i++) {
 							%>
@@ -65,6 +66,7 @@
 					</select>
 				</span>
 				<span>管理者：<select id="queryUser">
+						<option value='-1'>全部</option>
 						<%
 								for (int i = 0; i < userList.size(); i++) {
 							%>
@@ -81,7 +83,8 @@
 				</span>
 			</s:form>
 			<br/>
-		</div><br/>
+		</div>
+		<div class="center_table_div">
 		<script type="text/javascript">
 		Ext.BLANK_IMAGE_URL = 'js/ext/resources/images/default/tree/s.gif';
 		var tag = '<s:property value="tag"/>'; 
@@ -96,5 +99,6 @@
 				</td>
 			</tr>
 		</table>
+		</div>
 	</body>
 </html>

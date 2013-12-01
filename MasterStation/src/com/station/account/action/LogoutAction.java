@@ -8,7 +8,7 @@ public class LogoutAction extends ActionSupport {
 	@SuppressWarnings("static-access")
 	public String logout(){
 		LoginStatus.clearUserDataFromSession();
-		//System.out.print("logout");
+		//System.out.print("logout");aaa
 		return this.SUCCESS;
 	}
 }

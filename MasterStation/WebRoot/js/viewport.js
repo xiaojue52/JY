@@ -19,6 +19,7 @@ Ext.onReady(function() {
 			minSize : 50,
 			frame : true,
 		}, {
+			id:"center",
 			region : 'center',
 			contentEl : 'center-div',
 			split : true,

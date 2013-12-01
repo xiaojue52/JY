@@ -16,7 +16,7 @@ Ext.onReady(function(){
             dataUrl : "getTreeData.action"  
         }),  
         width : 200,  
-        height : 400,  
+        height : 480,  
         autoScroll:true
     });  
       
@@ -30,15 +30,16 @@ Ext.onReady(function(){
     });  
 
     tree.on("click", function(node){  
-
     	switch(node.attributes.level){
     		case 2:
     			Ext.Ajax.request({  
     	            url : "showCabinetRecord.action",  
     	            params : {'cabinet.cabId':node.id},  
     	            success : function(res){  
+    	            	
     	                var txt = res.responseText;  
     	                var obj = Ext.decode(txt);  
+    	                
     	                //alert(obj.cabinet.line.name);
     	                $("#line").val(obj.cabinet.line.name);
     	                $("#lineId").val(node.parentNode.id);

@@ -122,17 +122,16 @@
 				</table>
 			</s:form>
 		</div>
-		<br />
+		<div class="center_table_div">
 
 		<div
-			style="min-width: 900px; width: 100%; height: 420px; margin-top: 0px;">
+			style="min-width: 900px; width: 100%; height: 430px; margin-top: 0px;">
 			<div class="datagrid-container datagrid-container-border"
 				id="datagrid_89353"
 				style="position: relative; overflow: hidden; width: 100%; height: 430px;">
-				<div style="width: 100%; height: 400px; overflow: auto">
-					<table class="gridtable">
-
-						<tr>
+				<div style="background-color:#f5f5f5;overflow: hidden;">
+	  	<table id="table_th" class="gridtable">
+	  	<tr>
 							<th width="10%">
 								<span>报警日期</span>
 							</th>
@@ -162,6 +161,12 @@
 								<span>操作</span>
 							</th>
 						</tr>
+	  	</table>
+	  	</div>
+				<div style="width: 100%; height: 370px; overflow: auto">
+					<table id="table_tr" class="gridtable">
+
+						
 						<s:iterator value="pageBean.list" var="alarm" status="status">
 							<s:if test="#status.count%2==0">
 								<tr bgcolor="#F2F2F2">
@@ -175,7 +180,7 @@
 								<td width="10%">
 									<s:date name="#alarm.alarmDatetime" format="HH:mm:ss" />
 								</td>
-								<td width="10%">
+								<td width="20%">
 									<s:if test="#alarm.cabinet !=null">
 										<s:property value="#alarm.cabinet.line.name" /><br/>
 										<s:property value="#alarm.cabinet.cabNumber" />
@@ -309,6 +314,15 @@
 					</s:iterator>
 				</div>
 			</div>
-		</div>
+		</div></div>
+		<script>
+			var table_tr = document.getElementById('table_tr');
+			$('#table_th').width(table_tr.scrollWidth);
+			$(window).resize(function() {
+				var table_tr1 = document.getElementById('table_tr');
+				$('#table_th').width(table_tr1.scrollWidth-1);
+			});
+							
+		</script>
 	</body>
 </html>

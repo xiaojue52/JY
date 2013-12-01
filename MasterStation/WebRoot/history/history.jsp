@@ -45,81 +45,129 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<script src="<%=path%>/js/jquery-1.9.1.js" type="text/javascript"></script>
-		<script src="<%=path%>/js/control.js" type="text/javascript"></script>
+		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+		<script src="js/control.js" type="text/javascript"></script>
 		<script src="js/datepicker.js" type="text/javascript"></script>
 	</head> 
 
 	<body>
 		<div class="toolbar">
-			<s:form>
+			<s:form action="listHistory">
 				<table>
 					<tr>
 						<td>
-							<span>线路：<input id='queryLine' type="text" /> </span>
+							<span>线路：
+							<s:if test="queryLine == \"%\"||queryLine==null">
+							<input name='queryLine' type="text" /> 
+							</s:if>
+							<s:else>
+							<input name='queryLine' type="text" value="<s:property value="queryLine"/>"/> 
+							</s:else>
+							</span>
 						</td>
 						<td>
-							<span>柜体编号：<input id='queryNumber' type="text" /> </span>
+							<span>柜体编号：
+							<s:if test="queryNumber == \"%\"||queryNumber==null">
+							<input name='queryNumber' type="text" /> 
+							</s:if>
+							<s:else>
+							<input name='queryNumber' type="text" value="<s:property value="queryNumber"/>"/> 
+							</s:else>
+							</span>
 						</td>
 						<td>
-						<span>管理者：<select id="queryUser">
-											<%
-								for (int i = 0; i < userList.size(); i++) {
-							%>
-											<option value='<%=userList.get(i).getUsername()%>'>
-												<%=userList.get(i).getUsername()%>
-											</option>
-											<%
-								}
-							%>
-										</select> </span>
+							<span>变送器：
+							<s:if test="queryDevice == \"%\"||queryDevice==null">
+							<input name='queryDevice' type="text" /> 
+							</s:if>
+							<s:else>
+							<input name='queryDevice' type="text" value="<s:property value="queryDevice"/>"/> 
+							</s:else>
+							 </span>
+						</td>
+						<td>
+						<span>管理者：<select name="queryUser">
+						 	<option value="">全部</option>	
+							<s:iterator value="userList" var="user" status="status">
+							 <s:if test="queryUser==#user.username">
+							 	<option value="<s:property value="#user.username"/>" selected="selected"><s:property value="#user.username"/></option>
+							 </s:if>
+							 <s:else>
+								<option value="<s:property value="#user.username"/>"><s:property value="#user.username"/></option>
+							</s:else>
+							</s:iterator>				
+								
+							</select> </span>
 							
 						</td>
 						</tr>
 							<tr>
 								<td>
-									<span>开始日期： <input id='queryStartDate' type="text" onfocus="setday(this)"/> </span>
+									<span>采集单元：
+									<s:if test="queryDetector == \"%\"||queryDetector==null">
+									<input name='queryDetector' type="text" /> 
+									</s:if>
+									<s:else>
+									<input name='queryDetector' type="text" value="<s:property value="queryDetector"/>"/> 
+									</s:else>
+									</span>
 								</td>
 								<td>
-									<span>结束日期：<input id='queryEndDate' type="text" onfocus="setday(this)"/> </span>
+									<span>开始日期：
+									<s:if test="queryStartDate == \"1000-01-01\"||queryStartDate==null">
+									<input name='queryStartDate' type="text" onfocus="setday(this)"/> 
+									</s:if>
+									<s:else>
+									<input name='queryStartDate' type="text" value="<s:property value="queryStartDate"/>" onfocus="setday(this)"/> 
+									</s:else>
+									</span>
 								</td>
 								<td>
-									<span>柜体类型：<select id="queryType">
-									<%
-								for (int i = 0; i < cabTypeList.size(); i++) {
-							%>
-									<option value='<%=cabTypeList.get(i).getValue()%>'>
-										<%=cabTypeList.get(i).getValue()%>
-									</option>
-									<%
-								}
-							%>
+									<span>结束日期：
+									<s:if test="queryEndDate == \"9999-12-12\"||queryEndDate==null">
+									<input name='queryEndDate' type="text" onfocus="setday(this)"/> 
+									</s:if>
+									<s:else>
+									<input name='queryEndDate' type="text" value="<s:property value="queryEndDate"/>" onfocus="setday(this)"/> 
+									</s:else>
+									</span>
+								</td>
+								<td>
+									<span>柜体类型：<select name="queryType">
+									<option value="">全部</option>	
+									<s:iterator value="cabTypeList" var="cabType" status="status">
+							 			<s:if test="queryType==#cabType.value">
+							 		<option value="<s:property value="#cabType.value"/>" selected="selected"><s:property value="#cabType.value"/></option>
+									 </s:if>
+									 <s:else>
+										<option value="<s:property value="#cabType.value"/>"><s:property value="#cabType.value"/></option>
+									</s:else>
+									</s:iterator>
 								</select> </span>
 								</td>
 								<td>
-									<span><input class="toolbarButton" type="button"
-											value="查询" onclick="queryDevice();" /> </span>
+									<span><input class="toolbarButton" type="submit"
+											value="查询"/> </span>
 								</td>
 								<td>
 									<span><input class="toolbarButton" type="button"
-											value="系统监控" onclick="window.location='mainAction.action'" />
+											value="系统监控" onclick="window.location='mainAction.action';return false;" />
 									</span>
 								</td>
 							</tr>
 				</table>
 			</s:form>
 		</div>
-		<br />
-
+		<div class="center_table_div">
+		
 		<div
-			style="min-width: 900px; width: 100%; height: 420px; margin-top: 0px;">
+			style="min-width: 900px; width: 100%; height: 430px; margin-top: 0px;">
 			<div class="datagrid-container datagrid-container-border"
 				id="datagrid_89353"
 				style="position: relative; overflow: hidden; width: 100%; height: 430px;">
-				<div style="width: 100%; height: 400px; overflow: auto">
-					<table class="gridtable">
-
-						<tr>
+				<div style="background-color:#f5f5f5;overflow: hidden;">
+	  			<table id="table_th" class="gridtable">
+	  					<tr>
 							<th width="15%">
 								<span>采集日期</span>
 							</th>
@@ -142,6 +190,13 @@
 								<span>管理者</span>
 							</th>
 						</tr>
+	  			</table>
+	  			</div>
+				
+				<div style="width: 100%; height: 370px; overflow: auto">
+					<table id="table_tr" class="gridtable">
+
+						
 						<s:iterator value="pageBean.list" var="history" status="status">
 							<s:if test="#status.count%2==0">
 								<tr bgcolor="#F2F2F2">
@@ -263,6 +318,15 @@
 				</div>
 			</div>
 		</div>
-
+		</div>
+		<script>
+			var table_tr = document.getElementById('table_tr');
+			$('#table_th').width(table_tr.scrollWidth);
+			$(window).resize(function() {
+				var table_tr1 = document.getElementById('table_tr');
+				$('#table_th').width(table_tr1.scrollWidth-1);
+			});
+							
+		</script>
 	</body>
 </html>

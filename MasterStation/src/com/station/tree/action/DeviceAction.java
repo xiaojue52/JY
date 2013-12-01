@@ -34,6 +34,8 @@ public class DeviceAction extends ActionSupport{
 	}
 	public void showDeviceRecord(){
 		device = deviceService.findJYDeviceById(device.getDeviceId());
+		device.setAlarm(null);
+		device.getCabinet().setAlarm(null);
         Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("device", device);
 		HttpServletResponse response = ServletActionContext.getResponse();

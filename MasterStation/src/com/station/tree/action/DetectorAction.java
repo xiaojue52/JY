@@ -30,6 +30,9 @@ public class DetectorAction extends ActionSupport{
 	}
 	public void showDetectorRecord(){
 		detector = detectorService.findJYDetectorById(detector.getDetectorId());
+		detector.getDevice().setAlarm(null);
+		detector.getDevice().getCabinet().setAlarm(null);
+		detector.setHistory(null);
         Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("detector", detector);
 		HttpServletResponse response = ServletActionContext.getResponse();

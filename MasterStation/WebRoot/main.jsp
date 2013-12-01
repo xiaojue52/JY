@@ -47,22 +47,23 @@
 			版权所有 翻版必究 
 		</div>
 		<div id="monitor_div" class="panelDiv">
-			<button onclick="setFrameSrc('mainAction.action');" class="itemDiv">系统监控</button>
+			<button onclick="setFrameSrc('mainAction.action','系统监控');" class="itemDiv">系统监控</button>
+			<button onclick="setFrameSrc('mainAction.action','设备状态');" class="itemDiv">设备状态</button>
 		</div>
 		<div id="user_div" class="panelDiv">
-			<button onclick="setFrameSrc('listUsers.action');" class="itemDiv">用户管理</button>
+			<button onclick="setFrameSrc('listUser.action','用户管理');" class="itemDiv">用户管理</button>
 		</div>	
 		<div id="system_div" class="panelDiv">
-					<button  onclick="setFrameSrc('createTree.action');" class="itemDiv">设备管理</button>
-				<button  onclick="setFrameSrc('showAlarmType.action');" class="itemDiv">系统参数设置</button>
+					<button  onclick="setFrameSrc('createTree.action','设备管理');" class="itemDiv">设备管理</button>
+				<button  onclick="setFrameSrc('showAlarmType.action','系统参数设置');" class="itemDiv">系统参数设置</button>
 		</div>
 		<div id="history_div" class="panelDiv">
-				<button  onclick="setFrameSrc('listAlarm.action');" class="itemDiv">报警记录</button>
+				<button  onclick="setFrameSrc('listAlarm.action','报警记录');" class="itemDiv">报警记录</button>
 
-				<button  onclick="setFrameSrc('listHistory.action');" class="itemDiv">历史记录</button>
+				<button  onclick="setFrameSrc('listHistory.action','历史记录');" class="itemDiv">历史记录</button>
 		</div>
 		<div id="data_div" class="panelDiv">
-			<button onclick='setFrameSrc("history/chart.jsp");' class="itemDiv" >数据对比</button>
+			<button onclick='setFrameSrc("history/chart.jsp","数据对比");' class="itemDiv" >数据对比</button>
 		</div>
 		<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none;width:280px;">

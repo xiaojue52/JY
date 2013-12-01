@@ -78,15 +78,16 @@ String path = request.getContextPath();
 						</select></span><span><input class="toolbarButton" type="button" value="查询" onclick="queryDevice();"/></span>
 						<span><input class="toolbarButton" type="button" value="实时查询" onclick="queryDevice();"/></span>
 		</s:form>
-		</div><br/>
+		</div>
+		<div class="center_table_div">
 		
 		<div
-		style="min-width:900px;width: 100%; height: 450px; margin-top: 0px;">
+		style="min-width:900px;width: 100%; height: 460px; margin-top: 0px;">
 		<div class="datagrid-container datagrid-container-border"
 			id="datagrid_89353"
-			style="position: relative; overflow: hidden; width: 100%; height: 450px;">
-	  <div style="width:100%;height:420px;overflow: auto">
-	  <table class="gridtable">
+			style="position: relative; overflow: hidden; width: 100%; height: 460px;">
+	  <div style="background-color:#f5f5f5">
+	  <table id="table_th" class="gridtable">
 			
 			<tr>
 				<th width="4%">
@@ -102,7 +103,7 @@ String path = request.getContextPath();
 					<span>采集时间</span>
 				</th>
 				<th width="16%">
-					<span>设备状态</span>
+					<span>报警信息</span>
 				</th>
 				<th width="10%">
 					<span>管理者</span>
@@ -111,6 +112,10 @@ String path = request.getContextPath();
 					<span>操作</span>
 				</th>
 			</tr>
+		</table>	
+		</div>
+	 <div style="width:100%;height:400px;overflow: auto">
+	  <table id="table_tr" class="gridtable">		
 			<s:iterator value="pageBean.list" var="cabinet" status="status">
 				<s:if test="#status.count%2==0">
 					<tr bgcolor="#F2F2F2">
@@ -250,7 +255,16 @@ String path = request.getContextPath();
 				</s:iterator>
 			</div>
 		</div>
-	</div>
+		<script>
+			var table_tr = document.getElementById('table_tr');
+			$('#table_th').width(table_tr.scrollWidth);
+			$(window).resize(function() {
+				var table_tr1 = document.getElementById('table_tr');
+				$('#table_th').width(table_tr1.scrollWidth-1);
+			});
+							
+		</script>
+	</div></div>
 			</body>
 </html>
 		

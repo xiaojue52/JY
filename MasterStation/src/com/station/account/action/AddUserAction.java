@@ -3,6 +3,7 @@ package com.station.account.action;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.md5.MD5;
 import com.station.po.JYUser;
 import com.station.service.JYUserService;
 
@@ -31,6 +32,10 @@ public class AddUserAction extends ActionSupport {
 		if (list.size()>0){
 			return ERROR;
 		}else{
+			if (this.user.getCompany()==null||this.user.getCompany().length()==0)
+				this.user.setCompany("--");
+			String password = MD5.CreateMD5String(this.user.getPassword());
+			this.user.setPassword(password);
 			this.userService.saveUser(this.user);
 			return SUCCESS;
 		}

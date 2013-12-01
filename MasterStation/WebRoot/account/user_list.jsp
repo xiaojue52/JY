@@ -32,14 +32,28 @@
 
 	<body>
 		<div class="toolbar">
-			<s:form action="">
-				<span> 用户名：<input type="text" name="sqlUserColumn.username"/></span><span>所在单位：<input
-					type="text" name="sqlUserColumn.company"/></span>
-				<span><input type="button" value="查询" class="toolbarButton"/> </span>
+			<s:form action="listUser.action">
+				<span> 用户名：
+				<s:if test="username == \"%\"||username==null">
+				<input name='username' type="text" /> 
+				</s:if>
+				<s:else>
+				<input name='username' type="text" value="<s:property value="username"/>"/> 
+				</s:else>
+				</span>
+				<span>所在单位：
+				<s:if test="company == \"%\"||company==null">
+				<input name='company' type="text" /> 
+				</s:if>
+				<s:else>
+				<input name='company' type="text" value="<s:property value="company"/>"/> 
+				</s:else>
+				</span>
+				<span><input type="submit" value="查询" class="toolbarButton"/> </span>
 				<span><button id="btnShow" class="toolbarButton">添加用户</button></span>
 			</s:form>	
 		</div>
-		<br/>
+		<div class="center_table_div">
 		<s:if test="ret==-1">
 		<div><span class="errorMessage">用户名冲突，用户已存在请改名！</span></div>
 		</s:if>
@@ -47,14 +61,13 @@
 		<div><span class="errorMessage">删除用户失败！请解除用户拥有的柜体！</span></div>
 		</s:if>
 <div
-		style="min-width:900px;width: 100%; height: 450px; margin-top: 0px;">
+		style="min-width:900px;width: 100%; height: 460px; margin-top: 0px;">
 		<div class="datagrid-container datagrid-container-border"
 			id="datagrid_89353"
-			style="position: relative; overflow: hidden; width: 100%; height: 450px;">
-	  <div style="width:100%;height:420px;overflow: auto">
-	  <table class="gridtable">
-			
-			<tr>
+			style="position: relative; overflow: hidden; width: 100%; height: 460px;">
+	  <div style="background-color:#f5f5f5;overflow: hidden;">
+	  <table id="table_th" class="gridtable">
+	  			<tr>
 				<th width="10%">
 					<span>用户编号</span>
 				</th>
@@ -67,16 +80,21 @@
 				<th width="15%">
 					<span>所在单位</span>
 				</th>
-				<th width="15%">
-					<span>职务级别</span>
-				</th>
+				
 				<th width="15%">
 					<span>系统角色</span>
+				</th>
+				<th width="15%">
+					<span>职务级别</span>
 				</th>
 				<th width="15%">
 					<span>操作</span>
 				</th>
 			</tr>
+	  </table>
+	  </div>
+	  <div id='table_div' style="width:100%;height:400px;overflow: auto;">
+	  <table id="table_tr" class="gridtable">
 			<s:iterator value="pageBean.list" var="account" status="status">
 				<s:if test="#status.count%2==0">
 					<tr bgcolor="#F2F2F2">
@@ -96,9 +114,7 @@
 					<td width="15%">
 						<s:property value="company" />
 					</td>
-					<td width="15%">
-						<s:property value="jobLevel" />
-					</td>
+					
 					<td width="15%">
 						<s:if test="%{#account.userLevel == 'user'}">
 							<span>普通用户</span>
@@ -106,6 +122,9 @@
 						<s:else>
 							<span>普通管理员</span>
 						</s:else>
+					</td>
+					<td width="15%">
+						<s:property value="jobLevel" />
 					</td>
 					<td width="15%">
 						<a
@@ -202,6 +221,15 @@
 				</s:iterator>
 			</div>
 		</div>
+		<script>
+			var table_tr = document.getElementById('table_tr');
+			$('#table_th').width(table_tr.scrollWidth);
+			$(window).resize(function() {
+				var table_tr1 = document.getElementById('table_tr');
+				$('#table_th').width(table_tr1.scrollWidth-1);
+			});
+							
+		</script>
 	</div>		
 		<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none;width:300px;height:310px;">
@@ -213,6 +241,6 @@
     	    		<jsp:include page="/account/user_details.jsp"></jsp:include>
     	    	</div>
 			</div>
-			
+			</div>
 	</body>
 </html>

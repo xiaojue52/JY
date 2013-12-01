@@ -267,6 +267,9 @@
 		<property name="historyService">
 			<ref bean="jyHistoryService" />
 		</property>
+		<property name="dataList">
+			<ref bean="DataList"/>
+		</property>
 	</bean>
 
 	<!-- 获取数据 -->
