@@ -15,19 +15,6 @@ String path = request.getContextPath();
 	//System.out.print("\n"+path+"\n"+basePath);
 	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
-	List<JYUser> userList = new ArrayList<JYUser>();
-	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
-	
-	if (username!=null)
-	{
-	WebApplicationContext wac = (WebApplicationContext) config
-			.getServletContext()
-			.getAttribute(
-					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-	DataList dataList = (DataList) wac.getBean("DataList");
-	userList = dataList.getUser();
-	cabTypeList = dataList.getCabTpyeConstant();
-	}
 %>
 <html>
 	<head>
@@ -45,37 +32,56 @@ String path = request.getContextPath();
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
 		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
-		<script src="js/control.js" type="text/javascript"></script>
+		<script src="js/monitor.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="css/monitor.css" />
 	</head>
 
 	<body>
 			       <div class="toolbar">
-			       <s:form>
-			       <span>线路：<input id='queryLine' type="text"/></span>
-			       <span>柜体编号：<input id='queryNumber' type="text"/></span>
-				   <span>柜体类型：<select id="queryType" class="selectbox">
-							<%
-								for (int i = 0; i < cabTypeList.size(); i++) {
-							%>
-							<option value='<%=cabTypeList.get(i).getValue()%>'>
-								<%=cabTypeList.get(i).getValue()%>
-							</option>
-							<%
-								}
-							%>
-						</select></span>
+			       <s:form action="mainAction.action">
+			       
+							<span>线路：
+							<s:if test="queryLine == \"%\"||queryLine==null">
+							<input name='queryLine' type="text" /> 
+							</s:if>
+							<s:else>
+							<input name='queryLine' type="text" value="<s:property value="queryLine"/>"/> 
+							</s:else>
+							</span>
 						
-						<span>管理者：<select id="queryUser" class="selectbox">
-							<%
-								for (int i = 0; i < userList.size(); i++) {
-							%>
-							<option value='<%=userList.get(i).getUsername()%>'>
-								<%=userList.get(i).getUsername()%>
-							</option>
-							<%
-								}
-							%>
-						</select></span><span><input class="toolbarButton" type="button" value="查询" onclick="queryDevice();"/></span>
+							<span>柜体编号：
+							<s:if test="queryNumber == \"%\"||queryNumber==null">
+							<input name='queryNumber' type="text" /> 
+							</s:if>
+							<s:else>
+							<input name='queryNumber' type="text" value="<s:property value="queryNumber"/>"/> 
+							</s:else>
+							</span>
+						
+				   <span>柜体类型：<select name="queryType">
+									<option value="">全部</option>	
+									<s:iterator value="cabTypeList" var="cabType" status="status">
+							 			<s:if test="queryType==#cabType.value">
+							 		<option value="<s:property value="#cabType.value"/>" selected="selected"><s:property value="#cabType.value"/></option>
+									 </s:if>
+									 <s:else>
+										<option value="<s:property value="#cabType.value"/>"><s:property value="#cabType.value"/></option>
+									</s:else>
+									</s:iterator>
+								</select> </span>
+						
+						<span>管理者：<select name="queryUser">
+						 	<option value="">全部</option>	
+							<s:iterator value="userList" var="user" status="status">
+							 <s:if test="queryUser==#user.username">
+							 	<option value="<s:property value="#user.username"/>" selected="selected"><s:property value="#user.username"/></option>
+							 </s:if>
+							 <s:else>
+								<option value="<s:property value="#user.username"/>"><s:property value="#user.username"/></option>
+							</s:else>
+							</s:iterator>				
+								
+							</select> </span><span><input class="toolbarButton" type="submit" value="查询"/></span>
 						<span><input class="toolbarButton" type="button" value="实时查询" onclick="queryDevice();"/></span>
 		</s:form>
 		</div>
@@ -97,7 +103,7 @@ String path = request.getContextPath();
 					<span>站房名称</span>
 				</th>
 				<th width="40%">
-					<span>柜内设备数据</span>
+					<span>间隔采集器数据</span>
 				</th>
 				<th width="10%">
 					<span>采集时间</span>
@@ -135,6 +141,7 @@ String path = request.getContextPath();
 					</td>
 					<td width="40%">
 					<table>
+						<s:if test="#cabinet.deviceList!=null">
 						<s:iterator value="#cabinet.deviceList" var="device">
 						
 							<tr>
@@ -149,25 +156,32 @@ String path = request.getContextPath();
 							</tr>	
 						
 						</s:iterator>
+						</s:if>
 						</table>
 					</td>
 					<td width="10%">
-						<s:date name="#cabinet.deviceList[0].detectorList[0].history.collectDate" format="yyyy-MM-dd" /><br/>
-						<s:date name="#cabinet.deviceList[0].detectorList[0].history.collectTime" format="HH:mm:ss"/>
+						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList[0].detectorList[0].history!=null">
+						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createDate" format="yyyy-MM-dd" /><br/>
+						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>
+						</s:if>
 					</td>
 					<td width="16%">
-						<s:property value="#cabinet.alarm.alarmText" />
+						<s:if test="#cabinet.deviceList!=null">
 						<s:iterator value="#cabinet.deviceList" var="device">
+							<s:if test="#device.alarm!=null">
+								<s:property value="#device.name"/>:
+								<s:property value="#device.alarm.alarmText" />
+							</s:if>
 							<br/>
-							<s:property value="#device.alarm.alarmText" />
 						</s:iterator>
+						</s:if>
 					</td>
 					<td width="10%">
 						<s:property value="#cabinet.user.username" />
 					</td>
 					<td width="10%">
-						<a href="listAlarm.action">历史报警</a><br/>
-						<a href="listHistory.action?sqlDeviceHistoryColumn.identify=<s:property value="identify" />">历史温度</a>
+						<a href="javascript:void(0)" onClick="setPageFrameSrc('listPageAlarm.action?cabId=<s:property value="#cabinet.cabId"/>');">历史报警</a><br/>
+						<a href="javascript:void(0)" onClick="setPageFrameSrc('listPageHistory.action?cabId=<s:property value="#cabinet.cabId"/>');">历史温度</a>
 					</td>
 				</tr>
 			</s:iterator>
@@ -294,6 +308,13 @@ String path = request.getContextPath();
 							
 		</script>
 	</div></div>
+	
+	<div id="BgDiv"></div>
+			<div id="DialogDiv" style="display:none">
+				<h2>操作<a id="btnClose" onclick="closePage();">关闭</a></h2>
+    	   		<iframe src="" class="page_iframe" width=100% height=100% frameborder='0'></iframe>
+			</div>
+	
 			</body>
 </html>
 		

@@ -1,5 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java"
+	import="org.springframework.web.context.WebApplicationContext"%>
+<%@ page language="java" import="com.station.data.DataList"%>
+<%@ page language="java" import="com.station.po.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -9,6 +14,17 @@
 			"username");
 	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
+	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
+	
+	if (username!=null)
+	{
+	WebApplicationContext wac = (WebApplicationContext) config
+			.getServletContext()
+			.getAttribute(
+					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+	DataList dataList = (DataList) wac.getBean("DataList");
+	cabTypeList = dataList.getCabTpyeConstant();
+	}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -24,11 +40,17 @@
 	<body>
 		<div class="config_page">
 			<div class="config_time">
-				<span><strong>监控时间设置</strong> </span><span>柜体类型：<select>
-						<option>
-							test
-						</option>
-					</select> </span><span>时间间隔：<select>
+				<span><strong>监控时间设置</strong> </span><span>柜体类型：<select name="cabinet.cabType.id" id="cabType">
+							<%
+								for (int i = 0; i < cabTypeList.size(); i++) {
+							%>
+							<option value='<%=cabTypeList.get(i).getId()%>'>
+								<%=cabTypeList.get(i).getValue()%>
+							</option>
+							<%
+								}
+							%>
+						</select> </span><span>时间间隔：<select>
 						<option>
 							30分钟
 						</option>

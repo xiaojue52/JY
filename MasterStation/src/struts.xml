@@ -45,11 +45,11 @@
   </package>
 
 <package name="Main" extends="abstract_struts" namespace="/">
-  <action name="mainAction" class="MainAction" method="getCurrent">
+  <action name="mainAction" class="MainAction" method="getCurrentAction">
    <result name="success">/monitor/monitor.jsp</result>
   </action>
-  <action name="getDataByTime" class="MainAction" method="getDataByTime">
-   <result name="success">/monitor/main.jsp</result>
+  <action name="getCabinetStatus" class="CabinetStatusAction" method="getCabinetStatusAction">
+   <result name="success">/monitor/cabinet_status.jsp</result>
   </action>
 </package>
 
@@ -57,10 +57,25 @@
 <action name="listAlarm" class="AlarmAction" method="listAlarmAction">
    <result name="success">/alarm/alarm.jsp</result>
   </action>
+  <action name="listPageAlarm" class="AlarmPageAction" method="listAlarmAction">
+   <result name="success">/monitor/alarm.jsp</result>
+  </action>
+  <action name="getUnhandledCount" class="UnhandledAlarmAction" method="getUnhanledCountAction">
+   <result name="json"></result>
+  </action>
+  <action name="updateAlarm" class="AlarmAction" method="updateAlarmAction">
+   <result name="success" type="redirect">/listAlarm.action</result>
+  </action>
 </package>
 
 <package name="History" extends="abstract_struts" namespace="/">
 <action name="listHistory" class="HistoryAction" method="listHistoryAction">
+   <result name="success">/history/history.jsp</result>
+  </action>
+  <action name="listPageHistory" class="HistoryPageAction" method="listHistoryAction">
+   <result name="success">/monitor/history.jsp</result>
+  </action>
+  <action name="cabinetHistory" class="CabinetHistoryAction" method="listHistoryAction">
    <result name="success">/history/history.jsp</result>
   </action>
 </package>

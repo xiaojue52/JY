@@ -1,5 +1,7 @@
 package com.station.po;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 public class JYDevice {
@@ -12,7 +14,21 @@ public class JYDevice {
 	private Integer tag;
 	private List<JYDetector> detectorList;
 	private JYAlarm alarm;
+	private Date createDate;
+	private Time createTime;
 	
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Time getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Time createTime) {
+		this.createTime = createTime;
+	}
 	public JYAlarm getAlarm() {
 		return alarm;
 	}

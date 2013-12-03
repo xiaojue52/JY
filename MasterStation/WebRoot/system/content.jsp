@@ -32,131 +32,131 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/content.css">
 
-<div>
-	<div id="devicePage" class="page">
-		<div class="devicePage">
-			<div class="title">
-				<span style="font-size:24px;"><b>变送器</b></span>
-			</div>
+<div class="container">
+	<div class="page" id="devicePage" style="background-color: #FFFFFF;display: none;">
+		<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
+			<div class="titleDiv">变送器</div>
 			<s:form action="addDevice.action">
-				<div>
-					变送器编号：
-
-					<input name="device.deviceNumber" id="deviceNumber" type="text"
-						value="" />
-
-					所属柜体：
-
-					<input id="cabinet" type="text" value="" readonly="readonly"
-						class="readonly" />
-				</div>
-				<div>
-					变送器名称：
-
-					<input name="device.name" id="deviceName" type="text"
-						value="" />
-
-					管理者：
-
-					<input id="deviceUser" type="text" value="" readonly="readonly" class="readonly" />
-
-				</div>
-				<div>
-					状态：
-
-					<input name="device.status" id="deviceStatus" type="text" value=""
-						readonly="readonly" class="readonly" />
-
-				</div>
-				<div>
-					备注：
-
-					<textarea name="device.note" id="deviceNote" cols="30" rows="5"></textarea>
-				</div>
-				<div>
-					<input class="comButton deviceButton" type="submit" value="确定" />
-				</div>
-				<input id="cabinetId" name="device.cabinet.cabId" type="hidden" />
-
+			<table class="tableStyle" style="width: 98%;margin-bottom: 5px;">
+				<tr>
+					<td class="td_left" width="100">变送器编号：</td>
+					<td width="270">
+						<input name="device.deviceNumber" id="deviceNumber" type="text"
+						value="" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="td_left" width="100">变送器名称：</td>
+					<td width="270">
+						<input name="device.name" id="deviceName" type="text"
+						value="" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_left" width="100">所属柜体：</td>
+					<td width="270">
+						<input id="cabinet" type="text" value="" readonly="readonly"
+						class="readonly" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_left" width="100">添加时间：</td>
+					<td width="270">
+						<input id="deviceTime" type="text" value="自动生成" readonly="readonly" class="readonly" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_left" width="100">备注：</td>
+					<td width="270">
+						<textarea name="device.note" id="deviceNote" cols="30" rows="5" style="width:260px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value=" 确  定 " style="width: 60px;">
+					</td>
+				</tr>
+				
+			</table>
+			<input id="cabinetId" name="device.cabinet.cabId" type="hidden" />
 			</s:form>
 		</div>
 	</div>
 
-	<div id="detectorPage" class="page">
-		<div class="detectorPage">
-			<div class="title">
-				<span style="font-size:24px;"><b>采集器</b></span>
-			</div>
-			<table style="margin-left:10px;margin-top:-10px;margin-bottom:10px;">
-			<tr>
-			<td>
-				所属变送器编号：
+	
 
-				<input id="parentDeviceNumber" type="text" value=""
-					readonly="readonly" class="readonly" /></td>
-			<td>
-				管理者：
-
-				<input id="detectorUser" type="text" value="" readonly="readonly" class="readonly" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-				所属变送器名称：
-
-				<input id="parentDeviceName" type="text" value=""
-					readonly="readonly" class="readonly" /></td>
-				<td>所属柜体：
-
-				<input id="parentCabinet" type="text" value=""
-					readonly="readonly" class="readonly" /></td>
-			</tr>
+	<div class="page" id="detectorPage" style="background-color: #FFFFFF;display: none;">
+		<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
+			<div class="titleDiv">采集器</div>
+			<table class="tableStyle" style="width: 98%;margin-bottom: 5px;">
+				<tr>
+					<td class="td_left" width="100">所属变送器编号</td>
+					<td width="270">
+						<input id="parentDeviceNumber" type="text" value="" readonly="readonly" class="readonly" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_left">管理者</td>
+					<td>
+						<input id="detectorUser" type="text" value="" readonly="readonly" class="readonly" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_left">所属变送器名称</td>
+					<td>
+						<input id="parentDeviceName" type="text" value="" readonly="readonly" class="readonly" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_left">所属柜体</td>
+					<td>
+						<input id="parentCabinet" type="text" value="" readonly="readonly" class="readonly" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
 
-	<div id="linePage" class="page">
-		<div class="linePage">
-			<div class="title">
-				<span style="font-size:24px;"><b>添加线路</b></span>
-			</div>
+	<div class="page" id="linePage" style="background-color: #FFFFFF;display: none;">
+		<div style="margin-top:0px;margin-left:0px;width:100%;height: 100%" align="center">
+			<div class="titleDiv">添加线路</div>
 			<s:form action="addLine.action">
+			<div style="margin-top:100px;" >
 			线路名称：
 			<input name="line.name" type="text" value="请输入线路名称" />
 				<input class="comButton" type="submit" value="确定"
 					style="margin-left: 10px" />
-			</s:form>
+			
 			<br/>
 			<br/>
 			<span>添加设备说明：添加线路->在所选线路上右击添加柜体<br/><br/>->在所选柜体上右击添加变送器->完成</span>
-		</div>
-	</div>
-
-	<div id="cabinetPage" class="page">
-		<div class="cabinetPage">
-			<div class="title">
-				<span style="font-size:24px;"><b>柜体信息</b></span>
 			</div>
+			</s:form>
+		</div>
+		</div>
+	
+	
+	<div class="page" id="cabinetPage" style="background-color: #FFFFFF;display: none;">
+		<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
+			<div class="titleDiv">柜体信息</div>
 			<s:form action="addCabinet.action">
-				<div class="baseInfo">
-					<div class="baseTitle">
-						<b>基本信息</b>
-					</div>
-					<div>
-						所属线路：
-
+			<table class="tableStyle" style="width: 98%;margin-bottom: 5px;">
+				<tr>
+					<td colspan="2">
+					<table class="tableStyle" style="width: 100%;margin-bottom: 5px;margin-top: 5px;">
+					<tr>
+					<td colspan="4" align="center">基本信息</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="200px">所属线路：</td>
+					<td>
 						<input id="line" value="" type="text" readonly="readonly"
-							class="readonly" />
-
-						柜体编号：
-
-						<input name="cabinet.cabNumber" id="cabNumber" value=""
-							type="text" />
-					</div>
-					<div>
-						柜体类型：
-
-						<select name="cabinet.cabType.id" id="cabType">
+							class="readonly"  style="height: 22px;width:200px;"/>
+					</td>
+					<td class="td_left" width="200px">柜体类型：</td>
+					<td>
+						<select name="cabinet.cabType.id" id="cabType" style="height: 22px;width:200px;">
 							<%
 								for (int i = 0; i < cabTypeList.size(); i++) {
 							%>
@@ -167,9 +167,17 @@
 								}
 							%>
 						</select>
-						电压等级：
-
-						<select name="cabinet.powerLevel.id" id="powerLevel">
+					</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100">柜体编号：</td>
+					<td>
+						<input name="cabinet.cabNumber" id="cabNumber" value=""
+							type="text" style="height: 22px;width:200px;"/>
+					</td>
+					<td class="td_left" width="100">电压等级：</td>
+					<td>
+						<select name="cabinet.powerLevel.id" id="powerLevel" style="height: 22px;width:200px;">
 							<% 
 								for (int i = 0; i < powerLevelList.size(); i++) {
 							%>
@@ -180,10 +188,12 @@
 								}
 							%>
 						</select>
-
-						管理者：
-
-						<select id="user" name="cabinet.user.userId">
+					</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100">管理者：</td>
+					<td>
+						<select id="user" name="cabinet.user.userId" style="height: 22px;width:200px;">
 							<%
 								for (int i = 0; i < userList.size(); i++) {
 							%>
@@ -194,58 +204,87 @@
 								}
 							%>
 						</select>
-					</div>
-				</div>
-				<div class="gprsInfo">
-					<div>
-						<b>GPRS模块信息</b>
-					</div>
-					<div>
-						SIM卡号：
-
+					</td>
+					<td class="td_left" width="100">添加时间：</td>
+					<td width="270">
+						<input id="cabinetTime" type="text" value="自动生成" readonly="readonly" class="readonly" style="height: 22px;width:200px;"/>
+					</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100">备注：</td>
+					<td width="270" colspan="3">
+						<textarea name="cabinet.note" id="cabinetNote" cols="30" rows="5" style="width:200px;"></textarea>
+					</td>
+				</tr>
+					
+					
+				
+				<tr>
+				<td colspan="2" align="center"><table class="tableStyle" style="margin-bottom: 5px;margin-top: 5px;">
+				<tr>
+					<td colspan="2" align="center">GPRS模块信息</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="200px">SIM卡号：</td>
+					<td>
 						<input name="cabinet.simNumber" id="simNumber" type="text"
-							value="" />
-					</div>
-					<div>
-						SIM卡串号：
-
+							value="" style="height: 22px;width:200px;"/>
+					</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100">SIM卡串号：</td>
+					<td>
 						<input name="cabinet.simSNumber" id="simSNumber" type="text"
-							value="" />
-					</div>
-				</div>
-				<div class="alertInfo">
-					<div>
-						<b>报警阀值设置</b>
-					</div>
-					<div>
-						<input type="checkbox" id="checkbox1" onclick="checkBoxSwitch('1')" />
-						T1(°)：
-
+							value="" style="height: 22px;width:200px;"/>
+					</td>
+					</tr>
+				
+				
+				</table ></td>
+				<td colspan="2" align="center"><table class="tableStyle" style="margin-bottom: 5px;margin-top: 5px;">
+				<tr>
+				<td colspan="2" align="center">报警阀值设置</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="200px"><input type="checkbox" id="checkbox1" onclick="checkBoxSwitch('1')" />
+						T1(°)：</td>
+					<td>
 						<input id="input1" name="cabinet.alarmTypeCollect.alarmType1.value" type="text" value="75" class="readonly" readonly="readonly"
-							width="30px;" />
+							width="30px;" style="height: 22px;width:200px;"/>
 						<input id="enable1" type="hidden" name="cabinet.alarmTypeCollect.alarmType1.enable" value=""/>	
-					</div>
-					<div>
-						<input type="checkbox" id="checkbox2" onclick="checkBoxSwitch('2')" />
-						T2(°)：
-
+					</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100"><input type="checkbox" id="checkbox2" onclick="checkBoxSwitch('2')" />
+						T2(°)：</td>
+					<td>
 						<input id="input2" name="cabinet.alarmTypeCollect.alarmType2.value"  type="text" value="15" class="readonly" readonly="readonly"
-							width="30px;" />
+							width="30px;" style="height: 22px;width:200px;"/>
 							<input id="enable2" type="hidden" name="cabinet.alarmTypeCollect.alarmType2.enable" value=""/>	
-					</div>
-					<div>
-						<input type="checkbox" id="checkbox3" onclick="checkBoxSwitch('3')" />
-						T3(°)：
-
+					</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100"><input type="checkbox" id="checkbox3" onclick="checkBoxSwitch('3')" />
+						T3(°)：</td>
+					<td>
 						<input id="input3" name="cabinet.alarmTypeCollect.alarmType3.value" type="text" value="15" class="readonly" readonly="readonly"
-							width="30px;" />
+							width="30px;" style="height: 22px;width:200px;"/>
 							<input id="enable3" name="cabinet.alarmTypeCollect.alarmType3.enable" type="hidden" value=""/>	
-					</div>
-				</div>
-				<div>
-					<input class="comButton cabinetButton" type="submit" value="确定" />
-				</div>
-
+					</td>
+					</tr>
+				
+				</table></td>
+				</tr>
+				</table>
+				</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" align="center">
+					<input type="submit" value="确定" />
+					</td>
+				</tr>	
+				</table>
 				<input id="lineId" name="cabinet.line.lineId" type="hidden" />
 				<input id="userId" type="hidden" />
 
@@ -253,3 +292,19 @@
 		</div>
 	</div>
 </div>
+<div class="page" id="firstPage" style="background-color: #FFFFFF;">
+	<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
+		<div class="titleDiv">说明</div>
+		<div style="margin-top:100px;" >
+		<span>点击左边树目录查看设备信息！如第一次使用，右击树根目录添加用户！</span>
+		</div>
+	</div>
+</div>
+<script>
+$(".page").hide();
+$("#firstPage").show();
+$(".page").width($("#toolbar").width()-195);
+$(window).resize(function() {
+	$(".page").width($("#toolbar").width()-195);
+});
+</script>

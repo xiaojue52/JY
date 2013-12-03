@@ -49,6 +49,8 @@ Ext.onReady(function(){
     	                $("#cabType").val(obj.cabinet.cabType.id);
     	                $("#powerLevel").val(obj.cabinet.powerLevel.id);
     	                $("#user").val(obj.cabinet.user.userId);
+    	                $("#cabinetNote").val(obj.cabinet.note);
+    	                $("#cabinetTime").val(obj.dateTime);
     	                $("#cabinetPage form").attr({"action":"updateCabinet.action?cabinet.cabId="+node.id});
     	                
     	                if (obj.cabinet.alarmTypeCollect.id == "-1"){
@@ -99,11 +101,9 @@ Ext.onReady(function(){
     	                $("#deviceName").val(obj.device.name);
     	                $("#cabinetId").val(node.parentNode.id);
     	                $("#cabinet").val(obj.device.cabinet.cabNumber+obj.device.cabinet.cabType.value);
-    	                $("#deviceStatus").val(obj.device.status);
     	                $("#deviceNote").val(obj.device.note);
+    	                $("#deviceTime").val(obj.dateTime);
     	                $("#devicePage form").attr({"action":"updateDevice.action?device.deviceId="+node.id});
-    	                $("#deviceUser").val(obj.device.cabinet.user.username);	
-    	             
     	                $(".page").hide();
     	    			$("#devicePage").show();
     	            }  
@@ -175,7 +175,6 @@ Ext.onReady(function(){
 	                $("#deviceName").val("");
 	                $("#cabinet").val(this.node.text);
 	                $("#cabinetId").val(this.node.id);
-	                $("#deviceStatus").val("离线");
 	                $("#deviceNote").val("");
 	                $("#devicePage form").attr({"action":"addDevice.action"});
     				$(".page").hide();

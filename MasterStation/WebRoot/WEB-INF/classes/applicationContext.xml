@@ -40,6 +40,7 @@
 				<value>com/station/po/xml/JYAlarmType.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmTypeCollect.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarm.hbm.xml</value>
+				<value>com/station/po/xml/JYCabinetHistory.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -116,6 +117,11 @@
 		</property>
 	</bean>
 	<bean id="jyAlarmDAO" class="com.station.dao.impl.JYAlarmDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyCabinetHistoryDAO" class="com.station.dao.impl.JYCabinetHistoryDAOImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -212,6 +218,14 @@
 			<ref bean="jyAlarmDAO" />
 		</property>
 	</bean>
+	<bean id="jyCabinetHistoryService" class="com.station.service.impl.JYCabinetHistoryServiceImpl">
+		<property name="cabinetHistoryDAO">
+			<ref bean="jyCabinetHistoryDAO" />
+		</property>
+		<property name="historyService">
+			<ref bean="jyHistoryService" />
+		</property>
+	</bean>
 
 	<!-- action -->
 	<bean id="loginAction" class="com.station.account.action.LoginAction">
@@ -253,6 +267,24 @@
 		<property name="alarmService">
 			<ref bean="jyAlarmService" />
 		</property>
+		<property name="dataList">
+			<ref bean="DataList" />
+		</property>
+	</bean>
+	<bean id="UnhandledAlarmAction"
+		class="com.station.alarm.action.UnhandledAlarmAction">
+		<property name="alarmService">
+			<ref bean="jyAlarmService" />
+		</property>
+		<property name="dataList">
+			<ref bean="DataList" />
+		</property>
+	</bean>
+	<bean id="AlarmPageAction"
+		class="com.station.alarm.action.AlarmPageAction">
+		<property name="alarmService">
+			<ref bean="jyAlarmService" />
+		</property>
 	</bean>
 
 	<!-- 监控界面 -->
@@ -260,12 +292,40 @@
 		<property name="monitorService">
 			<ref bean="jyMonitorService" />
 		</property>
+		<property name="dataList">
+			<ref bean="DataList" />
+		</property>
+	</bean>
+	<bean id="CabinetStatusAction" class="com.station.main.action.CabinetStatusAction">
+		<property name="monitorService">
+			<ref bean="jyMonitorService" />
+		</property>
+		<property name="dataList">
+			<ref bean="DataList" />
+		</property>
 	</bean>
 
 	<!-- 历史数据 -->
 	<bean id="HistoryAction" class="com.station.history.action.HistoryAction">
 		<property name="historyService">
 			<ref bean="jyHistoryService" />
+		</property>
+		<property name="dataList">
+			<ref bean="DataList"/>
+		</property>
+	</bean>
+	<bean id="CabinetHistoryAction" class="com.station.history.action.CabinetHistoryAction">
+		<property name="cabinetHistoryService">
+			<ref bean="jyCabinetHistoryService" />
+		</property>
+		<property name="dataList">
+			<ref bean="DataList"/>
+		</property>
+		
+	</bean>
+	<bean id="HistoryPageAction" class="com.station.history.action.HistoryPageAction">
+		<property name="cabinetHistoryService">
+			<ref bean="jyCabinetHistoryService" />
 		</property>
 		<property name="dataList">
 			<ref bean="DataList"/>

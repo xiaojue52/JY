@@ -8,12 +8,17 @@
    		<generator class="increment">
    		</generator>
  	</id>
-  <property name="collectDate" type="java.sql.Date" column="collect_date"/>
-  <property name="collectTime" type="java.sql.Time" column="collect_time"/>
+  <property name="createDate" type="java.sql.Date" column="create_Date"/>
+  <property name="createTime" type="java.sql.Time" column="create_time"/>
 	<many-to-one name="detector"
   		class="com.station.po.JYDetector" outer-join="true"
   		not-null="true" lazy="false">
   		<column name="detector_Id"></column>
+  	</many-to-one>	
+  	<many-to-one name="cabinetHistory"
+  		class="com.station.po.JYCabinetHistory" outer-join="true"
+  		not-null="true" lazy="false">
+  		<column name="cabinetHistory_id"></column>
   	</many-to-one>	
   <property name="value" type="java.lang.Float" column="value"/>
  </class>

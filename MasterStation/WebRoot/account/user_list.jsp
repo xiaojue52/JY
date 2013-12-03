@@ -50,7 +50,7 @@
 				</s:else>
 				</span>
 				<span><input type="submit" value="查询" class="toolbarButton"/> </span>
-				<span><button id="btnShow" class="toolbarButton">添加用户</button></span>
+				<span><button id="btnShow" class="toolbarButton" onclick="return false;">添加用户</button></span>
 			</s:form>	
 		</div>
 		<div class="center_table_div">

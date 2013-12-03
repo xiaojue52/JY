@@ -29,7 +29,7 @@ Ext.onReady(function() {
 			loadMask : {
 				msg : '正在加载数据，请稍侯……'
 			},
-			frame : true
+			//frame : true
 		}, {
 			region: 'west',
             id: 'west-panel', // see Ext.getCmp() below

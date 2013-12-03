@@ -1,23 +1,31 @@
 package com.station.po;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class JYAlarm {
 	private String id;
-	private Date alarmDatetime;
+	private Date createDate;
+	private Time createTime;
 	private String alarmText;
 	private String note;
 	private String repairUser; //维修人员
-	private int status;
-	private JYCabinet cabinet;
+	private String status;
 	private JYDevice device;
-
+	private String isCabinet;
 	
-	public JYCabinet getCabinet() {
-		return cabinet;
+	
+	public Date getCreateDate() {
+		return createDate;
 	}
-	public void setCabinet(JYCabinet cabinet) {
-		this.cabinet = cabinet;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Time getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Time createTime) {
+		this.createTime = createTime;
 	}
 	public JYDevice getDevice() {
 		return device;
@@ -31,12 +39,7 @@ public class JYAlarm {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Date getAlarmDatetime() {
-		return alarmDatetime;
-	}
-	public void setAlarmDatetime(Date alarmDatetime) {
-		this.alarmDatetime = alarmDatetime;
-	}
+	
 	public String getAlarmText() {
 		return alarmText;
 	}
@@ -56,11 +59,18 @@ public class JYAlarm {
 	public void setRepairUser(String repairUser) {
 		this.repairUser = repairUser;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getIsCabinet() {
+		return isCabinet;
+	}
+	public void setIsCabinet(String isCabinet) {
+		this.isCabinet = isCabinet;
+	}
+
 	
 }

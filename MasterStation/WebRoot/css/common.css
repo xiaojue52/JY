@@ -1,3 +1,22 @@
+html{
+	padding:0px;
+	margin:0px;
+	scrollbar-face-color: #DDEEFF; /*主色调*/
+	scrollbar-highlight-color: #FFFFFF; 
+	scrollbar-shadow-color: #99BBCC; /*描边颜色*/
+	scrollbar-3dlight-color: #AACCDD; /*左侧边高光颜色*/
+	scrollbar-arrow-color: #6688AA; /*小三角颜色*/
+	scrollbar-track-color: #EEEEEE; 
+	scrollbar-darkshadow-color: #DDEEFF; 
+} 
+body{
+	font-size:12px;
+	padding:5px;
+	margin:0px;
+}
+*{
+	font-size:12px;
+} 
 span{
 	font-size:12px;
 }
@@ -54,7 +73,7 @@ input[type=text],[type=password]{
 	border-style:solid;
 	border-width:1px;
 	color:#336699;
-	height: 20px;
+	height: 24px;
 }
 
 .input_error{
@@ -86,8 +105,9 @@ input[type=text],[type=password]{
     _border-bottom:0;
     vertical-align: middle;
 }
-select{ 
-	border:none;  
+select{
+	height:23px;
+	/* border:none;  
 	cursor: pointer;  
 	cursor: hand;
 	font-size: 12px;
@@ -101,7 +121,7 @@ select{
 	background-repeat: repeat-x;
 	background-color:#F7FAFC;
 	padding-left: 4px;
-	vertical-align: middle;
+	vertical-align: middle; */
 /* 	min-width:30px; */
 }
 /*下拉框*/
@@ -185,3 +205,133 @@ input[readonly]{
 .center_table_div{
 	margin-top:10px;	
 }
+.titleDiv{
+	width: 100%;
+	height: 23px;
+	background-color: #f5f5f5;
+	padding-top: 3px;
+	font-weight: bold;
+	font-size: 15px;
+	text-align: left;
+	margin-bottom: 3px;
+}
+/*基本表格样式*/
+.tableStyle{
+ 	border-collapse: collapse;
+	border: 1px solid #cccccc;
+	width: 100%;
+	background-color: White;
+}
+.noBottomLine{
+	border-bottom:0!important;
+}
+.th{
+	border-left: 1.0pt solid windowtext;
+	border-right: 1.0pt solid windowtext;
+	word-wrap: normal;
+	word-break: keep-all;
+	overflow:hidden;
+	border-color: #cccccc;
+	height:28px; 
+	padding: 0 2px 0 4px;
+	color:#000000;
+	background-image: url(../sys/frame/table/th_bg.jpg);
+	background-repeat: repeat-x;
+	font-weight: normal;
+	line-height:28px; 
+}
+.th_m{
+	border-left: 1.0pt solid windowtext;
+	border-right: 1.0pt solid windowtext;
+	border-bottom: 1.0pt solid windowtext;
+	word-wrap: normal;
+	word-break: keep-all;
+	overflow:hidden;
+	border-color: #cccccc;
+	height:24px; 
+	padding: 0 2px 0 4px;
+	color:#000000;
+	background-image: url(../sys/frame/table/th_bg_m.jpg);
+	background-repeat: repeat-x;
+	font-weight: normal;
+	line-height:24px; 
+}
+.th_m2{
+	border-left: 1.0pt solid windowtext;
+	border-right: 1.0pt solid windowtext;
+	border-bottom: 1.0pt solid windowtext;
+	word-wrap: normal;
+	word-break: keep-all;
+	overflow:hidden;
+	border-color: #cccccc;
+	padding: 0 2px 0 4px;
+	color:#000000;
+	background-image: url(../sys/frame/table/th_bg_m2.jpg);
+	background-repeat: repeat-x;
+	font-weight: normal;
+	line-height:48px; 
+	height:48px; 
+}
+.th_m3{
+	border-left: 1.0pt solid windowtext;
+	border-right: 1.0pt solid windowtext;
+	border-bottom: 1.0pt solid windowtext;
+	word-wrap: normal;
+	word-break: keep-all;
+	overflow:hidden;
+	border-color: #cccccc;
+	padding: 0 2px 0 4px;
+	color:#000000;
+	background-image: url(../sys/frame/table/th_bg_m3.jpg);
+	background-repeat: repeat-x;
+	font-weight: normal;
+	line-height:72px; 
+	height:72px; 
+}
+.th_over{
+	border-left: 1.0pt solid windowtext;
+	border-right: 1.0pt solid windowtext;
+	word-wrap: normal;
+	word-break: keep-all;
+	overflow:hidden;
+	border-color: #cccccc;
+	height:28px; 
+	padding: 0 2px 0 4px;
+	color:#000000;
+	background-image: url(../sys/frame/table/th_bg_over.jpg);
+	background-repeat: repeat-x;
+	font-weight: normal;
+	line-height:28px; 
+}
+.tableStyle td{
+	border-left: 1.0pt solid windowtext;
+	border-right: 1.0pt solid windowtext;
+	border-bottom: 1.0pt solid windowtext;
+	word-wrap: normal;
+	word-break: keep-all;
+	border-color: #cccccc;
+	height:24px; 
+	padding: 1px 2px 1px 4px;
+}
+.tableStyle tr{
+	color:#333333;
+}
+.td_left{
+	background-color:#EEF2F7;
+	text-align:right;
+}
+/*基本表格样式*/
+
+/*表格隔行颜色、鼠标移入某行颜色、选中某行颜色*/
+tr.odd{ 
+	background:#f7f7f7;
+}
+tr.highlight{ 
+	background:#eaf6fc;/*鼠标移入高亮色*/
+}
+tr.selected{ 
+	background:#d9ebf5;/*点击后背景色*/
+	background-image: url(../sys/frame/table/trhl_bg.jpg);
+	background-repeat:repeat-x;
+}
+/*表格隔行颜色、鼠标移入某行颜色、选中某行颜色*/

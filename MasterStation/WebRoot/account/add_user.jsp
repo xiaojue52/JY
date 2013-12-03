@@ -18,13 +18,13 @@
 	<body>
 
 		<div class="textCenter">
-			<s:form action="addUser.action" method="post" id="form">
+			<s:form action="addUser.action" method="post" id="form" >
 				<tr>
 					<td align="right">
 						<span>用户名：</span>
 					</td>
 					<td>
-						<input type="text" name="user.username" />
+						<input type="text" name="user.username"  style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -33,7 +33,7 @@
 					</td>
 					<td>
 						<input type="text" name="user.password" value="000000" readonly="readonly"
-							class="readonly" />
+							class="readonly"  style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -41,7 +41,7 @@
 						<span>手机号码：</span>
 					</td>
 					<td>
-						<input type="text" name="user.contact" />
+						<input type="text" name="user.contact"  style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +49,7 @@
 						<span>所在单位：</span>
 					</td>
 					<td>
-						<input type="text" name="user.company" />
+						<input type="text" name="user.company"  style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -57,7 +57,7 @@
 						<span>职位级别：</span>
 					</td>
 					<td>
-						<input type="text" name="user.jobLevel" />
+						<input type="text" name="user.jobLevel"  style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -65,7 +65,7 @@
 						<span>系统角色：</span>
 					</td>
 					<td>
-						<select name="user.userLevel">
+						<select name="user.userLevel"  style="width:120px;">
 							<option value="com_admin">
 								普通管理员
 							</option>
@@ -78,12 +78,12 @@
 
 				<tr>
 					<td align="center">
-						<input type="submit" value="提交" class="comButton"/>
+						<input type="submit" value="提交" class="comButton" style="margin-left:30px;"/>
 					</td>
 					<td align="center">		
 						<input type="button"
 							
-							value="取消" class="btnClose comButton"/>
+							value="取消" class="btnClose comButton"  style="margin-left:40px;"/>
 					</td>
 				</tr>
 			</s:form>

@@ -2,6 +2,8 @@ package com.station.tree.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +40,9 @@ public class DeviceAction extends ActionSupport{
 		device.getCabinet().setAlarm(null);
         Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("device", device);
+        Date date = device.getCreateDate();
+        Time time = device.getCreateTime();
+        dataMap.put("dateTime", date.toString()+" "+time.toString());
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out;
@@ -54,11 +59,16 @@ public class DeviceAction extends ActionSupport{
 		}
 	}
 	public String addDeviceAction(){
+		Date date = new Date();
+		device.setCreateDate(new java.sql.Date(date.getTime()));
+		device.setCreateTime(new java.sql.Time(date.getTime()));
 		device.setCabinet(cabinetService.findJYCabinetById(device.getCabinet().getCabId()));
 		deviceService.saveJYDevice(device);
 		return SUCCESS;
 	}
 	public String updateDeviceAction(){
+		device.setCreateDate(this.deviceService.findJYDeviceById(this.device.getDeviceId()).getCreateDate());
+		device.setCreateTime(this.deviceService.findJYDeviceById(this.device.getDeviceId()).getCreateTime());
 		device.setCabinet(cabinetService.findJYCabinetById(device.getCabinet().getCabId()));
 		deviceService.updateJYDevice(device);
 		return SUCCESS;

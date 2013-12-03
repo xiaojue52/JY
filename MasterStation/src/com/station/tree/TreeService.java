@@ -123,7 +123,7 @@ public class TreeService {
 	}
 
 	public String getDetectorNodes(JYDetectorService detectorService, String deviceId) {
-		String hql = "from JYDetector detector where detector.device.deviceId = '"+deviceId+"' and tag = 1 order by id desc";
+		String hql = "from JYDetector detector where detector.device.deviceId = '"+deviceId+"' and tag = 1 order by id";
 		List<JYDetector> list = detectorService.findJYDetectorByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){

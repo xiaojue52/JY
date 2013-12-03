@@ -44,3 +44,9 @@
 .toolbar table{
 	text-align:right;
 }
+.toolbar select{
+	width:120px;
+}
+.toolbar input[type=text]{
+	width:120px;
+}

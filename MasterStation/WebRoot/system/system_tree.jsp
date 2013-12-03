@@ -46,7 +46,7 @@
 
 	<body>
 		
-		<div class="toolbar">
+		<div class="toolbar" id="toolbar">
 			<s:form>
 				<span>线路：<input id='queryLine' type="text" />
 				</span>
@@ -84,18 +84,18 @@
 			</s:form>
 			<br/>
 		</div>
-		<div class="center_table_div">
+		<div class="center_table_div" style="margin-top:5px;">
 		<script type="text/javascript">
 		Ext.BLANK_IMAGE_URL = 'js/ext/resources/images/default/tree/s.gif';
 		var tag = '<s:property value="tag"/>'; 
 		</script>
-		<table>
+		<table cellpadding="0" cellspacing="0" id="treeTable" style="width: 100%">
 			<tr>
-				<td width="170px">
+				<td class="treeTd" width="170">
 					<div id="tree_div"></div>
 				</td>
-				<td>
-					<div><jsp:include page="/system/content.jsp"></jsp:include></div>
+				<td class="tree_td" valign="top" >
+					<div style="height:480px;"><jsp:include page="/system/content.jsp"></jsp:include></div>
 				</td>
 			</tr>
 		</table>

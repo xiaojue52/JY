@@ -15,18 +15,6 @@
 	//System.out.print("\n" + path + "\n" + basePath);
 	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
-	List<JYUser> userList = new ArrayList<JYUser>();
-	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
-
-	if (username != null) {
-		WebApplicationContext wac = (WebApplicationContext) config
-				.getServletContext()
-				.getAttribute(
-						WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-		DataList dataList = (DataList) wac.getBean("DataList");
-		userList = dataList.getUser();
-		cabTypeList = dataList.getCabTpyeConstant();
-	}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -52,7 +40,7 @@
 
 	<body>
 		<div class="toolbar">
-			<s:form action="listHistory">
+			<s:form action="cabinetHistory.action">
 				<table>
 					<tr>
 						<td>
@@ -75,16 +63,7 @@
 							</s:else>
 							</span>
 						</td>
-						<td>
-							<span>变送器：
-							<s:if test="queryDevice == \"%\"||queryDevice==null">
-							<input name='queryDevice' type="text" /> 
-							</s:if>
-							<s:else>
-							<input name='queryDevice' type="text" value="<s:property value="queryDevice"/>"/> 
-							</s:else>
-							 </span>
-						</td>
+					
 						<td>
 						<span>管理者：<select name="queryUser">
 						 	<option value="">全部</option>	
@@ -102,16 +81,7 @@
 						</td>
 						</tr>
 							<tr>
-								<td>
-									<span>采集单元：
-									<s:if test="queryDetector == \"%\"||queryDetector==null">
-									<input name='queryDetector' type="text" /> 
-									</s:if>
-									<s:else>
-									<input name='queryDetector' type="text" value="<s:property value="queryDetector"/>"/> 
-									</s:else>
-									</span>
-								</td>
+							
 								<td>
 									<span>开始日期：
 									<s:if test="queryStartDate == \"1000-01-01\"||queryStartDate==null">
@@ -149,11 +119,6 @@
 									<span><input class="toolbarButton" type="submit"
 											value="查询"/> </span>
 								</td>
-								<td>
-									<span><input class="toolbarButton" type="button"
-											value="系统监控" onclick="window.location='mainAction.action';return false;" />
-									</span>
-								</td>
 							</tr>
 				</table>
 			</s:form>
@@ -174,17 +139,11 @@
 							<th width="15%">
 								<span>采集时间</span>
 							</th>
-							<th width="20%">
+							<th width="15%">
 								<span>站房名称</span>
 							</th>
-							<th width="20%">
-								<span>变送器名称</span>
-							</th>
-							<th width="10%">
-								<span>采集器</span>
-							</th>
-							<th width="10%">
-								<span>数据</span>
+							<th width="45%">
+								<span>间隔采集器历史数据</span>
 							</th>
 							<th width="10%">
 								<span>管理者</span>
@@ -207,29 +166,35 @@
  onmouseover="javascript:this.bgColor='#f5fafe'">
 				</s:else>
 								<td width="15%">
-									<s:date name="#history.collectDate" format="yyyy-MM-dd" />
+									<s:date name="#history.createDate" format="yyyy-MM-dd" />
 								</td>
 								<td width="15%">
-									<s:date name="#history.CollectTime" format="HH:mm:ss" />
+									<s:date name="#history.createTime" format="HH:mm:ss" />
 								</td>
-								<td width="20%">
-									<s:property value="detector.device.cabinet.line.name" />
+								<td width="15%">
+									<s:property value="#history.cabinet.line.name" />
 									<br />
-									<s:property value="detector.device.cabinet.cabNumber" />
-									<s:property value="detector.device.cabinet.cabType.value" />
+									<s:property value="#history.cabinet.cabNumber" />
+									<s:property value="#history.cabinet.cabType.value" />
 								</td>
-								<td width="20%">
-									<s:property value="detector.device.name" />
+								<td width="45%">
+									<table>
+									<s:iterator value="#history.map" var="map" status="st">
+										<tr>
+										<td>
+										<s:property value='key.name'/> 
+										</td>
+										<td>
+											<s:iterator value="value">
+												<s:property value="detector.name"/>:<s:property value="value"/>
+											</s:iterator>
+										</td>
+										</tr>
+									</s:iterator>
+									</table>
 								</td>
 								<td width="10%">
-									<s:property value="detector.name" />
-								</td>
-								<td width="10%">
-									<s:property value="value" />
-									<s:property value="detector.unit" />
-								</td>
-								<td width="10%">
-									<s:property value="detector.device.cabinet.user.username" />
+									<s:property value="#history.cabinet.user.username" />
 								</td>
 							</tr>
 						</s:iterator>
@@ -241,7 +206,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<select class="pagination-page-list" name="pageList" onchange="window.location='listHistory.action?pageList='+this.options[this.options.selectedIndex].value">
+								<select class="pagination-page-list" name="pageList" onchange="window.location='cabinetHistory.action?pageList='+this.options[this.options.selectedIndex].value">
 									<s:iterator value="pageNumberList" var="number">
 									 
 										<s:if test="#number==pageList">
@@ -258,7 +223,7 @@
 							</td>
 							<td>
 							    <s:if test="CurrentPage>1">
-								<a href="listHistory.action?page=1"
+								<a href="cabinetHistory.action?page=1"
 									class="pagination-first-btn p-plain">
 									<span class="pagination-first  p-btn">&nbsp;</span>
 								</a>
@@ -272,7 +237,7 @@
 							</td>
 							<td>
 								<s:if test="CurrentPage>1">
-								<a href="listHistory.action?page=${CurrentPage-1 }"
+								<a href="cabinetHistory.action?page=${CurrentPage-1 }"
 									class="pagination-prev-btn p-plain"><span
 									class="pagination-prev  p-btn">&nbsp;</span>
 								</a>
@@ -301,7 +266,7 @@
 							</td>
 							<td>
 								<s:if test="%{CurrentPage< TotalPage}">
-								<a href="listHistory.action?page=${CurrentPage+1 }"
+								<a href="cabinetHistory.action?page=${CurrentPage+1 }"
 									class="pagination-next-btn p-plain"><span
 									class="pagination-next p-btn">&nbsp;</span>
 								</a>
@@ -321,7 +286,7 @@
 								</a>
 								</s:if>
 								<s:else>
-								<a href="listHistory.action?page=${TotalPage}"
+								<a href="cabinetHistory.action?page=${TotalPage}"
 									class="pagination-last-btn p-plain"><span
 									class="pagination-last p-btn ">&nbsp;</span>
 								</a>
@@ -331,7 +296,7 @@
 								<div class="pagination-btn-separator"></div>
 							</td>
 							<td>
-								<a href="listHistory.action?page=${CurrentPage}" class="pagination-load-btn p-plain"><span
+								<a href="cabinetHistory.action?page=${CurrentPage}" class="pagination-load-btn p-plain"><span
 									class="pagination-load p-btn">&nbsp;</span>
 								</a>
 							</td>

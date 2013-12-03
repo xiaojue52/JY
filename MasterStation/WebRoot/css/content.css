@@ -1,138 +1,14 @@
 .page{
 	font-size: 12px;
-	position:absolute;
 	display:none;
-	width:600px;
-	height:400px;
-	top:80px;
-	left:300px;
-	text-align:center;
-	font-size:16px;
-	background-color:#f5f5f5;
     border:1px solid #83b1f2;
-    
+    position:absolute;
+    height:480px;
+    top:65px;
+    left:205px;
 }
-.page .detectorPage{
-	width:555px;;
-	margin:0 auto;	
-	padding-top:20px;
-	position:absolute;
-	top:150px;
-	left:20px;
-	border:1px solid #83b1f2;
-}
-.detectorPage div{
-	height:30px;
-}
-.page .cabinetPage{
-	margin:0 auto;	
-	position:absolute;
-	top:50px;
-	left:8px;
-	border:1px solid #83b1f2;
-}
-.page .cabinetPage .title{
-	position:absolute;
-	margin-left:220px;
-	width:130px;
-	margin-top:-20px;
-}
-.page .linePage{
-	margin:0 auto;	
-	
-	position:absolute;
-	top:150px;
-	left:150px;
-	background-color:#f5f5f5;
-}
-.page .title{
-	font-size:30px;
-	margin-top:-50px;
-	padding-bottom:20px;
-}
-#gridtable {
-	font-family: verdana,arial,sans-serif;
-	font-size:11px;
-	width:100%;
-}
-#gridtable th {
-	padding: 8px;
-}
-#gridtable td {
-	padding: 8px;
-	font-size:16px;
-}
-.baseInfo{
-	position:absolute;
-	width:500px;
-	height:100px;
-	margin-top:20px;
-	margin-left:30px;
-	padding-left:30px;
-	text-align:left;
-	background-color:#f5f5f5;
-    border:1px solid #83b1f2;
-}
-.baseInfo div{
-	height:30px;
-}
-.baseInfo .baseTitle{
-	margin-top:8px;	
-	margin-left:200px;
-}
-.gprsInfo{
-	position:absolute;
-	height:100px;	
-	width:250px;
-	top:155px;
-	margin-left:10px;
-	padding-top:5px;
-	background-color:#f5f5f5;
-   	border:1px solid #83b1f2;
-}
-.gprsInfo div{
-	height:30px;
-}
-.alertInfo{
-	position:absolute;
-	height:130px;
-	width:260px;
-	top:140px;
-	padding-top:5px;
-	margin-left:300px;
-	background-color:#f5f5f5;
-    border:1px solid #83b1f2;
-}
-.alertInfo div{
-	height:30px;
-}
-.cabinetButton{
-	position:absolute;
-	margin-top:300px;
-	margin-left:260px;
-}
-.page .devicePage{
-	margin:0 auto;	
-	width:550px;
-	height:180px;
-	padding-top:10px;
-	position:absolute;
-	top:100px;
-	left:20px;
-	text-align:left;
-	border:1px solid #83b1f2;
-}
-.devicePage div{
-	height:30px;
-	margin-left:30px;
-}
-.devicePage .title{
-	margin-left:230px;
-}
-.devicePage .deviceButton{
-	position:absolute;
-	margin-top:100px;
-	margin-left:230px;
+.container{
+	//position:absolute;
 }
 input[type=submit]{
 	width:48px;

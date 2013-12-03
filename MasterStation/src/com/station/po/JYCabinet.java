@@ -1,5 +1,7 @@
 package com.station.po;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 
@@ -17,8 +19,29 @@ public class JYCabinet {
 	private JYAlarmTypeCollect alarmTypeCollect;
 	private List<JYDevice> deviceList;
 	private JYAlarm alarm;
+	private String note;
+	private Date createDate;
+	private Time createTime;
 	
 	
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Time getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Time createTime) {
+		this.createTime = createTime;
+	}
 	public JYAlarm getAlarm() {
 		return alarm;
 	}

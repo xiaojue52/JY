@@ -10,12 +10,11 @@
   <property name="alarmText" type="string" column="alarm_Text" length="400"/>
   <property name="note" type="string" column="note" length="400"/>
   <property name="repairUser" type="string" column="repair_User" length="20"/>
-  <property name="status" type="java.lang.Integer" column="status"/>
-  <property name="alarmDatetime" type="java.sql.Date" column="alarm_Datetime"/>
-  <many-to-one name="cabinet"
-  		class="com.station.po.JYCabinet" outer-join="true" lazy="false">
-  		<column name="cab_id"></column>
-  	</many-to-one>	
+  <property name="status" type="string" column="status" length="2"/>
+  <property name="createDate" type="java.sql.Date" column="create_date"/>
+  <property name="createTime" type="java.sql.Time" column="create_time"/>
+  <property name="isCabinet" type="string" column="isCabinet" length="2"/>
+
   <many-to-one name="device"
   		class="com.station.po.JYDevice" outer-join="true" lazy="false">
   		<column name="device_id"></column>

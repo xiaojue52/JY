@@ -22,7 +22,7 @@
 					</td>
 					<td>
 						<input type="text" id="user_username" name="user.username" value=""
-							readonly="readonly" class="readonly" />
+							readonly="readonly" class="readonly" style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -30,7 +30,7 @@
 						<span>手机号码：</span>
 					</td>
 					<td>
-						<input type="text"  id="user_contact" name="user.contact" value="" />
+						<input type="text"  id="user_contact" name="user.contact" value="" style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -38,7 +38,7 @@
 						<span>所在单位：</span>
 					</td>
 					<td>
-						<input type="text"  id="user_company" name="user.company" value="" />
+						<input type="text"  id="user_company" name="user.company" value="" style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -46,7 +46,7 @@
 						<span>职位级别：</span>
 					</td>
 					<td>
-						<input type="text"  id="user_jobLevel" name="user.jobLevel" value="" />
+						<input type="text"  id="user_jobLevel" name="user.jobLevel" value="" style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -54,7 +54,7 @@
 						<span>系统角色：</span>
 					</td>
 					<td>
-						<select id="user_userLevel" name="user.userLevel">
+						<select id="user_userLevel" name="user.userLevel" style="width:120px;">
 						</select>
 					</td>
 				</tr>
@@ -63,7 +63,7 @@
 						<span>重置密码：</span>
 					</td>
 					<td>
-						<select name="resetPassword">
+						<select name="resetPassword" style="width:120px;">
 							<option value="0">
 								否
 							</option>
@@ -77,11 +77,11 @@
 					<td align="center">
 						<input type="hidden" id="user_userId" name="user.userId"
 							value="${user.userId }" />
-						<input type="submit" value="提交" class="comButton"/>
+						<input type="submit" value="提交" class="comButton" style="margin-left:30px;"/>
 					</td>
 					<td align="center">	
 						<input type="button"
-							value="返回" class="btnClose comButton"/>
+							value="返回" class="btnClose comButton" style="margin-left:40px;"/>
 					</td>
 				</tr>
 			</s:form>

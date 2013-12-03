@@ -25,5 +25,7 @@
   <property name="status" type="string" column="status" length="10"/>
   <property name="note" type="string" column="note" length="500"/>
   <property name="tag" type="java.lang.Integer" column="tag"/>
+  <property name="createDate" type="java.sql.Date" column="create_Date"/>
+  <property name="createTime" type="java.sql.Time" column="create_time"/>
  </class>
 </hibernate-mapping>

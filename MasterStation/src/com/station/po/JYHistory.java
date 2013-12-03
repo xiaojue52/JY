@@ -5,11 +5,20 @@ import java.sql.Date;
 
 public class JYHistory {
 	private Integer id;
-	private Date collectDate;
-	private Time CollectTime;
+	private Date createDate;
+	private Time createTime;
 	private JYDetector detector;
+	private JYCabinetHistory cabinetHistory;
 	private Float value;
 
+
+	public JYCabinetHistory getCabinetHistory() {
+		return cabinetHistory;
+	}
+
+	public void setCabinetHistory(JYCabinetHistory cabinetHistory) {
+		this.cabinetHistory = cabinetHistory;
+	}
 
 	public Integer getId() {
 		return id;
@@ -19,20 +28,21 @@ public class JYHistory {
 		this.id = id;
 	}
 
-	public Date getCollectDate() {
-		return collectDate;
+
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setCollectDate(Date collectDate) {
-		this.collectDate = collectDate;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
-	public Time getCollectTime() {
-		return CollectTime;
+	public Time getCreateTime() {
+		return createTime;
 	}
 
-	public void setCollectTime(Time collectTime) {
-		CollectTime = collectTime;
+	public void setCreateTime(Time createTime) {
+		this.createTime = createTime;
 	}
 
 	public JYDetector getDetector() {

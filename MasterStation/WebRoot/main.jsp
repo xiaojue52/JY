@@ -32,6 +32,7 @@
 		<script src="js/set-src.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="css/alert-page.css" />
 		<script type="text/javascript" src="js/modify-password.js"></script>
+		<script src="js/get-data.js" type="text/javascript"></script>
 		<title>监测主站</title>
 	</head>
 
@@ -48,7 +49,7 @@
 		</div>
 		<div id="monitor_div" class="panelDiv">
 			<button onclick="setFrameSrc('mainAction.action','系统监控');" class="itemDiv">系统监控</button>
-			<button onclick="setFrameSrc('mainAction.action','设备状态');" class="itemDiv">设备状态</button>
+			<button onclick="setFrameSrc('getCabinetStatus.action','设备状态');" class="itemDiv">设备状态</button>
 		</div>
 		<div id="user_div" class="panelDiv">
 			<button onclick="setFrameSrc('listUser.action','用户管理');" class="itemDiv">用户管理</button>
@@ -60,7 +61,7 @@
 		<div id="history_div" class="panelDiv">
 				<button  onclick="setFrameSrc('listAlarm.action','报警记录');" class="itemDiv">报警记录</button>
 
-				<button  onclick="setFrameSrc('listHistory.action','历史记录');" class="itemDiv">历史记录</button>
+				<button  onclick="setFrameSrc('cabinetHistory.action','历史记录');" class="itemDiv">历史记录</button>
 		</div>
 		<div id="data_div" class="panelDiv">
 			<button onclick='setFrameSrc("history/chart.jsp","数据对比");' class="itemDiv" >数据对比</button>

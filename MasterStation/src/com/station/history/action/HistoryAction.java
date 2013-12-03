@@ -161,7 +161,8 @@ public class HistoryAction extends ActionSupport {
 	public String listHistoryAction() throws Exception {
 		userList = dataList.getUser();
 		cabTypeList = dataList.getCabTpyeConstant();
-		final String hql = this.createSql();
+		//final String hql = this.createSql();
+		final String hql = "select t.collect_time,wm_concat(t.detector_id), wm_concat(d.device_id), wm_concat(de.cab_id)from jy_history t, jy_detector d,jy_device de,jy_cabinet c where d.detector_id = t.detector_id and de.cab_id = c.cab_id and d.device_id = de.device_id group by  t.collect_time";
 		this.pageBean = historyService.getPerPage(pageList, page, hql);
 		return SUCCESS;
 	}
@@ -192,9 +193,9 @@ public class HistoryAction extends ActionSupport {
 				+ "%' and " + "history.detector.name like '%" + queryDetector
 				+ "%' and "
 				+ "history.detector.device.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "history.collectDate>= TO_DATE('"
+				+ queryType + "%' and " + "history.createDate>= TO_DATE('"
 				+ queryStartDate + "','YYYY-MM-DD') and "
-				+ "history.collectDate <= TO_DATE('" + queryEndDate
+				+ "history.createDate <= TO_DATE('" + queryEndDate
 				+ "','YYYY-MM-DD') and "
 				+ "history.detector.device.cabinet.user.username like '%"
 				+ queryUser + "%' ORDER BY id DESC";
