@@ -1,7 +1,6 @@
 package com.station.po;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 public class JYDevice {
@@ -14,8 +13,7 @@ public class JYDevice {
 	private Integer tag;
 	private List<JYDetector> detectorList;
 	private JYAlarm alarm;
-	private Date createDate;
-	private Time createTime;
+	private Date createTime;
 	private Integer positionNumber;
 	
 	public Integer getPositionNumber() {
@@ -24,16 +22,11 @@ public class JYDevice {
 	public void setPositionNumber(Integer positionNumber) {
 		this.positionNumber = positionNumber;
 	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	public Time getCreateTime() {
+
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Time createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	public JYAlarm getAlarm() {

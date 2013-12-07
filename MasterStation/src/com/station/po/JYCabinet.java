@@ -1,7 +1,6 @@
 package com.station.po;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,26 +19,19 @@ public class JYCabinet {
 	private List<JYDevice> deviceList;
 	private JYAlarm alarm;
 	private String note;
-	private Date createDate;
-	private Time createTime;
-	
-	
+	private Date createTime;
+
 	public String getNote() {
 		return note;
 	}
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	public Time getCreateTime() {
+
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Time createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	public JYAlarm getAlarm() {

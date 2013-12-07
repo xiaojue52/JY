@@ -167,9 +167,9 @@ public class CabinetHistoryAction extends ActionSupport {
 				+ "cabinetHistory.cabinet.cabNumber like '%"
 				+ queryNumber + "%' and "
 				+ "cabinetHistory.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "cabinetHistory.createDate>= TO_DATE('"
+				+ queryType + "%' and " + "cabinetHistory.date>= TO_DATE('"
 				+ queryStartDate + "','YYYY-MM-DD') and "
-				+ "cabinetHistory.createDate <= TO_DATE('" + queryEndDate
+				+ "cabinetHistory.date <= TO_DATE('" + queryEndDate
 				+ "','YYYY-MM-DD') and "
 				+ "cabinetHistory.cabinet.user.username like '%"
 				+ queryUser + "%' ORDER BY id DESC";

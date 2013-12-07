@@ -3,12 +3,9 @@ package com.station.alarm.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -230,9 +227,9 @@ public class AlarmAction extends ActionSupport {
 				+ "%' and " + "alarm.status like '%" + queryRepairStatus
 				+ "%' and "
 				+ "alarm.device.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "alarm.createDate>= TO_DATE('"
+				+ queryType + "%' and " + "alarm.date>= TO_DATE('"
 				+ queryStartDate + "','YYYY-MM-DD') and "
-				+ "alarm.createDate <= TO_DATE('" + queryEndDate
+				+ "alarm.date <= TO_DATE('" + queryEndDate
 				+ "','YYYY-MM-DD') and "
 				+ "alarm.device.cabinet.user.username like '%"
 				+ queryUser + "%')" +
@@ -269,7 +266,7 @@ public class AlarmAction extends ActionSupport {
 		alarm.setNote(this.alarmTemp.getNote());
 		alarm.setRepairUser(username);
 		alarm.setStatus("1");
-		Date date = new Date();
+		//Date date = new Date();
 		//alarm.setAlarmDatetime(new java.sql.Time(date.getTime()));
 		//alarm.setRepairUser(repairUser);
 		this.alarmService.updateJYAlarm(alarm);

@@ -10,7 +10,16 @@ public class JYHistory {
 	private JYDetector detector;
 	private JYCabinetHistory cabinetHistory;
 	private Float value;
+	private java.util.Date date;
 
+
+	public java.util.Date getDate() {
+		return date;
+	}
+
+	public void setDate(java.util.Date date) {
+		this.date = date;
+	}
 
 	public JYCabinetHistory getCabinetHistory() {
 		return cabinetHistory;
@@ -30,6 +39,7 @@ public class JYHistory {
 
 
 	public Date getCreateDate() {
+		createDate = new java.sql.Date(date.getTime());
 		return createDate;
 	}
 
@@ -38,6 +48,7 @@ public class JYHistory {
 	}
 
 	public Time getCreateTime() {
+		createTime = new java.sql.Time(date.getTime());
 		return createTime;
 	}
 

@@ -2,7 +2,6 @@ package com.station.tree.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,10 +34,8 @@ public class CabinetAction extends ActionSupport{
 		cabinet.setAlarm(null);
         Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("cabinet", cabinet);
-        Date date = cabinet.getCreateDate();
-        Time time = cabinet.getCreateTime();
-        dataMap.put("dateTime", date.toString()+" "+time.toString());
-        
+        Date date = cabinet.getCreateTime();
+        dataMap.put("dateTime", date.toString());
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out;
@@ -56,13 +53,12 @@ public class CabinetAction extends ActionSupport{
 	}
 	public String addCabinetAction(){
 		Date date = new Date();
-		cabinet.setCreateDate(new java.sql.Date(date.getTime()));
-		cabinet.setCreateTime(new java.sql.Time(date.getTime()));
+		cabinet.setCreateTime(date);
 		cabinetService.saveJYCabinet(cabinet);
 		return SUCCESS;
 	}
 	public String updateCabinetAction(){
-		cabinet.setCreateDate(this.cabinetService.findJYCabinetById(this.cabinet.getCabId()).getCreateDate());
+		
 		cabinet.setCreateTime(this.cabinetService.findJYCabinetById(this.cabinet.getCabId()).getCreateTime());
 		cabinetService.updateJYCabinet(cabinet);
 		return SUCCESS;

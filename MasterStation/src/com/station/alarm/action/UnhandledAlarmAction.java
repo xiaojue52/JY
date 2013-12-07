@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -229,9 +227,9 @@ public class UnhandledAlarmAction extends ActionSupport {
 				+ "%' and " + "alarm.status like '%" + queryRepairStatus
 				+ "%' and "
 				+ "alarm.device.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "alarm.createDate>= TO_DATE('"
+				+ queryType + "%' and " + "alarm.date>= TO_DATE('"
 				+ queryStartDate + "','YYYY-MM-DD') and "
-				+ "alarm.createDate <= TO_DATE('" + queryEndDate
+				+ "alarm.date <= TO_DATE('" + queryEndDate
 				+ "','YYYY-MM-DD') and "
 				+ "alarm.device.cabinet.user.username like '%"
 				+ queryUser + "%')" +

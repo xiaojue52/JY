@@ -8,8 +8,7 @@
    		<generator class="increment">
    		</generator>
  	</id>
-  <property name="createDate" type="java.sql.Date" column="create_Date"/>
-  <property name="createTime" type="java.sql.Time" column="create_time"/>
+  <property name="date" type="java.util.Date" column="c_date"/>
 	<many-to-one name="detector"
   		class="com.station.po.JYDetector" outer-join="true"
   		not-null="true" lazy="false">

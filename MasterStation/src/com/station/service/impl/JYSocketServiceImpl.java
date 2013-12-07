@@ -1,7 +1,5 @@
 package com.station.service.impl;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
@@ -40,21 +38,15 @@ public class JYSocketServiceImpl implements JYSocketService {
 		// TODO Auto-generated method stub
 		JYCabinetHistory cabinetHistory = new JYCabinetHistory();
 		//String hqlC = "from JYCabinet cabinet where tag = 1 and cabinet.cabNumber = '"+cabNumber+"'";
-		SimpleDateFormat  formatTime= new SimpleDateFormat("yyyyMMddHHmmss");
-		Date date = null;
+		SimpleDateFormat  df= new SimpleDateFormat("yyyyMMddHHmmss");
+        java.util.Date date = null;
 		try {
-			date = new java.sql.Date(formatTime.parse(createDate).getTime());
+			date = df.parse(createDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		Time time = null;
-		try {
-			time = new java.sql.Time(formatTime.parse(createDate).getTime());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			return;
+		}//
 		Iterator<Map.Entry<Integer, List<Float>>> iter = map.entrySet().iterator();
 		while (iter.hasNext()) {
 			Map.Entry<Integer, List<Float>> mEntry = (Map.Entry<Integer, List<Float>>) iter
@@ -71,12 +63,12 @@ public class JYSocketServiceImpl implements JYSocketService {
 					if(list.size()>0){
 						cabinetHistory.setId(String.valueOf(System.nanoTime()));
 						cabinetHistory.setCabinet(list.get(0).getDevice().getCabinet());
-						cabinetHistory.setCreateDate(date);
-						cabinetHistory.setCreateTime(time);
+						//cabinetHistory.setCreateDate(date);
+						//cabinetHistory.setCreateTime(time);
+						cabinetHistory.setDate(date);
 						cabinetHistoryDAO.saveJYCabinetHistory(cabinetHistory);
 						JYHistory history = new JYHistory();
-						history.setCreateDate(date);
-						history.setCreateTime(time);
+						history.setDate(date);
 						history.setDetector(list.get(0));
 						history.setValue(valueList.get(0));
 						history.setCabinetHistory(cabinetHistory);
@@ -92,8 +84,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 					List<JYDetector> list = this.detectorDAO.findJYDetectorByHql(hql);
 					if(list.size()>0){
 						JYHistory history = new JYHistory();
-						history.setCreateDate(date);
-						history.setCreateTime(time);
+						history.setDate(date);
 						history.setDetector(list.get(0));
 						history.setValue(valueList.get(1));
 						historyDAO.saveJYHistory(history);
@@ -108,8 +99,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 					List<JYDetector> list = this.detectorDAO.findJYDetectorByHql(hql);
 					if(list.size()>0){
 						JYHistory history = new JYHistory();
-						history.setCreateDate(date);
-						history.setCreateTime(time);
+						history.setDate(date);
 						history.setDetector(list.get(0));
 						history.setValue(valueList.get(2));
 						historyDAO.saveJYHistory(history);
@@ -124,8 +114,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 					List<JYDetector> list = this.detectorDAO.findJYDetectorByHql(hql);
 					if(list.size()>0){
 						JYHistory history = new JYHistory();
-						history.setCreateDate(date);
-						history.setCreateTime(time);
+						history.setDate(date);
 						history.setDetector(list.get(0));
 						history.setValue(valueList.get(3));
 						historyDAO.saveJYHistory(history);

@@ -13,8 +13,17 @@ public class JYCabinetHistory {
 	private Time createTime;
 	private List<JYHistory> historyList;
 	private Map<JYDevice, List<JYHistory>> map;
+	private java.util.Date date;
 	
+	
+	public java.util.Date getDate() {
+		return date;
+	}
+	public void setDate(java.util.Date date) {
+		this.date = date;
+	}
 	public Time getCreateTime() {
+		createTime = new java.sql.Time(date.getTime());
 		return createTime;
 	}
 	public void setCreateTime(Time createTime) {
@@ -46,6 +55,7 @@ public class JYCabinetHistory {
 		this.cabinet = cabinet;
 	}
 	public Date getCreateDate() {
+		createDate = new java.sql.Date(date.getTime());
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {

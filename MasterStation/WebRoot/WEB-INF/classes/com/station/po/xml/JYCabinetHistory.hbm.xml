@@ -7,8 +7,7 @@
 	<id name="id" type="string" column="id" length="40">
    	<generator class="assigned" />
  	 </id>
-  <property name="createDate" type="java.sql.Date" column="create_Date"/>
-  <property name="createTime" type="java.sql.Time" column="create_time"/>
+  <property name="date" type="java.util.Date" column="c_date"/>
 	<many-to-one name="cabinet"
   		class="com.station.po.JYCabinet" outer-join="true"
   		not-null="true" lazy="false">

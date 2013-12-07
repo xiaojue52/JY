@@ -26,7 +26,6 @@
   <property name="note" type="string" column="note" length="500"/>
   <property name="tag" type="java.lang.Integer" column="tag"/>
   <property name="positionNumber" type="java.lang.Integer" column="position_Number"/>
-  <property name="createDate" type="java.sql.Date" column="create_Date"/>
-  <property name="createTime" type="java.sql.Time" column="create_time"/>
+  <property name="createTime" type="java.util.Date" column="create_Time"/>
  </class>
 </hibernate-mapping>

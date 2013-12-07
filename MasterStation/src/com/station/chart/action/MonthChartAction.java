@@ -219,9 +219,9 @@ public class MonthChartAction extends ActionSupport {
 				+ "%' and " + "history.detector.name like '%" + queryDetector
 				+ "%' and "
 				+ "history.detector.device.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "history.createDate>= TO_DATE('"
+				+ queryType + "%' and " + "history.date>= TO_DATE('"
 				+ queryStartDate + "','YYYY-MM-DD') and "
-				+ "history.createDate <= TO_DATE('" + queryEndDate
+				+ "history.date <= TO_DATE('" + queryEndDate
 				+ "','YYYY-MM-DD') and "
 				+ "history.detector.device.cabinet.user.username like '%"
 				+ queryUser + "%' and history.detector.name ='"+detector+"' ORDER BY id DESC";
