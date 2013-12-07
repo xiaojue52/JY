@@ -10,16 +10,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.ServletContextEvent;
 
 public class SocketListener extends Thread {
 	private ServerSocket server = null;
-	/*private final int port = 10000;
-	
-	// @SuppressWarnings("unchecked")
-	private Map<String, Socket> clientMap = new HashMap<String, Socket>();
+	private final int port = 10000;
+	private ParseSocketData parseSocketData;
+	//private ServletContextEvent sce;
 
+	private Map<Socket, Socket> listMap = new HashMap<Socket, Socket>();
+	//private Map<String, String> order = new HashMap<String, String>();
+	//private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();
 
-	public SocketListener() {
+	public SocketListener(ServletContextEvent sce) {
+		//this.sce = sce;
+		parseSocketData = new ParseSocketData(sce);
 		try {
 			server = new ServerSocket(port);
 		} catch (IOException e) {
@@ -32,25 +37,24 @@ public class SocketListener extends Thread {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-
+		System.out.print("进入run方法\n");
 		while (true) {
-			Socket socket = null;
+			Socket client = null;
 			try {
-				socket = server.accept();
-				//list.add(socket);
-
-				invoke(socket);
+				client = server.accept();
+				listMap.put(client,client);
+				invoke(client);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				System.out.print("socket accept失败！");
-				e.printStackTrace();
+				break;
+				//e.printStackTrace();
 			}
 		}
 	}
 
-	private void invoke(final Socket client) throws IOException {
+	private void invoke(final Socket client) {
 		new Thread(new Runnable() {
-
+			
 			public void run() {
 				BufferedReader in = null;
 				PrintWriter out = null;
@@ -58,43 +62,25 @@ public class SocketListener extends Thread {
 					in = new BufferedReader(new InputStreamReader(client
 							.getInputStream()));
 					out = new PrintWriter(client.getOutputStream());
-					out.println("wellcome!");
-					out.flush();
-					String loginMes = in.readLine();
-					if(ParseSocketData.CheckDevice(loginMes))
-						System.out.print("连接成功");
-					else{
-						in.close();
-						out.close();
-						removedSocket(client);
-						return;
-					}
-						
-					while (true) {
-						String msg = in.readLine();
-						if (msg == null) {
-							System.out.print("socket 断开");
+					while (client.isConnected()) {
+						String str = "";
+						char[] cbuf = new char[1024];
+						int ret = in.read(cbuf, 0, 1024);
+						if (ret < 0) {
 							in.close();
 							out.close();
-							removedSocket(client);
+							listMap.get(client).close();
+							parseSocketData.removedSocket(client);
 							break;
 						}
-						String cmd[] = msg.split(":");
-						if (cmd != null && cmd.length > 1) {
-							String identify = cmd[0];
-							String currentData = cmd[1];
-							clientMap.put(identify, client);
-							ParseSocketData.updateDevice(identify, currentData);
-						}
+						if (ret >= 1024)
+							cbuf[1023] = '\0';
 						else
-							break;
-						
-						// System.out.println(msg);
-						out.println("Server received " + msg);
+							cbuf[ret] = '\0';
+						str = String.valueOf(cbuf, 0, ret);
+						String retStr = parseSocketData.CheckString(str,client);
+						out.println(retStr);
 						out.flush();
-						if (msg.equals("bye")) {
-							break;
-						}
 					}
 				} catch (IOException ex) {
 					System.out.print("socket 读取 、输出失败！");
@@ -117,6 +103,7 @@ public class SocketListener extends Thread {
 					}
 				}
 			}
+
 		}).start();
 	}
 
@@ -124,60 +111,19 @@ public class SocketListener extends Thread {
 		try {
 			if (null != server && !server.isClosed()) {
 				server.close();
+				Iterator<Map.Entry<Socket, Socket>> iter = listMap.entrySet().iterator();
+				while (iter.hasNext()) {
+					Map.Entry<Socket, Socket> mEntry = (Map.Entry<Socket, Socket>) iter
+							.next();
+					Socket client = (Socket) mEntry.getValue();
+					//Socket key = (Socket) mEntry.getKey();
+					client.close();	
+				}
 			}
 
 		} catch (IOException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public void sendCommand() {
-		PrintWriter out = null;
-		Iterator<?> iter = clientMap.entrySet().iterator();
-		while (iter.hasNext()) {
-			Map.Entry<String,Socket> mEntry = (Map.Entry<String, Socket>) iter.next();
-			Socket socket = (Socket) mEntry.getValue();
-			try {
-				out = new PrintWriter(socket.getOutputStream());
-				out.print("give me temprature, please\n\t");
-				out.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public void removedSocket(Socket socket) {
-		Iterator<?> iter = clientMap.entrySet().iterator();
-		while (iter.hasNext()) {
-			Map.Entry<String,Socket> mEntry = (Map.Entry<String, Socket>) iter.next();
-			Socket temp = (Socket) mEntry.getValue();
-			String key = (String) mEntry.getKey();
-			if (temp == socket){
-				clientMap.remove(key);
-				ParseSocketData.deviceOffline(key);
-			}
-		}
-	}
-
-	// @SuppressWarnings("unchecked")
-	public void sendCommandWithIdentify(String identify) {
-		PrintWriter out = null;
-		Socket client = clientMap.get(identify);
-		if (client != null) {
-			try {
-				out = new PrintWriter(client.getOutputStream());
-				out.print("\nget " + identify + " temprature!");
-				out.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}*/
+	}	
 }

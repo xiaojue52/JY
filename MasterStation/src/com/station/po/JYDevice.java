@@ -16,7 +16,14 @@ public class JYDevice {
 	private JYAlarm alarm;
 	private Date createDate;
 	private Time createTime;
+	private Integer positionNumber;
 	
+	public Integer getPositionNumber() {
+		return positionNumber;
+	}
+	public void setPositionNumber(Integer positionNumber) {
+		this.positionNumber = positionNumber;
+	}
 	public Date getCreateDate() {
 		return createDate;
 	}

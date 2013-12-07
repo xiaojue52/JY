@@ -41,7 +41,7 @@
 			<jsp:include page="/frame/top.jsp"></jsp:include>
 		</div>
 		<div id="center-div" style="height:100%">
-				<iframe src="mainAction.action" class="center_frame"
+				<iframe src="" class="center_frame"
 					id="content_iframe" width=100% height=100% frameborder='0'></iframe>
 		</div>
 		<div id="south-div"> 
@@ -73,5 +73,9 @@
     	    		<jsp:include page="/account/account.jsp"></jsp:include>
     	    	</div>
 			</div>
+		<script>
+		
+		</script>
+		
 	</body>
 </html>

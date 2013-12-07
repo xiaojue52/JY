@@ -102,6 +102,7 @@ public class JYDeviceServiceImpl implements JYDeviceService {
 					break;
 			}
 			detector.setTag(1);
+			detector.setUnit("℃");
 			detectorService.saveJYDetector(detector);
 		}	
 	}

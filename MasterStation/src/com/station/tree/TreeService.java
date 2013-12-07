@@ -15,7 +15,7 @@ import com.station.service.JYLineService;
 public class TreeService {
 	public String getLineNodes(JYLineService lineService,JYCabinetService cabinetService, String toExpendLineId) {
 		
-		String hql = "from JYLine line where tag = 1 order by id desc";
+		String hql = "from JYLine line where tag = 1 order by to_number(replace(line.lineId,'Line','')) desc";
 		List<JYLine> lines = lineService.findAllLineByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<lines.size();i++){
@@ -43,7 +43,7 @@ public class TreeService {
 		if (queryNumber.equals("-1")) queryNumber = "%";
 		if (queryUser.equals("-1")) queryUser = "%";
 
-		String hql = "from JYCabinet cabinet where cabinet.line.name like '%"+queryLine+"%' and cabinet.cabType.value like '%"+queryType+"%' and cabinet.cabNumber like '%"+queryNumber+"%' and cabinet.user.username like '%"+queryUser+"%' and tag = 1 order by cabinet.line.id desc";
+		String hql = "from JYCabinet cabinet where cabinet.line.name like '%"+queryLine+"%' and cabinet.cabType.value like '%"+queryType+"%' and cabinet.cabNumber like '%"+queryNumber+"%' and cabinet.user.username like '%"+queryUser+"%' and tag = 1 order by to_number(replace(cabinet.cabId,'Cab','')) desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
 		
 
@@ -89,7 +89,7 @@ public class TreeService {
 		return jsonString;
 	}
 	public String getCabinetNodes(JYCabinetService cabinetService, String lineId) {
-		String hql = "from JYCabinet cabinet where cabinet.line.lineId = '"+lineId+"' and tag = 1 order by id desc";
+		String hql = "from JYCabinet cabinet where cabinet.line.lineId = '"+lineId+"' and tag = 1 order by to_number(replace(cabinet.cabId,'Cab','')) desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){
@@ -106,7 +106,7 @@ public class TreeService {
 	}
 
 	public String getDeviceNodes(JYDeviceService deviceService, String cabId) {
-		String hql = "from JYDevice device where device.cabinet.cabId = '"+cabId+"' and tag = 1 order by id desc";
+		String hql = "from JYDevice device where device.cabinet.cabId = '"+cabId+"' and tag = 1 order by to_number(replace(device.deviceId,'Device','')) desc";
 		List<JYDevice> list = deviceService.findJYDeviceByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){
@@ -123,7 +123,7 @@ public class TreeService {
 	}
 
 	public String getDetectorNodes(JYDetectorService detectorService, String deviceId) {
-		String hql = "from JYDetector detector where detector.device.deviceId = '"+deviceId+"' and tag = 1 order by id";
+		String hql = "from JYDetector detector where detector.device.deviceId = '"+deviceId+"' and tag = 1 order by to_number(replace(detector.detectorId,'Detector',''))";
 		List<JYDetector> list = detectorService.findJYDetectorByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){

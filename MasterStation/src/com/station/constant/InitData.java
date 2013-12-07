@@ -88,15 +88,31 @@ public class InitData {
 			
 			key.setType("PowerLevel");
 			key.setKey("1000");
-			key.setValue("20KV");
+			key.setValue("3KV");
 			this.constantService.saveJYConstant(key);
 			key.setType("PowerLevel");
 			key.setKey("1001");
-			key.setValue("110KV");
+			key.setValue("6KV");
 			this.constantService.saveJYConstant(key);
 			key.setType("PowerLevel");
 			key.setKey("1002");
-			key.setValue("50KV");
+			key.setValue("10KV");
+			this.constantService.saveJYConstant(key);
+			key.setType("PowerLevel");
+			key.setKey("1003");
+			key.setValue("35KV");
+			this.constantService.saveJYConstant(key);
+			key.setType("PowerLevel");
+			key.setKey("1004");
+			key.setValue("66KV");
+			this.constantService.saveJYConstant(key);
+			key.setType("PowerLevel");
+			key.setKey("1005");
+			key.setValue("110KV");
+			this.constantService.saveJYConstant(key);
+			key.setType("PowerLevel");
+			key.setKey("1006");
+			key.setValue("220KV");
 			this.constantService.saveJYConstant(key);
 			
 			key.setType("AlarmType");

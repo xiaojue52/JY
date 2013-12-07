@@ -54,6 +54,13 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="td_left" width="100">间隔序号：</td>
+					<td width="270">
+						<input name="device.positionNumber" id="devicePositionNumber" type="text"
+						value="" style="height: 22px;width:260px;"/>
+					</td>
+				</tr>
+				<tr>
 					<td class="td_left" width="100">所属柜体：</td>
 					<td width="270">
 						<input id="cabinet" type="text" value="" readonly="readonly"
@@ -296,7 +303,7 @@
 	<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
 		<div class="titleDiv">说明</div>
 		<div style="margin-top:100px;" >
-		<span>点击左边树目录查看设备信息！如第一次使用，右击树根目录添加用户！</span>
+		<span>点击左边树目录查看设备信息！如第一次使用，右击树根目录添加线路！</span>
 		</div>
 	</div>
 </div>

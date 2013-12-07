@@ -1,4 +1,3 @@
-
 (function getCurrentData(){
 	$.ajax({
 		type:"post",

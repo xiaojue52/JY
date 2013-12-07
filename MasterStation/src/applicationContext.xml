@@ -226,6 +226,17 @@
 			<ref bean="jyHistoryService" />
 		</property>
 	</bean>
+	<bean id="JYSocketService" class="com.station.service.impl.JYSocketServiceImpl">
+		<property name="historyDAO">
+			<ref bean="jyHistoryDAO" />
+		</property>
+		<property name="detectorDAO">
+			<ref bean="jyDetectorDAO" />
+		</property>
+		<property name="cabinetHistoryDAO">
+			<ref bean="jyCabinetHistoryDAO" />
+		</property>
+	</bean>
 
 	<!-- action -->
 	<bean id="loginAction" class="com.station.account.action.LoginAction">
@@ -411,4 +422,39 @@
 			<ref bean="jyAlarmTypeService" />
 		</property>
 	</bean>
+	
+	<bean id="DeviceCompareAction" class="com.station.datapage.action.DeviceCompareAction">
+		<property name="deviceService">
+			<ref bean="jyDeviceService" />
+		</property>
+		<property name="dataList">
+			<ref bean="DataList"/>
+		</property>
+	</bean>
+	<bean id="DetectorCompareAction" class="com.station.datapage.action.DetectorCompareAction">
+		<property name="detectorService">
+			<ref bean="jyDetectorService" />
+		</property>
+		<property name="dataList">
+			<ref bean="DataList"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="DayChartAction" class="com.station.chart.action.DayChartAction">
+		<property name="historyService">
+			<ref bean="jyHistoryService" />
+		</property>
+	</bean>
+	<bean id="MonthChartAction" class="com.station.chart.action.MonthChartAction">
+		<property name="historyService">
+			<ref bean="jyHistoryService" />
+		</property>
+	</bean>
+	<bean id="MoreChartAction" class="com.station.chart.action.MoreChartAction">
+		<property name="historyService">
+			<ref bean="jyHistoryService" />
+		</property>
+	</bean>
+	
 </beans>

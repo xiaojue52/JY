@@ -34,7 +34,7 @@
 
 	<body>
 		<div
-			style="min-width: 900px; width: 100%; height: 430px; margin-top: -8px;">
+			style="min-width: 900px; width: 100%; height: 430px; margin-top: 0px;">
 			<div class="datagrid-container datagrid-container-border"
 				id="datagrid_89353"
 				style="position: relative; overflow: hidden; width: 100%; height: 430px;">
@@ -137,7 +137,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<select class="pagination-page-list" name="pageList" onchange="window.location='listAlarm.action?pageList='+this.options[this.options.selectedIndex].value">
+								<select class="pagination-page-list" name="pageList" onchange="window.location='listPageAlarm.action?pageList='+this.options[this.options.selectedIndex].value">
 									<s:iterator value="pageNumberList" var="number">
 									 
 										<s:if test="#number==pageList">
@@ -154,7 +154,7 @@
 							</td>
 							<td>
 							    <s:if test="CurrentPage>1">
-								<a href="listAlarm.action?page=1"
+								<a href="listPageAlarm.action?page=1"
 									class="pagination-first-btn p-plain">
 									<span class="pagination-first  p-btn">&nbsp;</span>
 								</a>
@@ -168,7 +168,7 @@
 							</td>
 							<td>
 								<s:if test="CurrentPage>1">
-								<a href="listAlarm.action?page=${CurrentPage-1 }"
+								<a href="listPageAlarm.action?page=${CurrentPage-1 }"
 									class="pagination-prev-btn p-plain"><span
 									class="pagination-prev  p-btn">&nbsp;</span>
 								</a>
@@ -197,7 +197,7 @@
 							</td>
 							<td>
 								<s:if test="%{CurrentPage< TotalPage}">
-								<a href="listAlarm.action?page=${CurrentPage+1 }"
+								<a href="listPageAlarm.action?page=${CurrentPage+1 }"
 									class="pagination-next-btn p-plain"><span
 									class="pagination-next p-btn">&nbsp;</span>
 								</a>
@@ -217,7 +217,7 @@
 								</a>
 								</s:if>
 								<s:else>
-								<a href="listAlarm.action?page=${TotalPage}"
+								<a href="listPageAlarm.action?page=${TotalPage}"
 									class="pagination-last-btn p-plain"><span
 									class="pagination-last p-btn ">&nbsp;</span>
 								</a>
@@ -227,7 +227,7 @@
 								<div class="pagination-btn-separator"></div>
 							</td>
 							<td>
-								<a href="listAlarm.action?page=${CurrentPage}" class="pagination-load-btn p-plain"><span
+								<a href="listPageAlarm.action?page=${CurrentPage}" class="pagination-load-btn p-plain"><span
 									class="pagination-load p-btn">&nbsp;</span>
 								</a>
 							</td>

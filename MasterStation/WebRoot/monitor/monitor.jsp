@@ -133,7 +133,7 @@ String path = request.getContextPath();
 				</s:else>
 					<td width="4%">
 						<input type="checkbox"/>
-						<s:property value="#status.count" /><br/>
+						<s:property value="#status.count+(pageList*(page-1))"/>
 					</td>
 					<td width="10%">
 						<s:property value="#cabinet.line.name" /><br/>
@@ -141,7 +141,7 @@ String path = request.getContextPath();
 					</td>
 					<td width="40%">
 					<table>
-						<s:if test="#cabinet.deviceList!=null">
+						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0">
 						<s:iterator value="#cabinet.deviceList" var="device">
 						
 							<tr>
@@ -160,13 +160,13 @@ String path = request.getContextPath();
 						</table>
 					</td>
 					<td width="10%">
-						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList[0].detectorList[0].history!=null">
+						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0&&#cabinet.deviceList[0].detectorList[0].history!=null">
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createDate" format="yyyy-MM-dd" /><br/>
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>
 						</s:if>
 					</td>
 					<td width="16%">
-						<s:if test="#cabinet.deviceList!=null">
+						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0">
 						<s:iterator value="#cabinet.deviceList" var="device">
 							<s:if test="#device.alarm!=null">
 								<s:property value="#device.name"/>:

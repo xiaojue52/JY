@@ -12,6 +12,7 @@ function showPage() {
 function closePage() {
 	$("#BgDiv").css("display", "none");
 	$("#DialogDiv").css("display", "none");
+	$('.page_iframe').attr('src',"");
 }
 
 function setPageFrameSrc(src){

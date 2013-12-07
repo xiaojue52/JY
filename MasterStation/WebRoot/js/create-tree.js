@@ -1,4 +1,6 @@
+
 var windowTree;
+
 Ext.onReady(function(){  
     //Ext.BLANK_IMAGE_URL = "ext/resources/images/default/s.gif";  
 	
@@ -21,6 +23,7 @@ Ext.onReady(function(){
     });  
       
     tree.on("beforeload" , function(node){  
+    	
         tree.loader.baseParams.id = node.id;  
         tree.loader.baseParams.level = node.attributes.level; 
     });  
@@ -96,13 +99,14 @@ Ext.onReady(function(){
     	            success : function(res){  
     	                var txt = res.responseText;  
     	                var obj = Ext.decode(txt);  
-    	                //alert(obj.cabinet.line.name);
+    	                //alert(txt);
     	                $("#deviceNumber").val(obj.device.deviceNumber);
     	                $("#deviceName").val(obj.device.name);
     	                $("#cabinetId").val(node.parentNode.id);
     	                $("#cabinet").val(obj.device.cabinet.cabNumber+obj.device.cabinet.cabType.value);
     	                $("#deviceNote").val(obj.device.note);
     	                $("#deviceTime").val(obj.dateTime);
+    	                $("#devicePositionNumber").val(obj.device.positionNumber);
     	                $("#devicePage form").attr({"action":"updateDevice.action?device.deviceId="+node.id});
     	                $(".page").hide();
     	    			$("#devicePage").show();
@@ -176,6 +180,7 @@ Ext.onReady(function(){
 	                $("#cabinet").val(this.node.text);
 	                $("#cabinetId").val(this.node.id);
 	                $("#deviceNote").val("");
+	                $("#devicePositionNumber").val("");
 	                $("#devicePage form").attr({"action":"addDevice.action"});
     				$(".page").hide();
 	    			$("#devicePage").show();

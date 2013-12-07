@@ -75,4 +75,7 @@ Ext.onReady(function() {
             }]
 		} ]
 	});
+
+	$('.center_frame').attr('src','mainAction.action');
+	Ext.getCmp('center').setTitle('欢迎光临！');
 });

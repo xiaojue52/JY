@@ -40,7 +40,7 @@
 
 	<body>		
 		<div
-			style="min-width: 900px; width: 100%; height: 430px; margin-top: -8px;">
+			style="min-width: 900px; width: 100%; height: 430px; margin-top: 0px;">
 			<div class="datagrid-container datagrid-container-border"
 				id="datagrid_89353"
 				style="position: relative; overflow: hidden; width: 100%; height: 430px;">

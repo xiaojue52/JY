@@ -80,11 +80,34 @@
   </action>
 </package>
 
+<package name="DataPage" extends="abstract_struts" namespace="/">
+<action name="listDeviceComAction" class="DeviceCompareAction" method="listAction">
+   <result name="success">/datapage/device.jsp</result>
+  </action>
+  <action name="listDetectorComAction" class="DetectorCompareAction" method="listAction">
+   <result name="success">/datapage/detector.jsp</result>
+  </action>
+</package>
+
+<package name="Chart" extends="abstract_struts" namespace="/"> 
+ 	<action name="dayChart" class="DayChartAction" method="listHistoryAction">
+ 	<result name="json"></result>
+ 	</action> 
+ 	<action name="monthChart" class="MonthChartAction" method="listHistoryAction">
+ 	<result name="json"></result>
+ 	</action> 
+ 	<action name="moreChart" class="MoreChartAction" method="listHistoryAction">
+ 	<result name="json"></result>
+ 	</action> 
+ </package> 
+
+
 <package name="Trees" extends="abstract_struts" namespace="/"> 
 	<action name="createTree" class="CreateTreeAction" method="createTreeAction"> 
 		<result name="success">/system/system_tree.jsp</result>
  	</action> 
  	<action name="getTreeData" class="CreateTreeAction" method="getTreeData"> 
+ 	<result name="json"></result>
  	</action> 
  </package> 
 <package name="device" extends="abstract_struts" namespace="/">

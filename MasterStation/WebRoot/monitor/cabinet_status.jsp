@@ -127,7 +127,7 @@ String path = request.getContextPath();
  onmouseover="javascript:this.bgColor='#f5fafe'">
 				</s:else>
 					<td width="4%">
-						<s:property value="#status.count" /><br/>
+						<s:property value="#status.count+(pageList*(page-1))"/>
 					</td>
 					<td width="25%">
 						<s:property value="#cabinet.line.name" /><br/>
@@ -140,7 +140,7 @@ String path = request.getContextPath();
 							<s:date name="#cabinet.alarm.createDate" format="yyyy-MM-dd" />
 							<s:date name="#cabinet.alarm.createTime" format="HH:mm:ss" />
 						</s:if>
-						<s:elseif test="#cabinet.deviceList!=null&&#cabinet.deviceList[0].detectorList[0].history!=null">
+						<s:elseif test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0&&#cabinet.deviceList[0].detectorList[0].history!=null">
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createDate" format="yyyy-MM-dd" />
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>
 						</s:elseif>

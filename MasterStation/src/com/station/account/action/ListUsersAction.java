@@ -117,7 +117,7 @@ public class ListUsersAction extends ActionSupport {
 			username = "%";
 		if (company==null||company.length()==0)
 			company = "%";
-		hql = hql+"user.username like '%"+username+"%' "+"and user.company like '%"+company+"%' order by id desc";		
+		hql = hql+"user.username like '%"+username+"%' "+"and user.company like '%"+company+"%' order by to_number(replace(user.userId,'YH','')) desc";		
 		return hql;
 	}
 }

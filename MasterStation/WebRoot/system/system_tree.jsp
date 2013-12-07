@@ -36,16 +36,14 @@
 			href="js/ext/resources/css/ext-all.css" />
 		<link rel="stylesheet" type="text/css" href="css/toolbar.css" />
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
-
 		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 		<script src="js/ext/adapter/ext/ext-base.js" type="text/javascript"></script>
 		<script src="js/ext/ext-all.js" type="text/javascript"></script>
-
-		<script src="js/create-tree.js" type="text/javascript"></script>
+		
 	</head>
 
 	<body>
-		
+		<script src="js/create-tree.js" type="text/javascript"></script>
 		<div class="toolbar" id="toolbar">
 			<s:form>
 				<span>线路：<input id='queryLine' type="text" />

@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 public class JYCabinetHistory {
-	private Integer id;
+	private String id;
 	private JYCabinet cabinet;
 	private Date createDate;
 	private Time createTime;
@@ -32,10 +32,11 @@ public class JYCabinetHistory {
 	public void setHistoryList(List<JYHistory> historyList) {
 		this.historyList = historyList;
 	}
-	public Integer getId() {
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public JYCabinet getCabinet() {

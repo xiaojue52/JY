@@ -117,7 +117,7 @@ public class CreateTreeAction extends ActionSupport {
 			out = response.getWriter();
 			String jsonString = "[]";
 			TreeService treeService = new TreeService();
-			System.out.print("id:"+id+"..level:"+level+"..tag:"+tag);
+			//System.out.print("id:"+id+"..level:"+level+"..tag:"+tag);
 			if (level == null || level.length() == 0) {
 				jsonString = "[]";
 			} else if (level.equals("0")&&tag==0) {
@@ -146,7 +146,7 @@ public class CreateTreeAction extends ActionSupport {
 		}
 	}
 	public String createTreeAction(){
-		System.out.print(this.toExpendLineId);
+		//System.out.print(this.toExpendLineId);
 		return SUCCESS;
 	}
 }
