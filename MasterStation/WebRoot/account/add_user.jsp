@@ -18,13 +18,14 @@
 	<body>
 
 		<div class="textCenter">
+			<div><span class="errorMessage" id="add-user-page"></span></div>
 			<s:form action="addUser.action" method="post" id="form" >
 				<tr>
 					<td align="right">
 						<span>用户名：</span>
 					</td>
 					<td>
-						<input type="text" name="user.username"  style="width:120px;"/>
+						<input class="checkInput-adduserpage" maxlength="4" type="text" name="user.username"  style="width:120px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -41,7 +42,7 @@
 						<span>手机号码：</span>
 					</td>
 					<td>
-						<input type="text" name="user.contact"  style="width:120px;"/>
+						<input class="checkInput-adduserpage numberInput" maxlength="11" type="text" name="user.contact"  style="width:120px;" /><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +50,7 @@
 						<span>所在单位：</span>
 					</td>
 					<td>
-						<input type="text" name="user.company"  style="width:120px;"/>
+						<input class="ecl-adduserpage" type="text" name="user.company"  style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -57,7 +58,7 @@
 						<span>职位级别：</span>
 					</td>
 					<td>
-						<input type="text" name="user.jobLevel"  style="width:120px;"/>
+						<input class="ecl-adduserpage" type="text" name="user.jobLevel"  style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -78,7 +79,7 @@
 
 				<tr>
 					<td align="center">
-						<input type="submit" value="提交" class="comButton" style="margin-left:30px;"/>
+						<input type="submit" value="提交" onclick="return checkInput('add-user-page','checkInput-adduserpage','ecl-adduserpage');" class="comButton" style="margin-left:30px;"/>
 					</td>
 					<td align="center">		
 						<input type="button"

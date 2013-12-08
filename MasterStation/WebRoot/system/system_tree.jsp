@@ -39,6 +39,7 @@
 		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 		<script src="js/ext/adapter/ext/ext-base.js" type="text/javascript"></script>
 		<script src="js/ext/ext-all.js" type="text/javascript"></script>
+		<script src="js/control.js" type="text/javascript"></script>
 		
 	</head>
 

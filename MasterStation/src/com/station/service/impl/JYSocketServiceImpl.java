@@ -38,6 +38,10 @@ public class JYSocketServiceImpl implements JYSocketService {
 		// TODO Auto-generated method stub
 		JYCabinetHistory cabinetHistory = new JYCabinetHistory();
 		//String hqlC = "from JYCabinet cabinet where tag = 1 and cabinet.cabNumber = '"+cabNumber+"'";
+		String h = "from JYDetector detector where tag = 1 and detector.device.cabinet.cabNumber='" +
+		cabNumber+"' and detector.device.tag = 1 and detector.device.cabinet.tag = 1";
+		List<JYDetector> listH = this.detectorDAO.findJYDetectorByHql(h);
+		
 		SimpleDateFormat  df= new SimpleDateFormat("yyyyMMddHHmmss");
         java.util.Date date = null;
 		try {
@@ -47,6 +51,12 @@ public class JYSocketServiceImpl implements JYSocketService {
 			e.printStackTrace();
 			return;
 		}//
+		
+		if (listH.size()==0)return;
+		cabinetHistory.setId(String.valueOf(System.nanoTime()));
+		cabinetHistory.setCabinet(listH.get(0).getDevice().getCabinet());
+		cabinetHistory.setDate(date);
+		cabinetHistoryDAO.saveJYCabinetHistory(cabinetHistory);
 		Iterator<Map.Entry<Integer, List<Float>>> iter = map.entrySet().iterator();
 		while (iter.hasNext()) {
 			Map.Entry<Integer, List<Float>> mEntry = (Map.Entry<Integer, List<Float>>) iter
@@ -61,12 +71,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 					" and detector.device.positionNumber = "+positionNumber+" and detector.name='A相'";
 					List<JYDetector> list = this.detectorDAO.findJYDetectorByHql(hql);
 					if(list.size()>0){
-						cabinetHistory.setId(String.valueOf(System.nanoTime()));
-						cabinetHistory.setCabinet(list.get(0).getDevice().getCabinet());
-						//cabinetHistory.setCreateDate(date);
-						//cabinetHistory.setCreateTime(time);
-						cabinetHistory.setDate(date);
-						cabinetHistoryDAO.saveJYCabinetHistory(cabinetHistory);
+						
 						JYHistory history = new JYHistory();
 						history.setDate(date);
 						history.setDetector(list.get(0));
@@ -87,6 +92,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 						history.setDate(date);
 						history.setDetector(list.get(0));
 						history.setValue(valueList.get(1));
+						history.setCabinetHistory(cabinetHistory);
 						historyDAO.saveJYHistory(history);
 						list.get(0).setHistory(history);
 						detectorDAO.updateJYDetector(list.get(0));
@@ -102,6 +108,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 						history.setDate(date);
 						history.setDetector(list.get(0));
 						history.setValue(valueList.get(2));
+						history.setCabinetHistory(cabinetHistory);
 						historyDAO.saveJYHistory(history);
 						list.get(0).setHistory(history);
 						detectorDAO.updateJYDetector(list.get(0));
@@ -117,6 +124,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 						history.setDate(date);
 						history.setDetector(list.get(0));
 						history.setValue(valueList.get(3));
+						history.setCabinetHistory(cabinetHistory);
 						historyDAO.saveJYHistory(history);
 						list.get(0).setHistory(history);
 						detectorDAO.updateJYDetector(list.get(0));

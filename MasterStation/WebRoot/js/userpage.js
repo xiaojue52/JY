@@ -2,6 +2,8 @@ $(function() {
 	$("#btnShow").click(function() {
 		// var str = "我是弹出对话框";
 			// $(".form").html(str);
+		$("#add-user-page").html('');
+		$("#user-details-page").html('');
 		$("#addUser_dialogDiv").show();
 		$("#userDetails_dialogDiv").hide();
 			$("#BgDiv").css( {
@@ -29,6 +31,8 @@ function getUserDetails(id){
 		success:function(returnData){
 			var obj = eval("("+returnData+")");
 			var user = obj.user;
+			$("#add-user-page").html('');
+			$("#user-details-page").html('');
 			$("#user_username").val(user.username);
 			$("#user_company").val(user.company);
 			$("#user_contact").val(user.contact);

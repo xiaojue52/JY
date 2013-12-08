@@ -87,6 +87,7 @@ Ext.onReady(function(){
     	                	}
     	                }
     	                $(".page").hide();
+    	                $("#cabinet-page").html('');
     	    			$("#cabinetPage").show();
     	            }  
     	        });
@@ -109,6 +110,7 @@ Ext.onReady(function(){
     	                $("#devicePositionNumber").val(obj.device.positionNumber);
     	                $("#devicePage form").attr({"action":"updateDevice.action?device.deviceId="+node.id});
     	                $(".page").hide();
+    	                $("#device-page").html('');
     	    			$("#devicePage").show();
     	            }  
     	        });
@@ -159,6 +161,7 @@ Ext.onReady(function(){
     		switch(this.node.attributes.level){
     			case 0:
     				$(".page").hide();
+    				$("#line-page").html('');
 	    			$("#linePage").show();
     				break;
     			case 1:
@@ -172,6 +175,7 @@ Ext.onReady(function(){
 	                removeChecked(3);
 	                $("#cabinetPage form").attr({"action":"addCabinet.action"});
     				$(".page").hide();
+    				$("#cabinet-page").html('');
 	    			$("#cabinetPage").show();
     				break;	
     			case 2:
@@ -183,6 +187,7 @@ Ext.onReady(function(){
 	                $("#devicePositionNumber").val("");
 	                $("#devicePage form").attr({"action":"addDevice.action"});
     				$(".page").hide();
+    				$("#device-page").html('');
 	    			$("#devicePage").show();
     				break;	
 	

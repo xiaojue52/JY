@@ -15,6 +15,7 @@
 
 	<body>
 		<div class="textCenter">
+		<div><span class="errorMessage" id="user-details-page"></span></div>
 			<s:form action="updateUser.action" method="post" id="form">
 				<tr>
 					<td align="right">
@@ -30,7 +31,7 @@
 						<span>手机号码：</span>
 					</td>
 					<td>
-						<input type="text"  id="user_contact" name="user.contact" value="" style="width:120px;"/>
+						<input class="checkInput-userdetailspage numberInput" maxlength="11" type="text"  id="user_contact" name="user.contact" value="" style="width:120px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -38,7 +39,7 @@
 						<span>所在单位：</span>
 					</td>
 					<td>
-						<input type="text"  id="user_company" name="user.company" value="" style="width:120px;"/>
+						<input class="ecl-userdetailspage" type="text"  id="user_company" name="user.company" value="" style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -46,7 +47,7 @@
 						<span>职位级别：</span>
 					</td>
 					<td>
-						<input type="text"  id="user_jobLevel" name="user.jobLevel" value="" style="width:120px;"/>
+						<input class="ecl-userdetailspage" type="text"  id="user_jobLevel" name="user.jobLevel" value="" style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -77,7 +78,7 @@
 					<td align="center">
 						<input type="hidden" id="user_userId" name="user.userId"
 							value="${user.userId }" />
-						<input type="submit" value="提交" class="comButton" style="margin-left:30px;"/>
+						<input type="submit" value="提交" class="comButton" onclick="return checkInput('user-details-page','checkInput-userdetailspage','ecl-userdetailspage');" style="margin-left:30px;"/>
 					</td>
 					<td align="center">	
 						<input type="button"

@@ -11,8 +11,8 @@
 
 	<body>
 		<div>
-			<div><span class="errorMessage"> </span></div>
-			<table id="form" style="margin-top:30px">
+			<div><span class="errorMessage" id="account-page"> </span></div>
+			<table id="form" style="margin-top:20px">
 				<tr>
 					<td align="right">
 						<span>用户名:</span>
@@ -24,7 +24,7 @@
 						<span>旧密码:</span>
 					</td>
 					<td>
-						<input class="comInput" type="password" id="password"/>
+						<input maxlength="16" class="comInput checkInputLength" type="password" id="password"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -32,7 +32,7 @@
 						<span>新密码:</span>
 					</td>
 					<td>
-						<input class="comInput" id="newPassword" type="password">
+						<input maxlength="16" class="comInput checkInputLength" id="newPassword" type="password"><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -40,13 +40,13 @@
 						<span>确认密码:</span>
 					</td>
 					<td>
-						<input class="comInput" id="verifyPassword" type="password">
+						<input maxlength="16" class="comInput checkInputLength" id="verifyPassword" type="password"><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
 					<td align="center">
 						<br/><br/>
-						<input style="width:48px;" class="comButton" type="button" value="提交" onClick="verify();" />
+						<input style="width:48px;" class="comButton" type="button" value="提交" onClick="if(checkInputLength('account-page','checkInputLength',5))verify();" />
 					</td>
 					<td align="center">
 						<br/><br/>

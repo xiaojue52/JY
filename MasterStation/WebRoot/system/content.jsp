@@ -36,28 +36,29 @@
 	<div class="page" id="devicePage" style="background-color: #FFFFFF;display: none;">
 		<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
 			<div class="titleDiv">变送器</div>
+			<div><span class="errorMessage" id="device-page"> </span></div>
 			<s:form action="addDevice.action">
 			<table class="tableStyle" style="width: 98%;margin-bottom: 5px;">
 				<tr>
 					<td class="td_left" width="100">变送器编号：</td>
 					<td width="270">
-						<input name="device.deviceNumber" id="deviceNumber" type="text"
-						value="" style="height: 22px;width:260px;"/>
+						<input maxlength="20" class="checkInput-devicepage" name="device.deviceNumber" id="deviceNumber" type="text"
+						value="" style="height: 22px;width:260px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				
 				<tr>
 					<td class="td_left" width="100">变送器名称：</td>
 					<td width="270">
-						<input name="device.name" id="deviceName" type="text"
-						value="" style="height: 22px;width:260px;"/>
+						<input maxlength="20" class="checkInput-devicepage" name="device.name" id="deviceName" type="text"
+						value="" style="height: 22px;width:260px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
 					<td class="td_left" width="100">间隔序号：</td>
 					<td width="270">
-						<input name="device.positionNumber" id="devicePositionNumber" type="text"
-						value="" style="height: 22px;width:260px;"/>
+						<input maxlength="2" class="checkInput-devicepage numberInput" name="device.positionNumber" id="devicePositionNumber" type="text"
+						value="" style="height: 22px;width:260px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -76,12 +77,12 @@
 				<tr>
 					<td class="td_left" width="100">备注：</td>
 					<td width="270">
-						<textarea name="device.note" id="deviceNote" cols="30" rows="5" style="width:260px;"></textarea>
+						<textarea class="ecl-devicepage" name="device.note" id="deviceNote" cols="30" rows="5" style="width:260px;"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input type="submit" value=" 确  定 " style="width: 60px;">
+						<input type="submit" value="确 定" onclick="return checkInput('device-page','checkInput-devicepage');" style="width: 60px;">
 					</td>
 				</tr>
 				
@@ -128,12 +129,13 @@
 	<div class="page" id="linePage" style="background-color: #FFFFFF;display: none;">
 		<div style="margin-top:0px;margin-left:0px;width:100%;height: 100%" align="center">
 			<div class="titleDiv">添加线路</div>
+			<div><span class="errorMessage" id="line-page"> </span></div>
 			<s:form action="addLine.action">
 			<div style="margin-top:100px;" >
 			线路名称：
-			<input name="line.name" type="text" value="请输入线路名称" />
+			<input class="checkInput-linepage" name="line.name" type="text" value="请输入线路名称" /><span style="color:red">*</span>
 				<input class="comButton" type="submit" value="确定"
-					style="margin-left: 10px" />
+					style="margin-left: 10px" onclick="return checkInput('line-page','checkInput-linepage');"/>
 			
 			<br/>
 			<br/>
@@ -147,6 +149,7 @@
 	<div class="page" id="cabinetPage" style="background-color: #FFFFFF;display: none;">
 		<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
 			<div class="titleDiv">柜体信息</div>
+			<div><span class="errorMessage" id="cabinet-page"> </span></div>
 			<s:form action="addCabinet.action">
 			<table class="tableStyle" style="width: 98%;margin-bottom: 5px;">
 				<tr>
@@ -179,8 +182,8 @@
 					<tr>
 					<td class="td_left" width="100">柜体编号：</td>
 					<td>
-						<input name="cabinet.cabNumber" id="cabNumber" value=""
-							type="text" style="height: 22px;width:200px;"/>
+						<input class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
+							type="text" style="height: 22px;width:200px;"/><span style="color:red">*</span>
 					</td>
 					<td class="td_left" width="100">电压等级：</td>
 					<td>
@@ -288,7 +291,7 @@
 				
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" value="确定" />
+					<input type="submit" value="确定" onclick="return checkInput('cabinet-page','checkInput-cabinetpage');"/>
 					</td>
 				</tr>	
 				</table>

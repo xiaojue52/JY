@@ -18,8 +18,9 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/alert-page.css" />
-		<script type="text/javascript" src="js/alert-page.js"></script>
+		<script type="text/javascript" src="js/userpage.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<script type="text/javascript" src="js/control.js"></script>
 		<script type="text/javascript">
    function del(){
     if(confirm("你真的想删除该记录吗")){

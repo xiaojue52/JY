@@ -14,7 +14,16 @@ public class LoginAction extends ActionSupport {
 	
 	private List<JYUser> list;
 	private JYUserService userService;
+	private int ret = 1;
 
+
+	public int getRet() {
+		return ret;
+	}
+
+	public void setRet(int ret) {
+		this.ret = ret;
+	}
 
 	public JYUserService getUserService() {
 		return userService;
@@ -54,8 +63,10 @@ public class LoginAction extends ActionSupport {
 		//list = myUserDao.findAllUser();
 		if (verify())
 			return "success";
-		else 
+		else {
+			ret = -1;
 			return "failure";
+		}
 	}
 	private boolean verify(){
 		String hql = "from JYUser user where user.username != '--'";

@@ -33,6 +33,7 @@
 		<link rel="stylesheet" type="text/css" href="css/alert-page.css" />
 		<script type="text/javascript" src="js/modify-password.js"></script>
 		<script src="js/get-data.js" type="text/javascript"></script>
+		<script src="js/control.js" type="text/javascript"></script>
 		<title>监测主站</title>
 	</head>
 
@@ -67,7 +68,7 @@
 			<button onclick='setFrameSrc("history/chart.jsp","数据对比");' class="itemDiv" >数据对比</button>
 		</div>
 		<div id="BgDiv"></div>
-			<div id="DialogDiv" style="display:none;width:280px;">
+			<div id="DialogDiv" style="display:none;width:300px;">
 				<h2>操作<a id="btnClose" onclick="closePage();">关闭</a></h2>
 				<div id="modifyPassword_dialogDiv">
     	    		<jsp:include page="/account/account.jsp"></jsp:include>
