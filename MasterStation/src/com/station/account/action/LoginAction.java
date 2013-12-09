@@ -80,7 +80,9 @@ public class LoginAction extends ActionSupport {
 			pwd = myUser.getPassword();
 			String str = MD5.CreateMD5String(password);
 			if ((username.equals(user))&&(str.equals(pwd))){
-				LoginStatus.storeUserDataInSession(myUser);
+				LoginStatus.initData(myUser);
+				myUser.setIsFirstLogin(0);
+				userService.updateUser(myUser);
 				return true;
 			}
 		}

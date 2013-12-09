@@ -13,6 +13,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
 import com.station.po.JYAlarm;
@@ -198,7 +199,11 @@ public class UnhandledAlarmAction extends ActionSupport {
 	}
 
 	public String createSql(){
-		String hql = "from JYAlarm alarm where ";;
+		String temp="1=1 and ";
+		if (LoginStatus.checkUserAccess()==2){
+			temp = "(alarm.device.cabinet.user.username = '"+LoginStatus.getUsername()+"' or alarm.device.cabinet.user.username = '--') and ";
+		}
+		String hql = "from JYAlarm alarm where "+temp;
 		if (unhandledTag==1){
 			queryLine = null;queryNumber=null;queryType=null;queryUser=null;queryStartDate=null;queryEndDate=null;
 			queryRepairStatus = "0";

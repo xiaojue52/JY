@@ -1,8 +1,12 @@
 package com.station.constant;
 
+import java.io.File;
 import javax.servlet.http.HttpSession;
-
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.struts2.ServletActionContext;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.station.po.JYUser;
 
@@ -14,18 +18,41 @@ public class LoginStatus {
 		else 
 			return true;
 	}
-	public static void storeUserDataInSession(JYUser user){
+	
+	public static void initData(JYUser user){
 		HttpSession session = ServletActionContext.getRequest ().getSession();
 		session.setAttribute("username", user.getUsername());
 		session.setAttribute("userLevel", user.getUserLevel());
 		session.setAttribute("userId", user.getUserId());
+		session.setAttribute("isFirstLogin", user.getIsFirstLogin());
 		//session.setAttribute("password", user.getPassword());
+		String path = ServletActionContext.getServletContext().getRealPath("/");
+		File fXmlFile = new File(path+"files/nameConfig.xml");
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(fXmlFile);
+			doc.getDocumentElement().normalize();
+			//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+			Element root = doc.getDocumentElement();
+			Element topContent = (Element) root.getElementsByTagName("topContent").item(0);
+			Element bottomContent = (Element) root.getElementsByTagName("bottomContent").item(0);
+			Element imagePath = (Element) root.getElementsByTagName("imagePath").item(0);
+			session.setAttribute("topContent", topContent.getTextContent());
+			session.setAttribute("bottomContent", bottomContent.getTextContent());
+			session.setAttribute("imagePath", imagePath.getTextContent());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	public static void clearUserDataFromSession(){
+	public static void destroyData(){
 		HttpSession session = ServletActionContext.getRequest ().getSession();
 		session.setAttribute("username", null);
 		session.setAttribute("userLevel", null);
 		session.setAttribute("userId", null);
+		session.setAttribute("isFirstLogin", null);
 		//session.setAttribute("password", null);
 	}
 	public static int checkUserAccess(){
@@ -35,10 +62,10 @@ public class LoginStatus {
 			return 1;
 		}
 		if (userLevel!=null&&userLevel.equals("user")){
-			return 2;
+			return 3;
 		}
 		if (userLevel!=null&&userLevel.equals("com_admin")){
-			return 3;
+			return 2;
 		}
 		return -1;
 	}

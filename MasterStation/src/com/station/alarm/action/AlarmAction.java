@@ -13,6 +13,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
 import com.station.po.JYAlarm;
@@ -192,13 +193,18 @@ public class AlarmAction extends ActionSupport {
 		userList = dataList.getUser();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
+		//final String hql = "from JYAlarm alarm where alarm.device.cabinet.user.username like '%%%' ORDER BY id DESC";
 		this.pageBean = this.alarmService.getPerPage(pageList, page, hql);
 		//page = 1;
 		return SUCCESS;
 	}
 
 	public String createSql(){
-		String hql = "from JYAlarm alarm where ";;
+		String temp="1=1 and ";
+		if (LoginStatus.checkUserAccess()==2){
+			temp = "(alarm.device.cabinet.user.username = '"+LoginStatus.getUsername()+"' or alarm.device.cabinet.user.username = '--') and ";
+		}
+		String hql = "from JYAlarm alarm where "+temp;
 		if (unhandledTag==1){
 			queryLine = null;queryNumber=null;queryType=null;queryUser=null;queryStartDate=null;queryEndDate=null;
 			queryRepairStatus = "0";
@@ -219,7 +225,7 @@ public class AlarmAction extends ActionSupport {
 			queryDevice = "%";
 		if (queryRepairStatus == null || queryRepairStatus.length() == 0)
 			queryRepairStatus = "%";
-		hql = hql + "(alarm.device.cabinet.line.name like '%"
+		hql = hql + "alarm.device.cabinet.line.name like '%"
 				+ queryLine + "%' and "
 				+ "alarm.device.cabinet.cabNumber like '%"
 				+ queryNumber + "%' and "
@@ -232,7 +238,7 @@ public class AlarmAction extends ActionSupport {
 				+ "alarm.date <= TO_DATE('" + queryEndDate
 				+ "','YYYY-MM-DD') and "
 				+ "alarm.device.cabinet.user.username like '%"
-				+ queryUser + "%')" +
+				+ queryUser + "%'" +
 				" ORDER BY id DESC";
 		unhandledTag = 0;
 		return hql;

@@ -156,7 +156,11 @@ public class MainAction extends ActionSupport {
 	}
 
 	public String createSql(){
-		String hql = "from JYCabinet cabinet where ";
+		String temp="1=1 and ";
+		if (LoginStatus.checkUserAccess()==2){
+			temp = "(cabinet.user.username = '"+LoginStatus.getUsername()+"' or cabinet.user.username = '--') and ";
+		}
+		String hql = "from JYCabinet cabinet where "+temp;
 		if (queryLine == null || queryLine.length() == 0)
 			queryLine = "%";
 		if (queryNumber == null || queryNumber.length() == 0)
@@ -172,7 +176,7 @@ public class MainAction extends ActionSupport {
 		+ "cabinet.cabType.value like '%"
 		+ queryType + "%' and " 
 		+ "cabinet.user.username like '%"
-		+ queryUser + "%' and cabinet.tag = 1 ORDER BY id DESC";
+		+ queryUser + "%' and cabinet.tag = 1 ORDER BY to_number(replace(cabinet.cabId,'Cab','')) DESC";
 		return hql;
 	}
 	

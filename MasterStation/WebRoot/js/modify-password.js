@@ -1,3 +1,4 @@
+
 function showPage() {
 	
 	$("#BgDiv").css( {

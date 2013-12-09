@@ -40,6 +40,7 @@ public class InitData {
 		if (this.userService.findUserByHql(hql).size()==0){
 			JYUser user = new JYUser();
 			user.setUsername("admin");
+			user.setIsFirstLogin(1);
 			user.setPassword(MD5.CreateMD5String("admin"));
 			user.setUserLevel("super_admin");
 			this.userService.saveUser(user);

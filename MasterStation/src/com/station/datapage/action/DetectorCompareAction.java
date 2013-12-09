@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
 import com.station.po.JYConstant;
@@ -165,7 +166,11 @@ public class DetectorCompareAction extends ActionSupport {
 	}
 
 	public String createSql() {
-		String hql = "from JYDetector detector where ";
+		String temp="1=1 and ";
+		if (LoginStatus.checkUserAccess()==2){
+			temp = "(detector.device.cabinet.user.username = '"+LoginStatus.getUsername()+"' or detector.device.cabinet.user.username = '--') and ";
+		}
+		String hql = "from JYDetector detector where "+temp;
 		if (queryLine == null || queryLine.length() == 0)
 			queryLine = "%";
 		if (queryNumber == null || queryNumber.length() == 0)

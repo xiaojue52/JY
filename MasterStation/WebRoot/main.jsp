@@ -6,11 +6,15 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	String username = (String) request.getSession().getAttribute(
-			"username");
+	String username = (String) request.getSession().getAttribute("username");
 	//System.out.print("\n"+path+"\n"+basePath);
 	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
+	Integer isFirstLogin = (Integer)request.getSession().getAttribute("isFirstLogin");
+	String topContent = (String) request.getSession().getAttribute("topContent");
+	String bottomContent = (String) request.getSession().getAttribute("bottomContent");
+	String imagePath = (String) request.getSession().getAttribute("imagePath");
+	String userLevel = (String) request.getSession().getAttribute("userLevel");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -39,14 +43,19 @@
 
 	<body>
 		<div id="north-div">
-			<jsp:include page="/frame/top.jsp"></jsp:include>
+			<div class="top_frame">
+	    		<span class="comSpan" onclick="setFrameSrc('mainAction.action','系统监控');"><a>首页 |</a> </span><span>欢迎<%=username %>登陆 | </span><span class="comSpan" onclick="setFrameSrc('listAlarm.action?unhandledTag=1','报警记录');"><img style="width:16px;height:16px;" src="images/message.png"/>未处理报警(<span id="unhandledCount" style="margin-left:0px;">0</span>) |</span> <span class="comSpan" onclick="showPage();"><img style="width:14px;height:14px;" src="images/modify.png"/>修改密码 |</span> <span class="comSpan" onclick="window.location.href='logout.action'"><img style="width:14px;height:14px;" src="images/quit.png"/>退出系统</span>
+			</div>
+			<div class="logDiv" id="top-content"><img src="<%=imagePath %>"><span><%=topContent %></span></div>
 		</div>
 		<div id="center-div" style="height:100%">
 				<iframe src="" class="center_frame"
 					id="content_iframe" width=100% height=100% frameborder='0'></iframe>
 		</div>
 		<div id="south-div"> 
-			版权所有 翻版必究 
+			<div id="bottom-content" style="text-align:center; width:100%">
+			<%=bottomContent %>
+			</div>
 		</div>
 		<div id="monitor_div" class="panelDiv">
 			<button onclick="setFrameSrc('mainAction.action','系统监控');" class="itemDiv">系统监控</button>
@@ -74,9 +83,13 @@
     	    		<jsp:include page="/account/account.jsp"></jsp:include>
     	    	</div>
 			</div>
+		<input id="isFirstLogin" type="hidden" value="<%=isFirstLogin %>"/>
+		<input id="userLevel" type="hidden" value="<%=userLevel %>"/>
 		<script>
-		
+		if($('#isFirstLogin').val()==1){
+			$(".errorMessage").html("首次登陆请更改密码！");
+			showPage();
+		}
 		</script>
-		
 	</body>
 </html>

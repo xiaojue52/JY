@@ -182,7 +182,7 @@
 					<tr>
 					<td class="td_left" width="100">柜体编号：</td>
 					<td>
-						<input class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
+						<input maxlength=5 class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
 							type="text" style="height: 22px;width:200px;"/><span style="color:red">*</span>
 					</td>
 					<td class="td_left" width="100">电压等级：</td>
@@ -237,14 +237,14 @@
 					<tr>
 					<td class="td_left" width="200px">SIM卡号：</td>
 					<td>
-						<input name="cabinet.simNumber" id="simNumber" type="text"
+						<input maxlength=11 name="cabinet.simNumber" id="simNumber" type="text"
 							value="" style="height: 22px;width:200px;"/>
 					</td>
 					</tr>
 					<tr>
 					<td class="td_left" width="100">SIM卡串号：</td>
 					<td>
-						<input name="cabinet.simSNumber" id="simSNumber" type="text"
+						<input maxlength=20 name="cabinet.simSNumber" id="simSNumber" type="text"
 							value="" style="height: 22px;width:200px;"/>
 					</td>
 					</tr>
@@ -291,7 +291,7 @@
 				
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" value="确定" onclick="return checkInput('cabinet-page','checkInput-cabinetpage');"/>
+					<input type="submit" value="确定" onclick="return (checkInput('cabinet-page','checkInput-cabinetpage')&&checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5));"/>
 					</td>
 				</tr>	
 				</table>

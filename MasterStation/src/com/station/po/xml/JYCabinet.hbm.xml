@@ -44,7 +44,9 @@
   <property name="simNumber" type="string" column="sim_Number" length="11"/>
   <property name="simSNumber" type="string" column="sim_S_Number" length="20"/>
   <property name="tag" type="java.lang.Integer" column="tag"/>
+  <property name="status" type="java.lang.Integer" column="status"/>
   <property name="createTime" type="java.util.Date" column="create_Time"/>
+  <property name="loginTime" type="java.util.Date" column="login_Time"/>
   <property name="note" type="string" column="note" length="400"/>
  </class>
 </hibernate-mapping>

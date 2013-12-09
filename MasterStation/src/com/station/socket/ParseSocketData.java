@@ -8,89 +8,50 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.ServletContextEvent;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import com.station.constant.InitData;
+import com.station.constant.Constant;
 import com.station.service.JYSocketService;
+import com.station.timer.HalfHourEvent;
 
 public class ParseSocketData {
 	public ParseSocketData(ServletContextEvent sce){
 		this.sce = sce;
+		ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(this.sce.getServletContext());  
+		socketService = (JYSocketService) applicationContext.getBean("JYSocketService");
+		checkThread = new LoopCheckThread(orderMap,socketService);
+		checkThread.start();
+		HalfHourEvent halfHourEvent = new HalfHourEvent();
+		//halfHourEvent.test();
 	}
+	private LoopCheckThread checkThread;
 	private ServletContextEvent sce;
 	public Map<String, Socket> clientMap = new HashMap<String, Socket>();
 	public Map<String, String> order = new HashMap<String, String>();
 	public Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();
+	private JYSocketService socketService;
 
-	public void updateDevice(String identify, String currentData){
-		/*double temp = 0;
-		if (ParseStringToDecimal.IsDouble(currentData)){
-			temp = Double.valueOf(currentData);
-		}
-		Device device = deviceService
-		.findDeviceByIdentify(identify);
-		if (device != null) {
-			device.setCurrentData(temp);
-			Date date = new Date();
-			device.setCreateDate(new java.sql.Date(date.getTime()));
-			device.setCreateTime(new java.sql.Time(date.getTime()));
-			double wTemp = device.getWarningTemperature();
-			if (temp>=wTemp){
-				device.setReason(hTemp);
-				device.setStatus(exception);
-				UnhandledException unhandledException = unhandledExceptionService.getUnhandledException(device);
-				unhandledExceptionService.saveDevice(unhandledException);
-			}
-			else{
-				device.setReason(dNormal);
-				device.setStatus(normal);
-
-			}
-			deviceService.updateDevice(device);
-	
-			DeviceHistory deviceHistory = deviceHistoryService.getDeviceHistory(device);
-			deviceHistoryService.saveDevice(deviceHistory);
-		}*/
-		
-	}
-	public void deviceOffline(String identify){
-		/*Device device = deviceService
-		.findDeviceByIdentify(identify);
-		if (device != null) {
-			device.setStatus(exception);
-			device.setReason(offLine);
-			deviceService.updateDevice(device);
-			UnhandledException unhandledException = unhandledExceptionService.getUnhandledException(device);
-			unhandledExceptionService.saveDevice(unhandledException);
-		}*/
-	}
 	public String CheckString(String str,Socket client){
-		if (str==null||str.length()<7)return "-2";
+		if (str==null||str.length()<7||!str.substring(str.length()-2).equals("CR"))return "-2";
 		String orderStr = str.substring(0,2);
-		System.out.print(orderStr);
 		//loginMes = "0000000|0000000|000000CR";
-		if (orderStr.equals("00")){
+		if (orderStr.equals("00")){//登陆
 			return parseLogin(str,client);
 		}
-		if (orderStr.equals("40")){
+		if (orderStr.equals("40")){//心跳
 			return this.parseHeartBeat(str, client);
 		}
-		if (orderStr.equals("20")){
+		if (orderStr.equals("20")){//温度
 			return this.parseTempData(str, client);
 		}
 		return "-2";
 	}
 	private String parseTempData(String str,Socket client){
 		//Mes = "2000000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432XXCR";
-		if(!str.substring(str.length()-2).equals("CR"))return "-2";
 		String command[] = str.split("[|]");
 		if (command!=null&&command.length==4&&command[0].length()==7&&command[1].length()==7&&command[2].length()==14){
 			String tempData = command[3].substring(0,command[3].length()-4);
-			//if (tempData)
 			this.setTempValue(command[1].substring(0,5),tempData,command[2]);
 			return "2100000|"+command[1]+"|0XXCR";
 		}
@@ -99,27 +60,28 @@ public class ParseSocketData {
 	
 	private String parseHeartBeat(String str,Socket client){
 		//Mes = "4000000|0000000XXCR";
-		if (str.length()!=19||!str.substring(str.length()-2).equals("CR"))return "-2";
 		String command[] = str.split("[|]");
 		if (command!=null&&command.length==2
 				&&command[0].length()==7){
+			storeHeartBertOrder(command[1].substring(0,5));
 			return "4100000"+command[1].substring(0,7)+"|0XXCR";
 		}
 		return "-2";
 	}
+	private void storeHeartBertOrder(String cabNumber){
+		//Date date = new Date();
+		order.put("heartBeat", Constant.getCurrentDateStr());
+		orderMap.put(cabNumber, order);
+	}
 	private String parseLogin(String str,Socket client){
 		//loginMes = "0000000|0000000|000000CR";
-		if (str.length()!=24||!str.substring(str.length()-2).equals("CR"))
-			return "-2";
 		String command[] = str.split("[|]");
-		System.out.println(str+":::"+str.length()+"::"+command[1]+"::::"+command.length+"::"+str.substring(22));
-		
 		if (command!=null&&command.length==3&&command[0].length()==7&&command[1].length()==7){
 			if(command[0].equals("0000000")){			
 				clientMap.put(command[1],client);
+				socketService.updateCabinetStatus(command[1].substring(0,5));
 				return "0000000|"+command[1]+"|000000CR";
-			}
-			
+			}			
 		}
 		return "-2";
 	}
@@ -181,8 +143,8 @@ public class ParseSocketData {
 		Map<Integer,List<Float>> map = new HashMap<Integer,List<Float>>();
 		String tempList[] = arg0.split("[*]");
 		if (tempList!=null&&tempList.length>0){
-			ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(this.sce.getServletContext());  
-			JYSocketService socketService = (JYSocketService) applicationContext.getBean("JYSocketService");
+			
+			
 			for(int i=0;i<tempList.length;i++){
 				if (tempList[i].length()==24){
 					List<Float> vL = new ArrayList<Float>();
@@ -213,5 +175,8 @@ public class ParseSocketData {
 			}
 			socketService.saveDate(cabNumber,map, dateStr);
 		}
+	}
+	public void stop(){
+		this.checkThread.stopCheck();
 	}
 }

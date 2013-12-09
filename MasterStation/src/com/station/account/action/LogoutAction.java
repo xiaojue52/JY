@@ -7,7 +7,7 @@ import com.station.constant.LoginStatus;
 public class LogoutAction extends ActionSupport {
 	@SuppressWarnings("static-access")
 	public String logout(){
-		LoginStatus.clearUserDataFromSession();
+		LoginStatus.destroyData();
 		//System.out.print("logout");aaa
 		return this.SUCCESS;
 	}

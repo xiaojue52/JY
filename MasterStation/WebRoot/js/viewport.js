@@ -1,4 +1,80 @@
 Ext.onReady(function() {
+	//alert($('#userLevel').val());
+	var menus;
+	if ($('#userLevel').val()=="super_admin"){
+		menus = [{
+	    	contentEl : 'monitor_div',
+	        title: '系统监控',
+	        border: false,
+	        iconCls: "monitor_png"
+	    }, {
+	        title: '系统管理',
+	        contentEl : 'system_div',
+	        border: false,
+	        iconCls: 'settings_png'
+	    },
+	    {
+	        title: '用户管理',
+	        contentEl : 'user_div',
+	        border: false,
+	        iconCls: 'user_png'
+	    },
+	    {
+	        title: '历史记录',
+	        contentEl : 'history_div',
+	        border: false,
+	        iconCls: 'history_png'
+	    },{
+	        title: '数据对比',
+	        contentEl : 'data_div',
+	        border: false,
+	        iconCls: 'data_png'
+	    }];
+	}
+	else if($('#userLevel').val()=="com_admin"){
+		menus = [{
+	    	contentEl : 'monitor_div',
+	        title: '系统监控',
+	        border: false,
+	        iconCls: "monitor_png"
+	    }, {
+	        title: '系统管理',
+	        contentEl : 'system_div',
+	        border: false,
+	        iconCls: 'settings_png'
+	    },
+	    {
+	        title: '历史记录',
+	        contentEl : 'history_div',
+	        border: false,
+	        iconCls: 'history_png'
+	    },{
+	        title: '数据对比',
+	        contentEl : 'data_div',
+	        border: false,
+	        iconCls: 'data_png'
+	    }];
+	}
+	else 
+	menus = [{
+    	contentEl : 'monitor_div',
+        title: '系统监控',
+        border: false,
+        iconCls: "monitor_png"
+    }, 
+    {
+        title: '历史记录',
+        contentEl : 'history_div',
+        border: false,
+        iconCls: 'history_png'
+    },{
+        title: '数据对比',
+        contentEl : 'data_div',
+        border: false,
+        iconCls: 'data_png'
+    }];
+	
+	
 	var viewport = new Ext.Viewport( {
 		layout : 'border',
 		items : [ {
@@ -45,34 +121,7 @@ Ext.onReady(function() {
                 type: 'accordion',
                 animate: true
             },
-            items: [{
-            	contentEl : 'monitor_div',
-                title: '系统监控',
-                border: false,
-                iconCls: "monitor_png"
-            }, {
-                title: '系统管理',
-                contentEl : 'system_div',
-                border: false,
-                iconCls: 'settings_png'
-            },
-            {
-                title: '用户管理',
-                contentEl : 'user_div',
-                border: false,
-                iconCls: 'user_png'
-            },
-            {
-                title: '历史记录',
-                contentEl : 'history_div',
-                border: false,
-                iconCls: 'history_png'
-            },{
-                title: '数据对比',
-                contentEl : 'data_div',
-                border: false,
-                iconCls: 'data_png'
-            }]
+            items: menus
 		} ]
 	});
 

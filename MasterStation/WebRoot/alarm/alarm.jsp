@@ -164,10 +164,10 @@
 							<th width="10%">
 								<span>报警时间</span>
 							</th>
-							<th width="20%">
+							<th width="10%">
 								<span>报警设备</span>
 							</th>
-							<th width="10%">
+							<th width="20%">
 								<span>报警内容</span>
 							</th>
 							<th width="10%">
@@ -208,7 +208,7 @@
 								<td width="10%">
 									<s:date name="#alarm.createTime" format="HH:mm:ss" />
 								</td>
-								<td width="20%">
+								<td width="10%">
 									<s:if test="#alarm.isCabinet == 0">
 										<s:property value="#alarm.device.cabinet.line.name" /><br/>
 										<s:property value="#alarm.device.cabinet.cabNumber" />
@@ -222,8 +222,8 @@
 									</s:else>
 								</td>
 
-								<td width="10%">
-									<s:property value="alarmText" />
+								<td width="20%">
+									<s:property escape="false" value="alarmText"/>
 								</td>
 								<td width="10%">
 										<s:if test="#alarm.device !=null">

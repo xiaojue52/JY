@@ -68,6 +68,7 @@ public class UpdateUserAction extends ActionSupport {
 			String str = MD5.CreateMD5String("000000");
 			user.setPassword(str);
 		}
+		user.setIsFirstLogin(userService.findUserById(user.getUserId()).getIsFirstLogin());
 		userService.updateUser(user);
 		return "users";
 	}

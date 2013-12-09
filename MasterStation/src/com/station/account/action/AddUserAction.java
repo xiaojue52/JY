@@ -32,10 +32,9 @@ public class AddUserAction extends ActionSupport {
 		if (list.size()>0){
 			return ERROR;
 		}else{
-			if (this.user.getCompany()==null||this.user.getCompany().length()==0)
-				this.user.setCompany("--");
 			String password = MD5.CreateMD5String(this.user.getPassword());
 			this.user.setPassword(password);
+			this.user.setIsFirstLogin(1);
 			this.userService.saveUser(this.user);
 			return SUCCESS;
 		}

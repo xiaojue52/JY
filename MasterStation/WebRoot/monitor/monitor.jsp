@@ -99,7 +99,7 @@ String path = request.getContextPath();
 				<th width="4%">
 				   <span>序号</span>
 				</th>
-				<th width="10%">
+				<th width="8%">
 					<span>站房名称</span>
 				</th>
 				<th width="40%">
@@ -108,13 +108,13 @@ String path = request.getContextPath();
 				<th width="10%">
 					<span>采集时间</span>
 				</th>
-				<th width="16%">
+				<th width="26%">
 					<span>报警信息</span>
 				</th>
-				<th width="10%">
+				<th width="5%">
 					<span>管理者</span>
 				</th>
-				<th width="10%">
+				<th width="7%">
 					<span>操作</span>
 				</th>
 			</tr>
@@ -135,7 +135,7 @@ String path = request.getContextPath();
 						<input type="checkbox"/>
 						<s:property value="#status.count+(pageList*(page-1))"/>
 					</td>
-					<td width="10%">
+					<td width="8%">
 						<s:property value="#cabinet.line.name" /><br/>
 						<s:property value="#cabinet.cabNumber" /><s:property value="#cabinet.cabType.value" />
 					</td>
@@ -165,21 +165,21 @@ String path = request.getContextPath();
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>
 						</s:if>
 					</td>
-					<td width="16%">
+					<td width="26%">
 						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0">
 						<s:iterator value="#cabinet.deviceList" var="device">
 							<s:if test="#device.alarm!=null">
 								<s:property value="#device.name"/>:
-								<s:property value="#device.alarm.alarmText" />
+								<s:property escape="false" value="#device.alarm.alarmText" />
 							</s:if>
 							<br/>
 						</s:iterator>
 						</s:if>
 					</td>
-					<td width="10%">
+					<td width="5%">
 						<s:property value="#cabinet.user.username" />
 					</td>
-					<td width="10%">
+					<td width="7%">
 						<a href="javascript:void(0)" onClick="setPageFrameSrc('listPageAlarm.action?cabId=<s:property value="#cabinet.cabId"/>');">历史报警</a><br/>
 						<a href="javascript:void(0)" onClick="setPageFrameSrc('listPageHistory.action?cabId=<s:property value="#cabinet.cabId"/>');">历史温度</a>
 					</td>

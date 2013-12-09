@@ -20,7 +20,21 @@ public class JYCabinet {
 	private JYAlarm alarm;
 	private String note;
 	private Date createTime;
+	private Integer status;
+	private Date loginTime;
 
+	public Date getLoginTime() {
+		return loginTime;
+	}
+	public void setLoginTime(Date loginTime) {
+		this.loginTime = loginTime;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 	public String getNote() {
 		return note;
 	}

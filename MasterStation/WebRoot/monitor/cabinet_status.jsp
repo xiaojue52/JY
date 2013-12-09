@@ -141,16 +141,25 @@ String path = request.getContextPath();
 							<s:date name="#cabinet.alarm.createTime" format="HH:mm:ss" />
 						</s:if>
 						<s:elseif test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0&&#cabinet.deviceList[0].detectorList[0].history!=null">
-						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createDate" format="yyyy-MM-dd" />
-						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>
+							<s:date name="#cabinet.deviceList[0].detectorList[0].history.createDate" format="yyyy-MM-dd" />
+							<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>
+						</s:elseif>
+						<s:elseif test="#cabinet.loginTime!=null">
+							<s:date name="#cabinet.loginTime" format="yyyy-MM-dd HH:mm:ss" />
 						</s:elseif>
 					</td>
 					<td width="16%">
 						<s:if test="#cabinet.alarm!=null">
 						<s:property value="#cabinet.alarm.alarmText" />
 						</s:if>
-						<s:else>
+						<s:elseif test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0&&#cabinet.deviceList[0].detectorList[0].history!=null">
 							在线
+						</s:elseif>
+						<s:elseif test="#cabinet.loginTime!=null">
+							在线
+						</s:elseif>
+						<s:else>
+							离线
 						</s:else>
 					</td>
 					<td width="10%">

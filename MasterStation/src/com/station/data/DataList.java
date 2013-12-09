@@ -26,7 +26,7 @@ public class DataList extends ActionSupport {
 		HttpSession session = ServletActionContext.getRequest ().getSession();
 		String userLevel =  (String) session.getAttribute("userLevel");
 		String userId = (String)session.getAttribute("userId");
-		if (userLevel!=null&&userLevel.equals("super_admin")){
+		if (userLevel!=null&&(userLevel.equals("super_admin")||userLevel.endsWith("user"))){
 			String hql = "from JYUser user where user.userLevel = 'com_admin'";
 			List<JYUser> list = this.userService.findUserByHql(hql);
 			//list.add(0, user);
@@ -35,8 +35,10 @@ public class DataList extends ActionSupport {
 		else
 		{
 			JYUser user = this.userService.findUserById(userId);
+			JYUser user1 = this.userService.findUserByHql("from JYUser user where user.username = '--'").get(0);
 			List<JYUser> list = new ArrayList<JYUser>();
 			list.add(user);
+			list.add(user1);
 			return list;
 		}
 		

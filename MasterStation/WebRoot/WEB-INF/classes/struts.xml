@@ -69,9 +69,6 @@
 </package>
 
 <package name="History" extends="abstract_struts" namespace="/">
-<action name="listHistory" class="HistoryAction" method="listHistoryAction">
-   <result name="success">/history/history.jsp</result>
-  </action>
   <action name="listPageHistory" class="HistoryPageAction" method="listHistoryAction">
    <result name="success">/monitor/history.jsp</result>
   </action>

@@ -37,6 +37,7 @@
 				<value>com/station/po/xml/JYDevice.hbm.xml</value>
 				<value>com/station/po/xml/JYDetector.hbm.xml</value>	
 				<value>com/station/po/xml/JYHistory.hbm.xml</value>
+				<value>com/station/po/xml/JYHistoryChartData.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmType.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmTypeCollect.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarm.hbm.xml</value>
@@ -112,6 +113,11 @@
 		</property>
 	</bean>
 	<bean id="jyHistoryDAO" class="com.station.dao.impl.JYHistoryDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyHistoryChartDataDAO" class="com.station.dao.impl.JYHistoryChartDataDAOImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -208,6 +214,11 @@
 			<ref bean="jyHistoryDAO" />
 		</property>
 	</bean>
+	<bean id="jyHistoryChartDataService" class="com.station.service.impl.JYHistoryChartDataServiceImpl">
+		<property name="historyChartDataDAO">
+			<ref bean="jyHistoryChartDataDAO" />
+		</property>
+	</bean>
 	<bean id="jyMonitorService" class="com.station.service.impl.JYMonitorServiceImpl">
 		<property name="cabinetService">
 			<ref bean="jyCabinetService" />
@@ -235,6 +246,15 @@
 		</property>
 		<property name="cabinetHistoryDAO">
 			<ref bean="jyCabinetHistoryDAO" />
+		</property>
+		<property name="alarmDAO">
+			<ref bean="jyAlarmDAO" />
+		</property>
+		<property name="deviceDAO">
+			<ref bean="jyDeviceDAO" />
+		</property>
+		<property name="cabinetDAO">
+			<ref bean="jyCabinetDAO" />
 		</property>
 	</bean>
 
@@ -317,14 +337,6 @@
 	</bean>
 
 	<!-- 历史数据 -->
-	<bean id="HistoryAction" class="com.station.history.action.HistoryAction">
-		<property name="historyService">
-			<ref bean="jyHistoryService" />
-		</property>
-		<property name="dataList">
-			<ref bean="DataList"/>
-		</property>
-	</bean>
 	<bean id="CabinetHistoryAction" class="com.station.history.action.CabinetHistoryAction">
 		<property name="cabinetHistoryService">
 			<ref bean="jyCabinetHistoryService" />
@@ -442,18 +454,18 @@
 	
 	
 	<bean id="DayChartAction" class="com.station.chart.action.DayChartAction">
-		<property name="historyService">
-			<ref bean="jyHistoryService" />
+		<property name="historyChartDataService">
+			<ref bean="jyHistoryChartDataService" />
 		</property>
 	</bean>
 	<bean id="MonthChartAction" class="com.station.chart.action.MonthChartAction">
-		<property name="historyService">
-			<ref bean="jyHistoryService" />
+		<property name="historyChartDataService">
+			<ref bean="jyHistoryChartDataService" />
 		</property>
 	</bean>
 	<bean id="MoreChartAction" class="com.station.chart.action.MoreChartAction">
-		<property name="historyService">
-			<ref bean="jyHistoryService" />
+		<property name="historyChartDataService">
+			<ref bean="jyHistoryChartDataService" />
 		</property>
 	</bean>
 	

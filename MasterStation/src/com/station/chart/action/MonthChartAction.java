@@ -14,12 +14,12 @@ import org.apache.struts2.ServletActionContext;
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.pagebean.PageBean;
-import com.station.po.JYHistory;
-import com.station.service.JYHistoryService;
+import com.station.po.JYHistoryChartData;
+import com.station.service.JYHistoryChartDataService;
 
 @SuppressWarnings("serial")
 public class MonthChartAction extends ActionSupport {
-	private JYHistoryService historyService;
+	private JYHistoryChartDataService historyChartDataService;
 	private PageBean pageBean;
 	private int page = 1;
 	private String queryLine;
@@ -118,12 +118,9 @@ public class MonthChartAction extends ActionSupport {
 		this.queryEndDate = queryEndDate;
 	}
 
-	public JYHistoryService getHistoryService() {
-		return historyService;
-	}
-
-	public void setHistoryService(JYHistoryService historyService) {
-		this.historyService = historyService;
+	public void setHistoryChartDataService(
+			JYHistoryChartDataService historyChartDataService) {
+		this.historyChartDataService = historyChartDataService;
 	}
 
 	public int getPage() {
@@ -147,11 +144,11 @@ public class MonthChartAction extends ActionSupport {
 		final String hqlB = this.createSql("B相");
 		final String hqlC = this.createSql("C相");
 		final String hqlD = this.createSql("环境");
-		//this.pageBean = historyService.getPerPage(pageList, page, hql);
-		List<JYHistory> listHA = this.historyService.findJYHistoryByHql(hqlA);
-		List<JYHistory> listHB = this.historyService.findJYHistoryByHql(hqlB);
-		List<JYHistory> listHC = this.historyService.findJYHistoryByHql(hqlC);
-		List<JYHistory> listHD = this.historyService.findJYHistoryByHql(hqlD);
+		//this.pageBean = historyChartDataService.getPerPage(pageList, page, hql);
+		List<JYHistoryChartData> listHA = this.historyChartDataService.findJYHistoryChartDataByHql(hqlA);
+		List<JYHistoryChartData> listHB = this.historyChartDataService.findJYHistoryChartDataByHql(hqlB);
+		List<JYHistoryChartData> listHC = this.historyChartDataService.findJYHistoryChartDataByHql(hqlC);
+		List<JYHistoryChartData> listHD = this.historyChartDataService.findJYHistoryChartDataByHql(hqlD);
 		List<Float> listA = new ArrayList<Float>();
 		List<Float> listB = new ArrayList<Float>();
 		List<Float> listC = new ArrayList<Float>();
@@ -194,7 +191,7 @@ public class MonthChartAction extends ActionSupport {
 	}
 
 	public String createSql(String detector) {
-		String hql = "from JYHistory history where ";
+		String hql = "from JYHistoryChartData history where ";
 		if (queryLine == null || queryLine.length() == 0)
 			queryLine = "%";
 		if (queryNumber == null || queryNumber.length() == 0)
@@ -220,9 +217,9 @@ public class MonthChartAction extends ActionSupport {
 				+ "%' and "
 				+ "history.detector.device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " + "history.date>= TO_DATE('"
-				+ queryStartDate + "','YYYY-MM-DD') and "
-				+ "history.date <= TO_DATE('" + queryEndDate
-				+ "','YYYY-MM-DD') and "
+				+ queryStartDate+" 00:00:00" + "','YYYY-MM-DD HH24:mi:ss') and "
+				+ "history.date <= TO_DATE('" + queryEndDate+" 23:59:59"
+				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "history.detector.device.cabinet.user.username like '%"
 				+ queryUser + "%' and history.detector.name ='"+detector+"' ORDER BY id DESC";
 		return hql;

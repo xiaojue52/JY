@@ -63,3 +63,17 @@ function checkInputLength(id,cl,le){
 	}
 	return true;
 }
+function checkInputFixedLength(id,cl,le){
+	var ret = 0;
+	$('.'+cl).each(function(){
+		if ($(this).val().length!=le){
+			ret = 1;
+		}
+	});
+	if (ret==1){
+		//alert("带*为必填项！请填写完整！");
+		$("#"+id).html("带*为必填项！请填写完整！长度="+le);
+		return false;
+	}
+	return true;
+}

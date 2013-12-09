@@ -2,7 +2,6 @@ package com.station.history.action;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
@@ -159,6 +158,7 @@ public class HistoryPageAction extends ActionSupport {
 	}
 
 	public String createSql() {
+		
 		String hql = "from JYCabinetHistory cabinetHistory where ";
 		if (queryLine == null || queryLine.length() == 0)
 			queryLine = "%";

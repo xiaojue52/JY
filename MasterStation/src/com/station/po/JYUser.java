@@ -8,6 +8,16 @@ public class JYUser {
 	private String company;
 	private String jobLevel;
 	private String userLevel;
+	private Integer isFirstLogin;
+	
+
+	public Integer getIsFirstLogin() {
+		return isFirstLogin;
+	}
+
+	public void setIsFirstLogin(Integer isFirstLogin) {
+		this.isFirstLogin = isFirstLogin;
+	}
 
 	public String getUserId() {
 		return userId;

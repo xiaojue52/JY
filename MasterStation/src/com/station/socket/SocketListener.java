@@ -16,11 +16,7 @@ public class SocketListener extends Thread {
 	private ServerSocket server = null;
 	private final int port = 10000;
 	private ParseSocketData parseSocketData;
-	//private ServletContextEvent sce;
-
 	private Map<Socket, Socket> listMap = new HashMap<Socket, Socket>();
-	//private Map<String, String> order = new HashMap<String, String>();
-	//private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();
 
 	public SocketListener(ServletContextEvent sce) {
 		//this.sce = sce;
@@ -119,6 +115,7 @@ public class SocketListener extends Thread {
 					//Socket key = (Socket) mEntry.getKey();
 					client.close();	
 				}
+				parseSocketData.stop();
 			}
 
 		} catch (IOException e) {
