@@ -1,86 +1,11 @@
-$(function() {
-	
-	$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=large-dataset.json&callback=?', function(data) {
-		alert(data);
-		// Create a timer
-		var start = + new Date();
-
-		// Create the chart
-		$('#container').highcharts('StockChart', {
-		    chart: {
-				events: {
-					load: function(chart) {
-						this.setTitle(null, {
-							text: 'Built chart at '+ (new Date() - start) +'ms'
-						});
-					}
-				},
-				zoomType: 'x'
-		    },
-
-		    rangeSelector: {
-		        buttons: [{
-		            type: 'day',
-		            count: 3,
-		            text: '3d'
-		        }, {
-		            type: 'week',
-		            count: 1,
-		            text: '1w'
-		        }, {
-		            type: 'month',
-		            count: 1,
-		            text: '1m'
-		        }, {
-		            type: 'month',
-		            count: 6,
-		            text: '6m'
-		        }, {
-		            type: 'year',
-		            count: 1,
-		            text: '1y'
-		        }, {
-		            type: 'all',
-		            text: 'All'
-		        }],
-		        selected: 3
-		    },
-
-			yAxis: {
-				title: {
-					text: 'Temperature (°C)'
-				}
-			},
-
-		    title: {
-				text: 'Hourly temperatures in Vik i Sogn, Norway, 2004-2010'
-			},
-
-			subtitle: {
-				text: 'Built chart at...' // dummy text to reserve space for dynamic subtitle
-			},
-
-			series: [{
-		        name: 'Temperature',
-		        data: data,
-		        pointStart: Date.UTC(2004, 3, 1),
-		        pointInterval: 3600 * 1000,
-		        tooltip: {
-		        	valueDecimals: 1,
-		        	valueSuffix: '°C'
-		        }
-		    }]
-
-		});
-	});
-});
-
 
 var createDayChart = function() {
 	//alert($('#dayDevice').val());
 	var startTime = $('#dayLineDate').val();
 	if (startTime.length==0){alert("请选择日期！");return;}
 	var endTime = startTime;
+	var dateList = startTime.split("-");
+
 	$.ajax( {
 		type : "post",
 		url : "dayChart.action?queryDeviceId=" + $('#dayDevice').val()+"&queryStartDate="+startTime+"&queryEndDate="+endTime,
@@ -88,7 +13,6 @@ var createDayChart = function() {
 		success : function(returnData) {
 
 			var obj = eval("(" + returnData + ")");
-			//alert(obj.B);
 			$('#container').highcharts(
 					{
 						title : {
@@ -101,17 +25,8 @@ var createDayChart = function() {
 							x : -20
 						},
 						xAxis : {
-							categories : [ '0:00', '', '1:00', '',
-									'2:00', '', '3:00', '', '4:00',
-									'', '5:00', '', '6:00', '',
-									'7:00', '', '8:00', '', '9:00',
-									'', '10:00', '', '11:00', '',
-									'12:00', '', '13:00', '',
-									'14:00', '', '15:00', '',
-									'16:00', '', '17:00', '',
-									'18:00', '', '19:00', '',
-									'20:00', '', '21:00', '',
-									'22:00', '', '23:00', '' ]
+							type: 'datetime',
+							minRange: 3600
 						},
 						yAxis : {
 							title : {
@@ -132,8 +47,14 @@ var createDayChart = function() {
 							verticalAlign : 'middle',
 							borderWidth : 0
 						},
+						plotOptions: {
+					        series: {
+								pointInterval: 30*60 * 1000,
+								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2]),
+					        }
+					    },
 						series : [ {
-							name : "A相",
+							name : "A相",			
 							data : obj.A
 						}, {
 							name : 'B相',
@@ -163,6 +84,7 @@ var createMonthChart = function() {
 	startTime = startTime + "-01";
 	//var temp = startTime.substring(5,7);
 	//alert(endTime);
+	var dateList = startTime.split("-");
 	$.ajax( {
 		type : "post",
 		url : "monthChart.action?queryDeviceId=" + $('#monthDevice').val()+"&queryStartDate="+startTime+"&queryEndDate="+endTime,
@@ -183,12 +105,8 @@ var createMonthChart = function() {
 							x : -20
 						},
 						xAxis : {
-							categories : [ '1号', '2号', '3号', '4号', '5号', '6号',
-									'7号', '8号', '9号', '10号', '11号', '12号',
-									'13号', '14号', '15号', '16号', '17号', '18号',
-									'19号', '20号', '21号', '22号', '23号', '24号',
-									'25号', '26号', '27号', '28号', '29号', '30号',
-									'31号' ]
+							type: 'datetime',
+							minRange: 3600
 						},
 						yAxis : {
 							title : {
@@ -209,6 +127,12 @@ var createMonthChart = function() {
 							verticalAlign : 'middle',
 							borderWidth : 0
 						},
+						plotOptions: {
+					        series: {
+								pointInterval: 24*60*60 * 1000,
+								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2]),
+					        }
+					    },
 						series : [
 								{
 									name : 'A相Max',
@@ -264,6 +188,7 @@ var createMoreChart = function() {
 		queryStrings.push($(this).val());
 	});
 	//alert(queryStrings);
+	var dateList = startTime.split("-");
 	$.ajax( {
 		type : "post",
 		url : "moreChart.action?queryStrings=" + queryStrings+"&queryStartDate="+startTime+"&queryEndDate="+endTime,
@@ -271,7 +196,8 @@ var createMoreChart = function() {
 		success : function(returnData) {
 
 			var obj = eval("(" + returnData + ")");
-			//alert(obj.A);
+			alert(obj.data[0]);
+			//var date = eval("(["+obj.data+"])");
 			$('#container').highcharts(
 					{
 						title : {
@@ -284,8 +210,8 @@ var createMoreChart = function() {
 							x : -20
 						},
 						xAxis : {
-							categories : [ '1月', '2月', '3月', '4月', '5月', '6月',
-									'7月', '8月', '9月', '10月', '11月', '12月' ]
+							type: 'datetime',
+							minRange: 3600
 						},
 						yAxis : {
 							title : {
@@ -306,27 +232,13 @@ var createMoreChart = function() {
 							verticalAlign : 'middle',
 							borderWidth : 0
 						},
-						series : [
-								{
-									name : 'A相',
-									data : [ 7.0, 6.9, 9.5, 14.5, 18.2, 21.5,
-											25.2, 26.5, 23.3, 18.3, 13.9, 9.6 ]
-								},
-								{
-									name : 'B相',
-									data : [ -0.2, 0.8, 5.7, 11.3, 17.0, 22.0,
-											24.8, 24.1, 20.1, 14.1, 8.6, 2.5 ]
-								},
-								{
-									name : 'C相',
-									data : [ -0.9, 0.6, 3.5, 8.4, 13.5, 17.0,
-											18.6, 17.9, 14.3, 9.0, 3.9, 1.0 ]
-								},
-								{
-									name : '环境',
-									data : [ 3.9, 4.2, 5.7, 8.5, 11.9, 15.2,
-											17.0, 16.6, 14.2, 10.3, 6.6, 4.8 ]
-								} ],
+						plotOptions: {
+					        series: {
+								pointInterval: 30*60 * 1000,
+								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2]),
+					        }
+					    },
+						series : obj.data,
 						exporting : {
 							enabled : false
 						}

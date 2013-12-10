@@ -38,6 +38,7 @@
 				<value>com/station/po/xml/JYDetector.hbm.xml</value>	
 				<value>com/station/po/xml/JYHistory.hbm.xml</value>
 				<value>com/station/po/xml/JYHistoryChartData.hbm.xml</value>
+				<value>com/station/po/xml/JYHistoryMonthChartData.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmType.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarmTypeCollect.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarm.hbm.xml</value>
@@ -118,6 +119,11 @@
 		</property>
 	</bean>
 	<bean id="jyHistoryChartDataDAO" class="com.station.dao.impl.JYHistoryChartDataDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="jyHistoryMonthChartDataDAO" class="com.station.dao.impl.JYHistoryMonthChartDataDAOImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -217,6 +223,11 @@
 	<bean id="jyHistoryChartDataService" class="com.station.service.impl.JYHistoryChartDataServiceImpl">
 		<property name="historyChartDataDAO">
 			<ref bean="jyHistoryChartDataDAO" />
+		</property>
+	</bean>
+	<bean id="jyHistoryMonthChartDataService" class="com.station.service.impl.JYHistoryMonthChartDataServiceImpl">
+		<property name="historyMonthChartDataDAO">
+			<ref bean="jyHistoryMonthChartDataDAO" />
 		</property>
 	</bean>
 	<bean id="jyMonitorService" class="com.station.service.impl.JYMonitorServiceImpl">
@@ -459,8 +470,8 @@
 		</property>
 	</bean>
 	<bean id="MonthChartAction" class="com.station.chart.action.MonthChartAction">
-		<property name="historyChartDataService">
-			<ref bean="jyHistoryChartDataService" />
+		<property name="historyMonthChartDataService">
+			<ref bean="jyHistoryMonthChartDataService" />
 		</property>
 	</bean>
 	<bean id="MoreChartAction" class="com.station.chart.action.MoreChartAction">

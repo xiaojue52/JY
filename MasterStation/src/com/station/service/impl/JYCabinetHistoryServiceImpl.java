@@ -4,71 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.station.constant.Constant;
 import com.station.dao.JYCabinetHistoryDAO;
 import com.station.pagebean.PageBean;
-import com.station.po.JYAlarmType;
-import com.station.po.JYAlarmTypeCollect;
 import com.station.po.JYCabinetHistory;
-import com.station.po.JYDetector;
 import com.station.po.JYDevice;
 import com.station.po.JYHistory;
-import com.station.po.JYUser;
-import com.station.service.JYAlarmTypeCollectService;
-import com.station.service.JYAlarmTypeService;
 import com.station.service.JYCabinetHistoryService;
-import com.station.service.JYConstantService;
-import com.station.service.JYDetectorService;
-import com.station.service.JYDeviceService;
 import com.station.service.JYHistoryService;
-import com.station.service.JYLineService;
-import com.station.service.JYUserService;
 
 public class JYCabinetHistoryServiceImpl implements JYCabinetHistoryService {
 
 	private JYCabinetHistoryDAO cabinetHistoryDAO;
-	private JYUserService userService;
-	private JYLineService lineService;
-	private JYAlarmTypeService alarmTypeService;
-	private JYAlarmTypeCollectService alarmTypeCollectService;
-	private JYConstantService constantService;
-	private JYDeviceService deviceService;
-	private JYDetectorService detectorService;
 	private JYHistoryService historyService;
 
 
 	public void setHistoryService(JYHistoryService historyService) {
 		this.historyService = historyService;
-	}
-
-	public void setDetectorService(JYDetectorService detectorService) {
-		this.detectorService = detectorService;
-	}
-
-	public void setDeviceService(JYDeviceService deviceService) {
-		this.deviceService = deviceService;
-	}
-
-	public void setUserService(JYUserService userService) {
-		this.userService = userService;
-	}
-
-	public void setLineService(JYLineService lineService) {
-		this.lineService = lineService;
-	}
-
-	public void setAlarmTypeService(JYAlarmTypeService alarmTypeService) {
-		this.alarmTypeService = alarmTypeService;
-	}
-
-	public void setAlarmTypeCollectService(
-			JYAlarmTypeCollectService alarmTypeCollectService) {
-		this.alarmTypeCollectService = alarmTypeCollectService;
-	}
-
-	public void setConstantService(JYConstantService constantService) {
-		this.constantService = constantService;
 	}
 
 	public void setCabinetHistoryDAO(JYCabinetHistoryDAO cabinetHistoryDAO) {

@@ -140,12 +140,15 @@ public class MoreChartAction extends ActionSupport {
 	public void setPageBean(PageBean pageBean) {
 		this.pageBean = pageBean;
 	}
-
+	class MoreData{
+		public String name;
+		public List<Float> data;
+	}
 	public void listHistoryAction() throws Exception {
 		String[] listDetector = queryStrings.split(",");
 		if (listDetector.length==0||listDetector[0].length()==0)return;
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		Map<String, Object> map = new HashMap<String, Object>();
+		List<MoreData> listD = new ArrayList<MoreData>();
 		for (int i = 0; i < listDetector.length; i++) {
 			final String hql = this.createSql(listDetector[i]);
 			List<JYHistoryChartData> list = this.historyChartDataService.findJYHistoryChartDataByHql(hql);
@@ -156,14 +159,20 @@ public class MoreChartAction extends ActionSupport {
 				list.get(0).getDetector().getDevice().getName()+
 				list.get(0).getDetector().getName();
 				List<Float> listValue = new ArrayList<Float>();
-				for (int j=0;i<list.size();j++){
+				for (int j=0;j<list.size();j++){
 					listValue.add(list.get(j).getValue());
 				}
-				map.put(str, listValue);
+				//map.put(str, listValue);
+				//String strD = "{name:\""+str+"\",data:"+listValue+"}";
+				MoreData moreData = new MoreData();
+				moreData.name = str;
+				moreData.data = listValue;
+				listD.add(moreData);
+				listD.add(moreData);
 			}
 			// dataMap.put(list.get(0).getDetector().getDevice().get, value);
 		}
-		dataMap.put("moreData", map);
+		dataMap.put("data", listD);
 		Constant.flush(dataMap);
 	}
 
@@ -199,7 +208,7 @@ public class MoreChartAction extends ActionSupport {
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "history.detector.device.cabinet.user.username like '%"
 				+ queryUser + "%' and history.detector.detectorId ='"
-				+ detectorId+"'";
+				+ detectorId+"' order by history.date";
 		return hql;
 	}
 
