@@ -78,7 +78,7 @@ public class AlarmPageAction extends ActionSupport {
 
 
 	public String listAlarmAction() throws Exception {
-		final String hql = "from JYAlarm alarm where alarm.device.cabinet.cabId = '"+cabId+"'";
+		final String hql = "from JYAlarm alarm where alarm.device.cabinet.cabId = '"+cabId+"' ORDER BY alarm.date DESC";
 		this.pageBean = this.alarmService.getPerPage(pageList, page, hql);
 		//page = 1;
 		return SUCCESS;

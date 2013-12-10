@@ -1,18 +1,11 @@
 package com.station.chart.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.ServletActionContext;
-
-import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.pagebean.PageBean;
 import com.station.po.JYHistoryChartData;
 import com.station.service.JYHistoryChartDataService;
@@ -144,50 +137,42 @@ public class MonthChartAction extends ActionSupport {
 		final String hqlB = this.createSql("B相");
 		final String hqlC = this.createSql("C相");
 		final String hqlD = this.createSql("环境");
-		//this.pageBean = historyChartDataService.getPerPage(pageList, page, hql);
-		List<JYHistoryChartData> listHA = this.historyChartDataService.findJYHistoryChartDataByHql(hqlA);
-		List<JYHistoryChartData> listHB = this.historyChartDataService.findJYHistoryChartDataByHql(hqlB);
-		List<JYHistoryChartData> listHC = this.historyChartDataService.findJYHistoryChartDataByHql(hqlC);
-		List<JYHistoryChartData> listHD = this.historyChartDataService.findJYHistoryChartDataByHql(hqlD);
+		// this.pageBean = historyChartDataService.getPerPage(pageList, page,
+		// hql);
+		List<JYHistoryChartData> listHA = this.historyChartDataService
+				.findJYHistoryChartDataByHql(hqlA);
+		List<JYHistoryChartData> listHB = this.historyChartDataService
+				.findJYHistoryChartDataByHql(hqlB);
+		List<JYHistoryChartData> listHC = this.historyChartDataService
+				.findJYHistoryChartDataByHql(hqlC);
+		List<JYHistoryChartData> listHD = this.historyChartDataService
+				.findJYHistoryChartDataByHql(hqlD);
 		List<Float> listA = new ArrayList<Float>();
 		List<Float> listB = new ArrayList<Float>();
 		List<Float> listC = new ArrayList<Float>();
 		List<Float> listD = new ArrayList<Float>();
-		for (int i=0;i<listHA.size();i++){
+		for (int i = 0; i < listHA.size(); i++) {
 			listA.add(listHA.get(i).getValue());
 		}
-		for (int i=0;i<listHB.size();i++){
+		for (int i = 0; i < listHB.size(); i++) {
 			listB.add(listHB.get(i).getValue());
 		}
-		for (int i=0;i<listHC.size();i++){
+		for (int i = 0; i < listHC.size(); i++) {
 			listC.add(listHC.get(i).getValue());
 		}
-		for (int i=0;i<listHD.size();i++){
+		for (int i = 0; i < listHD.size(); i++) {
 			listD.add(listHD.get(i).getValue());
 		}
-		 Map<String,Object> dataMap = new HashMap<String,Object>();
-	        dataMap.put("AMax", listA);	 
-	        dataMap.put("BMax", listB);
-	        dataMap.put("CMax", listC);
-	        dataMap.put("DMax", listD);
-	        dataMap.put("AMin", listA);	 
-	        dataMap.put("BMin", listB);
-	        dataMap.put("CMin", listC);
-	        dataMap.put("DMin", listD);
-			HttpServletResponse response = ServletActionContext.getResponse();
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out;
-			try {
-				out = response.getWriter();
-				Gson gson = new Gson(); 
-				String jsonString = gson.toJson(dataMap); 
-				out.println(jsonString);
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-		}
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("AMax", listA);
+		dataMap.put("BMax", listB);
+		dataMap.put("CMax", listC);
+		dataMap.put("DMax", listD);
+		dataMap.put("AMin", listA);
+		dataMap.put("BMin", listB);
+		dataMap.put("CMin", listC);
+		dataMap.put("DMin", listD);
+		Constant.flush(dataMap);
 	}
 
 	public String createSql(String detector) {
@@ -217,11 +202,13 @@ public class MonthChartAction extends ActionSupport {
 				+ "%' and "
 				+ "history.detector.device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " + "history.date>= TO_DATE('"
-				+ queryStartDate+" 00:00:00" + "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "history.date <= TO_DATE('" + queryEndDate+" 23:59:59"
+				+ queryStartDate + " 00:00:00"
+				+ "','YYYY-MM-DD HH24:mi:ss') and "
+				+ "history.date <= TO_DATE('" + queryEndDate + " 23:59:59"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "history.detector.device.cabinet.user.username like '%"
-				+ queryUser + "%' and history.detector.name ='"+detector+"' ORDER BY id DESC";
+				+ queryUser + "%' and history.detector.name ='" + detector
+				+ "' ORDER BY id DESC";
 		return hql;
 	}
 

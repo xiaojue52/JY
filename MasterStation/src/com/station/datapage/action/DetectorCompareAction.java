@@ -195,7 +195,7 @@ public class DetectorCompareAction extends ActionSupport {
 				+ "detector.device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " 
 				+ "detector.device.cabinet.user.username like '%"
-				+ queryUser + "%' and tag = 1 ORDER BY id DESC";
+				+ queryUser + "%' and tag = 1 order by to_number(replace(detector.detectorId,'Detector','')) desc";
 		return hql;
 	}
 

@@ -468,5 +468,8 @@
 			<ref bean="jyHistoryChartDataService" />
 		</property>
 	</bean>
+	<bean id="SocketAction" class="com.station.socket.SocketAction">
+		
+	</bean>
 	
 </beans>

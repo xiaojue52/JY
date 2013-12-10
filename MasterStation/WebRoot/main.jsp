@@ -66,7 +66,7 @@
 		</div>	
 		<div id="system_div" class="panelDiv">
 					<button  onclick="setFrameSrc('createTree.action','设备管理');" class="itemDiv">设备管理</button>
-				<button  onclick="setFrameSrc('showAlarmType.action','系统参数设置');" class="itemDiv">系统参数设置</button>
+				<button id="sys_config"  onclick="setFrameSrc('showAlarmType.action','系统参数设置');" class="itemDiv">系统参数设置</button>
 		</div>
 		<div id="history_div" class="panelDiv">
 				<button  onclick="setFrameSrc('listAlarm.action','报警记录');" class="itemDiv">报警记录</button>
@@ -90,6 +90,8 @@
 			$(".errorMessage").html("首次登陆请更改密码！");
 			showPage();
 		}
+		if($("#userLevel").val()!="super_admin")
+			$("#sys_config").hide();
 		</script>
 	</body>
 </html>

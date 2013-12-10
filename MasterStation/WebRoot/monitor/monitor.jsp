@@ -82,7 +82,7 @@ String path = request.getContextPath();
 							</s:iterator>				
 								
 							</select> </span><span><input class="toolbarButton" type="submit" value="查询"/></span>
-						<span><input class="toolbarButton" type="button" value="实时查询" onclick="queryDevice();"/></span>
+						<span><input class="toolbarButton" type="button" value="实时查询" onclick="Monitor.QueryDeviceTemp.getCabinetNumber();"/></span>
 		</s:form>
 		</div>
 		<div class="center_table_div">
@@ -132,7 +132,7 @@ String path = request.getContextPath();
  onmouseover="javascript:this.bgColor='#f5fafe'">
 				</s:else>
 					<td width="4%">
-						<input type="checkbox"/>
+						<input class="monitor_checkbox" type="checkbox" value="${cabinet.cabNumber}"/>
 						<s:property value="#status.count+(pageList*(page-1))"/>
 					</td>
 					<td width="8%">
@@ -305,7 +305,7 @@ String path = request.getContextPath();
 				var table_tr1 = document.getElementById('table_tr');
 				$('#table_th').width(table_tr1.scrollWidth-1);
 			});
-							
+					
 		</script>
 	</div></div>
 	

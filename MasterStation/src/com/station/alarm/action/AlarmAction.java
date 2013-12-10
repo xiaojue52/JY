@@ -1,18 +1,13 @@
 package com.station.alarm.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.struts2.ServletActionContext;
-
-import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
@@ -239,7 +234,7 @@ public class AlarmAction extends ActionSupport {
 				+ "','YYYY-MM-DD') and "
 				+ "alarm.device.cabinet.user.username like '%"
 				+ queryUser + "%'" +
-				" ORDER BY id DESC";
+				" ORDER BY alarm.date DESC";
 		unhandledTag = 0;
 		return hql;
 	}
@@ -249,20 +244,7 @@ public class AlarmAction extends ActionSupport {
 		int count = this.alarmService.getTotalCount(hql);
         Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("unhandledCount", count);
-		HttpServletResponse response = ServletActionContext.getResponse();
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out;
-		try {
-			out = response.getWriter();
-			Gson gson = new Gson(); 
-			String jsonString = gson.toJson(dataMap); 
-			out.println(jsonString);
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        Constant.flush(dataMap);
 	}
 	
 	public String updateAlarmAction(){
@@ -272,9 +254,6 @@ public class AlarmAction extends ActionSupport {
 		alarm.setNote(this.alarmTemp.getNote());
 		alarm.setRepairUser(username);
 		alarm.setStatus("1");
-		//Date date = new Date();
-		//alarm.setAlarmDatetime(new java.sql.Time(date.getTime()));
-		//alarm.setRepairUser(repairUser);
 		this.alarmService.updateJYAlarm(alarm);
 		return SUCCESS;
 	}

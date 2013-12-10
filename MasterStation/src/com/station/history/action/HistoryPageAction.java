@@ -182,7 +182,7 @@ public class HistoryPageAction extends ActionSupport {
 				+ "cabinetHistory.date <= TO_DATE('" + queryEndDate
 				+ "','YYYY-MM-DD') and "
 				+ "cabinetHistory.cabinet.user.username like '%"
-				+ queryUser + "%' ORDER BY id DESC";
+				+ queryUser + "%' ORDER BY cabinetHistory.date DESC";
 		return hql;
 	}
 

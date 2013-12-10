@@ -1,14 +1,10 @@
 package com.station.tree.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;
-import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.po.JYCabinet;
 import com.station.service.JYCabinetService;
 
@@ -36,20 +32,7 @@ public class CabinetAction extends ActionSupport{
         dataMap.put("cabinet", cabinet);
         Date date = cabinet.getCreateTime();
         dataMap.put("dateTime", date.toString());
-		HttpServletResponse response = ServletActionContext.getResponse();
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out;
-		try {
-			out = response.getWriter();
-			Gson gson = new Gson(); 
-			String jsonString = gson.toJson(dataMap); 
-			out.println(jsonString);
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        Constant.flush(dataMap);
 	}
 	public String addCabinetAction(){
 		Date date = new Date();

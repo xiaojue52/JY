@@ -15,12 +15,12 @@ import javax.servlet.ServletContextEvent;
 public class SocketListener extends Thread {
 	private ServerSocket server = null;
 	private final int port = 10000;
-	private ParseSocketData parseSocketData;
+	private SocketHandler parseSocketData;
 	private Map<Socket, Socket> listMap = new HashMap<Socket, Socket>();
 
 	public SocketListener(ServletContextEvent sce) {
 		//this.sce = sce;
-		parseSocketData = new ParseSocketData(sce);
+		parseSocketData = new SocketHandler(sce);
 		try {
 			server = new ServerSocket(port);
 		} catch (IOException e) {
@@ -75,8 +75,10 @@ public class SocketListener extends Thread {
 							cbuf[ret] = '\0';
 						str = String.valueOf(cbuf, 0, ret);
 						String retStr = parseSocketData.CheckString(str,client);
-						out.println(retStr);
-						out.flush();
+						if (!retStr.equals("1")){
+							out.println(retStr);
+							out.flush();
+						}
 					}
 				} catch (IOException ex) {
 					System.out.print("socket 读取 、输出失败！");

@@ -152,5 +152,9 @@
  		<result name="success">/system/conf.jsp</result>
  	</action>
 </package>
+<package name="Socket" extends="abstract_struts" namespace="/"> 
+	<action name="getTempDate" class="SocketAction" method="getTempDateAction"> 
+ 	</action>
+</package>
 <!--include file="struts-jfreechart.xml"></include-->
 </struts>   

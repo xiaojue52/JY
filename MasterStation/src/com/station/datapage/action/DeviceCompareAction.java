@@ -196,7 +196,7 @@ public class DeviceCompareAction extends ActionSupport {
 				+ "device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " 
 				+ "device.cabinet.user.username like '%"
-				+ queryUser + "%' and tag = 1 ORDER BY id DESC";
+				+ queryUser + "%' and tag = 1 order by to_number(replace(device.deviceId,'Device','')) desc";
 		return hql;
 	}
 
