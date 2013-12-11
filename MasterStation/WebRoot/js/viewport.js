@@ -1,4 +1,6 @@
+
 Ext.onReady(function() {
+	
 	//alert($('#userLevel').val());
 	var menus;
 	if ($('#userLevel').val()=="super_admin"){
@@ -74,7 +76,6 @@ Ext.onReady(function() {
         iconCls: 'data_png'
     }];
 	
-	
 	var viewport = new Ext.Viewport( {
 		layout : 'border',
 		items : [ {
@@ -84,7 +85,7 @@ Ext.onReady(function() {
 			split : true,
 			height : 56,
 			maxSize : 56,
-			minSize : 56,
+			minSize : 56
 		}, {
 			region : 'south',
 			contentEl : 'south-div',
@@ -93,7 +94,7 @@ Ext.onReady(function() {
 			height : 30,
 			maxSize : 120,
 			minSize : 50,
-			frame : true,
+			frame : true
 		}, {
 			id:"center",
 			region : 'center',
@@ -104,7 +105,7 @@ Ext.onReady(function() {
 			title : '欢迎光临！',
 			loadMask : {
 				msg : '正在加载数据，请稍侯……'
-			},
+			}
 			//frame : true
 		}, {
 			region: 'west',

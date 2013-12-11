@@ -29,10 +29,11 @@
 			href="css/main.css" />
 		<link rel="stylesheet" type="text/css"
 			href="css/common.css" />
+		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
 		<script type="text/javascript" src="js/ext/ext-all.js"></script>
-		<script type="text/javascript" src="js/viewport.js"></script>
-		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+		
+		
 		<script src="js/set-src.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="css/alert-page.css" />
 		<script type="text/javascript" src="js/modify-password.js"></script>
@@ -42,6 +43,7 @@
 	</head>
 
 	<body>
+		
 		<div id="north-div">
 			<div class="top_frame">
 	    		<span class="comSpan" onclick="setFrameSrc('mainAction.action','系统监控');"><a>首页 |</a> </span><span>欢迎<%=username %>登陆 | </span><span class="comSpan" onclick="setFrameSrc('listAlarm.action?unhandledTag=1','报警记录');"><img style="width:16px;height:16px;" src="images/message.png"/>未处理报警(<span id="unhandledCount" style="margin-left:0px;">0</span>) |</span> <span class="comSpan" onclick="showPage();"><img style="width:14px;height:14px;" src="images/modify.png"/>修改密码 |</span> <span class="comSpan" onclick="window.location.href='logout.action'"><img style="width:14px;height:14px;" src="images/quit.png"/>退出系统</span>
@@ -93,5 +95,6 @@
 		if($("#userLevel").val()!="super_admin")
 			$("#sys_config").hide();
 		</script>
+		<script type="text/javascript" src="js/viewport.js"></script>
 	</body>
 </html>

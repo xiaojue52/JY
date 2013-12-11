@@ -248,7 +248,18 @@
 			<ref bean="jyHistoryService" />
 		</property>
 	</bean>
-	<bean id="JYSocketService" class="com.station.service.impl.JYSocketServiceImpl">
+	<bean id="jyChartDataService" class="com.station.service.impl.JYChartDataServiceImpl">
+		<property name="detectorDAO">
+			<ref bean="jyDetectorDAO" />
+		</property>
+		<property name="historyChartDataDAO">
+			<ref bean="jyHistoryChartDataDAO" />
+		</property>
+		<property name="historyMonthChartDataDAO">
+			<ref bean="jyHistoryMonthChartDataDAO" />
+		</property>
+	</bean>
+	<bean id="jySocketService" class="com.station.service.impl.JYSocketServiceImpl">
 		<property name="historyDAO">
 			<ref bean="jyHistoryDAO" />
 		</property>

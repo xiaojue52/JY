@@ -168,7 +168,6 @@ public class MoreChartAction extends ActionSupport {
 				moreData.name = str;
 				moreData.data = listValue;
 				listD.add(moreData);
-				listD.add(moreData);
 			}
 			// dataMap.put(list.get(0).getDetector().getDevice().get, value);
 		}

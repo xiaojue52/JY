@@ -196,12 +196,11 @@ var createMoreChart = function() {
 		success : function(returnData) {
 
 			var obj = eval("(" + returnData + ")");
-			alert(obj.data[0]);
 			//var date = eval("(["+obj.data+"])");
 			$('#container').highcharts(
 					{
 						title : {
-							text : '月温度曲线',
+							text : '温度曲线',
 							x : -20
 						// center
 						},

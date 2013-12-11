@@ -13,6 +13,7 @@ import javax.servlet.ServletContextEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.station.constant.Constant;
+import com.station.service.JYChartDataService;
 import com.station.service.JYSocketService;
 import com.station.timer.HalfHourEvent;
 
@@ -22,15 +23,17 @@ public class SocketHandler {
 		ApplicationContext applicationContext = WebApplicationContextUtils
 				.getWebApplicationContext(this.sce.getServletContext());
 		socketService = (JYSocketService) applicationContext
-				.getBean("JYSocketService");
+				.getBean("jySocketService");
+		JYChartDataService chartDataService = (JYChartDataService) applicationContext
+				.getBean("jyChartDataService");;
 		checkThread = new LoopCheckThread(orderMap, socketService);
 		checkThread.start();
-		HalfHourEvent halfHourEvent = new HalfHourEvent();
-		// halfHourEvent.test();
+		halfHourEvent = new HalfHourEvent(chartDataService);
+		halfHourEvent.startTimer();
 
 		SocketAction.setSocketHandler(this);
 	}
-
+	private HalfHourEvent halfHourEvent;
 	private LoopCheckThread checkThread;
 	private ServletContextEvent sce;
 	public Map<String, Socket> clientMap = new HashMap<String, Socket>();
@@ -238,5 +241,6 @@ public class SocketHandler {
 
 	public void stop() {
 		this.checkThread.stopCheck();
+		this.halfHourEvent.stopTimer();
 	}
 }
