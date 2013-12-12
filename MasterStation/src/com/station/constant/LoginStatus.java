@@ -27,14 +27,14 @@ public class LoginStatus {
 		session.setAttribute("isFirstLogin", user.getIsFirstLogin());
 		//session.setAttribute("password", user.getPassword());
 		String path = ServletActionContext.getServletContext().getRealPath("/");
-		File fXmlFile = new File(path+"files/nameConfig.xml");
+		File nameXml = new File(path+"files/NameConfig.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
+			Document doc = dBuilder.parse(nameXml);
 			doc.getDocumentElement().normalize();
-			//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+
 			Element root = doc.getDocumentElement();
 			Element topContent = (Element) root.getElementsByTagName("topContent").item(0);
 			Element bottomContent = (Element) root.getElementsByTagName("bottomContent").item(0);
@@ -42,6 +42,7 @@ public class LoginStatus {
 			session.setAttribute("topContent", topContent.getTextContent());
 			session.setAttribute("bottomContent", bottomContent.getTextContent());
 			session.setAttribute("imagePath", imagePath.getTextContent());
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -13,6 +13,16 @@ public class JYConstant {
 	private String type;
 	private String key;
 	private String value;
+	private String subValue;
+	
+	public String getSubValue() {
+		return subValue;
+	}
+
+	public void setSubValue(String subValue) {
+		this.subValue = subValue;
+	}
+
 	public String getType() {
 		return type;
 	}

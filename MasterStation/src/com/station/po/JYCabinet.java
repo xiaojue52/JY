@@ -21,14 +21,15 @@ public class JYCabinet {
 	private String note;
 	private Date createTime;
 	private Integer status;
-	private Date loginTime;
+	private Date detectTime;
 
-	public Date getLoginTime() {
-		return loginTime;
+	public Date getDetectTime() {
+		return detectTime;
 	}
-	public void setLoginTime(Date loginTime) {
-		this.loginTime = loginTime;
+	public void setDetectTime(Date detectTime) {
+		this.detectTime = detectTime;
 	}
+
 	public Integer getStatus() {
 		return status;
 	}

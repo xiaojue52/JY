@@ -11,5 +11,6 @@
   <property name="type" type="string" column="type" length="20"/>
   <property name="key" type="string" column="key" length="10"/>
   <property name="value" type="string" column="value" length="400"/>
+  <property name="subValue" type="string" column="sub_value" length="4"/>
  </class>
 </hibernate-mapping>

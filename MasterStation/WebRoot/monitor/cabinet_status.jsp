@@ -136,30 +136,17 @@ String path = request.getContextPath();
 						<s:property value="#cabinet.cabNumber" /><s:property value="#cabinet.cabType.value" />
 					</td>
 					<td width="20%">
-						<s:if test="#cabinet.alarm!=null">
-							<s:date name="#cabinet.alarm.createDate" format="yyyy-MM-dd" />
-							<s:date name="#cabinet.alarm.createTime" format="HH:mm:ss" />
-						</s:if>
-						<s:elseif test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0&&#cabinet.deviceList[0].detectorList[0].history!=null">
-							<s:date name="#cabinet.deviceList[0].detectorList[0].history.createDate" format="yyyy-MM-dd" />
-							<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>
-						</s:elseif>
-						<s:elseif test="#cabinet.loginTime!=null">
-							<s:date name="#cabinet.loginTime" format="yyyy-MM-dd HH:mm:ss" />
-						</s:elseif>
+						<s:date name="#cabinet.detectTime" format="yyyy-MM-dd HH:mm:ss" />
 					</td>
 					<td width="16%">
 						<s:if test="#cabinet.alarm!=null">
 						<s:property value="#cabinet.alarm.alarmText" />
 						</s:if>
-						<s:elseif test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0&&#cabinet.deviceList[0].detectorList[0].history!=null">
-							在线
-						</s:elseif>
-						<s:elseif test="#cabinet.loginTime!=null">
+						<s:elseif test="#cabinet.detectTime!=null">
 							在线
 						</s:elseif>
 						<s:else>
-							离线
+							未启用
 						</s:else>
 					</td>
 					<td width="10%">

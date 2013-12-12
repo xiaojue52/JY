@@ -47,17 +47,6 @@
 	</context-param>
 
 	<!--end-->
-	<servlet>
-		<description>get the server data without refreshing page</description>
-		<display-name>without refreshing</display-name>
-		<servlet-name>getData</servlet-name>
-		<servlet-class>com.station.servlet.GetDateByServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>getData</servlet-name>
-		<url-pattern>/getData</url-pattern>
-	</servlet-mapping>
 	<listener>
 		<listener-class>com.station.constant.InitProjectListener</listener-class>
 	</listener>

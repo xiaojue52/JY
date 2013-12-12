@@ -159,7 +159,12 @@ String path = request.getContextPath();
 						</s:if>
 						</table>
 					</td>
+					<s:if test="#cabinet.alarm!=null">
+					<td width="10%" style="color:#ff0000">
+					</s:if>
+					<s:else>
 					<td width="10%">
+					</s:else>
 						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0&&#cabinet.deviceList[0].detectorList[0].history!=null">
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createDate" format="yyyy-MM-dd" /><br/>
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>

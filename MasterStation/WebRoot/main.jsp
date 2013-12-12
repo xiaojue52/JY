@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<div id="monitor_div" class="panelDiv">
-			<button onclick="setFrameSrc('mainAction.action','系统监控');" class="itemDiv">系统监控</button>
+			<button onclick="setFrameSrc('mainAction.action','温度监控');" class="itemDiv">温度监控</button>
 			<button onclick="setFrameSrc('getCabinetStatus.action','设备状态');" class="itemDiv">设备状态</button>
 		</div>
 		<div id="user_div" class="panelDiv">

@@ -45,19 +45,29 @@ public class SocketHandler {
 		if (str == null || str.length() < 7
 				|| !str.substring(str.length() - 2).equals("CR"))
 			return "-2";
+		String command[] = str.split("[|]");
+		String cabNumber;
+		if(command.length>=2){
+			cabNumber = command[1].substring(0,5);
+		}
+		else
+			return "-2";
 		String orderStr = str.substring(0, 2);
 		// loginMes = "0000000|0000000|000000CR";
 		if (orderStr.equals("00")) {// 登陆
 			return parseLogin(str, client);
 		}
 		if (orderStr.equals("40")) {// 心跳
-			return this.parseHeartBeat(str, client);
+			if (this.isLogined(cabNumber,client))
+				return this.parseHeartBeat(str, client);
 		}
 		if (orderStr.equals("11")) {// 实时招测
-			return this.parseRealTempData(str, client);
+			if (this.isLogined(cabNumber,client))
+				return this.parseRealTempData(str, client);
 		}
 		if (orderStr.equals("20")) {// 温度
-			return this.parseTempData(str, client);
+			if (this.isLogined(cabNumber,client))
+				return this.parseTempData(str, client);
 		}
 		return "-2";
 	}
@@ -72,6 +82,7 @@ public class SocketHandler {
 			String dateStr = command[2];
 			String tempData = command[3].substring(0, command[3].length() - 4);
 			this.setTempValue(cabNumber, tempData, dateStr);
+			if (realCabList==null)return "1";
 			realCabList.add(cabNumber);
 			//isCollecting = false;
 		}
@@ -117,6 +128,7 @@ public class SocketHandler {
 		}
 		order.put("heartBeat", Constant.getCurrentDateStr());
 		orderMap.put(cabNumber, order);
+		this.socketService.updateCabinetStatus(cabNumber);
 	}
 
 	private String parseLogin(String str, Socket client) {
@@ -236,11 +248,20 @@ public class SocketHandler {
 				}
 			}
 			socketService.saveDate(cabNumber, map, dateStr);
+			this.socketService.updateCabinetStatus(cabNumber);
 		}
 	}
 
 	public void stop() {
 		this.checkThread.stopCheck();
 		this.halfHourEvent.stopTimer();
+	}
+	private boolean isLogined(String cabNumber,Socket client){
+		if(orderMap.get(cabNumber)!=null){
+			clientMap.put(cabNumber, client);
+			return true;
+		}	
+		else 
+			return false;
 	}
 }

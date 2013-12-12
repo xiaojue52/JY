@@ -35,26 +35,25 @@
 		<link href="<%=path%>/css/config.css" rel="stylesheet" type="text/css">
 		<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="<%=path%>/js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="<%=path%>/js/control.js"></script>
 	</head>
 
 	<body>
 		<div class="config_page">
+			
 			<div class="config_time">
-				<span><strong>监控时间设置</strong> </span><span>柜体类型：<select name="cabinet.cabType.id" id="cabType">
+				<s:form action="updateMonitorTime.action" method="post">
+				<input type="hidden" name="constant.value" id="cabinetType"/>
+				<span><strong>监控时间设置</strong> </span><span>柜体类型：<select onChange="Config.setUpTime();" id="cabType">
 							<%
 								for (int i = 0; i < cabTypeList.size(); i++) {
 							%>
-							<option value='<%=cabTypeList.get(i).getId()%>'>
-								<%=cabTypeList.get(i).getValue()%>
-							</option>
+							<option value='<%=cabTypeList.get(i).getSubValue()%>'><%=cabTypeList.get(i).getValue()%></option>
 							<%
 								}
 							%>
-						</select> </span><span>时间间隔：<select>
-						<option>
-							30分钟
-						</option>
-					</select> </span><span><input type="button" value="确定" /> </span>
+						</select> </span><span><input name="constant.subValue" class="numberInput" id="upTime" size=4 maxLength=4 type="text" style="width:40px;"/>分钟 </span><span><input type="submit" onclick="return Config.setCabinetType();" value="确定" /> </span>
+			</s:form>
 			</div>
 			<div class="config_calculate">
 				<span><strong>温度计算</strong> </span>
@@ -70,9 +69,6 @@
 						<th>
 							备注
 						</th>
-						<th>
-							操作
-						</th>
 					</tr>
 					<tr>
 						<td>
@@ -80,8 +76,9 @@
 						</td>
 						<td>
 							<div>
-								<input type="radio" name="identify" />
-								<input type="text" value="=f(x1,x2,x3,x4)=ax1x2x3x4" />
+								<input type="radio" name="identify" checked="checked">
+								<input type="text" value="=f(x1,x2,x3,x4)=ax1x2x3x4" readonly="readonly"/>
+								<span>等于已测温度</span>
 							</div>
 							<div>
 								<input type="radio" name="identify" />
@@ -92,9 +89,6 @@
 							x1,x2,x3,x4分别
 							<br />
 							是ABC三相和环境的温度值
-						</td>
-						<td>
-							<a>修改</a>
 						</td>
 					</tr>
 				</table>
@@ -118,7 +112,7 @@
 					<tr>
 						<td>
 							1
-							<input id="alarmTypeEnable1" type="checkbox" onclick="setEnable(1)"/>
+							<input id="alarmTypeEnable1" type="checkbox" onclick="Config.setEnable(1)"/>
 							<input id="enable1" type="hidden" name="alarmType1.enable" value="<s:property value="alarmType1.enable"/>" />
 						</td>
 						<td>
@@ -132,7 +126,7 @@
 					<tr>
 					<td>
 							2
-							<input id="alarmTypeEnable2" type="checkbox" onclick="setEnable(2)"/>
+							<input id="alarmTypeEnable2" type="checkbox" onclick="Config.setEnable(2)"/>
 							<input id="enable2" type="hidden" name="alarmType2.enable" value="<s:property value="alarmType2.enable"/>"/>
 						</td>
 						<td>
@@ -145,7 +139,7 @@
 					<tr>
 					<td>
 							3
-							<input id="alarmTypeEnable3" type="checkbox" onclick="setEnable(3)"/>
+							<input id="alarmTypeEnable3" type="checkbox" onclick="Config.setEnable(3)"/>
 							<input type="hidden" id="enable3" name="alarmType3.enable" value="<s:property value="alarmType3.enable"/>"/>
 						</td>
 						<td>

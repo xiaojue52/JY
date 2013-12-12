@@ -69,22 +69,32 @@ public class InitData {
 			key.setType("CabType");
 			key.setKey("1000");
 			key.setValue("环网柜");
+			key.setSubValue("1");
 			this.constantService.saveJYConstant(key);
 			key.setType("CabType");
 			key.setKey("1001");
 			key.setValue("分段柜");
+			key.setSubValue("2");
 			this.constantService.saveJYConstant(key);
 			key.setType("CabType");
 			key.setKey("1002");
 			key.setValue("高分箱");
+			key.setSubValue("3");
 			this.constantService.saveJYConstant(key);
 			key.setType("CabType");
 			key.setKey("1003");
 			key.setValue("变电柜");
+			key.setSubValue("4");
 			this.constantService.saveJYConstant(key);
 			key.setType("CabType");
 			key.setKey("1004");
 			key.setValue("配电");
+			key.setSubValue("5");
+			this.constantService.saveJYConstant(key);
+			key.setType("CabType");
+			key.setKey("1005");
+			key.setValue("其他");
+			key.setSubValue("6");
 			this.constantService.saveJYConstant(key);
 			
 			key.setType("PowerLevel");
@@ -114,6 +124,10 @@ public class InitData {
 			key.setType("PowerLevel");
 			key.setKey("1006");
 			key.setValue("220KV");
+			this.constantService.saveJYConstant(key);
+			key.setType("PowerLevel");
+			key.setKey("1007");
+			key.setValue("其他");
 			this.constantService.saveJYConstant(key);
 			
 			key.setType("AlarmType");

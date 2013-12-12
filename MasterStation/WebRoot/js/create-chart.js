@@ -50,7 +50,7 @@ var createDayChart = function() {
 						plotOptions: {
 					        series: {
 								pointInterval: 30*60 * 1000,
-								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2]),
+								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2])
 					        }
 					    },
 						series : [ {
@@ -130,7 +130,7 @@ var createMonthChart = function() {
 						plotOptions: {
 					        series: {
 								pointInterval: 24*60*60 * 1000,
-								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2]),
+								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2])
 					        }
 					    },
 						series : [
@@ -234,7 +234,7 @@ var createMoreChart = function() {
 						plotOptions: {
 					        series: {
 								pointInterval: 30*60 * 1000,
-								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2]),
+								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2])
 					        }
 					    },
 						series : obj.data,

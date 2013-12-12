@@ -45,10 +45,9 @@ var QueryDeviceTemp = {
 				},
 				error:function(){
 					//alert("aa");
-				},
-				complete: function(XMLHttpRequest, textStatus) {$("#load").remove(); }
+				}
 			});
-		},
+		}
 }
 var Monitor = {
 	RefreshPage:RefreshPage,

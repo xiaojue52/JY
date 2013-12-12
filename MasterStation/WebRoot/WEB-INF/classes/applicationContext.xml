@@ -494,4 +494,10 @@
 		
 	</bean>
 	
+	<bean id="MonitorTimeAction" class="com.station.system.action.MonitorTimeAction">
+		<property name="constantService">
+			<ref bean="jyConstantService" />
+		</property>
+	</bean>
+	
 </beans>

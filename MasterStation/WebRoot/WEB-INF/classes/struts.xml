@@ -156,5 +156,10 @@
 	<action name="getTempDate" class="SocketAction" method="getTempDateAction"> 
  	</action>
 </package>
+<package name="Config" extends="abstract_struts" namespace="/"> 
+	<action name="updateMonitorTime" class="MonitorTimeAction" method="updateMonitorTimeAction"> 
+	<result name="success" type="redirect">showAlarmType.action</result>
+ 	</action>
+</package>
 <!--include file="struts-jfreechart.xml"></include-->
 </struts>   

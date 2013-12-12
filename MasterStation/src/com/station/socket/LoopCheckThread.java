@@ -37,7 +37,7 @@ public class LoopCheckThread extends Thread{
 			Map.Entry<String, Map<String, String>> mEntry = (Map.Entry<String, Map<String, String>>) iter.next();
 			String cabNumber = (String) mEntry.getKey();
 			Map<String, String> order = (Map<String, String>)mEntry.getValue();
-			System.out.print(cabNumber);
+			//System.out.print(cabNumber);
 			try {
 				checkHeartBeat(cabNumber,order.get("heartBeat"));
 				checkReviceTemp(cabNumber,order.get("reviceTemp"));
@@ -52,10 +52,10 @@ public class LoopCheckThread extends Thread{
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
-		if (diff>=Constant.heartBeatTime&&diff<=(Constant.heartBeatTime+Constant.loopTime)){
+		if (diff>=Constant.heartBeatTime){
 			this.socketService.saveAlarm(cabNumber, 0, d2, "超过心跳时间");
 		}
-		System.out.print("\n"+diff+"\n"+diff+"\n");
+		//System.out.print("\n"+diff+"\n"+diff+"\n");
 	}
 	private void checkReviceTemp(String cabNumber,String date) throws ParseException{
 		if (date==null)return;
@@ -63,10 +63,10 @@ public class LoopCheckThread extends Thread{
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
-		if (diff>=Constant.reciveTempTime&&diff<=(Constant.reciveTempTime+Constant.loopTime)){
+		if (diff>=Constant.reciveTempTime){
 			this.socketService.saveAlarm(cabNumber, 1, d2, "过长时间未收到数据");
 		}
-		System.out.print("\n"+diff+"\n"+diff+"\n"+Constant.reciveTempTime);
+		//System.out.print("\n"+diff+"\n"+diff+"\n"+Constant.reciveTempTime);
 	}
 	public void stopCheck(){
 		this.stop = true;

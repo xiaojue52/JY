@@ -3,8 +3,6 @@ package com.station.socket;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.station.main.action.MainAction;
-
 public class SocketServletContextListener implements ServletContextListener{
 	private SocketListener socketListener;
 	@Override
@@ -24,6 +22,5 @@ public class SocketServletContextListener implements ServletContextListener{
 		// TODO Auto-generated method stub
 		socketListener = new SocketListener(sce);
 		socketListener.start();
-		MainAction.setSocketListener(socketListener);
 	}
 }

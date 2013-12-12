@@ -77,10 +77,13 @@ public class JYSocketServiceImpl implements JYSocketService {
 		}//
 		
 		if (listH.size()==0)return;
+		
 		cabinetHistory.setId(String.valueOf(System.nanoTime()));
 		cabinetHistory.setCabinet(listH.get(0).getDevice().getCabinet());
 		cabinetHistory.setDate(date);
+		listH.get(0).getDevice().getCabinet().setDetectTime(date);
 		cabinetHistoryDAO.saveJYCabinetHistory(cabinetHistory);
+		
 		Iterator<Map.Entry<Integer, List<Float>>> iter = map.entrySet().iterator();
 		while (iter.hasNext()) {
 			Map.Entry<Integer, List<Float>> mEntry = (Map.Entry<Integer, List<Float>>) iter
@@ -159,8 +162,9 @@ public class JYSocketServiceImpl implements JYSocketService {
 		List<JYCabinet> list = cabinetDAO.findJYCabinetByHql("from JYCabinet cabinet where cabinet.tag = 1 and cabinet.cabNumber ='"+cabNumber+"'");
 		if (list.size()>0){
 			Date date = new Date();
-			list.get(0).setLoginTime(date);
+			list.get(0).setDetectTime(date);
 			list.get(0).setStatus(1);
+			list.get(0).setAlarm(null);
 		}
 	}
 
@@ -171,15 +175,18 @@ public class JYSocketServiceImpl implements JYSocketService {
 		JYAlarm alarm = new JYAlarm();
 		List<JYDevice> list = deviceDAO.findJYDeviceByHql("from JYDevice device where device.tag = 1 and device.cabinet.tag = 1 and device.cabinet.cabNumber ='"+cabNumber+"'");
 		if (list.size()>0){
+			JYCabinet cabinet = list.get(0).getCabinet();
+			if (cabinet.getAlarm()!=null)return;
 			alarm.setAlarmText(content);
 			alarm.setDate(date);
 			alarm.setId(String.valueOf(System.nanoTime()));
 			alarm.setIsCabinet("1");
 			alarm.setStatus("0");
-			list.get(0).getCabinet().setAlarm(alarm);
+			cabinet.setAlarm(alarm);
+			cabinet.setDetectTime(date);
 			alarm.setDevice(list.get(0));
 			this.alarmDAO.saveJYAlarm(alarm);
-			this.cabinetDAO.updateJYCabinet(list.get(0).getCabinet());		
+			this.cabinetDAO.updateJYCabinet(cabinet);		
 		}
 		
 	}

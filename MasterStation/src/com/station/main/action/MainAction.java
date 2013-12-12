@@ -3,7 +3,6 @@ package com.station.main.action;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -14,7 +13,6 @@ import com.station.po.JYConstant;
 import com.station.po.JYUser;
 import com.station.query.column.SqlQueryColumn;
 import com.station.service.JYMonitorService;
-import com.station.socket.SocketListener;
 
 @SuppressWarnings("serial")
 public class MainAction extends ActionSupport {
@@ -23,7 +21,6 @@ public class MainAction extends ActionSupport {
 	private PageBean pageBean;
 	private int page = 1;
 	private SqlQueryColumn sqlDeviceColumn;
-	private static SocketListener socketListener;
     private int timer = 3000;
     private int pageList = 10;
 	private List<Integer> pageNumberList = new ArrayList<Integer>();
@@ -118,9 +115,7 @@ public class MainAction extends ActionSupport {
 	public void setTimer(int timer) {
 		this.timer = timer;
 	}
-	public static void setSocketListener(SocketListener socketListener) {
-		MainAction.socketListener = socketListener;
-	}
+
 	public SqlQueryColumn getSqlDeviceColumn() {
 		return sqlDeviceColumn;
 	}
