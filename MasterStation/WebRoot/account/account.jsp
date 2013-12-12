@@ -46,11 +46,11 @@
 				<tr>
 					<td align="center">
 						<br/><br/>
-						<input style="width:48px;" class="comButton" type="button" value="提交" onClick="if(checkInputLength('account-page','checkInputLength',5))verify();" />
+						<input style="width:48px;" class="comButton" type="button" value="提交" onClick="if(Control.checkInputLength('account-page','checkInputLength',5))ModifyPassword.verify();" />
 					</td>
 					<td align="center">
 						<br/><br/>
-						<input style="width:48px;" class="comButton" type="button" value="取消" onClick="closePage();"/>
+						<input style="width:48px;" class="comButton" type="button" value="取消" onClick="ModifyPassword.closePage();"/>
 					</td>
 				</tr>
 			</table>

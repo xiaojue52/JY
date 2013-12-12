@@ -82,7 +82,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input type="submit" value="确 定" onclick="return checkInput('device-page','checkInput-devicepage');" style="width: 60px;">
+						<input type="submit" value="确 定" onclick="return Control.checkInput('device-page','checkInput-devicepage');" style="width: 60px;">
 					</td>
 				</tr>
 				
@@ -135,7 +135,7 @@
 			线路名称：
 			<input class="checkInput-linepage" name="line.name" type="text" value="请输入线路名称" /><span style="color:red">*</span>
 				<input class="comButton" type="submit" value="确定"
-					style="margin-left: 10px" onclick="return checkInput('line-page','checkInput-linepage');"/>
+					style="margin-left: 10px" onclick="return Control.checkInput('line-page','checkInput-linepage');"/>
 			
 			<br/>
 			<br/>
@@ -256,7 +256,7 @@
 				<td colspan="2" align="center">报警阀值设置</td>
 					</tr>
 					<tr>
-					<td class="td_left" width="200px"><input type="checkbox" id="checkbox1" onclick="checkBoxSwitch('1')" />
+					<td class="td_left" width="200px"><input type="checkbox" id="checkbox1" onclick="DeviceManager.checkBoxSwitch('1')" />
 						T1(°)：</td>
 					<td>
 						<input class="floatNumber" id="input1" name="cabinet.alarmTypeCollect.alarmType1.value" type="text" value="75" class="readonly" readonly="readonly"
@@ -265,7 +265,7 @@
 					</td>
 					</tr>
 					<tr>
-					<td class="td_left" width="100"><input type="checkbox" id="checkbox2" onclick="checkBoxSwitch('2')" />
+					<td class="td_left" width="100"><input type="checkbox" id="checkbox2" onclick="DeviceManager.checkBoxSwitch('2')" />
 						T2(°)：</td>
 					<td>
 						<input class="floatNumber" id="input2" name="cabinet.alarmTypeCollect.alarmType2.value"  type="text" value="15" class="readonly" readonly="readonly"
@@ -274,7 +274,7 @@
 					</td>
 					</tr>
 					<tr>
-					<td class="td_left" width="100"><input type="checkbox" id="checkbox3" onclick="checkBoxSwitch('3')" />
+					<td class="td_left" width="100"><input type="checkbox" id="checkbox3" onclick="DeviceManager.checkBoxSwitch('3')" />
 						T3(°)：</td>
 					<td>
 						<input class="floatNumber" id="input3" name="cabinet.alarmTypeCollect.alarmType3.value" type="text" value="15" class="readonly" readonly="readonly"
@@ -291,7 +291,7 @@
 				
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" value="确定" onclick="checkValue();return (checkInput('cabinet-page','checkInput-cabinetpage')&&checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5));"/>
+					<input type="submit" value="确定" onclick="DeviceManager.checkValue();return (Control.checkInput('cabinet-page','checkInput-cabinetpage')&&Control.checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5));"/>
 					</td>
 				</tr>	
 				</table>

@@ -78,7 +78,7 @@
 					</select>
 				</span>
 				<span><input style="width: 48px;" class="toolbarButton"
-						type="button" value="查询" onclick="queryDevice();" />
+						type="button" value="查询" onclick="DeviceManager.queryDevice();" />
 				</span>
 			</s:form>
 			<br/>

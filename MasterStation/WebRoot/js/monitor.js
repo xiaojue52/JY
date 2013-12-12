@@ -55,7 +55,7 @@ var Monitor = {
 }
 Monitor.RefreshPage.loop();
 
-function showPage() {
+Monitor.showPage = function () {
 	
 	$("#BgDiv").css( {
 		display : "block",
@@ -66,13 +66,13 @@ function showPage() {
 	$("#DialogDiv").css("display", "block");
 	document.documentElement.scrollTop = 0;
 }
-function closePage() {
+Monitor.closePage = function () {
 	$("#BgDiv").css("display", "none");
 	$("#DialogDiv").css("display", "none");
 	$('.page_iframe').attr('src',"");
 }
 
-function setPageFrameSrc(src){
+Monitor.setPageFrameSrc = function(src){
 	$('.page_iframe').attr('src',src);
-	showPage();
+	Monitor.showPage();
 }

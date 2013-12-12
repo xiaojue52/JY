@@ -1,5 +1,5 @@
-
-function showPage() {
+var ModifyPassword = {}
+ModifyPassword.showPage = function () {
 	
 	$("#BgDiv").css( {
 		display : "block",
@@ -10,24 +10,24 @@ function showPage() {
 	$("#DialogDiv").css("display", "block");
 	document.documentElement.scrollTop = 0;
 }
-function closePage() {
+ModifyPassword.closePage = function () {
 	$("#BgDiv").css("display", "none");
 	$("#DialogDiv").css("display", "none");
 }
-function verify() {
+ModifyPassword.verify = function () {
 	if (document.getElementById("newPassword").value == document
 			.getElementById("verifyPassword").value) {
 		if (confirm("确定修改？")) {
 			var password = $('#password').val();
 			var newPassword = $('#newPassword').val();
 			//alert(password+":"+newPassword);
-			updateUser(password,newPassword);
+			ModifyPassword.updateUser(password,newPassword);
 		}
 		return false;
 	} else
 		alert("密码不一致");
 }
-function updateUser(password,newPassword) {
+ModifyPassword.updateUser = function (password,newPassword) {
 	
 			$.ajax( {
 				type : "post",

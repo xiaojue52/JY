@@ -97,7 +97,7 @@
 								</td>
 								<td>
 									<span><input class="toolbarButton" type="button"
-											value="确定" onclick="parent.selectedDevice(0);return false;"/> </span>
+											value="确定" onclick="parent.Chart.selectedDevice(0);return false;"/> </span>
 								</td>
 							</tr>
 				</table>

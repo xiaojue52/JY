@@ -85,20 +85,20 @@
 								<td>
 									<span>开始日期：
 									<s:if test="queryStartDate == \"1000-01-01\"||queryStartDate==null">
-									<input name='queryStartDate' type="text" onfocus="setday(this)"/> 
+									<input name='queryStartDate' type="text" onfocus="DatePicker.setday(this)"/> 
 									</s:if>
 									<s:else>
-									<input name='queryStartDate' type="text" value="<s:property value="queryStartDate"/>" onfocus="setday(this)"/> 
+									<input name='queryStartDate' type="text" value="<s:property value="queryStartDate"/>" onfocus="DatePicker.setday(this)"/> 
 									</s:else>
 									</span>
 								</td>
 								<td>
 									<span>结束日期：
 									<s:if test="queryEndDate == \"9999-12-12\"||queryEndDate==null">
-									<input name='queryEndDate' type="text" onfocus="setday(this)"/> 
+									<input name='queryEndDate' type="text" onfocus="DatePicker.setday(this)"/> 
 									</s:if>
 									<s:else>
-									<input name='queryEndDate' type="text" value="<s:property value="queryEndDate"/>" onfocus="setday(this)"/> 
+									<input name='queryEndDate' type="text" value="<s:property value="queryEndDate"/>" onfocus="DatePicker.setday(this)"/> 
 									</s:else>
 									</span>
 								</td>

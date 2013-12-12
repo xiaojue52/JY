@@ -1,9 +1,11 @@
-﻿function setday(inputObj,dateFormatStyle,beginDate,endDate,lang){
+﻿var DatePicker = {}
+
+DatePicker.setday = function(inputObj,dateFormatStyle,beginDate,endDate,lang){
 	if(null == inputObj){return null;}
 	new Calendar(inputObj,dateFormatStyle,beginDate,endDate,lang).show();
 }
 
-function setmonth(inputObj,dateFormatStyle,beginDate,endDate,lang){
+DatePicker.setmonth = function(inputObj,dateFormatStyle,beginDate,endDate,lang){
 	if(null == inputObj){return null;}
 	new Calendar(inputObj,dateFormatStyle,beginDate,endDate,lang,"m").show();
 }

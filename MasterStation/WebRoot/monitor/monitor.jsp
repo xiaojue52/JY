@@ -185,8 +185,8 @@ String path = request.getContextPath();
 						<s:property value="#cabinet.user.username" />
 					</td>
 					<td width="7%">
-						<a href="javascript:void(0)" onClick="setPageFrameSrc('listPageAlarm.action?cabId=<s:property value="#cabinet.cabId"/>');">历史报警</a><br/>
-						<a href="javascript:void(0)" onClick="setPageFrameSrc('listPageHistory.action?cabId=<s:property value="#cabinet.cabId"/>');">历史温度</a>
+						<a href="javascript:void(0)" onClick="Monitor.setPageFrameSrc('listPageAlarm.action?cabId=<s:property value="#cabinet.cabId"/>');">历史报警</a><br/>
+						<a href="javascript:void(0)" onClick="Monitor.setPageFrameSrc('listPageHistory.action?cabId=<s:property value="#cabinet.cabId"/>');">历史温度</a>
 					</td>
 				</tr>
 			</s:iterator>
@@ -316,7 +316,7 @@ String path = request.getContextPath();
 	
 	<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none">
-				<h2>操作<a id="btnClose" onclick="closePage();">关闭</a></h2>
+				<h2>操作<a id="btnClose" onclick="Monitor.closePage();">关闭</a></h2>
     	   		<iframe src="" class="page_iframe" width=100% height=100% frameborder='0'></iframe>
 			</div>
 	

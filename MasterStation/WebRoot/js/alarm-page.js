@@ -1,4 +1,6 @@
-function showPage(id,text) {
+var Alarm = {}
+Alarm.showPage = function (id,text) 
+{
 	$("#form").attr({"action":"updateAlarm.action?alarmTemp.id="+id});
 	$("#textarea").text(text);
 	$("#BgDiv").css( {
@@ -10,7 +12,7 @@ function showPage(id,text) {
 	$("#DialogDiv").css("display", "block");
 	document.documentElement.scrollTop = 0;
 }
-function closePage() {
+Alarm.closePage = function () {
 	$("#BgDiv").css("display", "none");
 	$("#DialogDiv").css("display", "none");
 }

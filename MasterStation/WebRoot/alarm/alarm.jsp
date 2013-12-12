@@ -90,20 +90,20 @@
 								<td>
 									<span>开始日期：
 									<s:if test="queryStartDate == \"1000-01-01\"||queryStartDate==null">
-									<input name='queryStartDate' type="text" onfocus="setday(this)"/> 
+									<input name='queryStartDate' type="text" onfocus="DatePicker.setday(this)"/> 
 									</s:if>
 									<s:else>
-									<input name='queryStartDate' type="text" value="<s:property value="queryStartDate"/>" onfocus="setday(this)"/> 
+									<input name='queryStartDate' type="text" value="<s:property value="queryStartDate"/>" onfocus="DatePicker.setday(this)"/> 
 									</s:else>
 									</span>
 								</td>
 								<td>
 									<span>结束日期：
 									<s:if test="queryEndDate == \"9999-12-12\"||queryEndDate==null">
-									<input name='queryEndDate' type="text" onfocus="setday(this)"/> 
+									<input name='queryEndDate' type="text" onfocus="DatePicker.setday(this)"/> 
 									</s:if>
 									<s:else>
-									<input name='queryEndDate' type="text" value="<s:property value="queryEndDate"/>" onfocus="setday(this)"/> 
+									<input name='queryEndDate' type="text" value="<s:property value="queryEndDate"/>" onfocus="DatePicker.setday(this)"/> 
 									</s:else>
 									</span>
 								</td>
@@ -248,7 +248,7 @@
 								</td>
 								<td width="10%">
 								<s:if test="status==0">
-									<a href="javascript:void(0);" onclick="showPage('<s:property value="#alarm.id" />','<s:property value="#alarm.alarmText" />')">维修确认</a>
+									<a href="javascript:void(0);" onclick="Alarm.showPage('<s:property value="#alarm.id" />','<s:property value="#alarm.alarmText" />')">维修确认</a>
 								</s:if>
 								<s:else>
 									<a>维修确认</a>
@@ -384,7 +384,7 @@
 		</script>
 		<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none;width:300px;height:310px;">
-				<h2>操作<a onClick="closePage()">关闭</a></h2>
+				<h2>操作<a onClick="Alarm.closePage()">关闭</a></h2>
 				<div>
     	    		<s:form id="form">
     	    		<div><span style="margin-left:8px;">报警信息：</span><textarea id="textarea" style="margin-left:30px;margin-top:8px;" readonly="readonly" cols="30" rows="5"></textarea></div>
@@ -398,7 +398,7 @@
     	    		<input type="submit" value="确定" />
     	    		</td>
     	    		<td align="center">
-    	    		<input type="button" value="取消" onclick="closePage()"/>
+    	    		<input type="button" value="取消" onclick="Alarm.closePage()"/>
     	    		</td>
     	    		</tr>
     	    		</table>

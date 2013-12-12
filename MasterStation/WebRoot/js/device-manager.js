@@ -1,5 +1,5 @@
-
-var windowTree;
+var DeviceManager = {}
+DeviceManager.windowTree = {};
 
 Ext.onReady(function(){  
     //Ext.BLANK_IMAGE_URL = "ext/resources/images/default/s.gif";  
@@ -57,32 +57,32 @@ Ext.onReady(function(){
     	                $("#cabinetPage form").attr({"action":"updateCabinet.action?cabinet.cabId="+node.id});
     	                
     	                if (obj.cabinet.alarmTypeCollect.id == "-1"){
-    	                	removeChecked(1);
-    	                	removeChecked(2);
-    	                	removeChecked(3);
+    	                	DeviceManager.removeChecked(1);
+    	                	DeviceManager.removeChecked(2);
+    	                	DeviceManager.removeChecked(3);
     	                }else
     	                {
     	                	if (obj.cabinet.alarmTypeCollect.alarmType1.enable==0){
-    	                		removeChecked(1);
+    	                		DeviceManager.removeChecked(1);
     	                	}else
     	                	{
-    	                		addChecked(1);
+    	                		DeviceManager.addChecked(1);
     	                		$("#input1").val(obj.cabinet.alarmTypeCollect.alarmType1.value);
     	                	}
     	                	if (obj.cabinet.alarmTypeCollect.alarmType2.enable==0){
-    	                		removeChecked(2);
+    	                		DeviceManager.removeChecked(2);
     	                	}
     	                	else
     	                	{
-    	                		addChecked(2);
+    	                		DeviceManager.addChecked(2);
     	                		$("#input2").val(obj.cabinet.alarmTypeCollect.alarmType2.value);
     	                	}
     	                	if (obj.cabinet.alarmTypeCollect.alarmType3.enable==0){
-    	                		removeChecked(3);
+    	                		DeviceManager.removeChecked(3);
     	                	}
     	                	else
     	                	{
-    	                		addChecked(3);
+    	                		DeviceManager.addChecked(3);
     	                		$("#input3").val(obj.cabinet.alarmTypeCollect.alarmType3.value);
     	                	}
     	                }
@@ -170,9 +170,9 @@ Ext.onReady(function(){
 	                $("#cabNumber").val("");
 	                $("#simNumber").val("");
 	                $("#simSNumber").val("");
-	                removeChecked(1);
-	                removeChecked(2);
-	                removeChecked(3);
+	                DeviceManager.removeChecked(1);
+	                DeviceManager.removeChecked(2);
+	                DeviceManager.removeChecked(3);
 	                $("#cabinetPage form").attr({"action":"addCabinet.action"});
     				$(".page").hide();
     				$("#cabinet-page").html('');
@@ -225,10 +225,10 @@ Ext.onReady(function(){
     	tree.root.reload();
     }
     tree.render(Ext.get("tree_div")); 
-    windowTree = tree;
+    DeviceManager.windowTree = tree;
       
 });
-function queryDevice(){
+DeviceManager.queryDevice = function(){
 	//alert(windowTree.loader.baseParams.id);
 	var queryLine = $('#queryLine').val();
 	var queryType = $('#queryType').val();
@@ -240,18 +240,18 @@ function queryDevice(){
 	if (queryNumber.length==0)queryNumber='-1';
 	if (queryUser.length==0)queryUser='-1';
 	if (queryLine=="-1"&&queryType=='-1'&&queryNumber=='-1'&&queryUser=='-1'){
-		windowTree.loader.baseParams.tag = 0;
+		DeviceManager.windowTree.loader.baseParams.tag = 0;
 	}else
-		windowTree.loader.baseParams.tag = 1;
-	windowTree.loader.baseParams.queryLine = queryLine;
-	windowTree.loader.baseParams.queryType = queryType;
-	windowTree.loader.baseParams.queryNumber = queryNumber;
-	windowTree.loader.baseParams.queryUser = queryUser;
+		DeviceManager.windowTree.loader.baseParams.tag = 1;
+	DeviceManager.windowTree.loader.baseParams.queryLine = queryLine;
+	DeviceManager.windowTree.loader.baseParams.queryType = queryType;
+	DeviceManager.windowTree.loader.baseParams.queryNumber = queryNumber;
+	DeviceManager.windowTree.loader.baseParams.queryUser = queryUser;
 	
 	//alert(queryLine.length);
-	windowTree.root.reload();
+	DeviceManager.windowTree.root.reload();
 }
-function checkBoxSwitch(id){
+DeviceManager.checkBoxSwitch = function(id){
 	if (document.getElementById("checkbox"+id).checked==true){
 		//removeChecked(id);
 		$("#input"+id).removeClass("readonly");
@@ -269,21 +269,21 @@ function checkBoxSwitch(id){
 		$("#enable"+id).val(0);
 	}
 }
-function addChecked(id){
+DeviceManager.addChecked = function(id){
 	document.getElementById("checkbox"+id).checked = true;
 	$("#input"+id).removeClass("readonly");
 	$("#input"+id).removeAttr("readonly");
 	$("#checkbox"+id).attr("checked","checked");
 	$("#enable"+id).val(1);
 }
-function removeChecked(id){
+DeviceManager.removeChecked = function(id){
 	document.getElementById("checkbox"+id).checked = false;
 	$("#input"+id).addClass("readonly");
 	$("#input"+id).attr("readonly","readonly");
 	$("#checkbox"+id).removeAttr("checked");
 	$("#enable"+id).val(0);
 }
-function checkValue(){
+DeviceManager.checkValue = function(){
 	if ($("#input1").val().length==0)
 		$("#input1").val(0);
 	if ($("#input2").val().length==0)

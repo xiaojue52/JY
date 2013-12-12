@@ -79,7 +79,7 @@
 
 				<tr>
 					<td align="center">
-						<input type="submit" value="提交" onclick="return checkInput('add-user-page','checkInput-adduserpage','ecl-adduserpage');" class="comButton" style="margin-left:30px;"/>
+						<input type="submit" value="提交" onclick="return Control.checkInput('add-user-page','checkInput-adduserpage','ecl-adduserpage');" class="comButton" style="margin-left:30px;"/>
 					</td>
 					<td align="center">		
 						<input type="button"

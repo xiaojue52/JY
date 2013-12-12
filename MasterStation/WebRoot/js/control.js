@@ -1,3 +1,4 @@
+var Control = {};
 
 $(document).ready(function() {
     $(".numberInput").keydown(function(event) {
@@ -25,7 +26,7 @@ $(document).ready(function() {
 });
 
 
-function checkNumber(){
+Control.checkNumber = function(){
 	var numberRegex = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
 	var str = $('.numberInput').val();
 	if(numberRegex.test(str)) {
@@ -34,7 +35,7 @@ function checkNumber(){
 	else
 		alert("请输入数字！");
 }
-function checkInput(id,cl,ecl) {
+Control.checkInput = function(id,cl,ecl) {
 	
 	var ret = 0;
 	$('.'+cl).each(function(){
@@ -54,7 +55,7 @@ function checkInput(id,cl,ecl) {
 	});
 	return true;
 }
-function checkInputLength(id,cl,le){
+Control.checkInputLength = function(id,cl,le){
 	var ret = 0;
 	$('.'+cl).each(function(){
 		if ($(this).val().length<le){
@@ -68,7 +69,7 @@ function checkInputLength(id,cl,le){
 	}
 	return true;
 }
-function checkInputFixedLength(id,cl,le){
+Control.checkInputFixedLength = function(id,cl,le){
 	var ret = 0;
 	$('.'+cl).each(function(){
 		if ($(this).val().length!=le){

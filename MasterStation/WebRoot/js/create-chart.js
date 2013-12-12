@@ -255,30 +255,31 @@ var Chart = {
 	moreChart : createMoreChart
 }
 //Chart.dayChart();
-var showedTag = 0;
-function dayBtnClick() {
+Chart.showedTag = 0;
+//var showedTag = 0;
+Chart.dayBtnClick = function() {
 	$('#dayMenu').show();
 	$('#monthMenu').hide();
 	$('#moreMenu').hide();
 	$('#selectedDevice').html('');
-	showedTag = 0;
+	Chart.showedTag = 0;
 }
-function monthBtnClick() {
+Chart.monthBtnClick = function() {
 	$('#dayMenu').hide();
 	$('#monthMenu').show();
 	$('#moreMenu').hide();
 	$('#selectedDevice').html('');
-	showedTag = 1;
+	Chart.showedTag = 1;
 }
-function moreBtnClick() {
+Chart.moreBtnClick = function() {
 	$('#dayMenu').hide();
 	$('#monthMenu').hide();
 	$('#moreMenu').show();
 	$('#selectedDevice').html('');
-	showedTag = 2;
+	Chart.showedTag = 2;
 }
 
-function showPage() {
+Chart.showPage = function() {
 
 	$("#BgDiv").css( {
 		display : "block",
@@ -289,22 +290,22 @@ function showPage() {
 	$("#DialogDiv").css("display", "block");
 	document.documentElement.scrollTop = 0;
 }
-function closePage() {
+Chart.closePage = function() {
 	$("#BgDiv").css("display", "none");
 	$("#DialogDiv").css("display", "none");
 	$('.page_iframe').attr('src', "");
 }
 
-function setPageFrameSrc(src) {
+Chart.setPageFrameSrc = function(src) {
 	$('.page_iframe').attr('src', src);
-	showPage();
+	Chart.showPage();
 }
-function selectedDevice(tag) {
+Chart.selectedDevice = function(tag) {
 	if ($(('#selectedDevice')).find('option').length == 0)
 		return;
 	// alert(tag);
-	closePage();
-	if (showedTag == 0) {
+	Chart.closePage();
+	if (Chart.showedTag == 0) {
 		$("#dayDevice").empty();
 		$("#selectedDevice option").each(
 				function() {
@@ -315,7 +316,7 @@ function selectedDevice(tag) {
 									+ "</option>");
 				});
 	}
-	if (showedTag == 1) {
+	if (Chart.showedTag == 1) {
 		$("#monthDevice").empty();
 		$("#selectedDevice option").each(
 				function() {
@@ -326,7 +327,7 @@ function selectedDevice(tag) {
 									+ "</option>");
 				});
 	}
-	if (showedTag == 2) {
+	if (Chart.showedTag == 2) {
 		$("#moreDevice").empty();
 		$("#selectedDevice option").each(
 				function() {

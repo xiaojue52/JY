@@ -78,7 +78,7 @@
 					<td align="center">
 						<input type="hidden" id="user_userId" name="user.userId"
 							value="${user.userId }" />
-						<input type="submit" value="提交" class="comButton" onclick="return checkInput('user-details-page','checkInput-userdetailspage','ecl-userdetailspage');" style="margin-left:30px;"/>
+						<input type="submit" value="提交" class="comButton" onclick="return Control.checkInput('user-details-page','checkInput-userdetailspage','ecl-userdetailspage');" style="margin-left:30px;"/>
 					</td>
 					<td align="center">	
 						<input type="button"
