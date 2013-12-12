@@ -15,7 +15,10 @@
 	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
 	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
-	
+	List<JYUser> userList = new ArrayList<JYUser>();
+	String functionNum ="";
+	String mesUser = "";
+	String mesDate = "";
 	if (username!=null)
 	{
 	WebApplicationContext wac = (WebApplicationContext) config
@@ -24,6 +27,11 @@
 					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 	DataList dataList = (DataList) wac.getBean("DataList");
 	cabTypeList = dataList.getCabTpyeConstant();
+	userList = dataList.getAllUser();
+	functionNum = dataList.getFunctionNum();
+	mesUser = dataList.getMesUser();
+	mesDate = dataList.getMesDate();
+	System.out.print(functionNum+":"+mesUser+":"+mesDate);
 	}
 %>
 
@@ -31,6 +39,7 @@
 <html>
 	<head>
 		<title>参数设置</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<base href="<%=basePath%>">
 		<link href="<%=path%>/css/config.css" rel="stylesheet" type="text/css">
 		<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
@@ -40,10 +49,9 @@
 
 	<body>
 		<div class="config_page">
-			
+			<s:form>
 			<div class="config_time">
-				<s:form action="updateMonitorTime.action" method="post">
-				<input type="hidden" name="constant.value" id="cabinetType"/>
+				<input type="hidden" id="cabinetType"/>
 				<span><strong>监控时间设置</strong> </span><span>柜体类型：<select onChange="Config.setUpTime();" id="cabType">
 							<%
 								for (int i = 0; i < cabTypeList.size(); i++) {
@@ -52,9 +60,9 @@
 							<%
 								}
 							%>
-						</select> </span><span><input name="constant.subValue" class="numberInput" id="upTime" size=4 maxLength=4 type="text" style="width:40px;"/>分钟 </span><span><input type="submit" onclick="return Config.setCabinetType();" value="确定" /> </span>
-			</s:form>
+						</select> </span><span><input class="numberInput" id="upTime" size=4 maxLength=4 type="text" style="width:40px;"/>分钟 </span><span><input type="button" onclick="Config.upDateMonitorTime();" value="确定" /> </span>
 			</div>
+			</s:form>
 			<div class="config_calculate">
 				<span><strong>温度计算</strong> </span>
 
@@ -74,29 +82,29 @@
 						<td>
 							肘型头内部温度
 						</td>
-						<td>
+						<td><table style="width:100%">
+						<tr><td>
 							<div>
-								<input type="radio" name="identify" checked="checked">
-								<input type="text" value="=f(x1,x2,x3,x4)=ax1x2x3x4" readonly="readonly"/>
-								<span>等于已测温度</span>
-							</div>
-							<div>
-								<input type="radio" name="identify" />
-								<input type="text" value="=f(x1,x2,x3,x4)=bx1x2x3x4" />
-							</div>
+								<input value=0 type="radio" name="functionNum" checked="checked">
+								<input type="text" value="F(x)=x" readonly="readonly"/>
+								<span>内部温度为采集温度</span>
+							</div></td></tr>
+							<tr><td><div>
+								<input value=1 type="radio" name="functionNum"/>
+								<input type="text" value="F(x)=1.2x" readonly="readonly"/>
+								<span>内部温度为计算温度</span>
+							</div></td></tr>
+							</table>
 						</td>
 						<td>
-							x1,x2,x3,x4分别
-							<br />
-							是ABC三相和环境的温度值
+							x是ABC三相和环境的温度值
 						</td>
 					</tr>
 				</table>
-				<span> <br /> <input type="button" value="确定" /> </span>
+				<span> <br /> <input type="button" value="确定" onclick="Config.upDateMonitorFunction();"/> </span>
 			</div>
 			<div class="config_type">
 				<span><strong>报警条件设置</strong> </span>
-				<s:form action="updateAlarmType.action" method="post">
 				<table class="gridtable">
 					<tr>
 						<th>
@@ -113,62 +121,67 @@
 						<td>
 							1
 							<input id="alarmTypeEnable1" type="checkbox" onclick="Config.setEnable(1)"/>
-							<input id="enable1" type="hidden" name="alarmType1.enable" value="<s:property value="alarmType1.enable"/>" />
+							<input id="enable1" type="hidden" value="<s:property value="alarmType1.enable"/>" />
 						</td>
 						<td>
 							报警温度超出设定阀值（T1°）
 						</td>
 						<td>
 							T1=
-							<input type="text" value="<s:property value="alarmType1.value"/>" name="alarmType1.value"/>
+							<input class="floatNumber" id="value1" type="text" value="<s:property value="alarmType1.value"/>"/>
 						</td>
 					</tr>
 					<tr>
 					<td>
 							2
 							<input id="alarmTypeEnable2" type="checkbox" onclick="Config.setEnable(2)"/>
-							<input id="enable2" type="hidden" name="alarmType2.enable" value="<s:property value="alarmType2.enable"/>"/>
+							<input id="enable2" type="hidden" value="<s:property value="alarmType2.enable"/>"/>
 						</td>
 						<td>
 							三相之间的温度差超过设定值（T2°）
 						</td>
 						<td>
 							T2=
-							<input type="text" value="<s:property value="alarmType2.value"/>" name="alarmType2.value"/>
+							<input class="floatNumber" id="value2" type="text" value="<s:property value="alarmType2.value"/>" />
 						</td></tr>
 					<tr>
 					<td>
 							3
 							<input id="alarmTypeEnable3" type="checkbox" onclick="Config.setEnable(3)"/>
-							<input type="hidden" id="enable3" name="alarmType3.enable" value="<s:property value="alarmType3.enable"/>"/>
+							<input type="hidden" id="enable3" value="<s:property value="alarmType3.enable"/>"/>
 						</td>
 						<td>
 							三相与环境温度差超过设定值（T3°）
 						</td>
 						<td>
 							T3=
-							<input type="text" value="<s:property value="alarmType3.value"/>" name="alarmType3.value"/>
+							<input class="floatNumber" id="value3" type="text" value="<s:property value="alarmType3.value"/>" />
 						</td></tr>
 
 				</table>
-				<span> <br /> <input type="submit" value="确定"> </span>
-				</s:form>
+				<span> <br /> <input type="button" value="确定" onclick="Config.updateAlarmType();"> </span>
 			</div>
 			<div class="config_cost">
-				<span><strong>余额提醒设置</strong> </span><span>每月提醒日期：<select>
-						<option>
-							1号
-						</option>
-					</select> </span><span>短信接收人：<select>
-						<option>
-							张三
-						</option>
-					</select> </span>
+				<span><strong>余额提醒设置</strong> </span><span>每月提醒日期：<select id="mesDate">
+						
+						
+					</select> </span><span>短信接收人：<select id="mesUser">
+							<%
+								for (int i = 0; i < userList.size(); i++) {
+							%>
+							<option value='<%=userList.get(i).getUsername()%>'>
+								<%=userList.get(i).getUsername()%>
+							</option>
+							<% }%>
+						</select> </span>
 					<span>
-				<input type="button" value="确定" />
+				<input type="button" value="确定" onclick="Config.upDateMessage();"/>
 				</span>
 			</div>
 		</div>
+		<input id="tempMesDate" type="hidden" value="<%=mesDate %>"/>
+		<input id="tempFunctionNum" type="hidden" value="<%=functionNum %>"/>
+		<input id="tempMesUser" type="hidden" value="<%=mesUser %>"/>
 		<script type="text/javascript" src="<%=path%>/js/config.js"></script>
 	</body>
 </html>

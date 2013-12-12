@@ -237,7 +237,7 @@
 					<tr>
 					<td class="td_left" width="200px">SIM卡号：</td>
 					<td>
-						<input maxlength=11 name="cabinet.simNumber" id="simNumber" type="text"
+						<input class="numberInput" maxlength=11 name="cabinet.simNumber" id="simNumber" type="text"
 							value="" style="height: 22px;width:200px;"/>
 					</td>
 					</tr>
@@ -259,7 +259,7 @@
 					<td class="td_left" width="200px"><input type="checkbox" id="checkbox1" onclick="checkBoxSwitch('1')" />
 						T1(°)：</td>
 					<td>
-						<input id="input1" name="cabinet.alarmTypeCollect.alarmType1.value" type="text" value="75" class="readonly" readonly="readonly"
+						<input class="floatNumber" id="input1" name="cabinet.alarmTypeCollect.alarmType1.value" type="text" value="75" class="readonly" readonly="readonly"
 							width="30px;" style="height: 22px;width:200px;"/>
 						<input id="enable1" type="hidden" name="cabinet.alarmTypeCollect.alarmType1.enable" value=""/>	
 					</td>
@@ -268,7 +268,7 @@
 					<td class="td_left" width="100"><input type="checkbox" id="checkbox2" onclick="checkBoxSwitch('2')" />
 						T2(°)：</td>
 					<td>
-						<input id="input2" name="cabinet.alarmTypeCollect.alarmType2.value"  type="text" value="15" class="readonly" readonly="readonly"
+						<input class="floatNumber" id="input2" name="cabinet.alarmTypeCollect.alarmType2.value"  type="text" value="15" class="readonly" readonly="readonly"
 							width="30px;" style="height: 22px;width:200px;"/>
 							<input id="enable2" type="hidden" name="cabinet.alarmTypeCollect.alarmType2.enable" value=""/>	
 					</td>
@@ -277,7 +277,7 @@
 					<td class="td_left" width="100"><input type="checkbox" id="checkbox3" onclick="checkBoxSwitch('3')" />
 						T3(°)：</td>
 					<td>
-						<input id="input3" name="cabinet.alarmTypeCollect.alarmType3.value" type="text" value="15" class="readonly" readonly="readonly"
+						<input class="floatNumber" id="input3" name="cabinet.alarmTypeCollect.alarmType3.value" type="text" value="15" class="readonly" readonly="readonly"
 							width="30px;" style="height: 22px;width:200px;"/>
 							<input id="enable3" name="cabinet.alarmTypeCollect.alarmType3.enable" type="hidden" value=""/>	
 					</td>
@@ -291,7 +291,7 @@
 				
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" value="确定" onclick="return (checkInput('cabinet-page','checkInput-cabinetpage')&&checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5));"/>
+					<input type="submit" value="确定" onclick="checkValue();return (checkInput('cabinet-page','checkInput-cabinetpage')&&checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5));"/>
 					</td>
 				</tr>	
 				</table>

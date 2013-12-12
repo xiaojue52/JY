@@ -499,5 +499,11 @@
 			<ref bean="jyConstantService" />
 		</property>
 	</bean>
+	<bean id="MonitorFunctionSwitchAction" class="com.station.system.action.MonitorFunctionSwitchAction">
+
+	</bean>
+	<bean id="MessageAction" class="com.station.system.action.MessageAction">
+
+	</bean>
 	
 </beans>

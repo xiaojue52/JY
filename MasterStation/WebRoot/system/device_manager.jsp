@@ -44,7 +44,7 @@
 	</head>
 
 	<body>
-		<script src="js/create-tree.js" type="text/javascript"></script>
+		<script src="js/device-manager.js" type="text/javascript"></script>
 		<div class="toolbar" id="toolbar">
 			<s:form>
 				<span>线路：<input id='queryLine' type="text" />

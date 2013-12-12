@@ -1,5 +1,12 @@
 package com.station.constant;
 
+import java.io.File;
+
+import javax.servlet.ServletContextEvent;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import com.station.md5.MD5;
 import com.station.po.JYAlarmType;
 import com.station.po.JYAlarmTypeCollect;
@@ -149,7 +156,7 @@ public class InitData {
 		if (this.alarmTypeService.findJYAlarmTypeByHql(hql).size()==0){
 			JYAlarmType key = new JYAlarmType();
 			JYConstant type = null;
-			type = this.constantService.findJYConstantByHql(Constant.alarmType1Hql).get(0);
+			type = this.constantService.findJYConstantByHql(Constant.ALARMTYPE1HQL).get(0);
 			key.setId("-11000");
 			key.setEnable(1);
 			key.setValue(15.0f);
@@ -157,7 +164,7 @@ public class InitData {
 			key.setIsDefault(0);
 			this.alarmTypeService.saveJYAlarmType(key);
 			
-			type = this.constantService.findJYConstantByHql(Constant.alarmType2Hql).get(0);
+			type = this.constantService.findJYConstantByHql(Constant.ALARMTYPE2HQL).get(0);
 			key.setId("-11001");
 			key.setEnable(1);
 			key.setValue(25.0f);
@@ -165,7 +172,7 @@ public class InitData {
 			key.setIsDefault(0);
 			this.alarmTypeService.saveJYAlarmType(key);
 			
-			type = this.constantService.findJYConstantByHql(Constant.alarmType3Hql).get(0);
+			type = this.constantService.findJYConstantByHql(Constant.ALARMTYPE3HQL).get(0);
 			key.setId("-11002");
 			key.setEnable(1);
 			key.setValue(35.0f);
@@ -189,12 +196,45 @@ public class InitData {
 			this.alarmTypeCollectService.saveJYAlarmTypeCollect(key);
 		}
 	}
-	public void initTable(){
+	public void init(ServletContextEvent event){
+		this.initTable();
+		this.readCondig(event);
+	}
+	private void initTable(){
 		initConstantTable();
 		initKeyGeneratorTable();
 		initUserTable();
 		initAlarmTypeTable();
 		initAlarmTypeCollectTable();
+	}
+	private void readCondig(ServletContextEvent event){
+		String path = event.getServletContext().getRealPath("/");
+		File nameXml = new File(path+"files/Config.xml");
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(nameXml);
+			doc.getDocumentElement().normalize();
+
+			Element root = doc.getDocumentElement();
+			Element topContent = (Element) root.getElementsByTagName("topContent").item(0);
+			Element bottomContent = (Element) root.getElementsByTagName("bottomContent").item(0);
+			Element imagePath = (Element) root.getElementsByTagName("imagePath").item(0);
+			Element mesDate = (Element) root.getElementsByTagName("mesDate").item(0);
+			Element mesUser = (Element) root.getElementsByTagName("mesUser").item(0);
+			Element functionNum = (Element) root.getElementsByTagName("functionNum").item(0);
+			Constant.TOPNAME =  topContent.getTextContent();
+			Constant.BOTTOMNAME = bottomContent.getTextContent();
+			Constant.LOGIMAGEPATH = imagePath.getTextContent();
+			Constant.MESUSER =  mesUser.getTextContent();
+			Constant.MESDATE = mesDate.getTextContent();
+			Constant.FUNCTIONNUM = functionNum.getTextContent();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

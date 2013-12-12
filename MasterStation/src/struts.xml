@@ -101,7 +101,7 @@
 
 <package name="Trees" extends="abstract_struts" namespace="/"> 
 	<action name="createTree" class="CreateTreeAction" method="createTreeAction"> 
-		<result name="success">/system/system_tree.jsp</result>
+		<result name="success">/system/device_manager.jsp</result>
  	</action> 
  	<action name="getTreeData" class="CreateTreeAction" method="getTreeData"> 
  	<result name="json"></result>
@@ -146,7 +146,6 @@
  	</action>
  	
  	<action name="updateAlarmType" class="AlarmTypeAction" method="updateAlarmTypeAction"> 
- 		<result name="success">/system/conf.jsp</result>
  	</action>
  	<action name="showAlarmType" class="AlarmTypeAction" method="showAlarmTypeAction"> 
  		<result name="success">/system/conf.jsp</result>
@@ -158,7 +157,12 @@
 </package>
 <package name="Config" extends="abstract_struts" namespace="/"> 
 	<action name="updateMonitorTime" class="MonitorTimeAction" method="updateMonitorTimeAction"> 
-	<result name="success" type="redirect">showAlarmType.action</result>
+ 	</action>
+ 	<action name="getMonitorTime" class="MonitorTimeAction" method="getMonitorTimeAction"> 
+ 	</action>
+ 	<action name="updateMonitorFunction" class="MonitorFunctionSwitchAction" method="updateMonitorFunctionAction"> 
+ 	</action>
+ 	<action name="updateMessageRevicer" class="MessageAction" method="updateMessageRevicerAction"> 
  	</action>
 </package>
 <!--include file="struts-jfreechart.xml"></include-->

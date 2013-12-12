@@ -1,6 +1,10 @@
 package com.station.system.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.po.JYAlarmType;
 import com.station.service.JYAlarmTypeService;
 
@@ -32,7 +36,7 @@ public class AlarmTypeAction extends ActionSupport{
 	public void setAlarmTypeService(JYAlarmTypeService alarmTypeService) {
 		this.alarmTypeService = alarmTypeService;
 	}
-	public String updateAlarmTypeAction(){
+	public void updateAlarmTypeAction(){
 		JYAlarmType alarmType11 = alarmTypeService.findJYAlarmTypeById("-11000");
 		alarmType11.setEnable(alarmType1.getEnable());
 		alarmType11.setValue(alarmType1.getValue());
@@ -45,7 +49,9 @@ public class AlarmTypeAction extends ActionSupport{
 		alarmType13.setEnable(alarmType3.getEnable());
 		alarmType13.setValue(alarmType3.getValue());
 		alarmTypeService.updateJYAlarmType(alarmType13);
-		return SUCCESS;
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+        dataMap.put("data", 1);
+        Constant.flush(dataMap);
 	}
 	public String showAlarmTypeAction(){
 		alarmType1 = this.alarmTypeService.findJYAlarmTypeById("-11000");

@@ -156,11 +156,11 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 			JYAlarmType alarmType2 = alarmTypeCollect.getAlarmType2();
 			JYAlarmType alarmType3 = alarmTypeCollect.getAlarmType3();
 			alarmType1.setId(alarmTypeCollect.getId()+1000);
-			alarmType1.setType(this.constantService.findJYConstantByHql(Constant.alarmType1Hql).get(0));
+			alarmType1.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE1HQL).get(0));
 			alarmType2.setId(alarmTypeCollect.getId()+1001);
-			alarmType2.setType(this.constantService.findJYConstantByHql(Constant.alarmType2Hql).get(0));
+			alarmType2.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE2HQL).get(0));
 			alarmType3.setId(alarmTypeCollect.getId()+1002);
-			alarmType3.setType(this.constantService.findJYConstantByHql(Constant.alarmType3Hql).get(0));
+			alarmType3.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE3HQL).get(0));
 		}
 		cabinet.setAlarmTypeCollect(alarmTypeCollect);
 		cabinetDAO.saveJYCabinet(cabinet);

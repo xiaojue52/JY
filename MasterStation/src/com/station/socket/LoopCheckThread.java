@@ -18,7 +18,7 @@ public class LoopCheckThread extends Thread{
 	public void run(){
 		while(!stop){
 			try {
-				Thread.sleep(Constant.loopTime);
+				Thread.sleep(Constant.LOOPCHECKTIME);
 				if (this.orderMap.isEmpty())continue;
 				loopCheck();
 			} catch (InterruptedException e) {
@@ -52,7 +52,7 @@ public class LoopCheckThread extends Thread{
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
-		if (diff>=Constant.heartBeatTime){
+		if (diff>=Constant.HEARTBEATTIME){
 			this.socketService.saveAlarm(cabNumber, 0, d2, "超过心跳时间");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n");
@@ -63,7 +63,7 @@ public class LoopCheckThread extends Thread{
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
-		if (diff>=Constant.reciveTempTime){
+		if (diff>=Constant.RECIVETEMPTIME){
 			this.socketService.saveAlarm(cabNumber, 1, d2, "过长时间未收到数据");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n"+Constant.reciveTempTime);

@@ -1,13 +1,7 @@
 package com.station.constant;
 
-import java.io.File;
 import javax.servlet.http.HttpSession;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.struts2.ServletActionContext;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.station.po.JYUser;
 
 public class LoginStatus {
@@ -26,27 +20,12 @@ public class LoginStatus {
 		session.setAttribute("userId", user.getUserId());
 		session.setAttribute("isFirstLogin", user.getIsFirstLogin());
 		//session.setAttribute("password", user.getPassword());
-		String path = ServletActionContext.getServletContext().getRealPath("/");
-		File nameXml = new File(path+"files/NameConfig.xml");
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder;
-		try {
-			dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(nameXml);
-			doc.getDocumentElement().normalize();
-
-			Element root = doc.getDocumentElement();
-			Element topContent = (Element) root.getElementsByTagName("topContent").item(0);
-			Element bottomContent = (Element) root.getElementsByTagName("bottomContent").item(0);
-			Element imagePath = (Element) root.getElementsByTagName("imagePath").item(0);
-			session.setAttribute("topContent", topContent.getTextContent());
-			session.setAttribute("bottomContent", bottomContent.getTextContent());
-			session.setAttribute("imagePath", imagePath.getTextContent());
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		session.setAttribute("topContent", Constant.TOPNAME);
+		session.setAttribute("bottomContent", Constant.BOTTOMNAME);
+		session.setAttribute("imagePath", Constant.LOGIMAGEPATH);
+		session.setAttribute("mesUser", Constant.MESUSER);
+		session.setAttribute("mesDate", Constant.MESDATE);
+		session.setAttribute("functionNum", Constant.FUNCTIONNUM);
 	}
 	public static void destroyData(){
 		HttpSession session = ServletActionContext.getRequest ().getSession();

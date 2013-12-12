@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content>
-	<upTime>
-		<hwg>1</hwg>
-		<fdg>2</fdg>
-		<gfx>3</gfx>
-		<bdg>4</bdg>
-		<bd>5</bd>
-		<other>6</other>
-	</upTime>
-	<function>
-	</function>
+<topContent>电缆接头温度在线监测主站系统</topContent>
+<bottomContent>南瑞继远软件 版权所有</bottomContent>
+<imagePath>images/sg.png</imagePath>
+<functionNum>1</functionNum>
+<mesDate>10</mesDate>
+<mesUser>admin</mesUser>
 </content>

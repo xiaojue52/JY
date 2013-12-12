@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.po.JYConstant;
 import com.station.po.JYUser;
 import com.station.service.JYConstantService;
@@ -43,6 +44,11 @@ public class DataList extends ActionSupport {
 		}
 		
 	}
+	public List<JYUser> getAllUser(){
+		String hql = "from JYUser user";
+		List<JYUser> list = this.userService.findUserByHql(hql);
+		return list;
+	}
 	public List<JYConstant> getCabTpyeConstant(){
 		String hql = "from JYConstant constant where constant.type = 'CabType'";
 		List<JYConstant> list = this.constantService.findJYConstantByHql(hql);
@@ -52,5 +58,14 @@ public class DataList extends ActionSupport {
 		String hql = "from JYConstant constant where constant.type = 'PowerLevel'";
 		List<JYConstant> list = this.constantService.findJYConstantByHql(hql);
 		return list;
+	}
+	public String getFunctionNum(){
+		return Constant.FUNCTIONNUM;
+	}
+	public String getMesDate(){
+		return Constant.MESDATE;
+	}
+	public String getMesUser(){
+		return Constant.MESUSER;
 	}
 }

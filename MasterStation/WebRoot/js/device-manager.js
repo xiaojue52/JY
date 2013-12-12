@@ -283,3 +283,11 @@ function removeChecked(id){
 	$("#checkbox"+id).removeAttr("checked");
 	$("#enable"+id).val(0);
 }
+function checkValue(){
+	if ($("#input1").val().length==0)
+		$("#input1").val(0);
+	if ($("#input2").val().length==0)
+		$("#input2").val(0);
+	if ($("#input3").val().length==0)
+		$("#input3").val(0);
+}

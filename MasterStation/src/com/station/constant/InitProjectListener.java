@@ -12,7 +12,7 @@ public class InitProjectListener extends ContextLoaderListener{
 	    super.contextInitialized(event);  
 	    ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(event.getServletContext());  
 	    InitData initData = (InitData) applicationContext.getBean("InitData");
-		initData.initTable();
+		initData.init(event);
 	}
 	public void contextDestroyed(ServletContextEvent event) {
 		super.contextDestroyed(event);
