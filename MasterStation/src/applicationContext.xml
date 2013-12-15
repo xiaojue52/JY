@@ -316,7 +316,7 @@
 
 	<!-- alarm -->
 	<bean id="AlarmAction"
-		class="com.station.alarm.action.AlarmAction">
+		class="com.station.datahandler.alarm.action.AlarmAction">
 		<property name="alarmService">
 			<ref bean="jyAlarmService" />
 		</property>
@@ -325,7 +325,7 @@
 		</property>
 	</bean>
 	<bean id="UnhandledAlarmAction"
-		class="com.station.alarm.action.UnhandledAlarmAction">
+		class="com.station.monitor.action.UnhandledAlarmAction">
 		<property name="alarmService">
 			<ref bean="jyAlarmService" />
 		</property>
@@ -334,14 +334,14 @@
 		</property>
 	</bean>
 	<bean id="AlarmPageAction"
-		class="com.station.alarm.action.AlarmPageAction">
+		class="com.station.monitor.action.AlarmPageAction">
 		<property name="alarmService">
 			<ref bean="jyAlarmService" />
 		</property>
 	</bean>
 
 	<!-- 监控界面 -->
-	<bean id="MainAction" class="com.station.main.action.MainAction">
+	<bean id="MainAction" class="com.station.monitor.action.MainAction">
 		<property name="monitorService">
 			<ref bean="jyMonitorService" />
 		</property>
@@ -349,7 +349,7 @@
 			<ref bean="DataList" />
 		</property>
 	</bean>
-	<bean id="CabinetStatusAction" class="com.station.main.action.CabinetStatusAction">
+	<bean id="CabinetStatusAction" class="com.station.monitor.action.CabinetStatusAction">
 		<property name="monitorService">
 			<ref bean="jyMonitorService" />
 		</property>
@@ -359,7 +359,7 @@
 	</bean>
 
 	<!-- 历史数据 -->
-	<bean id="CabinetHistoryAction" class="com.station.history.action.CabinetHistoryAction">
+	<bean id="CabinetHistoryAction" class="com.station.datahandler.history.action.CabinetHistoryAction">
 		<property name="cabinetHistoryService">
 			<ref bean="jyCabinetHistoryService" />
 		</property>
@@ -368,7 +368,7 @@
 		</property>
 		
 	</bean>
-	<bean id="HistoryPageAction" class="com.station.history.action.HistoryPageAction">
+	<bean id="HistoryPageAction" class="com.station.monitor.action.HistoryPageAction">
 		<property name="cabinetHistoryService">
 			<ref bean="jyCabinetHistoryService" />
 		</property>
@@ -457,7 +457,7 @@
 		</property>
 	</bean>
 	
-	<bean id="DeviceCompareAction" class="com.station.datapage.action.DeviceCompareAction">
+	<bean id="DeviceCompareAction" class="com.station.datahandler.chart.datapage.action.DeviceCompareAction">
 		<property name="deviceService">
 			<ref bean="jyDeviceService" />
 		</property>
@@ -465,7 +465,7 @@
 			<ref bean="DataList"/>
 		</property>
 	</bean>
-	<bean id="DetectorCompareAction" class="com.station.datapage.action.DetectorCompareAction">
+	<bean id="DetectorCompareAction" class="com.station.datahandler.chart.datapage.action.DetectorCompareAction">
 		<property name="detectorService">
 			<ref bean="jyDetectorService" />
 		</property>
@@ -475,17 +475,17 @@
 	</bean>
 	
 	
-	<bean id="DayChartAction" class="com.station.chart.action.DayChartAction">
+	<bean id="DayChartAction" class="com.station.datahandler.chart.action.DayChartAction">
 		<property name="historyChartDataService">
 			<ref bean="jyHistoryChartDataService" />
 		</property>
 	</bean>
-	<bean id="MonthChartAction" class="com.station.chart.action.MonthChartAction">
+	<bean id="MonthChartAction" class="com.station.datahandler.chart.action.MonthChartAction">
 		<property name="historyMonthChartDataService">
 			<ref bean="jyHistoryMonthChartDataService" />
 		</property>
 	</bean>
-	<bean id="MoreChartAction" class="com.station.chart.action.MoreChartAction">
+	<bean id="MoreChartAction" class="com.station.datahandler.chart.action.MoreChartAction">
 		<property name="historyChartDataService">
 			<ref bean="jyHistoryChartDataService" />
 		</property>

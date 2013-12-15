@@ -31,7 +31,6 @@
 	functionNum = dataList.getFunctionNum();
 	mesUser = dataList.getMesUser();
 	mesDate = dataList.getMesDate();
-	System.out.print(functionNum+":"+mesUser+":"+mesDate);
 	}
 %>
 

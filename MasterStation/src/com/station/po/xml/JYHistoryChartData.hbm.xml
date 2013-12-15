@@ -14,11 +14,6 @@
   		not-null="true" lazy="false">
   		<column name="detector_Id"></column>
   	</many-to-one>	
-  	<many-to-one name="cabinetHistory"
-  		class="com.station.po.JYCabinetHistory" outer-join="true"
-  		not-null="true" lazy="false">
-  		<column name="cabinetHistory_id"></column>
-  	</many-to-one>	
   <property name="value" type="java.lang.Float" column="value"/>
  </class>
 </hibernate-mapping>

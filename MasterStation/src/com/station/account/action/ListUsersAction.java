@@ -19,7 +19,16 @@ public class ListUsersAction extends ActionSupport {
 	private String company;
 	private int pageList = 10;
 	private List<Integer> pageNumberList = new ArrayList<Integer>();
+	private String orderColumn = "user.userId";
 	
+
+	public String getOrderColumn() {
+		return orderColumn;
+	}
+
+	public void setOrderColumn(String orderColumn) {
+		this.orderColumn = orderColumn;
+	}
 
 	public List<Integer> getPageNumberList() {
 		pageNumberList.clear();
@@ -112,12 +121,18 @@ public class ListUsersAction extends ActionSupport {
 	}
 
 	public String createSql() {
+		String orderStr = "";
+		if (orderColumn.equals("user.userId")){
+			orderStr = "order by to_number(replace(user.userId,'YH','')) desc";
+		}
+		else
+			orderStr = "order by "+orderColumn;
 		String hql = "from JYUser user where (user_level = 'user' or user_level = 'com_admin') and ";
 		if (username==null||username.length()==0)
 			username = "%";
 		if (company==null||company.length()==0)
 			company = "%";
-		hql = hql+"user.username like '%"+username+"%' "+"and user.company like '%"+company+"%' order by to_number(replace(user.userId,'YH','')) desc";		
+		hql = hql+"user.username like '%"+username+"%' "+"and user.company like '%"+company+"%' "+orderStr;		
 		return hql;
 	}
 }

@@ -34,6 +34,7 @@ String path = request.getContextPath();
 		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script src="js/monitor.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="css/monitor.css" />
+		<script src="js/control.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -83,6 +84,7 @@ String path = request.getContextPath();
 								
 							</select> </span><span><input class="toolbarButton" type="submit" value="查询"/></span>
 						<span><input class="toolbarButton" type="button" value="实时查询" onclick="Monitor.QueryDeviceTemp.getCabinetNumber();"/></span>
+						<input type="hidden" name="orderColumn" value="cabinet.cabId"/>
 		</s:form>
 		</div>
 		<div class="center_table_div">
@@ -100,19 +102,22 @@ String path = request.getContextPath();
 				   <span>序号</span>
 				</th>
 				<th width="8%">
-					<span>站房名称</span>
+					<span class="comSpan" onclick="Control.orderByColumn('mainAction.action','cabinet.line.name')">线路</span>
 				</th>
-				<th width="40%">
+				<th width="8%">
+					<span class="comSpan" onclick="Control.orderByColumn('mainAction.action','cabinet.cabNumber')">柜体设备</span>
+				</th>
+				<th width="36%">
 					<span>间隔采集器数据</span>
 				</th>
 				<th width="10%">
 					<span>采集时间</span>
 				</th>
-				<th width="26%">
+				<th width="22%">
 					<span>报警信息</span>
 				</th>
 				<th width="5%">
-					<span>管理者</span>
+					<span class="comSpan" onclick="Control.orderByColumn('mainAction.action','cabinet.user.username')">管理者</span>
 				</th>
 				<th width="7%">
 					<span>操作</span>
@@ -137,20 +142,24 @@ String path = request.getContextPath();
 					</td>
 					<td width="8%">
 						<s:property value="#cabinet.line.name" /><br/>
+						
+					</td>
+					<td width="8%">
 						<s:property value="#cabinet.cabNumber" /><s:property value="#cabinet.cabType.value" />
 					</td>
-					<td width="40%">
-					<table>
+					<td width="36%">
+					<table width="100%">
 						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0">
 						<s:iterator value="#cabinet.deviceList" var="device">
 						
-							<tr>
-							<td>
-							<b><s:property value="#device.name" /></b>
+							<tr id="${device.deviceId }" onMouseOver="$('#${device.deviceId } .tempValue').show();" onMouseOut="$('#${device.deviceId } .tempValue').hide();">
+							<td width="60px">
+							<b><s:property value="#device.name" /></b>(${device.detectorList[0].unit})
 							</td>
 								<s:iterator value="#device.detectorList" var="detector">
 								<td>
-									<s:property value="#detector.name" />:<s:property value="#detector.history.value" /><s:property value="#detector.unit" />
+									<span>${detector.name}:${detector.history.value}</span>
+									<span class="tempValue" style="display:none">F(x):${a*detector.history.value}</span>
 								</td>
 								</s:iterator>
 							</tr>	
@@ -166,11 +175,11 @@ String path = request.getContextPath();
 					<td width="10%">
 					</s:else>
 						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0&&#cabinet.deviceList[0].detectorList[0].history!=null">
-						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createDate" format="yyyy-MM-dd" /><br/>
-						<s:date name="#cabinet.deviceList[0].detectorList[0].history.createTime" format="HH:mm:ss"/>
+						<s:date name="#cabinet.deviceList[0].detectorList[0].history.date" format="yyyy-MM-dd" /><br/>
+						<s:date name="#cabinet.deviceList[0].detectorList[0].history.date" format="HH:mm:ss"/>
 						</s:if>
 					</td>
-					<td width="26%">
+					<td width="22%">
 						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0">
 						<s:iterator value="#cabinet.deviceList" var="device">
 							<s:if test="#device.alarm!=null">

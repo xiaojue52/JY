@@ -1,12 +1,7 @@
 package com.station.po;
 
-import java.sql.Date;
-import java.sql.Time;
-
 public class JYAlarm {
 	private String id;
-	private Date createDate;
-	private Time createTime;
 	private String alarmText;
 	private String note;
 	private String repairUser; //维修人员
@@ -22,20 +17,7 @@ public class JYAlarm {
 	public void setDate(java.util.Date date) {
 		this.date = date;
 	}
-	public Date getCreateDate() {
-		createDate = new java.sql.Date(date.getTime());
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	public Time getCreateTime() {
-		createTime = new java.sql.Time(date.getTime());
-		return createTime;
-	}
-	public void setCreateTime(Time createTime) {
-		this.createTime = createTime;
-	}
+
 	public JYDevice getDevice() {
 		return device;
 	}

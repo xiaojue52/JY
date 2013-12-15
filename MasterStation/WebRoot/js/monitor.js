@@ -76,3 +76,14 @@ Monitor.setPageFrameSrc = function(src){
 	$('.page_iframe').attr('src',src);
 	Monitor.showPage();
 }
+
+$(document).ready(function(){
+	$(".tempValue").each(function(){
+		var tempValue = $(this).text();
+		var values = tempValue.split(".");
+		if (values!=null&&values.length==2)
+		{
+			$(this).text(values[0]+"."+values[1].substring(0,1));
+		}
+	});
+});

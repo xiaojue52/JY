@@ -70,23 +70,23 @@
 	  <table id="table_th" class="gridtable">
 	  			<tr>
 				<th width="10%">
-					<span>用户编号</span>
+					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.userId')">用户编号</span>
 				</th>
 				<th width="15%">
-					<span>用户名</span>
+					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.username')">用户名</span>
 				</th>
 				<th width="15%">
-					<span>手机号码</span>
+					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.contact')">手机号码</span>
 				</th>
 				<th width="15%">
-					<span>所在单位</span>
+					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.company')">所在单位</span>
 				</th>
 				
 				<th width="15%">
-					<span>系统角色</span>
+					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.userLevel')">系统角色</span>
 				</th>
 				<th width="15%">
-					<span>职务级别</span>
+					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.jobLevel')">职务级别</span>
 				</th>
 				<th width="15%">
 					<span>操作</span>

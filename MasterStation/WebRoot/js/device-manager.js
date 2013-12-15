@@ -1,5 +1,6 @@
 var DeviceManager = {}
 DeviceManager.windowTree = {};
+DeviceManager.currentNode = {};
 
 Ext.onReady(function(){  
     //Ext.BLANK_IMAGE_URL = "ext/resources/images/default/s.gif";  
@@ -33,6 +34,7 @@ Ext.onReady(function(){
     });  
 
     tree.on("click", function(node){  
+    	DeviceManager.currentNode = node;
     	switch(node.attributes.level){
     		case 2:
     			Ext.Ajax.request({  
@@ -54,7 +56,11 @@ Ext.onReady(function(){
     	                $("#user").val(obj.cabinet.user.userId);
     	                $("#cabinetNote").val(obj.cabinet.note);
     	                $("#cabinetTime").val(obj.dateTime);
-    	                $("#cabinetPage form").attr({"action":"updateCabinet.action?cabinet.cabId="+node.id});
+    	                $("#cabinetTitle").text("柜体设备");
+    	                $("#cabinetAddBtn").hide();
+    	                $("#cabinetUpdateBtn").show();
+    	                $("#cabinetId").val(node.id);
+    	                //$("#cabinetPage form").attr({"action":"updateCabinet.action?cabinet.cabId="+node.id});
     	                
     	                if (obj.cabinet.alarmTypeCollect.id == "-1"){
     	                	DeviceManager.removeChecked(1);
@@ -103,12 +109,16 @@ Ext.onReady(function(){
     	                //alert(txt);
     	                $("#deviceNumber").val(obj.device.deviceNumber);
     	                $("#deviceName").val(obj.device.name);
-    	                $("#cabinetId").val(node.parentNode.id);
+    	                $("#deviceCabinetId").val(node.parentNode.id);
     	                $("#cabinet").val(obj.device.cabinet.cabNumber+obj.device.cabinet.cabType.value);
     	                $("#deviceNote").val(obj.device.note);
     	                $("#deviceTime").val(obj.dateTime);
+    	                $("#deviceTitle").text("变送器");
+    	                $("#deviceAddBtn").hide();
+    	                $("#deviceUpdateBtn").show();
     	                $("#devicePositionNumber").val(obj.device.positionNumber);
-    	                $("#devicePage form").attr({"action":"updateDevice.action?device.deviceId="+node.id});
+    	                $("#deviceId").val(node.id);
+    	                //$("#devicePage form").attr({"action":"updateDevice.action?device.deviceId="+node.id});
     	                $(".page").hide();
     	                $("#device-page").html('');
     	    			$("#devicePage").show();
@@ -157,6 +167,8 @@ Ext.onReady(function(){
     	rightMenu.items.get(1).node = node;
     }); 
     function onItemClick(){  
+    	DeviceManager.currentNode = this.node;
+    	//alert(this.node.parentNode);
     	if (this.menuId==0){
     		switch(this.node.attributes.level){
     			case 0:
@@ -173,7 +185,10 @@ Ext.onReady(function(){
 	                DeviceManager.removeChecked(1);
 	                DeviceManager.removeChecked(2);
 	                DeviceManager.removeChecked(3);
-	                $("#cabinetPage form").attr({"action":"addCabinet.action"});
+	                $("#cabinetTitle").text("增加柜体设备");
+	                //$("#cabinetPage form").attr({"action":"addCabinet.action"});
+	                $("#cabinetAddBtn").show();
+	                $("#cabinetUpdateBtn").hide();
     				$(".page").hide();
     				$("#cabinet-page").html('');
 	    			$("#cabinetPage").show();
@@ -182,10 +197,13 @@ Ext.onReady(function(){
     				$("#deviceNumber").val("");
 	                $("#deviceName").val("");
 	                $("#cabinet").val(this.node.text);
-	                $("#cabinetId").val(this.node.id);
+	                $("#deviceCabinetId").val(this.node.id);
 	                $("#deviceNote").val("");
 	                $("#devicePositionNumber").val("");
-	                $("#devicePage form").attr({"action":"addDevice.action"});
+	                $("#deviceTitle").text("增加变送器");
+	                $("#deviceAddBtn").show();
+	                $("#deviceUpdateBtn").hide();
+	                //$("#devicePage form").attr({"action":"addDevice.action"});
     				$(".page").hide();
     				$("#device-page").html('');
 	    			$("#devicePage").show();
@@ -197,13 +215,16 @@ Ext.onReady(function(){
     	}else if (this.menuId==1){
     		switch(this.node.attributes.level){
     			case 1:
-    				window.location = "deleteLine.action?line.lineId="+this.node.id;
+    				//window.location = "deleteLine.action?line.lineId="+this.node.id;
+    				DeviceManager.deleteDevice("deleteLine.action?line.lineId="+this.node.id);
     				break;
     			case 2:
-    				window.location = "deleteCabinet.action?cabinet.cabId="+this.node.id;
+    				//window.location = "deleteCabinet.action?cabinet.cabId="+this.node.id;
+    				DeviceManager.deleteDevice("deleteCabinet.action?cabinet.cabId="+this.node.id);
     				break;
     			case 3:
-    				window.location = "deleteDevice.action?device.deviceId="+this.node.id;
+    				//window.location = "deleteDevice.action?device.deviceId="+this.node.id;
+    				DeviceManager.deleteDevice("deleteDevice.action?device.deviceId="+this.node.id);
     				break;
     			default:
     				break;
@@ -226,6 +247,7 @@ Ext.onReady(function(){
     }
     tree.render(Ext.get("tree_div")); 
     DeviceManager.windowTree = tree;
+    DeviceManager.currentNode = DeviceManager.windowTree.root;
       
 });
 DeviceManager.queryDevice = function(){
@@ -290,4 +312,133 @@ DeviceManager.checkValue = function(){
 		$("#input2").val(0);
 	if ($("#input3").val().length==0)
 		$("#input3").val(0);
+}
+DeviceManager.Line = {}
+DeviceManager.Line.line = function(){
+	$.ajax( {
+		type : "post",
+		url : "addLine.action",
+		data:"line.name="+$("#lineName").val(),
+		dataType:'text',
+		success : function(returnData) {
+			var obj = eval("("+returnData+")");
+			if(obj.data=="0")
+				alert("获取远端数据失败");
+			else{
+				//alert(obj.data);
+				DeviceManager.currentNode.reload();		
+			}
+		},
+		error:function(){
+			alert("网络断开");
+		}
+	});
+}
+DeviceManager.Cabinet = {}
+DeviceManager.Cabinet.cabinet = function(order){
+	if(DeviceManager.currentNode==null){
+		alert("设备不存在");
+		return;
+	}
+	var url = "";
+	if (order==0)
+		url = "addCabinet.action";
+	if (order==1)
+		url = "updateCabinet.action";
+	$.ajax( {
+		type : "post",
+		url : url,
+		data:"cabinet.cabType.id="+$("#cabType").val()+
+		"&cabinet.cabNumber="+$("#cabNumber").val()+
+		"&cabinet.powerLevel.id="+$("#powerLevel").val()+
+		"&cabinet.user.userId="+$("#user").val()+
+		"&cabinet.note="+$("#cabinetNote").val()+
+		"&cabinet.simNumber="+$("#simNumber").val()+
+		"&cabinet.simSNumber="+$("#simSNumber").val()+
+		"&cabinet.alarmTypeCollect.alarmType1.value="+$("#input1").val()+
+		"&cabinet.alarmTypeCollect.alarmType1.enable="+$("#enable1").val()+
+		"&cabinet.alarmTypeCollect.alarmType2.value="+$("#input2").val()+
+		"&cabinet.alarmTypeCollect.alarmType2.enable="+$("#enable2").val()+
+		"&cabinet.alarmTypeCollect.alarmType3.value="+$("#input3").val()+
+		"&cabinet.alarmTypeCollect.alarmType3.enable="+$("#enable3").val()+
+		"&cabinet.line.lineId="+$("#lineId").val()+
+		"&cabinet.cabId="+$("#cabinetId").val()
+		,
+		dataType:'text',
+		success : function(returnData) {
+			var obj = eval("("+returnData+")");
+			if(obj.data=="0")
+				alert("获取远端数据失败");
+			else{
+				//alert(obj.data);
+				if (order==1){
+					DeviceManager.currentNode.setText($("#cabNumber").val()+$("#cabType").find("option:selected").text());
+				}
+				DeviceManager.currentNode.reload();	
+			}
+		},
+		error:function(){
+			alert("网络断开");
+		}
+	});
+}
+DeviceManager.Device = {}
+DeviceManager.Device.device = function(order){
+	if(DeviceManager.currentNode==null){
+		alert("设备不存在");
+		return;
+	}
+	var url = "";
+	if (order==0){
+		url = "addDevice.action";
+	}
+	if (order==1){
+		url = "updateDevice.action";
+	}
+	$.ajax( {
+		type : "post",
+		url : url,
+		data:"device.deviceNumber="+$("#deviceNumber").val()+
+		"&device.name="+$("#deviceName").val()+
+		"&device.positionNumber="+$("#devicePositionNumber").val()+
+		"&device.note="+$("#deviceNote").val()+
+		"&device.cabinet.cabId="+$("#deviceCabinetId").val()+
+		"&device.deviceId="+$("#deviceId").val(),
+		dataType:'text',
+		success : function(returnData) {
+			var obj = eval("("+returnData+")");
+			if(obj.data=="0")
+				alert("获取远端数据失败");
+			else{
+				//alert(obj.data);
+				if (order==1){
+					DeviceManager.currentNode.setText($("#deviceName").val());
+				}
+				DeviceManager.currentNode.reload();		
+			}
+		},
+		error:function(){
+			alert("网络断开");
+		}
+	});
+}
+DeviceManager.deleteDevice = function(url){
+	$.ajax( {
+		type : "post",
+		url : url,
+		dataType:'text',
+		success : function(returnData) {
+			var obj = eval("("+returnData+")");
+			if(obj.data=="0")
+				alert("获取远端数据失败");
+			else{
+				//alert(obj.data);
+				DeviceManager.currentNode.parentNode.reload();	
+				DeviceManager.currentNode = null;
+			}
+		},
+		error:function(){
+			alert("网络断开");
+		}
+	});
 }

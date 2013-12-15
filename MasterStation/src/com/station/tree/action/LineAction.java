@@ -29,13 +29,17 @@ public class LineAction extends ActionSupport{
         dataMap.put("line", line);
         Constant.flush(dataMap);
 	}
-	public String addLineAction(){
+	public void addLineAction(){
 		lineService.saveLine(line);
-		return SUCCESS;
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+        dataMap.put("data", 1);
+        Constant.flush(dataMap);
 	}
-	public String deleteLineAction(){
+	public void deleteLineAction(){
 		line = lineService.findLineById(line.getLineId());
 		lineService.removeLine(line);
-		return SUCCESS;
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+        dataMap.put("data", 1);
+        Constant.flush(dataMap);
 	}
 }

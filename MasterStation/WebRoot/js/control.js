@@ -83,4 +83,7 @@ Control.checkInputFixedLength = function(id,cl,le){
 	}
 	return true;
 }
+Control.orderByColumn = function(action,column){
+	window.location = action+"?orderColumn="+column;
+}
 

@@ -55,10 +55,10 @@
 
 <package name="Alarm" extends="abstract_struts" namespace="/">
 <action name="listAlarm" class="AlarmAction" method="listAlarmAction">
-   <result name="success">/alarm/alarm.jsp</result>
+   <result name="success">/datahandler/alarm/alarm.jsp</result>
   </action>
   <action name="listPageAlarm" class="AlarmPageAction" method="listAlarmAction">
-   <result name="success">/monitor/alarm.jsp</result>
+   <result name="success">/monitor/monitor_alarm.jsp</result>
   </action>
   <action name="getUnhandledCount" class="UnhandledAlarmAction" method="getUnhanledCountAction">
    <result name="json"></result>
@@ -70,19 +70,19 @@
 
 <package name="History" extends="abstract_struts" namespace="/">
   <action name="listPageHistory" class="HistoryPageAction" method="listHistoryAction">
-   <result name="success">/monitor/history.jsp</result>
+   <result name="success">/monitor/monitor_history.jsp</result>
   </action>
   <action name="cabinetHistory" class="CabinetHistoryAction" method="listHistoryAction">
-   <result name="success">/history/history.jsp</result>
+   <result name="success">/datahandler/history/history.jsp</result>
   </action>
 </package>
 
 <package name="DataPage" extends="abstract_struts" namespace="/">
 <action name="listDeviceComAction" class="DeviceCompareAction" method="listAction">
-   <result name="success">/datapage/device.jsp</result>
+   <result name="success">/datahandler/chart/datapage/device.jsp</result>
   </action>
   <action name="listDetectorComAction" class="DetectorCompareAction" method="listAction">
-   <result name="success">/datapage/detector.jsp</result>
+   <result name="success">/datahandler/chart/datapage/detector.jsp</result>
   </action>
 </package>
 
@@ -119,30 +119,30 @@
  	</action>
  	
  	<action name="addLine" class="LineAction" method="addLineAction"> 
- 		<result name="success" type="redirect">/createTree.action</result>
+ 		
  	</action>
  	<action name="addCabinet" class="CabinetAction" method="addCabinetAction"> 
- 		<result name="success" type="redirect">/createTree.action</result>
+ 		
  	</action>
  	<action name="addDevice" class="DeviceAction" method="addDeviceAction"> 
- 		<result name="success" type="redirect">/createTree.action</result>
+ 		
  	</action>
  	
  	<action name="updateCabinet" class="CabinetAction" method="updateCabinetAction"> 
- 		<result name="success" type="redirect">/createTree.action</result>
+ 		
  	</action>
  	<action name="updateDevice" class="DeviceAction" method="updateDeviceAction"> 
- 		<result name="success" type="redirect">/createTree.action</result>
+ 		
  	</action>
  	
 	<action name="deleteDevice" class="DeviceAction" method="deleteDeviceAction"> 
- 		<result name="success" type="redirect">/createTree.action</result>
+ 		
  	</action>
  	<action name="deleteLine" class="LineAction" method="deleteLineAction"> 
- 		<result name="success" type="redirect">/createTree.action</result>
+ 		
  	</action>
  	<action name="deleteCabinet" class="CabinetAction" method="deleteCabinetAction"> 
- 		<result name="success" type="redirect">/createTree.action</result>
+ 		
  	</action>
  	
  	<action name="updateAlarmType" class="AlarmTypeAction" method="updateAlarmTypeAction"> 

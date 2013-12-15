@@ -35,9 +35,8 @@
 <div class="container">
 	<div class="page" id="devicePage" style="background-color: #FFFFFF;display: none;">
 		<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
-			<div class="titleDiv">变送器</div>
+			<div class="titleDiv" id="deviceTitle">变送器</div>
 			<div><span class="errorMessage" id="device-page"> </span></div>
-			<s:form action="addDevice.action">
 			<table class="tableStyle" style="width: 98%;margin-bottom: 5px;">
 				<tr>
 					<td class="td_left" width="100">变送器编号：</td>
@@ -82,13 +81,14 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input type="submit" value="确 定" onclick="return Control.checkInput('device-page','checkInput-devicepage');" style="width: 60px;">
+						<input id="deviceUpdateBtn" type="button" value="更新" onclick=" if(Control.checkInput('device-page','checkInput-devicepage')){DeviceManager.Device.device(1);};" style="width: 60px;display:none">
+						<input id="deviceAddBtn" type="button" value="增加" onclick=" if(Control.checkInput('device-page','checkInput-devicepage')){DeviceManager.Device.device(0);};" style="width: 60px;display:none">
 					</td>
 				</tr>
 				
 			</table>
-			<input id="cabinetId" name="device.cabinet.cabId" type="hidden" />
-			</s:form>
+			<input id="deviceCabinetId" name="device.cabinet.cabId" type="hidden" />
+			<input id="deviceId" name="device.deviceId" type="hidden" />
 		</div>
 	</div>
 
@@ -130,25 +130,23 @@
 		<div style="margin-top:0px;margin-left:0px;width:100%;height: 100%" align="center">
 			<div class="titleDiv">添加线路</div>
 			<div><span class="errorMessage" id="line-page"> </span></div>
-			<s:form action="addLine.action">
 			<div style="margin-top:100px;" >
 			线路名称：
-			<input class="checkInput-linepage" name="line.name" type="text" value="请输入线路名称" /><span style="color:red">*</span>
-				<input class="comButton" type="submit" value="确定"
-					style="margin-left: 10px" onclick="return Control.checkInput('line-page','checkInput-linepage');"/>
+			<input id="lineName" class="checkInput-linepage" name="line.name" type="text" value="请输入线路名称" /><span style="color:red">*</span>
+				<input id="lineAddBtn" type="button" value="确定"
+					style="margin-left: 10px;width:60px;" onclick=" if(Control.checkInput('line-page','checkInput-linepage')){DeviceManager.Line.line(0);};"/>
 			
 			<br/>
 			<br/>
 			<span>添加设备说明：添加线路->在所选线路上右击添加柜体<br/><br/>->在所选柜体上右击添加变送器->完成</span>
 			</div>
-			</s:form>
 		</div>
 		</div>
 	
 	
 	<div class="page" id="cabinetPage" style="background-color: #FFFFFF;display: none;">
 		<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
-			<div class="titleDiv">柜体信息</div>
+			<div class="titleDiv" id="cabinetTitle">柜体信息</div>
 			<div><span class="errorMessage" id="cabinet-page"> </span></div>
 			<s:form action="addCabinet.action">
 			<table class="tableStyle" style="width: 98%;margin-bottom: 5px;">
@@ -291,12 +289,13 @@
 				
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" value="确定" onclick="DeviceManager.checkValue();return (Control.checkInput('cabinet-page','checkInput-cabinetpage')&&Control.checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5));"/>
+					<input id="cabinetUpdateBtn" style="width: 60px;display:none" type="button" value="更新" onclick="DeviceManager.checkValue(); if(Control.checkInput('cabinet-page','checkInput-cabinetpage')&&Control.checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5)){DeviceManager.Cabinet.cabinet(1)};"/>
+					<input id="cabinetAddBtn" style="width: 60px;display:none" type="button" value="增加" onclick="DeviceManager.checkValue(); if(Control.checkInput('cabinet-page','checkInput-cabinetpage')&&Control.checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5)){DeviceManager.Cabinet.cabinet(0)};"/>
 					</td>
 				</tr>	
 				</table>
 				<input id="lineId" name="cabinet.line.lineId" type="hidden" />
-				<input id="userId" type="hidden" />
+				<input id="cabinetId" name="cabinet.cabId" type="hidden" />
 
 			</s:form>
 		</div>
