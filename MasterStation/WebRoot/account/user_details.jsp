@@ -22,7 +22,7 @@
 						<span>用户名：</span>
 					</td>
 					<td>
-						<input type="text" id="user_username" name="user.username" value=""
+						<input maxLength=8 type="text" id="user_username" name="user.username" value=""
 							readonly="readonly" class="readonly" style="width:120px;"/>
 					</td>
 				</tr>
@@ -31,7 +31,7 @@
 						<span>手机号码：</span>
 					</td>
 					<td>
-						<input class="checkInput-userdetailspage numberInput" maxlength="11" type="text"  id="user_contact" name="user.contact" value="" style="width:120px;"/><span style="color:red">*</span>
+						<input class="checkInput-userdetailspage numberInput" maxlength="11" type="text"  id="user_contact" name="user.contact" value="" style="ime-mode:disabled;width:120px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -39,7 +39,7 @@
 						<span>所在单位：</span>
 					</td>
 					<td>
-						<input class="ecl-userdetailspage" type="text"  id="user_company" name="user.company" value="" style="width:120px;"/>
+						<input maxLength=20 class="ecl-userdetailspage" type="text"  id="user_company" name="user.company" value="" style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -47,7 +47,7 @@
 						<span>职位级别：</span>
 					</td>
 					<td>
-						<input class="ecl-userdetailspage" type="text"  id="user_jobLevel" name="user.jobLevel" value="" style="width:120px;"/>
+						<input maxLength=20 class="ecl-userdetailspage" type="text"  id="user_jobLevel" name="user.jobLevel" value="" style="width:120px;"/>
 					</td>
 				</tr>
 				<tr>

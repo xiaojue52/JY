@@ -12,7 +12,7 @@
    		</generator>
  	</id>
  	<property name="isFirstLogin" type="java.lang.Integer" column="isFirstLogin"/>	
-  <property name="username" type="string" column="username" length="8"/>
+  <property name="username" type="string" column="username" length="16"/>
   <property name="password" type="string" column="password" length="32"/>
   <property name="contact" type="string" column="contact" length="11"/>
   <property name="company" type="string" column="company" length="40"/>

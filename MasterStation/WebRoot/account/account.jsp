@@ -24,7 +24,7 @@
 						<span>旧密码:</span>
 					</td>
 					<td>
-						<input maxlength="16" class="comInput checkInputLength" type="password" id="password"/><span style="color:red">*</span>
+						<input style="ime-mode:disabled;" maxlength="16" class="comInput checkInputLength" type="password" id="password"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -32,7 +32,7 @@
 						<span>新密码:</span>
 					</td>
 					<td>
-						<input maxlength="16" class="comInput checkInputLength" id="newPassword" type="password"><span style="color:red">*</span>
+						<input style="ime-mode:disabled;" maxlength="16" class="comInput checkInputLength" id="newPassword" type="password"><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -40,7 +40,7 @@
 						<span>确认密码:</span>
 					</td>
 					<td>
-						<input maxlength="16" class="comInput checkInputLength" id="verifyPassword" type="password"><span style="color:red">*</span>
+						<input style="ime-mode:disabled;" maxlength="16" class="comInput checkInputLength" id="verifyPassword" type="password"><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>

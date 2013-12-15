@@ -59,7 +59,7 @@
 							<%
 								}
 							%>
-						</select> </span><span><input class="numberInput" id="upTime" size=4 maxLength=4 type="text" style="width:40px;"/>分钟 </span><span><input type="button" onclick="Config.upDateMonitorTime();" value="确定" /> </span>
+						</select> </span><span><input class="numberInput" id="upTime" size=4 maxLength=4 type="text" style="ime-mode:disabled;width:40px;"/>分钟 </span><span><input type="button" onclick="Config.upDateMonitorTime();" value="确定" /> </span>
 			</div>
 			</s:form>
 			<div class="config_calculate">
@@ -127,7 +127,7 @@
 						</td>
 						<td>
 							T1=
-							<input class="floatNumber" id="value1" type="text" value="<s:property value="alarmType1.value"/>"/>
+							<input style="ime-mode:disabled;" class="floatNumber" id="value1" type="text" value="<s:property value="alarmType1.value"/>"/>
 						</td>
 					</tr>
 					<tr>
@@ -141,7 +141,7 @@
 						</td>
 						<td>
 							T2=
-							<input class="floatNumber" id="value2" type="text" value="<s:property value="alarmType2.value"/>" />
+							<input style="ime-mode:disabled;" class="floatNumber" id="value2" type="text" value="<s:property value="alarmType2.value"/>" />
 						</td></tr>
 					<tr>
 					<td>
@@ -154,7 +154,7 @@
 						</td>
 						<td>
 							T3=
-							<input class="floatNumber" id="value3" type="text" value="<s:property value="alarmType3.value"/>" />
+							<input style="ime-mode:disabled;" class="floatNumber" id="value3" type="text" value="<s:property value="alarmType3.value"/>" />
 						</td></tr>
 
 				</table>

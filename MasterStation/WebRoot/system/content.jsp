@@ -42,7 +42,7 @@
 					<td class="td_left" width="100">变送器编号：</td>
 					<td width="270">
 						<input maxlength="20" class="checkInput-devicepage" name="device.deviceNumber" id="deviceNumber" type="text"
-						value="" style="height: 22px;width:260px;"/><span style="color:red">*</span>
+						value="" style="ime-mode:disabled;height: 22px;width:260px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				
@@ -57,7 +57,7 @@
 					<td class="td_left" width="100">间隔序号：</td>
 					<td width="270">
 						<input maxlength="2" class="checkInput-devicepage numberInput" name="device.positionNumber" id="devicePositionNumber" type="text"
-						value="" style="height: 22px;width:260px;"/><span style="color:red">*</span>
+						value="" style="ime-mode:disabled;height: 22px;width:260px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -76,7 +76,7 @@
 				<tr>
 					<td class="td_left" width="100">备注：</td>
 					<td width="270">
-						<textarea class="ecl-devicepage" name="device.note" id="deviceNote" cols="30" rows="5" style="width:260px;"></textarea>
+						<textarea onkeyup="this.value = this.value.substring(0, 200)" class="ecl-devicepage" name="device.note" id="deviceNote" cols="30" rows="5" style="width:260px;"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -132,7 +132,7 @@
 			<div><span class="errorMessage" id="line-page"> </span></div>
 			<div style="margin-top:100px;" >
 			线路名称：
-			<input id="lineName" class="checkInput-linepage" name="line.name" type="text" value="请输入线路名称" /><span style="color:red">*</span>
+			<input maxLength=20 id="lineName" class="checkInput-linepage" name="line.name" type="text" value="请输入线路名称" /><span style="color:red">*</span>
 				<input id="lineAddBtn" type="button" value="确定"
 					style="margin-left: 10px;width:60px;" onclick=" if(Control.checkInput('line-page','checkInput-linepage')){DeviceManager.Line.line(0);};"/>
 			
@@ -181,7 +181,7 @@
 					<td class="td_left" width="100">柜体编号：</td>
 					<td>
 						<input maxlength=5 class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
-							type="text" style="height: 22px;width:200px;"/><span style="color:red">*</span>
+							type="text" style="ime-mode:disabled;height: 22px;width:200px;"/><span style="color:red">*</span>
 					</td>
 					<td class="td_left" width="100">电压等级：</td>
 					<td>
@@ -221,7 +221,7 @@
 					<tr>
 					<td class="td_left" width="100">备注：</td>
 					<td width="270" colspan="3">
-						<textarea name="cabinet.note" id="cabinetNote" cols="30" rows="5" style="width:200px;"></textarea>
+						<textarea onkeyup="this.value = this.value.substring(0, 200)"  name="cabinet.note" id="cabinetNote" cols="30" rows="5" style="width:200px;"></textarea>
 					</td>
 				</tr>
 					
@@ -236,14 +236,14 @@
 					<td class="td_left" width="200px">SIM卡号：</td>
 					<td>
 						<input class="numberInput" maxlength=11 name="cabinet.simNumber" id="simNumber" type="text"
-							value="" style="height: 22px;width:200px;"/>
+							value="" style="ime-mode:disabled;height: 22px;width:200px;"/>
 					</td>
 					</tr>
 					<tr>
 					<td class="td_left" width="100">SIM卡串号：</td>
 					<td>
 						<input maxlength=20 name="cabinet.simSNumber" id="simSNumber" type="text"
-							value="" style="height: 22px;width:200px;"/>
+							value="" style="ime-mode:disabled;height: 22px;width:200px;"/>
 					</td>
 					</tr>
 				
@@ -258,7 +258,7 @@
 						T1(°)：</td>
 					<td>
 						<input class="floatNumber" id="input1" name="cabinet.alarmTypeCollect.alarmType1.value" type="text" value="75" class="readonly" readonly="readonly"
-							width="30px;" style="height: 22px;width:200px;"/>
+							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
 						<input id="enable1" type="hidden" name="cabinet.alarmTypeCollect.alarmType1.enable" value=""/>	
 					</td>
 					</tr>
@@ -267,7 +267,7 @@
 						T2(°)：</td>
 					<td>
 						<input class="floatNumber" id="input2" name="cabinet.alarmTypeCollect.alarmType2.value"  type="text" value="15" class="readonly" readonly="readonly"
-							width="30px;" style="height: 22px;width:200px;"/>
+							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
 							<input id="enable2" type="hidden" name="cabinet.alarmTypeCollect.alarmType2.enable" value=""/>	
 					</td>
 					</tr>
@@ -276,7 +276,7 @@
 						T3(°)：</td>
 					<td>
 						<input class="floatNumber" id="input3" name="cabinet.alarmTypeCollect.alarmType3.value" type="text" value="15" class="readonly" readonly="readonly"
-							width="30px;" style="height: 22px;width:200px;"/>
+							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
 							<input id="enable3" name="cabinet.alarmTypeCollect.alarmType3.enable" type="hidden" value=""/>	
 					</td>
 					</tr>
