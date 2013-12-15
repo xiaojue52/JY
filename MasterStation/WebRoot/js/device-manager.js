@@ -435,6 +435,8 @@ DeviceManager.deleteDevice = function(url){
 				//alert(obj.data);
 				DeviceManager.currentNode.parentNode.reload();	
 				DeviceManager.currentNode = null;
+				$(".page").hide();
+				$("#firstPage").show();
 			}
 		},
 		error:function(){
