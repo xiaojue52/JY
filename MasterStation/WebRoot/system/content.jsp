@@ -309,6 +309,14 @@
 		</div>
 	</div>
 </div>
+<div class="page" id="deletePage" style="background-color: #FFFFFF;">
+	<div style="margin-top:0px;margin-left:0px;width:100%;height: 478px;" align="center">
+		<div class="titleDiv">删除信息</div>
+		<div style="margin-top:100px;" >
+		<span>设备删除成功！</span>
+		</div>
+	</div>
+</div>
 <script>
 $(".page").hide();
 $("#firstPage").show();

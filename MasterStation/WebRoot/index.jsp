@@ -12,6 +12,7 @@
 		<title>系统登录</title>
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
 		<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
 <script>
 		if (window.parent.document.getElementById("content_iframe")!=null){
 			window.parent.location = "index.jsp";
@@ -34,9 +35,29 @@
 	function verify(){
 	
 		if(checkInput()){
-			document.getElementById("loginForm").submit();
+			//alert("username="+$("#username").val()+"&password="+$("#password").val());
+			//document.getElementById("loginForm").submit();
+			$.ajax( {
+				type : "post",
+				url : "login.action",
+				data:"username="+$("#username").val()+"&password="+$("#password").val(),
+				dataType:'text',
+				success : function(returnData) {
+					var obj = eval("("+returnData+")");
+					if(obj.data=="0"){
+						$("#error").text("用户名密码错误！");	
+					}
+					else{
+						window.location = "main.jsp";
+					}
+				},
+				error:function(){
+					alert("内部错误！");
+				}
+			});
 		}
 	}
+	
 	
 </script>
 <style>
@@ -53,8 +74,8 @@
 </style>
 	</head>
 	<body>
- <form id="loginForm" action="login.action" method="post">
     	<div id="imgDiv" style="height: 455px;width: 600px;position: absolute;">
+    		
     		<div class="wordDiv" style="margin-top:160px;margin-left: 130px;">请输入你的姓名:</div>
 			<div style="margin-left: 130px;margin-top: 5px;">
 				<input id="username" type="text" name="username" style="width:350px;"
@@ -66,10 +87,10 @@
 					/>
 			</div>
 			<div style="margin-top:20px;margin-right: 130px;" align="right">
-				<input type="submit" value="登  录" onclick="verify();"/>
+				<input type="button" value="登  录" onclick="verify();"/>
 			</div>
+    		<div class="wordDiv" style="margin-top:0px;" align="center"><span class="errorMessage" id="error"></span></div>
 			<div class="wordDiv" style="margin-top:40px;" align="center">如果您没有注册账号或已经忘记密码，请联系管理员!</div>
 		</div>
-    </form>
 	</body>
 </html>

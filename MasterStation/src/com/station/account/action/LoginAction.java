@@ -1,8 +1,11 @@
 package com.station.account.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.constant.LoginStatus;
 import com.station.md5.MD5;
 import com.station.po.JYUser;
@@ -14,16 +17,6 @@ public class LoginAction extends ActionSupport {
 	
 	private List<JYUser> list;
 	private JYUserService userService;
-	private int ret = 1;
-
-
-	public int getRet() {
-		return ret;
-	}
-
-	public void setRet(int ret) {
-		this.ret = ret;
-	}
 
 	public JYUserService getUserService() {
 		return userService;
@@ -59,14 +52,17 @@ public class LoginAction extends ActionSupport {
 		this.password = password;
 	}
 
-	public String login(){
+	public void login(){
 		//list = myUserDao.findAllUser();
+		int ret = 0;
 		if (verify())
-			return "success";
+			ret = 1;
 		else {
-			ret = -1;
-			return "failure";
+			ret = 0;
 		}
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+        dataMap.put("data", ret);
+        Constant.flush(dataMap);
 	}
 	private boolean verify(){
 		String hql = "from JYUser user where user.username != '--'";

@@ -17,8 +17,6 @@
  </package>
  <package name="Root" extends="abstract_struts" namespace="/">
   <action name="login" class="loginAction" method="login">
-   <result name="success" type="redirect">/main.jsp</result>
-   <result name="failure">/reindex.jsp</result>
   </action>
   <action name="logout" class="logoutAction" method="logout">
    <result name="success" type="redirect">/index.jsp</result>
