@@ -143,6 +143,7 @@ public class MoreChartAction extends ActionSupport {
 	class MoreData{
 		public String name;
 		public List<Float> data;
+		public long pointStart;
 	}
 	public void listHistoryAction() throws Exception {
 		String[] listDetector = queryStrings.split(",");
@@ -165,6 +166,8 @@ public class MoreChartAction extends ActionSupport {
 				//map.put(str, listValue);
 				//String strD = "{name:\""+str+"\",data:"+listValue+"}";
 				MoreData moreData = new MoreData();
+				if (list.size()>0)
+					moreData.pointStart = list.get(0).getDate().getTime();
 				moreData.name = str;
 				moreData.data = listValue;
 				listD.add(moreData);

@@ -131,46 +131,42 @@ public class DayChartAction extends ActionSupport {
 	public void setPageBean(PageBean pageBean) {
 		this.pageBean = pageBean;
 	}
-
+	class ChartData{
+		public String name;
+		public List<Float> data;
+		public long startDate;
+	}
 	public void listHistoryAction() throws Exception {
-		final String hqlA = this.createSql("A相");
-		final String hqlB = this.createSql("B相");
-		final String hqlC = this.createSql("C相");
-		final String hqlD = this.createSql("环境");
-		// this.pageBean = historyChartDataService.getPerPage(pageList, page,
-		// hql);
-		List<JYHistoryChartData> listHA = this.historyChartDataService
-				.findJYHistoryChartDataByHql(hqlA);
-		List<JYHistoryChartData> listHB = this.historyChartDataService
-				.findJYHistoryChartDataByHql(hqlB);
-		List<JYHistoryChartData> listHC = this.historyChartDataService
-				.findJYHistoryChartDataByHql(hqlC);
-		List<JYHistoryChartData> listHD = this.historyChartDataService
-				.findJYHistoryChartDataByHql(hqlD);
-		List<Float> listA = new ArrayList<Float>();
-		List<Float> listB = new ArrayList<Float>();
-		List<Float> listC = new ArrayList<Float>();
-		List<Float> listD = new ArrayList<Float>();
-		for (int i = 0; i < listHA.size(); i++) {
-			listA.add(listHA.get(i).getValue());
-		}
-		for (int i = 0; i < listHB.size(); i++) {
-			listB.add(listHB.get(i).getValue());
-		}
-		for (int i = 0; i < listHC.size(); i++) {
-			listC.add(listHC.get(i).getValue());
-		}
-		for (int i = 0; i < listHD.size(); i++) {
-			listD.add(listHD.get(i).getValue());
-		}
+		ChartData dataA = getChartData("A相");
+		ChartData dataB = getChartData("B相");
+		ChartData dataC = getChartData("C相");
+		ChartData dataD = getChartData("环境");
+		
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("A", listA);
-		dataMap.put("B", listB);
-		dataMap.put("C", listC);
-		dataMap.put("D", listD);
+		dataMap.put("A", dataA);
+		dataMap.put("B", dataB);
+		dataMap.put("C", dataC);
+		dataMap.put("D", dataD);
 		Constant.flush(dataMap);
 	}
 
+	private ChartData getChartData(String arg0){
+		ChartData data = new ChartData(); 
+		final String hql = this.createSql(arg0);
+		List<JYHistoryChartData> listH = this.historyChartDataService
+		.findJYHistoryChartDataByHql(hql);
+		List<Float> list = new ArrayList<Float>();
+		for (int i = 0; i < listH.size(); i++) {
+			list.add(listH.get(i).getValue());
+		}
+		if (listH.size()>0){	
+			data.startDate = listH.get(0).getDate().getTime();
+		}
+		data.name = arg0;
+		data.data = list;
+		return data;
+	}
+	
 	public String createSql(String detector) {
 		String hql = "from JYHistoryChartData history where ";
 		if (queryLine == null || queryLine.length() == 0)

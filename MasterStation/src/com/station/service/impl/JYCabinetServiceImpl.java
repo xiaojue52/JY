@@ -80,11 +80,11 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		
 		List<JYCabinet> list= cabinetDAO.getPerPage(hql, startRow, CountPerpage);//该页显示的记录
 		for (int i=0;i<list.size();i++){
-			String deviceHql = "from JYDevice device where device.cabinet.cabId = '"+list.get(i).getCabId()+"'";
+			String deviceHql = "from JYDevice device where tag = 1 and device.cabinet.cabId = '"+list.get(i).getCabId()+"'";
 			List<JYDevice> deviceList = deviceService.findJYDeviceByHql(deviceHql);
 			list.get(i).setDeviceList(deviceList);
 			for (int j=0;j<deviceList.size();j++){
-				String detectorHql = "from JYDetector detector where detector.device.deviceId = '"+deviceList.get(j).getDeviceId()+"'";
+				String detectorHql = "from JYDetector detector where tag = 1 and detector.device.deviceId = '"+deviceList.get(j).getDeviceId()+"'";
 				List<JYDetector> detectorList = this.detectorService.findJYDetectorByHql(detectorHql);
 				deviceList.get(j).setDetectorList(detectorList);
 			}

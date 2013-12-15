@@ -131,75 +131,46 @@ public class MonthChartAction extends ActionSupport {
 	public void setPageBean(PageBean pageBean) {
 		this.pageBean = pageBean;
 	}
-	
+	class ChartData{
+		public String name;
+		public List<Float> data;
+		public long startDate;
+	}
+	private ChartData getChartData(String arg0,int arg1){
+		ChartData data = new ChartData(); 
+		final String hql = this.createSql(arg0,arg1);
+		List<JYHistoryMonthChartData> listH = this.historyMonthChartDataService
+		.findJYHistoryMonthChartDataByHql(hql);
+		List<Float> list = new ArrayList<Float>();
+		for (int i = 0; i < listH.size(); i++) {
+			list.add(listH.get(i).getValue());
+		}
+		if (listH.size()>0){	
+			data.startDate = listH.get(0).getDate().getTime();
+		}
+		data.name = arg0;
+		data.data = list;
+		return data;
+	}
 	public void listHistoryAction() throws Exception {
-		final String hqlAMax = this.createSql("A相",1);
-		final String hqlBMax = this.createSql("B相",1);
-		final String hqlCMax = this.createSql("C相",1);
-		final String hqlDMax = this.createSql("环境",1);
-		final String hqlAMin = this.createSql("A相",0);
-		final String hqlBMin = this.createSql("B相",0);
-		final String hqlCMin = this.createSql("C相",0);
-		final String hqlDMin = this.createSql("环境",0);
-		// this.pageBean = historyMonthChartDataService.getPerPage(pageList, page,
-		// hql);
-		List<JYHistoryMonthChartData> listHAMax = this.historyMonthChartDataService
-				.findJYHistoryMonthChartDataByHql(hqlAMax);
-		List<JYHistoryMonthChartData> listHBMax = this.historyMonthChartDataService
-				.findJYHistoryMonthChartDataByHql(hqlBMax);
-		List<JYHistoryMonthChartData> listHCMax = this.historyMonthChartDataService
-				.findJYHistoryMonthChartDataByHql(hqlCMax);
-		List<JYHistoryMonthChartData> listHDMax = this.historyMonthChartDataService
-				.findJYHistoryMonthChartDataByHql(hqlDMax);
-		List<JYHistoryMonthChartData> listHAMin = this.historyMonthChartDataService
-				.findJYHistoryMonthChartDataByHql(hqlAMin);
-		List<JYHistoryMonthChartData> listHBMin = this.historyMonthChartDataService
-				.findJYHistoryMonthChartDataByHql(hqlBMin);
-		List<JYHistoryMonthChartData> listHCMin = this.historyMonthChartDataService
-				.findJYHistoryMonthChartDataByHql(hqlCMin);
-		List<JYHistoryMonthChartData> listHDMin = this.historyMonthChartDataService
-				.findJYHistoryMonthChartDataByHql(hqlDMin);
-		List<Float> listAMax = new ArrayList<Float>();
-		List<Float> listBMax = new ArrayList<Float>();
-		List<Float> listCMax = new ArrayList<Float>();
-		List<Float> listDMax = new ArrayList<Float>();
-		List<Float> listAMin = new ArrayList<Float>();
-		List<Float> listBMin = new ArrayList<Float>();
-		List<Float> listCMin = new ArrayList<Float>();
-		List<Float> listDMin = new ArrayList<Float>();
-		for (int i = 0; i < listHAMax.size(); i++) {
-			listAMax.add(listHAMax.get(i).getValue());
-		}
-		for (int i = 0; i < listHAMin.size(); i++) {
-			listAMin.add(listHAMin.get(i).getValue());
-		}
-		for (int i = 0; i < listHBMax.size(); i++) {
-			listBMax.add(listHBMax.get(i).getValue());
-		}
-		for (int i = 0; i < listHBMin.size(); i++) {
-			listBMin.add(listHBMin.get(i).getValue());
-		}
-		for (int i = 0; i < listHCMax.size(); i++) {
-			listCMax.add(listHCMax.get(i).getValue());
-		}
-		for (int i = 0; i < listHCMin.size(); i++) {
-			listCMin.add(listHCMin.get(i).getValue());
-		}
-		for (int i = 0; i < listHDMax.size(); i++) {
-			listDMax.add(listHDMax.get(i).getValue());
-		}
-		for (int i = 0; i < listHDMin.size(); i++) {
-			listDMin.add(listHDMin.get(i).getValue());
-		}
+		ChartData dataAMax = getChartData("A相",1);
+		ChartData dataBMax = getChartData("B相",1);
+		ChartData dataCMax = getChartData("C相",1);
+		ChartData dataDMax = getChartData("环境",1);
+		ChartData dataAMin = getChartData("A相",0);
+		ChartData dataBMin = getChartData("B相",0);
+		ChartData dataCMin = getChartData("C相",0);
+		ChartData dataDMin = getChartData("环境",0);
+		
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("AMax", listAMax);
-		dataMap.put("BMax", listBMax);
-		dataMap.put("CMax", listCMax);
-		dataMap.put("DMax", listDMax);
-		dataMap.put("AMin", listAMin);
-		dataMap.put("BMin", listBMin);
-		dataMap.put("CMin", listCMin);
-		dataMap.put("DMin", listDMin);
+		dataMap.put("AMax", dataAMax);
+		dataMap.put("BMax", dataBMax);
+		dataMap.put("CMax", dataCMax);
+		dataMap.put("DMax", dataDMax);
+		dataMap.put("AMin", dataAMin);
+		dataMap.put("BMin", dataBMin);
+		dataMap.put("CMin", dataCMin);
+		dataMap.put("DMin", dataDMin);
 		Constant.flush(dataMap);
 	}
     //tag:0-min 1-max

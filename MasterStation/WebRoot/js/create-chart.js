@@ -11,7 +11,6 @@ var createDayChart = function() {
 		url : "dayChart.action?queryDeviceId=" + $('#dayDevice').val()+"&queryStartDate="+startTime+"&queryEndDate="+endTime,
 		contentType : "json",
 		success : function(returnData) {
-
 			var obj = eval("(" + returnData + ")");
 			$('#container').highcharts(
 					{
@@ -54,17 +53,21 @@ var createDayChart = function() {
 					        }
 					    },
 						series : [ {
-							name : "A相",			
-							data : obj.A
+							name : "A相",	
+							pointStart:obj.A.startDate,
+							data : obj.A.data
 						}, {
 							name : 'B相',
-							data : obj.B
+							pointStart:obj.B.startDate,
+							data : obj.B.data
 						}, {
 							name : 'C相',
-							data : obj.C
+							pointStart:obj.C.startDate,
+							data : obj.C.data
 						}, {
 							name : '环境',
-							data : obj.D
+							pointStart:obj.D.startDate,
+							data : obj.D.data
 						} ],
 						exporting : {
 							enabled : false
@@ -92,7 +95,6 @@ var createMonthChart = function() {
 		success : function(returnData) {
 
 			var obj = eval("(" + returnData + ")");
-			//alert(obj.A);
 			$('#container').highcharts(
 					{
 						title : {
@@ -136,35 +138,43 @@ var createMonthChart = function() {
 						series : [
 								{
 									name : 'A相Max',
-									data : obj.AMax
+									pointStart:obj.AMax.startDate,
+									data : obj.AMax.data
 								},
 								{
 									name : 'A相Min',
-									data : obj.AMin
+									pointStart:obj.AMin.startDate,
+									data : obj.AMin.data
 								},
 								{
 									name : 'B相Max',
-									data : obj.BMax
+									pointStart:obj.BMax.startDate,
+									data : obj.BMax.data
 								},
 								{
 									name : 'B相Min',
-									data : obj.BMin
+									pointStart:obj.BMin.startDate,
+									data : obj.BMin.data
 								} ,
 								{
 									name : 'C相Max',
-									data : obj.CMax
+									pointStart:obj.CMax.startDate,
+									data : obj.CMax.data
 								},
 								{
 									name : 'C相Min',
-									data : obj.CMin
+									pointStart:obj.CMin.startDate,
+									data : obj.CMin.data
 								},
 								{
 									name : '环境Max',
-									data : obj.DMax
+									pointStart:obj.DMax.startDate,
+									data : obj.DMax.data
 								},
 								{
 									name : '环境Min',
-									data : obj.DMin
+									pointStart:obj.DMin.startDate,
+									data : obj.DMin.data
 								}],
 						exporting : {
 							enabled : false
