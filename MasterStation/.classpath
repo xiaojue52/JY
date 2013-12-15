@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/antlr-2.7.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/cglib-2.2.jar"/>
@@ -42,10 +41,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/javassist-3.9.0.GA.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jcommon-1.0.20.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfreechart-1.0.16-experimental.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfreechart-1.0.16-swt.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfreechart-1.0.16.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfreesvg-1.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jotm.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsf-api.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsf-impl.jar"/>

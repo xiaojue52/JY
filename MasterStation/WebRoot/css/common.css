@@ -53,17 +53,6 @@ a:hover{
 	width:120px;	
 }
 
-html{
-	height:100%;
-	scrollbar-face-color: #DDEEFF; /*主色调*/
-	scrollbar-highlight-color: #FFFFFF; 
-	scrollbar-shadow-color: #99BBCC; /*描边颜色*/
-	scrollbar-3dlight-color: #AACCDD; /*左侧边高光颜色*/
-	scrollbar-arrow-color: #6688AA; /*小三角颜色*/
-	scrollbar-track-color: #EEEEEE; 
-	scrollbar-darkshadow-color: #DDEEFF; 
-} 
-
 /*文本框样式*/
 input[type=text],[type=password]{
 	width:120px;

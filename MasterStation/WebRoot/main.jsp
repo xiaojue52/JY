@@ -24,21 +24,17 @@
 		<link rel="stylesheet" type="text/css"
 			href="js/ext/resources/css/ext-all.css" />
 		<link rel="stylesheet" type="text/css"
-			href="css/common.css" />
-		<link rel="stylesheet" type="text/css"
 			href="css/main.css" />
 		<link rel="stylesheet" type="text/css"
 			href="css/common.css" />
 		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
 		<script type="text/javascript" src="js/ext/ext-all.js"></script>
-		
-		
 		<script src="js/set-src.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="css/alert-page.css" />
-		<script type="text/javascript" src="js/modify-password.js"></script>
 		<script src="js/get-data.js" type="text/javascript"></script>
 		<script src="js/control.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/viewport.js"></script>
 		<title>监测主站</title>
 	</head>
 
@@ -90,11 +86,11 @@
 		<script>
 		if($('#isFirstLogin').val()==1){
 			$(".errorMessage").html("首次登陆请更改密码！");
-			showPage();
+			ModifyPassword.showPage();
 		}
 		if($("#userLevel").val()!="super_admin")
 			$("#sys_config").hide();
 		</script>
-		<script type="text/javascript" src="js/viewport.js"></script>
+		
 	</body>
 </html>

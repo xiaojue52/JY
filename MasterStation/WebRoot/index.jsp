@@ -17,7 +17,7 @@
 		<script src="js/login.js" type="text/javascript"></script>
 <style>
 #imgDiv{
-		background-image: url('images/login.jpg');
+		background-image: url('images/login.png');
 		margin-top: -227px;
 		margin-left: -300px;
 		left:50%;
@@ -28,7 +28,7 @@
 	}
 </style>
 	</head>
-	<body>
+	<body style="width:100%;height:100%;background-image: url('images/indexbg.png');overflow:hidden">
     	<div id="imgDiv" style="height: 455px;width: 600px;position: absolute;">
     		
     		<div class="wordDiv" style="margin-top:160px;margin-left: 130px;">请输入你的姓名:</div>
