@@ -7,13 +7,18 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
 import com.station.po.JYConstant;
 import com.station.service.JYConstantService;
+import com.station.socket.SocketRoute;
 
 
 @SuppressWarnings("serial")
 public class MonitorTimeAction extends ActionSupport {
 	private JYConstantService constantService;
 	private JYConstant constant;
+	private static SocketRoute socketRoute;
 
+	public static void setSocketRoute(SocketRoute socketRoute) {
+		MonitorTimeAction.socketRoute = socketRoute;
+	}
 	public JYConstant getConstant() {
 		return constant;
 	}
@@ -34,6 +39,7 @@ public class MonitorTimeAction extends ActionSupport {
 			JYConstant arg = this.constantService.findJYConstantByHql(hql).get(0);
 			arg.setSubValue(constant.getSubValue());
 			constantService.updateJYConstant(arg);
+			socketRoute.sendCommandToSetMonitorTime();
 			ret = 1;
 		}
 		Map<String,Object> dataMap = new HashMap<String,Object>();

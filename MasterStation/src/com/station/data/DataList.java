@@ -68,4 +68,7 @@ public class DataList extends ActionSupport {
 	public String getMesUser(){
 		return Constant.MESUSER;
 	}
+	public long getHeartBeatTime(){
+		return Constant.HEARTBEATTIME;
+	}
 }

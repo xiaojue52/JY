@@ -42,7 +42,6 @@ public class HalfHourEvent {
 
 		timer1.schedule(new GetHistoryTask(), NextHour, JOB_INTERNAL);
 		timer2.scheduleAtFixedRate(new GetMaxAndMinHistoryTask(), NextDay, DAY_JOB_INTERNAL);
-		//timer1.
 	}
 	class GetHistoryTask extends TimerTask{
 

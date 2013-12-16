@@ -505,5 +505,8 @@
 	<bean id="MessageAction" class="com.station.system.action.MessageAction">
 
 	</bean>
+	<bean id="HeartBeatAction" class="com.station.system.action.HeartBeatAction">
+
+	</bean>
 	
 </beans>

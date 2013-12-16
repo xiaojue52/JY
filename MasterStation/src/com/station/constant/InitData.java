@@ -224,12 +224,14 @@ public class InitData {
 			Element mesDate = (Element) root.getElementsByTagName("mesDate").item(0);
 			Element mesUser = (Element) root.getElementsByTagName("mesUser").item(0);
 			Element functionNum = (Element) root.getElementsByTagName("functionNum").item(0);
+			Element heartBeatTime = (Element)root.getElementsByTagName("heartBeatTime").item(0);
 			Constant.TOPNAME =  topContent.getTextContent();
 			Constant.BOTTOMNAME = bottomContent.getTextContent();
 			Constant.LOGIMAGEPATH = imagePath.getTextContent();
 			Constant.MESUSER =  mesUser.getTextContent();
 			Constant.MESDATE = mesDate.getTextContent();
 			Constant.FUNCTIONNUM = functionNum.getTextContent();
+			Constant.HEARTBEATTIME = Long.valueOf(heartBeatTime.getTextContent());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -52,7 +52,7 @@ public class LoopCheckThread extends Thread{
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
-		if (diff>=Constant.HEARTBEATTIME){
+		if (diff>=Constant.HEARTBEATTIME*60*1000){
 			this.socketService.saveAlarm(cabNumber, 0, d2, "超过心跳时间");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n");

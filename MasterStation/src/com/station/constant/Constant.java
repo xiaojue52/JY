@@ -23,7 +23,10 @@ import org.w3c.dom.Element;
 import com.google.gson.Gson;
 
 public class Constant {
-	public static final long HEARTBEATTIME = 1*60*1000;
+	public static String CODEERROR = "-2";
+	public static String REALTEMPERROR = "-3";
+	public static String OK = "1";
+	public static long HEARTBEATTIME = 1*60*1000;
 	public static final long LOOPCHECKTIME = 1000;
 	public static final long RECIVETEMPTIME = 1*60*1000;
 	public static final String ALARMTYPE1HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1000'";

@@ -12,15 +12,17 @@ import java.util.Map;
 
 import javax.servlet.ServletContextEvent;
 
+import com.station.constant.Constant;
+
 public class SocketListener extends Thread {
 	private ServerSocket server = null;
 	private final int port = 10000;
-	private SocketHandler parseSocketData;
+	private SocketRoute socketRoute;
 	private Map<Socket, Socket> listMap = new HashMap<Socket, Socket>();
 
 	public SocketListener(ServletContextEvent sce) {
 		//this.sce = sce;
-		parseSocketData = new SocketHandler(sce);
+		socketRoute = new SocketRoute(sce);
 		try {
 			server = new ServerSocket(port);
 		} catch (IOException e) {
@@ -66,7 +68,7 @@ public class SocketListener extends Thread {
 							in.close();
 							out.close();
 							listMap.get(client).close();
-							parseSocketData.removedSocket(client);
+							socketRoute.removedSocket(client);
 							break;
 						}
 						if (ret >= 1024)
@@ -74,8 +76,8 @@ public class SocketListener extends Thread {
 						else
 							cbuf[ret] = '\0';
 						str = String.valueOf(cbuf, 0, ret);
-						String retStr = parseSocketData.CheckString(str,client);
-						if (!retStr.equals("1")){
+						String retStr = socketRoute.CheckString(str,client);
+						if (!retStr.equals(Constant.OK)){
 							out.println(retStr);
 							out.flush();
 						}
@@ -117,7 +119,7 @@ public class SocketListener extends Thread {
 					//Socket key = (Socket) mEntry.getKey();
 					client.close();	
 				}
-				parseSocketData.stop();
+				socketRoute.stop();
 			}
 
 		} catch (IOException e) {

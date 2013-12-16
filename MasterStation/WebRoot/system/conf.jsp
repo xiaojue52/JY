@@ -19,6 +19,7 @@
 	String functionNum ="";
 	String mesUser = "";
 	String mesDate = "";
+	long heartBeatTime = 1;
 	if (username!=null)
 	{
 	WebApplicationContext wac = (WebApplicationContext) config
@@ -31,6 +32,7 @@
 	functionNum = dataList.getFunctionNum();
 	mesUser = dataList.getMesUser();
 	mesDate = dataList.getMesDate();
+	heartBeatTime = dataList.getHeartBeatTime();
 	}
 %>
 
@@ -46,12 +48,12 @@
 		<script type="text/javascript" src="<%=path%>/js/control.js"></script>
 	</head>
 
-	<body>
+	<body style="padding:0;overflow:hidden;">
 		<div class="config_page">
 			<s:form>
 			<div class="config_time">
 				<input type="hidden" id="cabinetType"/>
-				<span><strong>监控时间设置</strong> </span><span>柜体类型：<select onChange="Config.setUpTime();" id="cabType">
+				<span><strong>采集时间周期设置</strong> </span><span>柜体类型：<select onChange="Config.getUpTime();" id="cabType">
 							<%
 								for (int i = 0; i < cabTypeList.size(); i++) {
 							%>
@@ -59,7 +61,10 @@
 							<%
 								}
 							%>
-						</select> </span><span><input class="numberInput" id="upTime" size=4 maxLength=4 type="text" style="ime-mode:disabled;width:40px;"/>分钟 </span><span><input type="button" onclick="Config.upDateMonitorTime();" value="确定" /> </span>
+						</select> </span><span>间隔时间： </span><span><input class="numberInput" id="upTime" size=4 maxLength=4 type="text" style="ime-mode:disabled;width:40px;"/>分钟 </span><span><input type="button" onclick="Config.upDateMonitorTime();" value="确定" /> </span>
+			</div>
+			<div class="heartBeat_time">
+				<span><strong>离线判定时间设置</strong> </span><span>间隔时间： </span><span><input id="heartBeatTime" class="numberInput" size=4 maxLength=4 type="text" style="ime-mode:disabled;width:40px;" value="<%=heartBeatTime %>"/>分钟 </span><span><input type="button" onclick="Config.setHeartBeat();" value="确定" /> </span>
 			</div>
 			</s:form>
 			<div class="config_calculate">

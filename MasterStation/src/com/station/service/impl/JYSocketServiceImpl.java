@@ -191,4 +191,15 @@ public class JYSocketServiceImpl implements JYSocketService {
 		
 	}
 
+	@Override
+	public int getMonitorTime(String cabNumber) {
+		// TODO Auto-generated method stub
+		List<JYCabinet> list = cabinetDAO.findJYCabinetByHql("from JYCabinet cabinet where cabinet.tag = 1 and cabinet.cabNumber ='"+cabNumber+"'");
+		if (list.size()>0){
+			String str =  list.get(0).getCabType().getSubValue();
+			return Integer.valueOf(str);
+		}
+		return -1;
+	}
+
 }

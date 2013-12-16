@@ -4,7 +4,7 @@ var setEnable = function(id) {
 	else
 		$("#enable" + id).val(0);
 }
-var setUpTime = function() {
+var getUpTime = function() {
 	
 	$.ajax( {
 		type : "post",
@@ -152,11 +152,34 @@ var init = function() {
 var Config = {
 	init : init,
 	setEnable : setEnable,
-	setUpTime : setUpTime,
+	getUpTime : getUpTime,
 	setCabinetType : setCabinetType,
 	upDateMonitorTime:upDateMonitorTime,
 	upDateMessage:upDateMessage,
 	upDateMonitorFunction:upDateMonitorFunction,
 	updateAlarmType:updateAlarmType
+}
+Config.setHeartBeat = function(){
+	var time = $('#heartBeatTime').val();
+	if (time==null||time.length==0){
+		alert("请输入时间");
+	}else{
+		$.ajax( {
+			type : "post",
+			url : "updateHeartBeatTime.action",
+			data:"heartBeatTime=" + time,
+			dataType:'text',
+			success : function(returnData) {
+				var obj = eval("("+returnData+")");
+				if(obj.data==1)
+					alert("更新成功");
+				else
+					alert("更新失败");
+			},
+			error:function(){
+				alert("更新失败");
+			}
+		});
+	}
 }
 Config.init();

@@ -162,6 +162,8 @@
  	</action>
  	<action name="updateMessageRevicer" class="MessageAction" method="updateMessageRevicerAction"> 
  	</action>
+ 	<action name="updateHeartBeatTime" class="HeartBeatAction" method="updateHeartBeatTimeAction"> 
+ 	</action>
 </package>
 <!--include file="struts-jfreechart.xml"></include-->
 </struts>   

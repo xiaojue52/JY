@@ -4,147 +4,103 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletContextEvent;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.station.constant.Constant;
 import com.station.service.JYChartDataService;
 import com.station.service.JYSocketService;
 import com.station.timer.HalfHourEvent;
 
 public class SocketHandler {
-	public SocketHandler(ServletContextEvent sce) {
-		this.sce = sce;
-		ApplicationContext applicationContext = WebApplicationContextUtils
-				.getWebApplicationContext(this.sce.getServletContext());
-		socketService = (JYSocketService) applicationContext
-				.getBean("jySocketService");
-		JYChartDataService chartDataService = (JYChartDataService) applicationContext
-				.getBean("jyChartDataService");;
+	private JYSocketService socketService;
+	private List<String> realCabList;
+	private Map<String, Socket> clientMap = new HashMap<String, Socket>();
+	private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();
+	private HalfHourEvent halfHourEvent;
+	private LoopCheckThread checkThread;
+	public SocketHandler(JYSocketService socketService,JYChartDataService chartDataService){
+		this.socketService = socketService;
 		checkThread = new LoopCheckThread(orderMap, socketService);
 		checkThread.start();
 		halfHourEvent = new HalfHourEvent(chartDataService);
 		halfHourEvent.startTimer();
-
-		SocketAction.setSocketHandler(this);
 	}
-	private HalfHourEvent halfHourEvent;
-	private LoopCheckThread checkThread;
-	private ServletContextEvent sce;
-	public Map<String, Socket> clientMap = new HashMap<String, Socket>();
-	public Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();
-	private JYSocketService socketService;
-	private List<String> realCabList;
-
-	public String CheckString(String str, Socket client) {
-		if (str == null || str.length() < 7
-				|| !str.substring(str.length() - 2).equals("CR"))
-			return "-2";
-		String command[] = str.split("[|]");
-		String cabNumber;
-		if(command.length>=2){
-			cabNumber = command[1].substring(0,5);
-		}
-		else
-			return "-2";
-		String orderStr = str.substring(0, 2);
-		// loginMes = "0000000|0000000|000000CR";
-		if (orderStr.equals("00")) {// 登陆
-			return parseLogin(str, client);
-		}
-		if (orderStr.equals("40")) {// 心跳
-			if (this.isLogined(cabNumber,client))
-				return this.parseHeartBeat(str, client);
-		}
-		if (orderStr.equals("11")) {// 实时招测
-			if (this.isLogined(cabNumber,client))
-				return this.parseRealTempData(str, client);
-		}
-		if (orderStr.equals("20")) {// 温度
-			if (this.isLogined(cabNumber,client))
-				return this.parseTempData(str, client);
-		}
-		return "-2";
-	}
-
-	private String parseRealTempData(String str, Socket client) {
-		// Mes =
-		// "1100000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432XXCR";
-		String command[] = str.split("[|]");
-		if (command != null && command.length == 4 && command[0].length() == 7
-				&& command[1].length() == 7 && command[2].length() == 14) {
-			String cabNumber = command[1].substring(0, 5);
-			String dateStr = command[2];
-			String tempData = command[3].substring(0, command[3].length() - 4);
-			this.setTempValue(cabNumber, tempData, dateStr);
-			if (realCabList==null)return "1";
-			realCabList.add(cabNumber);
-			//isCollecting = false;
-		}
-		return "1";
-	}
-
-	private String parseTempData(String str, Socket client) {
-		// Mes =
-		// "2000000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432XXCR";
-		String command[] = str.split("[|]");
-		if (command != null && command.length == 4 && command[0].length() == 7
-				&& command[1].length() == 7 && command[2].length() == 14) {
-			String cabNumber = command[1].substring(0, 5);
-			String dateStr = command[2];
-			Map<String, String> order = orderMap.get(cabNumber);
-			if (order == null) {
-				return "-2";
-			}
-			order.put("reviceTemp", dateStr);
-			orderMap.put(cabNumber, order);
-			String tempData = command[3].substring(0, command[3].length() - 4);
-			this.setTempValue(cabNumber, tempData, dateStr);
-			return "2100000|" + command[1] + "|0XXCR";
-		}
-		return "-2";
-	}
-
-	private String parseHeartBeat(String str, Socket client) {
-		// Mes = "4000000|0000000XXCR";
-		String command[] = str.split("[|]");
-		if (command != null && command.length == 2 && command[0].length() == 7) {
-			storeHeartBertOrder(command[1].substring(0, 5));
-			return "4100000" + command[1].substring(0, 7) + "|0XXCR";
-		}
-		return "-2";
-	}
-
-	private void storeHeartBertOrder(String cabNumber) {
-		// Date date = new Date();
-		Map<String, String> order = orderMap.get(cabNumber);
-		if (order == null) {
-			return;
-		}
-		order.put("heartBeat", Constant.getCurrentDateStr());
-		orderMap.put(cabNumber, order);
-		this.socketService.updateCabinetStatus(cabNumber);
-	}
-
-	private String parseLogin(String str, Socket client) {
-		// loginMes = "0000000|0000000|000000CR";
+	public String parseLogin(String str, Socket client) {
+		// Mes = "0000000|0000000|00000XXCR";
+		// Ret = "0100000|0000000|0XXCR";
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 3 && command[0].length() == 7
 				&& command[1].length() == 7) {
 			if (command[0].equals("0000000")) {
 				String cabNumber = command[1].substring(0, 5);
 				clientMap.put(cabNumber, client);
-				createOrderMap(cabNumber);
+				this.createOrderMap(cabNumber);
 				socketService.updateCabinetStatus(cabNumber);
-				return "0000000|" + command[1] + "|000000CR";
+				return "0100000|" + command[1] + "|0XXCR";
 			}
 		}
-		return "-2";
+		return "0100000|" + command[1] + "|1XXCR";
+	}
+	public String parseRealTempData(String str, Socket client) {
+		// Mes = "1000000|0000000|XXCR"
+		// Ret = "1100000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR"
+		String command[] = str.split("[|]");
+		if (command != null && command.length == 5 && command[0].length() == 7
+				&& command[1].length() == 7 && command[2].length() == 14) {
+			String cabNumber = command[1].substring(0, 5);
+			String dateStr = command[2];
+			String tempData = command[3];
+			
+			if (realCabList==null)return Constant.REALTEMPERROR;
+			realCabList.add(cabNumber);
+			//isCollecting = false;
+			this.setTempValue(cabNumber, tempData, dateStr);
+			return Constant.OK;
+		}
+		return  Constant.REALTEMPERROR;
+	}
+
+	public String parseTempData(String str, Socket client) {
+		// Mes = "2000000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR";
+		// Ret = "2100000|0000000|0XXCR";
+		String command[] = str.split("[|]");
+		if (command != null && command.length == 5 && command[0].length() == 7
+				&& command[1].length() == 7 && command[2].length() == 14) {
+			String cabNumber = command[1].substring(0, 5);
+			String dateStr = command[2];
+			Map<String, String> order = orderMap.get(cabNumber);
+			order.put("reviceTemp", dateStr);
+			orderMap.put(cabNumber, order);
+			String tempData = command[3];
+			this.setTempValue(cabNumber, tempData, dateStr);
+			return "2100000|" + command[1] + "|0XXCR";
+		}
+		return "2100000|" + command[1] + "|1XXCR";
+	}
+	public String parseMonitorTime(String str,Socket client){
+		// Mes = "3000000|0000000|10XXCR";
+		// Ret = "3100000|0000000|0XXCR";
+		return "0";
+	}
+	public String parseHeartBeat(String str, Socket client) {
+		// Mes = "4000000|0000000|XXCR";
+		// Ret = "4100000|0000000|0XXCR";
+		String command[] = str.split("[|]");
+		if (command != null && command.length == 3 && command[0].length() == 7) {
+			this.storeHeartBertOrder(command[1].substring(0, 5));
+			return "4100000|" + command[1] + "|0XXCR";
+		}
+		return "4100000|" + command[1] + "|1XXCR";
+	}
+
+	private void storeHeartBertOrder(String cabNumber) {
+
+		Map<String, String> order = orderMap.get(cabNumber);
+		order.put("heartBeat", Constant.getCurrentDateStr());
+		orderMap.put(cabNumber, order);
+		this.socketService.updateCabinetStatus(cabNumber);
 	}
 
 	private void createOrderMap(String cabNumber) {
@@ -156,30 +112,32 @@ public class SocketHandler {
 		order.put("reviceTemp", Constant.getCurrentDateStr());
 		orderMap.put(cabNumber, order);
 	}
-
-	public void removedSocket(Socket socket) {
-		Iterator<Map.Entry<String, Socket>> iter = clientMap.entrySet()
-				.iterator();
-		while (iter.hasNext()) {
-			Map.Entry<String, Socket> mEntry = (Map.Entry<String, Socket>) iter
-					.next();
-			Socket temp = (Socket) mEntry.getValue();
-			String key = (String) mEntry.getKey();
-			if (temp == socket) {
-				clientMap.remove(key);
-				Date d2 = new Date();
-				this.socketService.saveAlarm(key, 1, d2, "离线");
-				System.out.print("移除socket！");
-				// ParseSocketData.deviceOffline(key);
-			}
+	public void sendCommandToSetMonitorTime(){
+		// Mes = "3000000|0000000|10XXCR";
+		// Ret = "3100000|0000000|0XXCR";
+		Iterator<Map.Entry<String, Socket>> iter = clientMap.entrySet().iterator();
+		while(iter.hasNext()){
+			Map.Entry<String, Socket> mEntry = (Map.Entry<String, Socket>)iter.next();
+			Socket client = (Socket)mEntry.getValue();
+			String cabNumber = (String)mEntry.getKey();
+			int mTime = this.socketService.getMonitorTime(cabNumber);
+			PrintWriter out = null;
+			try {
+				out = new PrintWriter(client.getOutputStream());
+				String queryStr = "3000000|" + cabNumber + "00|"+mTime+"XXCR";
+				out.print(queryStr);
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
 	}
-
-	public void sendCommandWithCabNumberList(String[] cabNumberList) {
-		realCabList = new ArrayList<String>();
+	public void sendCommandToGetTempWithCabNumberList(String[] cabNumberList) {
 		// Mes = "1000000|0000000|XXCR"
-		// ret =
-		// "1100000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432XXCR"
+		// Ret = "1100000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR"
+		realCabList = new ArrayList<String>();
+
 		for (int i = 0; i < cabNumberList.length; i++) {
 			String cabNumber = cabNumberList[i];
 			PrintWriter out = null;
@@ -211,8 +169,7 @@ public class SocketHandler {
 	}
 
 	private void setTempValue(String cabNumber, String arg0, String dateStr) {
-		// Mes =
-		// "2000000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432XXCR";
+
 		Map<Integer, List<Float>> map = new HashMap<Integer, List<Float>>();
 		String tempList[] = arg0.split("[*]");
 		if (tempList != null && tempList.length > 0) {
@@ -251,17 +208,36 @@ public class SocketHandler {
 			this.socketService.updateCabinetStatus(cabNumber);
 		}
 	}
-
-	public void stop() {
-		this.checkThread.stopCheck();
-		this.halfHourEvent.stopTimer();
+	public void removedSocket(Socket socket) {
+		Iterator<Map.Entry<String, Socket>> iter = clientMap.entrySet()
+				.iterator();
+		while (iter.hasNext()) {
+			Map.Entry<String, Socket> mEntry = (Map.Entry<String, Socket>) iter
+					.next();
+			Socket temp = (Socket) mEntry.getValue();
+			String key = (String) mEntry.getKey();
+			if (temp == socket) {
+				clientMap.remove(key);
+				//Date d2 = new Date();
+				//this.socketService.saveAlarm(key, 1, d2, "离线");
+				System.out.print("移除socket！");
+				// ParseSocketData.deviceOffline(key);
+			}
+		}
 	}
-	private boolean isLogined(String cabNumber,Socket client){
+	
+	public boolean isLogined(String cabNumber,Socket client){
 		if(orderMap.get(cabNumber)!=null){
-			clientMap.put(cabNumber, client);
+			clientMap.put(cabNumber, client);//如有则替换
 			return true;
 		}	
 		else 
 			return false;
 	}
+	
+	public void stop(){
+		this.checkThread.stopCheck();
+		this.halfHourEvent.stopTimer();
+	}
+	
 }
