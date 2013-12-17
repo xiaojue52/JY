@@ -323,14 +323,14 @@ DeviceManager.Line.line = function(){
 		success : function(returnData) {
 			var obj = eval("("+returnData+")");
 			if(obj.data=="0")
-				alert("获取远端数据失败");
+				alert("操作失败");
 			else{
 				//alert(obj.data);
 				DeviceManager.currentNode.reload();		
 			}
 		},
 		error:function(){
-			alert("网络断开");
+			alert("操作失败");
 		}
 	});
 }
@@ -368,7 +368,7 @@ DeviceManager.Cabinet.cabinet = function(order){
 		success : function(returnData) {
 			var obj = eval("("+returnData+")");
 			if(obj.data=="0")
-				alert("获取远端数据失败");
+				alert("操作失败");
 			else{
 				//alert(obj.data);
 				if (order==1){
@@ -378,7 +378,7 @@ DeviceManager.Cabinet.cabinet = function(order){
 			}
 		},
 		error:function(){
-			alert("网络断开");
+			alert("操作失败");
 		}
 	});
 }
@@ -408,7 +408,7 @@ DeviceManager.Device.device = function(order){
 		success : function(returnData) {
 			var obj = eval("("+returnData+")");
 			if(obj.data=="0")
-				alert("获取远端数据失败");
+				alert("操作失败");
 			else{
 				//alert(obj.data);
 				if (order==1){
@@ -418,7 +418,7 @@ DeviceManager.Device.device = function(order){
 			}
 		},
 		error:function(){
-			alert("网络断开");
+			alert("操作失败");
 		}
 	});
 }
@@ -430,7 +430,7 @@ DeviceManager.deleteDevice = function(url){
 		success : function(returnData) {
 			var obj = eval("("+returnData+")");
 			if(obj.data=="0")
-				alert("获取远端数据失败");
+				alert("操作失败");
 			else{
 				//alert(obj.data);
 				DeviceManager.currentNode.parentNode.reload();	
@@ -440,7 +440,7 @@ DeviceManager.deleteDevice = function(url){
 			}
 		},
 		error:function(){
-			alert("网络断开");
+			alert("操作失败");
 		}
 	});
 }

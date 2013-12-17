@@ -62,6 +62,7 @@
 	<script src="js/Highcharts-3.0.7/js/highcharts.js"></script>
 	<script src="js/Highcharts-3.0.7/js/modules/exporting.js"></script>
 	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<div id="start_page" style="width: 200px; height: 50px;top:50%;left:50%;margin-left:-100px;position:absolute;"><span>请选择相关选项生成对比曲线！</span></div>
 	<script src="js/create-chart.js"></script>
 	<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none">

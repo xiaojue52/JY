@@ -19,6 +19,7 @@ import com.station.service.JYDetectorService;
 import com.station.service.JYDeviceService;
 import com.station.service.JYLineService;
 import com.station.service.JYUserService;
+import com.station.socket.SocketRoute;
 
 public class JYCabinetServiceImpl implements JYCabinetService {
 
@@ -30,7 +31,12 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 	private JYConstantService constantService;
 	private JYDeviceService deviceService;
 	private JYDetectorService detectorService;
+	private static SocketRoute socketRoute;
 
+
+	public static void setSocketRoute(SocketRoute socketRoute) {
+		JYCabinetServiceImpl.socketRoute = socketRoute;
+	}
 
 	public void setDetectorService(JYDetectorService detectorService) {
 		this.detectorService = detectorService;
@@ -123,6 +129,7 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		String hql = "from JYDevice device where device.cabinet.cabId = '"+arg0.getCabId()+"'";
 		List<JYDevice> list = this.deviceService.findJYDeviceByHql(hql);
 		this.deviceService.removeJYDevices(list);
+		socketRoute.removedCabinet(arg0.getCabNumber());
 	}
 	@Override
 	public void removeJYCabinets(List<JYCabinet> list){

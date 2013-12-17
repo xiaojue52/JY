@@ -8,6 +8,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.station.constant.Constant;
 import com.station.service.JYChartDataService;
 import com.station.service.JYSocketService;
+import com.station.service.impl.JYCabinetServiceImpl;
 import com.station.system.action.MonitorTimeAction;
 
 public class SocketRoute {
@@ -23,6 +24,7 @@ public class SocketRoute {
 		socketHandler = new SocketHandler(socketService,chartDataService);
 		SocketAction.setSocketRoute(this);
 		MonitorTimeAction.setSocketRoute(this);
+		JYCabinetServiceImpl.setSocketRoute(this);
 	}
 
 	public void sendCommandToGetTempWithCabNumberList(String[] cabNumberList){
@@ -74,6 +76,9 @@ public class SocketRoute {
 		}
 		
 		return Constant.CODEERROR;
+	}
+	public void removedCabinet(String cabNumber){
+		this.socketHandler.removeOrderMap(cabNumber);
 	}
 	public void removedSocket(Socket socket){
 		this.socketHandler.removedSocket(socket);

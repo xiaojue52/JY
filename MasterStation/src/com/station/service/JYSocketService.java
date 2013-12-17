@@ -11,4 +11,5 @@ public interface JYSocketService {
 	public void updateCabinetStatus(String cabNumber);
 	public void saveAlarm(String cabNumber,int type,Date date,String content);
 	public int getMonitorTime(String cabNumber);//分钟
+	public boolean cabinetIsExist(String cabNumber);
 }

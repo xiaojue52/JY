@@ -290,7 +290,7 @@ Chart.moreBtnClick = function() {
 }
 
 Chart.showPage = function() {
-
+	$("#start_page").hide();
 	$("#BgDiv").css( {
 		display : "block",
 		height : $(document).height()

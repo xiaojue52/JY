@@ -19,8 +19,9 @@ public class LoopCheckThread extends Thread{
 		while(!stop){
 			try {
 				Thread.sleep(Constant.LOOPCHECKTIME);
-				if (this.orderMap.isEmpty())continue;
-				loopCheck();
+				Map<String, Map<String, String>> orderMap = this.orderMap;
+				if (orderMap.isEmpty())continue;
+				loopCheck(orderMap);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				Thread.currentThread().interrupt();
@@ -31,7 +32,7 @@ public class LoopCheckThread extends Thread{
 		this.orderMap = orderMap;
 		this.socketService = socketService;
 	}
-	private void loopCheck(){
+	private void loopCheck(Map<String, Map<String, String>> orderMap){
 		Iterator<Map.Entry<String, Map<String, String>>> iter = orderMap.entrySet().iterator();
 		while (iter.hasNext()) {
 			Map.Entry<String, Map<String, String>> mEntry = (Map.Entry<String, Map<String, String>>) iter.next();
