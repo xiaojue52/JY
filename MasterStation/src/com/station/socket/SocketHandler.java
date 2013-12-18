@@ -290,6 +290,9 @@ public class SocketHandler {
 		JYCabinet cabinet = this.socketService.getCabinet(cabNumber);
 		if (cabinet==null)return;
 		String mTime = cabinet.getCabType().getSubValue();
+		if (mTime.length()==1){
+			mTime = "0"+mTime;
+		}
 		String queryStr = "3000000|" + cabNumber + "00|"+mTime+"XXCR";
 		this.sendCommand(queryStr, client);
 		orderMap.put(cabNumber, order);
