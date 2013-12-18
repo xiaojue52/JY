@@ -3,16 +3,12 @@ package com.station.socket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import javax.servlet.ServletContextEvent;
-
-import com.station.constant.Constant;
 
 public class SocketListener extends Thread {
 	private ServerSocket server = null;
@@ -55,18 +51,15 @@ public class SocketListener extends Thread {
 			
 			public void run() {
 				BufferedReader in = null;
-				PrintWriter out = null;
 				try {
 					in = new BufferedReader(new InputStreamReader(client
 							.getInputStream()));
-					out = new PrintWriter(client.getOutputStream());
 					while (client.isConnected()) {
 						String str = "";
 						char[] cbuf = new char[1024];
 						int ret = in.read(cbuf, 0, 1024);
 						if (ret < 0) {
 							in.close();
-							out.close();
 							listMap.get(client).close();
 							socketRoute.removedSocket(client);
 							break;
@@ -76,11 +69,7 @@ public class SocketListener extends Thread {
 						else
 							cbuf[ret] = '\0';
 						str = String.valueOf(cbuf, 0, ret);
-						String retStr = socketRoute.CheckString(str,client);
-						if (!retStr.equals(Constant.OK)){
-							out.println(retStr);
-							out.flush();
-						}
+						socketRoute.CheckString(str,client);
 					}
 				} catch (IOException ex) {
 					System.out.print("socket 读取 、输出失败！");
@@ -90,11 +79,6 @@ public class SocketListener extends Thread {
 						in.close();
 					} catch (Exception e) {
 						System.out.print("socket 读取 close失败！");
-					}
-					try {
-						out.close();
-					} catch (Exception e) {
-						System.out.print("socket 输出 close失败！");
 					}
 					try {
 						client.close();

@@ -30,23 +30,34 @@ public class SocketRoute {
 	public void sendCommandToGetTempWithCabNumberList(String[] cabNumberList){
 		this.socketHandler.sendCommandToGetTempWithCabNumberList(cabNumberList);
 	}
-	public void sendCommandToSetMonitorTime(){
-		this.socketHandler.sendCommandToSetMonitorTime();
+	public void sendCommandToSetMonitorTime(String type,String value){
+		this.socketHandler.sendCommandToSetMonitorTime(type,value);
 	}
 	public String CheckString(String str, Socket client) {
 		if (str == null || str.length() < 7
 				|| !str.substring(str.length() - 2).equals("CR"))
-			return Constant.CODEERROR;
+			{
+				String tempStr = Constant.CODEERROR;
+				this.socketHandler.sendCommand(tempStr, client);
+				return null;
+			}
 		String command[] = str.split("[|]");
 		String cabNumber;
 		if(command.length>=2){
 			cabNumber = command[1].substring(0,5);
 		}
-		else
-			return Constant.CODEERROR;
+		else{
+			String tempStr = Constant.CODEERROR;
+			this.socketHandler.sendCommand(tempStr, client);
+			return null;
+		}
+			
 		String orderStr = str.substring(0, 2);
 		// Mes = "0000000|0000000|00000XXCR";
 		// Ret = "0100000|0000000|0XXCR";
+		if (!orderStr.equals("31")) {
+			this.socketHandler.checkInit(cabNumber,client);
+		}
 		if (orderStr.equals("00")) {// 登陆
 			return socketHandler.parseLogin(str, client);
 		}
@@ -75,7 +86,9 @@ public class SocketRoute {
 				return socketHandler.parseHeartBeat(str, client);
 		}
 		
-		return Constant.CODEERROR;
+		String tempStr = Constant.CODEERROR;
+		this.socketHandler.sendCommand(tempStr, client);
+		return null;
 	}
 	public void removedCabinet(String cabNumber){
 		this.socketHandler.removeOrderMap(cabNumber);

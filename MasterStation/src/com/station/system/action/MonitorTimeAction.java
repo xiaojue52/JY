@@ -39,7 +39,7 @@ public class MonitorTimeAction extends ActionSupport {
 			JYConstant arg = this.constantService.findJYConstantByHql(hql).get(0);
 			arg.setSubValue(constant.getSubValue());
 			constantService.updateJYConstant(arg);
-			socketRoute.sendCommandToSetMonitorTime();
+			socketRoute.sendCommandToSetMonitorTime(constant.getValue(),constant.getSubValue());
 			ret = 1;
 		}
 		Map<String,Object> dataMap = new HashMap<String,Object>();
