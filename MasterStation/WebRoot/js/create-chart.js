@@ -78,7 +78,7 @@ var createDayChart = function() {
 
 		}
 	});
-}
+};
 
 var createMonthChart = function() {
 	var startTime = $('#monthLineDate').val();
@@ -185,7 +185,7 @@ var createMonthChart = function() {
 
 		}
 	});
-}
+};
 
 var createMoreChart = function() {
 	var startTime = $('#moreLineStartDate').val();
@@ -257,13 +257,13 @@ var createMoreChart = function() {
 
 		}
 	});
-}
+};
 
 var Chart = {
 	dayChart : createDayChart,
 	monthChart : createMonthChart,
 	moreChart : createMoreChart
-}
+};
 //Chart.dayChart();
 Chart.showedTag = 0;
 //var showedTag = 0;
@@ -273,21 +273,21 @@ Chart.dayBtnClick = function() {
 	$('#moreMenu').hide();
 	$('#selectedDevice').html('');
 	Chart.showedTag = 0;
-}
+};
 Chart.monthBtnClick = function() {
 	$('#dayMenu').hide();
 	$('#monthMenu').show();
 	$('#moreMenu').hide();
 	$('#selectedDevice').html('');
 	Chart.showedTag = 1;
-}
+};
 Chart.moreBtnClick = function() {
 	$('#dayMenu').hide();
 	$('#monthMenu').hide();
 	$('#moreMenu').show();
 	$('#selectedDevice').html('');
 	Chart.showedTag = 2;
-}
+};
 
 Chart.showPage = function() {
 	$("#start_page").hide();
@@ -295,21 +295,21 @@ Chart.showPage = function() {
 		display : "block",
 		height : $(document).height()
 	});
-	var yscroll = document.documentElement.scrollTop;
+	//var yscroll = document.documentElement.scrollTop;
 	$("#DialogDiv").css("top", "100px");
 	$("#DialogDiv").css("display", "block");
 	document.documentElement.scrollTop = 0;
-}
+};
 Chart.closePage = function() {
 	$("#BgDiv").css("display", "none");
 	$("#DialogDiv").css("display", "none");
 	$('.page_iframe').attr('src', "");
-}
+};
 
 Chart.setPageFrameSrc = function(src) {
 	$('.page_iframe').attr('src', src);
 	Chart.showPage();
-}
+};
 Chart.selectedDevice = function(tag) {
 	if ($(('#selectedDevice')).find('option').length == 0)
 		return;
@@ -348,4 +348,4 @@ Chart.selectedDevice = function(tag) {
 									+ "</option>");
 				});
 	}
-}
+};

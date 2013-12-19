@@ -34,7 +34,7 @@ Control.checkNumber = function(){
 	}
 	else
 		alert("请输入数字！");
-}
+};
 Control.checkInput = function(id,cl,ecl) {
 	
 	var ret = 0;
@@ -54,7 +54,7 @@ Control.checkInput = function(id,cl,ecl) {
 		}
 	});
 	return true;
-}
+};
 Control.checkInputLength = function(id,cl,le){
 	var ret = 0;
 	$('.'+cl).each(function(){
@@ -68,7 +68,7 @@ Control.checkInputLength = function(id,cl,le){
 		return false;
 	}
 	return true;
-}
+};
 Control.checkInputFixedLength = function(id,cl,le){
 	var ret = 0;
 	$('.'+cl).each(function(){
@@ -82,8 +82,8 @@ Control.checkInputFixedLength = function(id,cl,le){
 		return false;
 	}
 	return true;
-}
+};
 Control.orderByColumn = function(action,column){
 	window.location = action+"?orderColumn="+column;
-}
+};
 

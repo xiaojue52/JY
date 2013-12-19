@@ -20,7 +20,7 @@ var RefreshPage = {
 		loop:function(){
 			setTimeout(this.load,this.time);
 		}
-}
+};
 var QueryDeviceTemp = {
 		cabinetList:[],
 		getCabinetNumber:function(){
@@ -61,11 +61,11 @@ var QueryDeviceTemp = {
 				}
 			});
 		}
-}
+};
 var Monitor = {
 	RefreshPage:RefreshPage,
 	QueryDeviceTemp:QueryDeviceTemp
-}
+};
 Monitor.RefreshPage.loop();
 
 Monitor.showPage = function () {
@@ -74,21 +74,21 @@ Monitor.showPage = function () {
 		display : "block",
 		height : $(document).height()
 	});
-	var yscroll = document.documentElement.scrollTop;
+	//var yscroll = document.documentElement.scrollTop;
 	$("#DialogDiv").css("top", "100px");
 	$("#DialogDiv").css("display", "block");
 	document.documentElement.scrollTop = 0;
-}
+};
 Monitor.closePage = function () {
 	$("#BgDiv").css("display", "none");
 	$("#DialogDiv").css("display", "none");
 	$('.page_iframe').attr('src',"");
-}
+};
 
 Monitor.setPageFrameSrc = function(src){
 	$('.page_iframe').attr('src',src);
 	Monitor.showPage();
-}
+};
 
 $(document).ready(function(){
 	$(".tempValue").each(function(){

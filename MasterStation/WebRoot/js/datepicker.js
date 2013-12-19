@@ -1,14 +1,14 @@
-﻿var DatePicker = {}
+﻿var DatePicker = {};
 
 DatePicker.setday = function(inputObj,dateFormatStyle,beginDate,endDate,lang){
 	if(null == inputObj){return null;}
 	new Calendar(inputObj,dateFormatStyle,beginDate,endDate,lang).show();
-}
+};
 
 DatePicker.setmonth = function(inputObj,dateFormatStyle,beginDate,endDate,lang){
 	if(null == inputObj){return null;}
 	new Calendar(inputObj,dateFormatStyle,beginDate,endDate,lang,"m").show();
-}
+};
  
 Calendar.prototype.style = function(){
 	var strStyle = "<style type='text/css'>";
@@ -35,13 +35,14 @@ Calendar.prototype.style = function(){
 	strStyle += ".calendarBottom li{float:left;height:20px;line-height:20px;font-weight:bold;text-align:center;}";
 	strStyle += "</style>";
 	return strStyle;
-}
+};
 
 function getFrameDocument(frame){
+	var doc = null;
 	if ( frame.contentDocument ) { // DOM
-        var doc = frame.contentDocument;
+        doc = frame.contentDocument;
     } else if (frame.contentWindow) { // IE win
-        var doc = frame.contentWindow.document;
+        doc = frame.contentWindow.document;
     }
     return doc;
 }
@@ -52,7 +53,7 @@ String.prototype.toDate = function(format){
 		.replace("MM", "(\\~1{2})").replace("M", "(\\~1{1,2})")
 		.replace("dd", "(\\~1{2})").replace("d", "(\\~1{1,2})").replace(/~1/g, "d");
 	
-	var returnDate;
+	var returnDate=null;
 	if (new RegExp(pattern).test(this)) {
 	    var yPos = format.indexOf("yyyy");
 	    var mPos = format.indexOf("MM");
@@ -91,7 +92,7 @@ Date.prototype.format = function(style) {
     "w+" : "日一二三四五六".charAt(this.getDay()),   //week   
     "q+" : Math.floor((this.getMonth() + 3) / 3),  //quarter   
     "S"  : this.getMilliseconds() //millisecond   
-  }   
+  };   
   if(/(y+)/.test(style)) {   
 	style = style.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));   
   }
@@ -119,7 +120,7 @@ Date.prototype.dateAdd = function(interval, number) {
 		return new Date(this.getFullYear(), this.getMonth(), 7 * number + this.getDate());
 		break;
 	}
-}
+};
 
 function checkDate(year, month, date){
 	var enddate = ["31", "28", "31", "30", "31", "30", "31", "31", "30", "31", "30", "31"];
@@ -272,7 +273,7 @@ Calendar.prototype.draw = function() {
 		lis += "<li class='nextMonthDate'>" + j + "</li>";
 		j++;
 	}
-  	lis += "</ul>"
+  	lis += "</ul>";
   	
   	lis += "</div>";//close calendarBody
 	lis += "<div class='calendarBottom'><ul>";
@@ -295,7 +296,7 @@ Calendar.prototype.draw = function() {
   		}
   		lis += ">" + i + "</a></li>";
   	}
-  	lis += "</ul>"
+  	lis += "</ul>";
   	
   	lis += "</div>";//close calendarBody
 	lis += "<div class='calendarBottom'><ul>";
@@ -314,54 +315,54 @@ Calendar.prototype.draw = function() {
   this.document = doc;
   
   this.bingEvent();
-}
+};
 
 Calendar.prototype.bingEvent = function(){
   var calendar = this;
   
   this.setAutoHeight();
     
-  this.panel.onmouseover = function(){calendar.isFocus = true;}
-  this.panel.onmouseout = function(){calendar.isFocus = false;}
+  this.panel.onmouseover = function(){calendar.isFocus = true;};
+  this.panel.onmouseout = function(){calendar.isFocus = false;};
   
   this.dateControl.onblur = function(){
   	if(!calendar.isFocus){
   		calendar.hide();
   	}
-  }
+  };
   
   this.getElementById("selectCurrent").onclick = function(){
   	calendar.date = new Date();
   	calendar.valueSelected(calendar.date);
   	calendar.hide();
-  }
-  this.getElementById("emptyCalendar").onclick = function(){calendar.dateControl.value = "";calendar.hide();}
-  this.getElementById("closeCalendar").onclick = function(){calendar.hide();}
+  };
+  this.getElementById("emptyCalendar").onclick = function(){calendar.dateControl.value = "";calendar.hide();};
+  this.getElementById("closeCalendar").onclick = function(){calendar.hide();};
   
   this.getElementById("PrevYear").onclick = function(){
   	calendar.date = calendar.date.dateAdd("y",-1);
   	calendar.draw();
-  }
+  };
   
   if(this.getElementById("PrevMonth")){
 	  this.getElementById("PrevMonth").onclick = function(){
 	  	calendar.date = calendar.date.dateAdd("m",-1);
 	  	calendar.draw();
-	  }
+	  };
 	  this.getElementById("NextMonth").onclick = function(){
 	  	calendar.date = calendar.date.dateAdd("m",1);
 	  	calendar.draw();
-	  }
+	  };
   }
   
   this.getElementById("NextYear").onclick = function(){
   	calendar.date = calendar.date.dateAdd("y",1);
   	calendar.draw();
-  }
+  };
   
-  this.getElementById("selectThisYear").onclick = function(){calendar.selectThisYear();}
+  this.getElementById("selectThisYear").onclick = function(){calendar.selectThisYear();};
   if("d" == this.type){
-  	this.getElementById("selectThisMonth").onclick = function(){calendar.selectThisMonth();}
+  	this.getElementById("selectThisMonth").onclick = function(){calendar.selectThisMonth();};
   }
   
   var elements = getElementsByClassName(this.document, "li", "thisMonth");
@@ -370,9 +371,9 @@ Calendar.prototype.bingEvent = function(){
 		calendar.date = this.title.toDate();
 	  	calendar.valueSelected(calendar.date);
 	  	calendar.hide();
-	}
+	};
   }
-}
+};
 
 Calendar.prototype.selectThisYear = function(){
 	var calendar = this;
@@ -391,8 +392,8 @@ Calendar.prototype.selectThisYear = function(){
 	selectYearObj.onchange = function(){
 		calendar.date.setFullYear(selectYearObj.value);
 		calendar.draw();
-	}
-}
+	};
+};
 
 Calendar.prototype.selectThisMonth = function(){
 	var calendar = this;
@@ -415,12 +416,12 @@ Calendar.prototype.selectThisMonth = function(){
 	selectMonthObj.onchange = function(){
 		calendar.date.setMonth(selectMonthObj.value-1);
 		calendar.draw();
-	}
-}
+	};
+};
 
 Calendar.prototype.valueSelected = function(date){
 	this.dateControl.value = date.format(this.dateFormatStyle);
-}
+};
 
 Calendar.prototype.setAutoHeight = function(){
 	var height = this.document.body.scrollHeight;
@@ -429,7 +430,7 @@ Calendar.prototype.setAutoHeight = function(){
 	this.iframe.style.height = height;
 	this.panel.style.height = height;
 	this.panel.style.width = width;
-}
+};
 
 //Extend document.getElementById(id)
 Calendar.prototype.getElementById = function(id){
@@ -438,14 +439,14 @@ Calendar.prototype.getElementById = function(id){
   if (this.document.getElementById) return this.document.getElementById(id);   
   if (this.document.all) return this.document.all(id);   
   try {return eval(id);} catch(e){ return null;}   
-}
+};
   
 //Extend object.getElementsByTagName(tagName)   
 Calendar.prototype.getElementsByTagName = function(tagName){
   if(null == this.document) return null;
   if (this.document.getElementsByTagName) return this.document.getElementsByTagName(tagName);   
   if (this.document.all) return this.document.all.tags(tagName);   
-}   
+};   
 
 function getElementsByClassName(oElm, strTagName, strClassName){  
     var arrElements = (strTagName == "*" && oElm.all)? oElm.all:oElm.getElementsByTagName(strTagName);  
@@ -459,7 +460,7 @@ function getElementsByClassName(oElm, strTagName, strClassName){
             arrReturnElements.push(oElement);  
         }  
     }  
-    return (arrReturnElements)  
+    return (arrReturnElements);
 } 
 
 
@@ -472,7 +473,7 @@ Calendar.prototype.getAbsPoint = function (e){
     y += e.offsetTop;   
   }   
   return {"x": x, "y": y};   
-}   
+};   
   
 //显示日历   
 Calendar.prototype.show = function () {
@@ -481,18 +482,18 @@ Calendar.prototype.show = function () {
   this.panel.style.top = (xy.y + this.dateControl.offsetHeight) + "px";
   this.setDisplayStyle("select", "hidden");
   this.panel.style.visibility = "visible";
-}
+};
 
 //Hide Calendar   
 Calendar.prototype.hide = function() {
   this.setDisplayStyle("select", "visible");
   this.panel.style.visibility = "hidden";
   this.isFocus = false;
-}
+};
   
 //Set Calendar Picker visible or invisible
 Calendar.prototype.setDisplayStyle = function(tagName, style) {   
-  var tags = this.getElementsByTagName(tagName)   
+  var tags = this.getElementsByTagName(tagName);   
   for(var i = 0; i < tags.length; i++) {   
     if (tagName.toLowerCase() == "select" && 
        (tags[i].name == "calendarYear" ||   
@@ -501,7 +502,7 @@ Calendar.prototype.setDisplayStyle = function(tagName, style) {
     }
     tags[i].style.visibility = style;   
   }
-}
+};
 
 document.write('<div id="calendarPanel" style="position:absolute;visibility:hidden;z-index:9999;background-color:#FFFFFF;font-size:12px;width:20px;">');
 document.write("<iframe id='calendarIframe' scrolling='no' frameborder='0' width='100%' height='100%'></iframe></div>");

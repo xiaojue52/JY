@@ -1,10 +1,10 @@
 
-var Login = {}
+var Login = {};
 Login.init = function(){
 	if (window.parent.document.getElementById("content_iframe") != null) {
 		window.parent.location = "index.jsp";
 	}
-}
+};
 Login.checkInput = function() {
 	var username = document.getElementById("username");
 	var pass = document.getElementById("password");
@@ -18,7 +18,7 @@ Login.checkInput = function() {
 		return false;
 	}
 	return true;
-}
+};
 Login.verify = function() {
 	
 	if (Login.checkInput()) {
@@ -43,5 +43,5 @@ Login.verify = function() {
 			}
 		});
 	}
-}
+};
 Login.init();

@@ -3,7 +3,7 @@ var setEnable = function(id) {
 		$("#enable" + id).val(1);
 	else
 		$("#enable" + id).val(0);
-}
+};
 var getUpTime = function() {
 	
 	$.ajax( {
@@ -23,7 +23,7 @@ var getUpTime = function() {
 			alert("网络断开");
 		}
 	});
-}
+};
 var upDateMonitorTime = function(){
 	if (Config.setCabinetType()){
 		$.ajax( {
@@ -43,7 +43,7 @@ var upDateMonitorTime = function(){
 			}
 		});
 	}
-}
+};
 var upDateMonitorFunction = function(){
 	$.ajax( {
 		type : "post",
@@ -61,7 +61,7 @@ var upDateMonitorFunction = function(){
 			alert("更新失败");
 		}
 	});
-}
+};
 var upDateMessage = function(){
 	$.ajax( {
 		type : "post",
@@ -79,7 +79,7 @@ var upDateMessage = function(){
 			alert("更新失败");
 		}
 	});
-}
+};
 var updateAlarmType = function(){
 	if ($("#value1").val().length==0)
 		$("#value1").val(0);
@@ -103,7 +103,7 @@ var updateAlarmType = function(){
 			alert("更新失败");
 		}
 	});
-}
+};
 var setCabinetType = function() {
 	var cabType = $("#cabType").find("option:selected").text();
 	$("#cabinetType").val(cabType);
@@ -113,7 +113,7 @@ var setCabinetType = function() {
 
 	}
 	return true;
-}
+};
 var init = function() {
 	$("#upTime").val($("#cabType").val());
 	var enbale1 = $("#enable1").val();
@@ -140,7 +140,7 @@ var init = function() {
 			option = "<option value='"+i+"'>"+i+"号</option>";
 		$("#mesDate").append(option);
 	}
-	$("#mesUser").val($("#tempMesUser").val())
+	$("#mesUser").val($("#tempMesUser").val());
 	$("input:radio[name=functionNum]").each(function(){
 		var functionNum = $("#tempFunctionNum").val();
 		if ($(this).val()==functionNum){
@@ -148,7 +148,7 @@ var init = function() {
 			return false;
 		}
 	});
-}
+};
 var Config = {
 	init : init,
 	setEnable : setEnable,
@@ -158,7 +158,7 @@ var Config = {
 	upDateMessage:upDateMessage,
 	upDateMonitorFunction:upDateMonitorFunction,
 	updateAlarmType:updateAlarmType
-}
+};
 Config.setHeartBeat = function(){
 	var time = $('#heartBeatTime').val();
 	if (time==null||time.length==0){
@@ -181,5 +181,5 @@ Config.setHeartBeat = function(){
 			}
 		});
 	}
-}
+};
 Config.init();

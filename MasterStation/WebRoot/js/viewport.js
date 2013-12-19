@@ -76,7 +76,7 @@ Ext.onReady(function() {
         iconCls: 'data_png'
     }];
 	
-	var viewport = new Ext.Viewport( {
+	new Ext.Viewport( {
 		layout : 'border',
 		items : [ {
 			region : 'north',
@@ -129,21 +129,21 @@ Ext.onReady(function() {
 	$('.center_frame').attr('src','mainAction.action');
 	Ext.getCmp('center').setTitle('欢迎光临！');
 });
-var ModifyPassword = {}
+var ModifyPassword = {};
 ModifyPassword.showPage = function() {
 	$("#BgDiv").css( {
 		display : "block",
 		height : $(document).height()
 	});
-	var yscroll = document.documentElement.scrollTop;
+	//var yscroll = document.documentElement.scrollTop;
 	$("#DialogDiv").css("top", "100px");
 	$("#DialogDiv").css("display", "block");
 	document.documentElement.scrollTop = 0;
-}
+};
 ModifyPassword.closePage = function() {
 	$("#BgDiv").css("display", "none");
 	$("#DialogDiv").css("display", "none");
-}
+};
 ModifyPassword.verify = function() {
 	if (document.getElementById("newPassword").value == document
 			.getElementById("verifyPassword").value) {
@@ -156,7 +156,7 @@ ModifyPassword.verify = function() {
 		return false;
 	} else
 		alert("密码不一致");
-}
+};
 ModifyPassword.updateUser = function(password, newPassword) {
 
 	$.ajax( {
@@ -179,4 +179,4 @@ ModifyPassword.updateUser = function(password, newPassword) {
 		// alert("aa");
 	}
 	});
-}
+};

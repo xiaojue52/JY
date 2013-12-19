@@ -1,4 +1,4 @@
-var DeviceManager = {}
+var DeviceManager = {};
 DeviceManager.windowTree = {};
 DeviceManager.currentNode = {};
 
@@ -149,6 +149,16 @@ Ext.onReady(function(){
     			break;
     	}
     });  
+    var rightMenu = new Ext.menu.Menu({
+    	shadow : "sides",
+    	items:[{menuId:0,text:"增加子节点",handler:onItemClick},{menuId:1,text:"删除节点",handler:onItemClick}]
+    }); 
+    var rightMenu1 = new Ext.menu.Menu({
+    	items:[{menuId:0,text:"增加子节点",handler:onItemClick}]
+    });
+    var rightMenu2 = new Ext.menu.Menu({
+    	items:[{menuId:1,text:"删除节点",handler:onItemClick}]
+    });
     tree.on('contextmenu', function(node, event){
     	event.stopEvent();
     	if (node.attributes.level==4)
@@ -233,16 +243,7 @@ Ext.onReady(function(){
     		}
     	}
     }
-    var rightMenu = new Ext.menu.Menu({
-    	shadow : "sides",
-    	items:[{menuId:0,text:"增加子节点",handler:onItemClick},{menuId:1,text:"删除节点",handler:onItemClick}]
-    }); 
-    var rightMenu1 = new Ext.menu.Menu({
-    	items:[{menuId:0,text:"增加子节点",handler:onItemClick}]
-    });
-    var rightMenu2 = new Ext.menu.Menu({
-    	items:[{menuId:1,text:"删除节点",handler:onItemClick}]
-    });
+   
     
     if (tag==0){
     	tree.root.reload();
@@ -274,7 +275,7 @@ DeviceManager.queryDevice = function(){
 	
 	//alert(queryLine.length);
 	DeviceManager.windowTree.root.reload();
-}
+};
 DeviceManager.checkBoxSwitch = function(id){
 	if (document.getElementById("checkbox"+id).checked==true){
 		//removeChecked(id);
@@ -292,21 +293,21 @@ DeviceManager.checkBoxSwitch = function(id){
 		$("#checkbox"+id).removeAttr("checked");
 		$("#enable"+id).val(0);
 	}
-}
+};
 DeviceManager.addChecked = function(id){
 	document.getElementById("checkbox"+id).checked = true;
 	$("#input"+id).removeClass("readonly");
 	$("#input"+id).removeAttr("readonly");
 	$("#checkbox"+id).attr("checked","checked");
 	$("#enable"+id).val(1);
-}
+};
 DeviceManager.removeChecked = function(id){
 	document.getElementById("checkbox"+id).checked = false;
 	$("#input"+id).addClass("readonly");
 	$("#input"+id).attr("readonly","readonly");
 	$("#checkbox"+id).removeAttr("checked");
 	$("#enable"+id).val(0);
-}
+};
 DeviceManager.checkValue = function(){
 	if ($("#input1").val().length==0)
 		$("#input1").val(0);
@@ -314,8 +315,8 @@ DeviceManager.checkValue = function(){
 		$("#input2").val(0);
 	if ($("#input3").val().length==0)
 		$("#input3").val(0);
-}
-DeviceManager.Line = {}
+};
+DeviceManager.Line = {};
 DeviceManager.Line.line = function(){
 	$.ajax( {
 		type : "post",
@@ -335,8 +336,8 @@ DeviceManager.Line.line = function(){
 			alert("操作失败");
 		}
 	});
-}
-DeviceManager.Cabinet = {}
+};
+DeviceManager.Cabinet = {};
 DeviceManager.Cabinet.cabinet = function(order){
 	if(DeviceManager.currentNode==null){
 		alert("设备不存在");
@@ -383,8 +384,8 @@ DeviceManager.Cabinet.cabinet = function(order){
 			alert("操作失败");
 		}
 	});
-}
-DeviceManager.Device = {}
+};
+DeviceManager.Device = {};
 DeviceManager.Device.device = function(order){
 	if(DeviceManager.currentNode==null){
 		alert("设备不存在");
@@ -423,7 +424,7 @@ DeviceManager.Device.device = function(order){
 			alert("操作失败");
 		}
 	});
-}
+};
 DeviceManager.deleteDevice = function(url){
 	$.ajax( {
 		type : "post",
@@ -445,4 +446,4 @@ DeviceManager.deleteDevice = function(url){
 			alert("操作失败");
 		}
 	});
-}
+};

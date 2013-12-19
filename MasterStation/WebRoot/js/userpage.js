@@ -10,7 +10,7 @@ $(function() {
 				display : "block",
 				height : $(document).height()
 			});
-			var yscroll = document.documentElement.scrollTop;
+			//var yscroll = document.documentElement.scrollTop;
 			$("#DialogDiv").css("top", "100px");
 			$("#DialogDiv").css("display", "block");
 			document.documentElement.scrollTop = 0;
@@ -49,7 +49,7 @@ function getUserDetails(id){
 				display : "block",
 				height : $(document).height()
 			});
-			var yscroll = document.documentElement.scrollTop;
+			//var yscroll = document.documentElement.scrollTop;
 			$("#DialogDiv").css("top", "100px");
 			$("#DialogDiv").css("display", "block");
 			document.documentElement.scrollTop = 0;
