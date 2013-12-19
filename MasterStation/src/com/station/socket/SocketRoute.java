@@ -1,6 +1,8 @@
 package com.station.socket;
 
 import java.net.Socket;
+import java.util.List;
+
 import javax.servlet.ServletContextEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -27,8 +29,8 @@ public class SocketRoute {
 		JYCabinetServiceImpl.setSocketRoute(this);
 	}
 
-	public void sendCommandToGetTempWithCabNumberList(String[] cabNumberList){
-		this.socketHandler.sendCommandToGetTempWithCabNumberList(cabNumberList);
+	public List<String> sendCommandToGetTempWithCabNumberList(String[] cabNumberList){
+		return this.socketHandler.sendCommandToGetTempWithCabNumberList(cabNumberList);
 	}
 	public void sendCommandToSetMonitorTime(String type,String value){
 		this.socketHandler.sendCommandToSetMonitorTime(type,value);

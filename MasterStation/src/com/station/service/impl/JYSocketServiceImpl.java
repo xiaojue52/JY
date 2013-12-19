@@ -176,7 +176,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 		List<JYDevice> list = deviceDAO.findJYDeviceByHql("from JYDevice device where device.tag = 1 and device.cabinet.tag = 1 and device.cabinet.cabNumber ='"+cabNumber+"'");
 		if (list.size()>0){
 			JYCabinet cabinet = list.get(0).getCabinet();
-			if (cabinet.getAlarm()!=null)return;
+			if (cabinet.getAlarm()!=null&&type!=2)return;
 			alarm.setAlarmText(content);
 			alarm.setDate(date);
 			alarm.setId(String.valueOf(System.nanoTime()));

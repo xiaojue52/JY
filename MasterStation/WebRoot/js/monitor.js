@@ -26,8 +26,9 @@ var QueryDeviceTemp = {
 		getCabinetNumber:function(){
 			QueryDeviceTemp.cabinetList.length=0;
 			$(".monitor_checkbox").each(function(){
+				//alert(QueryDeviceTemp.cabinetList);
 				if (this.checked==true){
-					//alert()
+					
 					QueryDeviceTemp.cabinetList.push($(this).val());
 				}
 			});
@@ -37,11 +38,23 @@ var QueryDeviceTemp = {
 			}
 			$.ajax({
 				type:"post",
-				url:"getTempDate.action?cabinetListStr="+QueryDeviceTemp.cabinetList,
-				contentType:"json", 
+				url:"getTempDate.action",
+				data:"cabinetListStr="+QueryDeviceTemp.cabinetList,
+				dataType:"text", 
 				beforeSend:function(XMLHttpRequest){ $("body").append('<div id="load" style="z-index:10; position:absolute; width:99%;height:100%;top:0px;background-color: #e3e3e3;opacity: 0.5;filter: alpha(opacity = 50);-moz-opacity: 0.5;text-align:center"><img style="margin-top:250px;" src="images/loading.gif" /></div>'); },
 				success:function(returnData){
-					window.location = "mainAction.action";
+					var obj = eval("("+returnData+")");
+					if (obj.data==0){
+						alert("读取数据失败");
+					}
+					if (obj.data==1){
+						window.location = "mainAction.action";
+					}
+					else {
+						alert(obj.data+"柜体离线");
+						window.location = "mainAction.action";
+					}
+					
 				},
 				error:function(){
 					//alert("aa");

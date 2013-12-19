@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -176,13 +178,14 @@ public class SocketHandler {
 	/*
 	 * 读取实时温度
 	 */
-	public void sendCommandToGetTempWithCabNumberList(String[] cabNumberList) {
+	public List<String> sendCommandToGetTempWithCabNumberList(String[] cabNumberList) {
 		// Mes = "1000000|0000000|XXCR"
 		// Ret = "1100000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR"
 		realCabList = new ArrayList<String>();
+		List<String> list =  Arrays.asList(cabNumberList);
 
-		for (int i = 0; i < cabNumberList.length; i++) {
-			String cabNumber = cabNumberList[i];
+		for (int i = 0; i < list.size(); i++) {
+			String cabNumber = list.get(i);
 			Socket client = clientMap.get(cabNumber);
 			String queryStr = "1000000|" + cabNumber + "00|XXCR";
 			this.sendCommand(queryStr, client);
@@ -191,8 +194,27 @@ public class SocketHandler {
 		while(true){
 			try {	
 				Thread.sleep(500);
-				if(realCabList.size()==cabNumberList.length)return;
-				else if(delay==10)return;
+				if(realCabList.size()==list.size())return null;
+				else if(delay==10){
+					for (int i=0;i<list.size();i++){
+						int j=0;
+						while(realCabList.size()>0){
+							if (list.get(i).equals(realCabList.get(j))){
+								list.remove(i);
+								realCabList.remove(j);
+								j--;
+								i--;
+							}
+							j++;
+						}
+					}
+					for (int i=0;i<list.size();i++){
+						Date date = new Date();
+						this.socketService.saveAlarm(list.get(i), 2, date, "离线");
+						
+					}
+					return list;
+				}
 				delay++;			
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -315,6 +337,7 @@ public class SocketHandler {
 		this.halfHourEvent.stopTimer();
 	}
 	public void sendCommand(String str,Socket client){
+		if (client==null)return;
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(client.getOutputStream());

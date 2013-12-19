@@ -1,6 +1,7 @@
 package com.station.socket;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
@@ -22,11 +23,15 @@ public class SocketAction extends ActionSupport {
 	}
 	public void getTempDateAction() {
 		//System.out.print("getTempDataAction");
-		String[] cabinetList = this.cabinetListStr.split(",");
-		if (cabinetList.length==0||cabinetList[0].length()==0)return;
-		socketRoute.sendCommandToGetTempWithCabNumberList(cabinetList);
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("test", cabinetList);
+		String[] cabinetList = this.cabinetListStr.split(",");
+		if (cabinetList.length==0||cabinetList[0].length()==0)dataMap.put("data", 0);
+		List<String> list =socketRoute.sendCommandToGetTempWithCabNumberList(cabinetList);
+		
+		if(list==null){
+			dataMap.put("data", 1);
+		}else
+			dataMap.put("data", list);
 		Constant.flush(dataMap);
 	}
 }
