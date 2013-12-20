@@ -153,7 +153,7 @@ public class SocketHandler {
 			String tempStr = "5100000|" + command[1] + "|0XCR";
 			String cabNumber = command[1].substring(0,5);
 			Date date = new Date();
-			this.socketService.saveAlarm(cabNumber, 3, date, "故障");
+			this.socketService.saveAlarm(cabNumber, 2, date, "故障");
 			this.sendCommand(tempStr, client);
 			return null;
 		}

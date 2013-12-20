@@ -54,7 +54,7 @@ public class LoopCheckThread extends Thread{
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
 		if (diff>=Constant.HEARTBEATTIME*60*1000){
-			this.socketService.saveAlarm(cabNumber, 0, d2, "超过心跳时间");
+			this.socketService.saveAlarm(cabNumber, 0, d2, "离线");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n");
 	}
@@ -65,7 +65,7 @@ public class LoopCheckThread extends Thread{
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
 		if (diff>=Constant.RECIVETEMPTIME){
-			this.socketService.saveAlarm(cabNumber, 1, d2, "过长时间未收到数据");
+			this.socketService.saveAlarm(cabNumber, 1, d2, "离线");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n"+Constant.reciveTempTime);
 	}

@@ -92,7 +92,7 @@ public class SocketRoute {
 		// Ret = "5100000|#000000|0XCR";
 		if (orderStr.equals("50")) {// 上传故障
 			if (this.socketHandler.isLogined(cabNumber,client))
-				return socketHandler.parseHeartBeat(str, client);
+				return socketHandler.parseDeviceError(str, client);
 		}
 		
 		String tempStr = Constant.CODEERROR;
