@@ -34,8 +34,8 @@ public class SocketHandler {
 	 * 保存socket连接，保存柜体编号
 	 */
 	public String parseLogin(String str, Socket client) {
-		// Mes = "0000000|0000000|00000XXCR";
-		// Ret = "0100000|0000000|0XXCR";
+		// Mes = "0000000|#000000|000000XCR";
+		// Ret = "0100000|#000000|0XCR";
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 3 && command[0].length() == 7
 				&& command[1].length() == 7) {
@@ -47,12 +47,12 @@ public class SocketHandler {
 					return null;
 				}
 				this.init(cabNumber, client);
-				String tempStr = "0100000|" + command[1] + "|0XXCR";
+				String tempStr = "0100000|" + command[1] + "|0XCR";
 				this.sendCommand(tempStr, client);
 				return null;
 			}
 		}
-		String tempStr = "0100000|" + command[1] + "|1XXCR";
+		String tempStr = "0100000|" + command[1] + "|1XCR";
 		this.sendCommand(tempStr, client);
 		return null;
 	}
@@ -60,8 +60,8 @@ public class SocketHandler {
 	 * 解析实时温度
 	 */
 	public String parseRealTempData(String str, Socket client) {
-		// Mes = "1000000|0000000|XXCR"
-		// Ret = "1100000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR"
+		// Mes = "1000000|#000000|XCR"
+		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 5 && command[0].length() == 7
 				&& command[1].length() == 7 && command[2].length() == 14) {
@@ -84,8 +84,8 @@ public class SocketHandler {
 	 * 解析上传温度
 	 */
 	public String parseTempData(String str, Socket client) {
-		// Mes = "2000000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR";
-		// Ret = "2100000|0000000|0XXCR";
+		// Mes = "2000000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XCR";
+		// Ret = "2100000|#000000|0XCR";
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 5 && command[0].length() == 7
 				&& command[1].length() == 7 && command[2].length() == 14) {
@@ -96,12 +96,12 @@ public class SocketHandler {
 			orderMap.put(cabNumber, order);
 			String tempData = command[3];
 			this.setTempValue(cabNumber, tempData, dateStr);
-			String tempStr = "2100000|" + command[1] + "|0XXCR";
+			String tempStr = "2100000|" + command[1] + "|0XCR";
 
 			this.sendCommand(tempStr, client);
 			return null;
 		}
-		String tempStr = "2100000|" + command[1] + "|1XXCR";
+		String tempStr = "2100000|" + command[1] + "|1XCR";
 		this.sendCommand(tempStr, client);
 		return null;
 	}
@@ -109,8 +109,8 @@ public class SocketHandler {
 	 * 解析上传时间间隔
 	 */
 	public String parseMonitorTime(String str,Socket client){
-		// Mes = "3000000|0000000|10XXCR";
-		// Ret = "3100000|0000000|0XXCR";
+		// Mes = "3000000|#000000|10XCR";
+		// Ret = "3100000|#000000|0XCR";
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 3 && command[0].length() == 7) {
 			String cabNumber = command[1].substring(0,5);
@@ -130,16 +130,34 @@ public class SocketHandler {
 	 * 将收到指令时间存储到orderMap,以便于循环和当前时间对比，看是否超过设定超时时间
 	 */
 	public String parseHeartBeat(String str, Socket client) {
-		// Mes = "4000000|0000000|XXCR";
-		// Ret = "4100000|0000000|0XXCR";
+		// Mes = "4000000|#000000|XCR";
+		// Ret = "4100000|#000000|0XCR";
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 3 && command[0].length() == 7) {
 			this.storeHeartBertOrder(command[1].substring(0, 5));
-			String tempStr = "4100000|" + command[1] + "|0XXCR";
+			String tempStr = "4100000|" + command[1] + "|0XCR";
 			this.sendCommand(tempStr, client);
 			return null;
 		}
-		String tempStr = "4100000|" + command[1] + "|1XXCR";
+		String tempStr = "4100000|" + command[1] + "|1XCR";
+		this.sendCommand(tempStr, client);
+		return null;
+	}
+	
+	public String parseDeviceError(String str, Socket client) {
+		// Mes = "5000000|#000000|XCR";
+		// Ret = "5100000|#000000|0XCR";
+		String command[] = str.split("[|]");
+		if (command != null && command.length == 3 && command[0].length() == 7) {
+			this.storeHeartBertOrder(command[1].substring(0, 5));
+			String tempStr = "5100000|" + command[1] + "|0XCR";
+			String cabNumber = command[1].substring(0,5);
+			Date date = new Date();
+			this.socketService.saveAlarm(cabNumber, 3, date, "故障");
+			this.sendCommand(tempStr, client);
+			return null;
+		}
+		String tempStr = "5100000|" + command[1] + "|1XCR";
 		this.sendCommand(tempStr, client);
 		return null;
 	}
@@ -155,8 +173,8 @@ public class SocketHandler {
 	 * 设置上传时间
 	 */
 	public void sendCommandToSetMonitorTime(String type,String value){
-		// Mes = "3000000|0000000|10XXCR";
-		// Ret = "3100000|0000000|0XXCR";
+		// Mes = "3000000|#000000|10XCR";
+		// Ret = "3100000|#000000|0XCR";
 		
 		Iterator<Map.Entry<String, Map<String, String>>> iter = orderMap.entrySet().iterator();
 		while(iter.hasNext()){
@@ -171,7 +189,7 @@ public class SocketHandler {
 			if (client==null)continue;
 			order.put("monitorTimeOK", "0");
 
-			String tempStr = "3000000|" + cabNumber + "00|"+mTime+"XXCR";
+			String tempStr = "3000000|" + cabNumber + "00|"+mTime+"XCR";
 			this.sendCommand(tempStr, client);
 		}
 	}
@@ -179,15 +197,15 @@ public class SocketHandler {
 	 * 读取实时温度
 	 */
 	public List<String> sendCommandToGetTempWithCabNumberList(String[] cabNumberList) {
-		// Mes = "1000000|0000000|XXCR"
-		// Ret = "1100000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR"
+		// Mes = "1000000|#000000|XCR"
+		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
 		realCabList = new ArrayList<String>();
 		List<String> list =  Arrays.asList(cabNumberList);
 
 		for (int i = 0; i < list.size(); i++) {
 			String cabNumber = list.get(i);
 			Socket client = clientMap.get(cabNumber);
-			String queryStr = "1000000|" + cabNumber + "00|XXCR";
+			String queryStr = "1000000|" + cabNumber + "00|XCR";
 			this.sendCommand(queryStr, client);
 		}
 		int delay = 0;
@@ -240,7 +258,7 @@ public class SocketHandler {
 				if (mTime.length()==1){
 					mTime ="0"+mTime;
 				}
-				String queryStr = "3000000|" + cabNumber + "00|"+mTime+"XXCR";
+				String queryStr = "3000000|" + cabNumber + "00|"+mTime+"XCR";
 				this.sendCommand(queryStr, client);
 			}
 		}
@@ -315,7 +333,7 @@ public class SocketHandler {
 		if (mTime.length()==1){
 			mTime = "0"+mTime;
 		}
-		String queryStr = "3000000|" + cabNumber + "00|"+mTime+"XXCR";
+		String queryStr = "3000000|" + cabNumber + "00|"+mTime+"XCR";
 		this.sendCommand(queryStr, client);
 		orderMap.put(cabNumber, order);
 	}

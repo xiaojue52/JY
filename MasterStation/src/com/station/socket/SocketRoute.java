@@ -55,35 +55,42 @@ public class SocketRoute {
 		}
 			
 		String orderStr = str.substring(0, 2);
-		// Mes = "0000000|0000000|00000XXCR";
-		// Ret = "0100000|0000000|0XXCR";
+		
 		if (!orderStr.equals("31")) {
 			this.socketHandler.checkInit(cabNumber,client);
 		}
+		// Mes = "0000000|#000000|000000XCR";
+		// Ret = "0100000|#000000|0XCR";
 		if (orderStr.equals("00")) {// 登陆
 			return socketHandler.parseLogin(str, client);
 		}
-		// Mes = "1000000|0000000|XXCR"
-		// Ret = "1100000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR"
+		// Mes = "1000000|#000000|XCR"
+		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
 		if (orderStr.equals("11")) {// 实时招测
 			if (this.socketHandler.isLogined(cabNumber,client))
 				return socketHandler.parseRealTempData(str, client);
 		}
-		// Mes = "2000000|0000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XXCR";
-		// Ret = "2100000|0000000|0XXCR";
+		// Mes = "2000000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XCR";
+		// Ret = "2100000|#000000|0XCR";
 		if (orderStr.equals("20")) {// 温度
 			if (this.socketHandler.isLogined(cabNumber,client))
 				return socketHandler.parseTempData(str, client);
 		}
-		// Mes = "3000000|0000000|10XXCR";
-		// Ret = "3100000|0000000|0XXCR";
+		// Mes = "3000000|#000000|10XCR";
+		// Ret = "3100000|#000000|0XCR";
 		if (orderStr.equals("31")) {// 上传周期
 			if (this.socketHandler.isLogined(cabNumber,client))
 				return socketHandler.parseMonitorTime(str, client);
 		}
-		// Mes = "4000000|0000000|XXCR";
-		// Ret = "4100000|0000000|0XXCR";
+		// Mes = "4000000|#000000|XCR";
+		// Ret = "4100000|#000000|0XCR";
 		if (orderStr.equals("40")) {// 心跳
+			if (this.socketHandler.isLogined(cabNumber,client))
+				return socketHandler.parseHeartBeat(str, client);
+		}
+		// Mes = "5000000|#000000|XCR";
+		// Ret = "5100000|#000000|0XCR";
+		if (orderStr.equals("50")) {// 上传故障
 			if (this.socketHandler.isLogined(cabNumber,client))
 				return socketHandler.parseHeartBeat(str, client);
 		}
