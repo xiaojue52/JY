@@ -33,6 +33,7 @@ public class LoginStatus {
 		session.setAttribute("userLevel", null);
 		session.setAttribute("userId", null);
 		session.setAttribute("isFirstLogin", null);
+		//session.invalidate();
 		//session.setAttribute("password", null);
 	}
 	public static int checkUserAccess(){
