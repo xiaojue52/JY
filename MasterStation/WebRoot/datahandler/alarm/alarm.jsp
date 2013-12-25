@@ -146,6 +146,7 @@
 								</td>
 							</tr>
 				</table>
+				<input type="hidden" name="page" value="1"/>
 			</s:form>
 		</div>
 		<div class="center_table_div">
@@ -183,9 +184,11 @@
 							<th width="10%">
 								<span>维修备注</span>
 							</th>
+							<s:if test="#session.userLevel!=\"user\"">
 							<th width="10%">
 								<span>操作</span>
 							</th>
+							</s:if>
 						</tr>
 	  	</table>
 	  	</div>
@@ -246,7 +249,10 @@
 									<s:property value="note" />
 
 								</td>
+								<s:if test="#session.userLevel!=\"user\"">
 								<td width="10%">
+								
+								
 								<s:if test="status==0">
 									<a href="javascript:void(0);" onclick="Alarm.showPage('<s:property value="#alarm.id" />','<s:property value="#alarm.alarmText" />')">维修确认</a>
 								</s:if>
@@ -254,6 +260,7 @@
 									<a>维修确认</a>
 								</s:else>
 								</td>
+								</s:if>
 							</tr>
 						</s:iterator>
 					</table>
@@ -407,5 +414,6 @@
     	    		
     	    	</div>
 			</div>
+			<div>${session.userLevel }</div>
 	</body>
 </html>

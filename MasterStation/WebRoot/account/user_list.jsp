@@ -50,6 +50,7 @@
 				<input name='company' type="text" value="<s:property value="company"/>"/> 
 				</s:else>
 				</span>
+				<input type="hidden" name="page" value="1"/>
 				<span><input type="submit" value="查询" class="toolbarButton"/> </span>
 				<span><button id="btnShow" class="toolbarButton" onclick="return false;">添加用户</button></span>
 			</s:form>	

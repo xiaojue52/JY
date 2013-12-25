@@ -102,6 +102,7 @@
 								</td>
 							</tr>
 				</table>
+				<input type="hidden" name="page" value="1"/>
 			</s:form>
 		</div>
 		<div class="center_table_div">

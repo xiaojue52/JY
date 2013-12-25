@@ -86,7 +86,7 @@
 						<td>
 							肘型头内部温度
 						</td>
-						<td><table style="width:100%">
+						<td height="80px;"><table style="width:100%">
 						<tr><td>
 							<div>
 								<input value=0 type="radio" name="functionNum" checked="checked">
@@ -105,7 +105,7 @@
 						</td>
 					</tr>
 				</table>
-				<span> <br /> <input type="button" value="确定" onclick="Config.upDateMonitorFunction();"/> </span>
+				<span> <input style="margin-top:8px;" type="button" value="确定" onclick="Config.upDateMonitorFunction();"/> </span>
 			</div>
 			<div class="config_type">
 				<span><strong>报警条件设置</strong> </span>
@@ -163,7 +163,7 @@
 						</td></tr>
 
 				</table>
-				<span> <br /> <input type="button" value="确定" onclick="Config.updateAlarmType();"> </span>
+				<span> <input style="margin-top:8px;" type="button" value="确定" onclick="Config.updateAlarmType();"> </span>
 			</div>
 			<div class="config_cost">
 				<span><strong>余额提醒设置</strong> </span><span>每月提醒日期：<select id="mesDate">

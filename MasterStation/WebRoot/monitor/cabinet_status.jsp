@@ -81,6 +81,7 @@ String path = request.getContextPath();
 								
 							</select> </span><span><input class="toolbarButton" type="submit" value="查询"/></span>
 						    <input type="hidden" name="orderColumn" value="cabinet.cabId"/>
+						    <input type="hidden" name="page" value="1"/>
 		</s:form>
 		</div>
 		<div class="center_table_div">
