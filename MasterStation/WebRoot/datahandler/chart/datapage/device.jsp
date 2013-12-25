@@ -169,8 +169,8 @@
 									<s:property value="#device.cabinet.user.username" />
 								</td>
 								<td width="20%">
-									<s:date name="#device.date" format="yyyy-MM-dd" />
-									<s:date name="#device.date" format="HH:mm:ss" />
+									<s:date name="#device.createTime" format="yyyy-MM-dd" />
+									<s:date name="#device.createTime" format="HH:mm:ss" />
 								</td>
 							</tr>
 						</s:iterator>

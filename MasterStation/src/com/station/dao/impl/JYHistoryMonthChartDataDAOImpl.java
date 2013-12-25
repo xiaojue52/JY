@@ -53,7 +53,7 @@ public class JYHistoryMonthChartDataDAOImpl extends HibernateDaoSupport implemen
 	@Override
 	public List<JYHistoryMonthChartData> getPerPage(final String hql, final int startRow, final int countPerpage) {
 		// TODO Auto-generated method stub
-		List list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
+		List<JYHistoryMonthChartData> list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
 
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
@@ -62,7 +62,7 @@ public class JYHistoryMonthChartDataDAOImpl extends HibernateDaoSupport implemen
 				Query query=session.createQuery(hql);
 				query.setFirstResult(startRow);
 				query.setMaxResults(countPerpage);
-				List list=query.list();
+				List<JYHistoryMonthChartData> list=query.list();
 				return list;
 			}			
 		});

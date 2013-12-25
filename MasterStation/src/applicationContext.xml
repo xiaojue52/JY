@@ -281,41 +281,41 @@
 	</bean>
 
 	<!-- action -->
-	<bean id="loginAction" scope="prototype" class="com.station.account.action.LoginAction">
+	<bean id="loginAction" scope="session" class="com.station.account.action.LoginAction">
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>
 	</bean>
-	<bean id="logoutAction" scope="prototype" class="com.station.account.action.LogoutAction"></bean>
+	<bean id="logoutAction" scope="session" class="com.station.account.action.LogoutAction"></bean>
 
-	<bean id="listUsersAction" scope="prototype" class="com.station.account.action.ListUsersAction">
+	<bean id="listUsersAction" scope="session" class="com.station.account.action.ListUsersAction">
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>
 	</bean>
-	<bean id="deleteUserAction" scope="prototype" class="com.station.account.action.DeleteUserAction">
+	<bean id="deleteUserAction" scope="session" class="com.station.account.action.DeleteUserAction">
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>
 	</bean>
-	<bean id="updateUserAction" scope="prototype" class="com.station.account.action.UpdateUserAction">
+	<bean id="updateUserAction" scope="session" class="com.station.account.action.UpdateUserAction">
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>
 	</bean>
-	<bean id="showUserAction" scope="prototype" class="com.station.account.action.ShowUserRecordAction">
+	<bean id="showUserAction" scope="session" class="com.station.account.action.ShowUserRecordAction">
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>
 	</bean>
-	<bean id="addUserAction" scope="prototype" class="com.station.account.action.AddUserAction">
+	<bean id="addUserAction" scope="session" class="com.station.account.action.AddUserAction">
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>
 	</bean>
 
 	<!-- alarm -->
-	<bean id="AlarmAction" scope="prototype"
+	<bean id="AlarmAction" scope="session"
 		class="com.station.datahandler.alarm.action.AlarmAction">
 		<property name="alarmService">
 			<ref bean="jyAlarmService" />
@@ -324,7 +324,7 @@
 			<ref bean="DataList" />
 		</property>
 	</bean>
-	<bean id="UnhandledAlarmAction" scope="prototype"
+	<bean id="UnhandledAlarmAction" scope="session"
 		class="com.station.monitor.action.UnhandledAlarmAction">
 		<property name="alarmService">
 			<ref bean="jyAlarmService" />
@@ -333,7 +333,7 @@
 			<ref bean="DataList" />
 		</property>
 	</bean>
-	<bean id="AlarmPageAction" scope="prototype"
+	<bean id="AlarmPageAction" scope="session"
 		class="com.station.monitor.action.AlarmPageAction">
 		<property name="alarmService">
 			<ref bean="jyAlarmService" />
@@ -341,7 +341,7 @@
 	</bean>
 
 	<!-- 监控界面 -->
-	<bean id="MainAction" scope="prototype" class="com.station.monitor.action.MainAction">
+	<bean id="MainAction" scope="session" class="com.station.monitor.action.MainAction">
 		<property name="monitorService">
 			<ref bean="jyMonitorService" />
 		</property>
@@ -349,7 +349,7 @@
 			<ref bean="DataList" />
 		</property>
 	</bean>
-	<bean id="CabinetStatusAction" scope="prototype" class="com.station.monitor.action.CabinetStatusAction">
+	<bean id="CabinetStatusAction" scope="session" class="com.station.monitor.action.CabinetStatusAction">
 		<property name="monitorService">
 			<ref bean="jyMonitorService" />
 		</property>
@@ -359,7 +359,7 @@
 	</bean>
 
 	<!-- 历史数据 -->
-	<bean id="CabinetHistoryAction" scope="prototype" class="com.station.datahandler.history.action.CabinetHistoryAction">
+	<bean id="CabinetHistoryAction" scope="session" class="com.station.datahandler.history.action.CabinetHistoryAction">
 		<property name="cabinetHistoryService">
 			<ref bean="jyCabinetHistoryService" />
 		</property>
@@ -368,7 +368,7 @@
 		</property>
 		
 	</bean>
-	<bean id="HistoryPageAction" scope="prototype" class="com.station.monitor.action.HistoryPageAction">
+	<bean id="HistoryPageAction" scope="session" class="com.station.monitor.action.HistoryPageAction">
 		<property name="cabinetHistoryService">
 			<ref bean="jyCabinetHistoryService" />
 		</property>
@@ -379,14 +379,14 @@
 
 	<!-- 获取数据 -->
 
-	<bean id="listUsers" scope="prototype" class="com.station.data.DataList">
+	<bean id="listUsers" scope="session" class="com.station.data.DataList">
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>
 	</bean>
 
 
-	<bean id="CreateTreeAction" scope="prototype" class="com.station.tree.action.CreateTreeAction">
+	<bean id="CreateTreeAction" scope="session" class="com.station.tree.action.CreateTreeAction">
 		<property name="lineService">
 			<ref bean="jyLineService" />
 		</property>
@@ -401,12 +401,12 @@
 		</property>
 	</bean>
 
-	<bean id="CabinetAction" scope="prototype" class="com.station.tree.action.CabinetAction">
+	<bean id="CabinetAction" scope="session" class="com.station.tree.action.CabinetAction">
 		<property name="cabinetService">
 			<ref bean="jyCabinetService" />
 		</property>
 	</bean>
-	<bean id="DeviceAction" scope="prototype" class="com.station.tree.action.DeviceAction">
+	<bean id="DeviceAction" scope="session" class="com.station.tree.action.DeviceAction">
 		<property name="deviceService">
 			<ref bean="jyDeviceService" />
 		</property>
@@ -414,13 +414,13 @@
 			<ref bean="jyCabinetService" />
 		</property>
 	</bean>
-	<bean id="DetectorAction" scope="prototype" class="com.station.tree.action.DetectorAction">
+	<bean id="DetectorAction" scope="session" class="com.station.tree.action.DetectorAction">
 		<property name="detectorService">
 			<ref bean="jyDetectorService" />
 		</property>
 	</bean>
 
-	<bean id="LineAction" scope="prototype" class="com.station.tree.action.LineAction">
+	<bean id="LineAction" scope="session" class="com.station.tree.action.LineAction">
 		<property name="lineService">
 			<ref bean="jyLineService" />
 		</property>
@@ -451,13 +451,13 @@
 			<ref bean="jyAlarmTypeCollectService" />
 		</property>
 	</bean>
-	<bean id="AlarmTypeAction" scope="prototype" class="com.station.system.action.AlarmTypeAction">
+	<bean id="AlarmTypeAction" scope="session" class="com.station.system.action.AlarmTypeAction">
 		<property name="alarmTypeService">
 			<ref bean="jyAlarmTypeService" />
 		</property>
 	</bean>
 	
-	<bean id="DeviceCompareAction" scope="prototype" class="com.station.datahandler.chart.datapage.action.DeviceCompareAction">
+	<bean id="DeviceCompareAction" scope="session" class="com.station.datahandler.chart.datapage.action.DeviceCompareAction">
 		<property name="deviceService">
 			<ref bean="jyDeviceService" />
 		</property>
@@ -465,7 +465,7 @@
 			<ref bean="DataList"/>
 		</property>
 	</bean>
-	<bean id="DetectorCompareAction" scope="prototype" class="com.station.datahandler.chart.datapage.action.DetectorCompareAction">
+	<bean id="DetectorCompareAction" scope="session" class="com.station.datahandler.chart.datapage.action.DetectorCompareAction">
 		<property name="detectorService">
 			<ref bean="jyDetectorService" />
 		</property>
@@ -475,37 +475,37 @@
 	</bean>
 	
 	
-	<bean id="DayChartAction" scope="prototype" class="com.station.datahandler.chart.action.DayChartAction">
+	<bean id="DayChartAction" scope="session" class="com.station.datahandler.chart.action.DayChartAction">
 		<property name="historyChartDataService">
 			<ref bean="jyHistoryChartDataService" />
 		</property>
 	</bean>
-	<bean id="MonthChartAction" scope="prototype" class="com.station.datahandler.chart.action.MonthChartAction">
+	<bean id="MonthChartAction" scope="session" class="com.station.datahandler.chart.action.MonthChartAction">
 		<property name="historyMonthChartDataService">
 			<ref bean="jyHistoryMonthChartDataService" />
 		</property>
 	</bean>
-	<bean id="MoreChartAction" scope="prototype" class="com.station.datahandler.chart.action.MoreChartAction">
+	<bean id="MoreChartAction" scope="session" class="com.station.datahandler.chart.action.MoreChartAction">
 		<property name="historyChartDataService">
 			<ref bean="jyHistoryChartDataService" />
 		</property>
 	</bean>
-	<bean id="SocketAction" scope="prototype" class="com.station.socket.SocketAction">
+	<bean id="SocketAction" scope="session" class="com.station.socket.SocketAction">
 		
 	</bean>
 	
-	<bean id="MonitorTimeAction" scope="prototype" class="com.station.system.action.MonitorTimeAction">
+	<bean id="MonitorTimeAction" scope="session" class="com.station.system.action.MonitorTimeAction">
 		<property name="constantService">
 			<ref bean="jyConstantService" />
 		</property>
 	</bean>
-	<bean id="MonitorFunctionSwitchAction" scope="prototype" class="com.station.system.action.MonitorFunctionSwitchAction">
+	<bean id="MonitorFunctionSwitchAction" scope="session" class="com.station.system.action.MonitorFunctionSwitchAction">
 
 	</bean>
-	<bean id="MessageAction" scope="prototype" class="com.station.system.action.MessageAction">
+	<bean id="MessageAction" scope="session" class="com.station.system.action.MessageAction">
 
 	</bean>
-	<bean id="HeartBeatAction" scope="prototype" class="com.station.system.action.HeartBeatAction">
+	<bean id="HeartBeatAction" scope="session" class="com.station.system.action.HeartBeatAction">
 
 	</bean>
 	

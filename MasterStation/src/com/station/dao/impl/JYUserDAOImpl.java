@@ -53,7 +53,7 @@ public class JYUserDAOImpl extends HibernateDaoSupport implements JYUserDAO {
 	@Override
 	public List<JYUser> getPerPage(final String hql, final int startRow, final int countPerpage) {
 		// TODO Auto-generated method stub
-		List list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
+		List<JYUser> list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
 
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
@@ -62,7 +62,7 @@ public class JYUserDAOImpl extends HibernateDaoSupport implements JYUserDAO {
 				Query query=session.createQuery(hql);
 				query.setFirstResult(startRow);
 				query.setMaxResults(countPerpage);
-				List list=query.list();
+				List<JYUser> list=query.list();
 				return list;
 			}			
 		});

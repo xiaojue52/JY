@@ -5,6 +5,10 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	String username = (String) request.getSession().getAttribute("username");
+	//System.out.print("\n"+path+"\n"+basePath);
+	if (username != null)
+		response.sendRedirect(basePath + "main.jsp");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>

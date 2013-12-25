@@ -25,7 +25,7 @@ public class JYDetectorDAOImpl extends HibernateDaoSupport implements JYDetector
 	@Override
 	public List<JYDetector> getPerPage(final String hql, final int startRow, final int countPerpage) {
 		// TODO Auto-generated method stub
-		List list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
+		List<JYDetector> list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
 
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
@@ -34,7 +34,7 @@ public class JYDetectorDAOImpl extends HibernateDaoSupport implements JYDetector
 				Query query=session.createQuery(hql);
 				query.setFirstResult(startRow);
 				query.setMaxResults(countPerpage);
-				List list=query.list();
+				List<JYDetector> list=query.list();
 				return list;
 			}			
 		});

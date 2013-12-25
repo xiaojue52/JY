@@ -190,6 +190,12 @@ public class SocketHandler {
 			order.put("monitorTimeOK", "0");
 
 			String tempStr = "3000000|" + cabNumber + "00|"+mTime+"XCR";
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			this.sendCommand(tempStr, client);
 		}
 	}

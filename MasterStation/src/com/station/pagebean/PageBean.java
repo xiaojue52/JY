@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class PageBean {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private List list;// 返回某一页的记录列表
 	private int TotalCount;// 总记录数
 	private int TotalPage;// 总页数
@@ -23,12 +23,12 @@ public class PageBean {
 	@SuppressWarnings("unused")
 	private boolean hasNextPage;// 是否有下一页
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public List getList() {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void setList(List list) {
 		this.list = list;
 	}

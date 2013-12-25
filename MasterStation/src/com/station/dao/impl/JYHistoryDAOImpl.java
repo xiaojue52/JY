@@ -54,7 +54,7 @@ public class JYHistoryDAOImpl extends HibernateDaoSupport implements JYHistoryDA
 	@Override
 	public List<JYHistory> getPerPage(final String hql, final int startRow, final int countPerpage) {
 		// TODO Auto-generated method stub
-		List list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
+		List<JYHistory> list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
 
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
@@ -63,7 +63,7 @@ public class JYHistoryDAOImpl extends HibernateDaoSupport implements JYHistoryDA
 				Query query=session.createQuery(hql);
 				query.setFirstResult(startRow);
 				query.setMaxResults(countPerpage);
-				List list=query.list();
+				List<JYHistory> list=query.list();
 				return list;
 			}			
 		});

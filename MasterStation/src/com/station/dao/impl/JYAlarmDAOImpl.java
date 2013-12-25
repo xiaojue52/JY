@@ -49,7 +49,7 @@ public class JYAlarmDAOImpl extends HibernateDaoSupport implements JYAlarmDAO {
 	@Override
 	public List<JYAlarm> getPerPage(final String hql,final int startRow,final int countPerpage) {
 		// TODO Auto-generated method stub
-		List list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
+		List<JYAlarm> list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
 
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException,
@@ -58,7 +58,7 @@ public class JYAlarmDAOImpl extends HibernateDaoSupport implements JYAlarmDAO {
 				Query query=session.createQuery(hql);
 				query.setFirstResult(startRow);
 				query.setMaxResults(countPerpage);
-				List list=query.list();
+				List<JYAlarm> list=query.list();
 				return list;
 			}			
 		});
