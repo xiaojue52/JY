@@ -22,4 +22,6 @@ public interface JYDeviceService {
 	public PageBean getPerPage(int countPerpage,int currentPage, String hql);
 	
 	public void removeJYDevices(List<JYDevice> list);
+	
+	public boolean deviceIsExist(String name,Integer positionNumber, String cabId);
 }

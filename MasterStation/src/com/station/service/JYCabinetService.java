@@ -22,4 +22,6 @@ public interface JYCabinetService {
 	public PageBean getPerPage(int countPerpage,int currentPage, String hql);
 	
 	public void removeJYCabinets(List<JYCabinet> list);
+	
+	public boolean cabinetIsExist(String cabNumber);
 }

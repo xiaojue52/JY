@@ -234,4 +234,14 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		// TODO Auto-generated method stub
 		return cabinetDAO.getTotalCount(hql);
 	}
+
+	@Override
+	public boolean cabinetIsExist(String cabNumber) {
+		// TODO Auto-generated method stub
+		List<JYCabinet> list = cabinetDAO.findJYCabinetByHql("from JYCabinet cabinet where cabinet.tag = 1 and cabinet.cabNumber ='"+cabNumber+"'");
+		if (list.size()>0){
+			return true;
+		}
+		return false;
+	}
 }

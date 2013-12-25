@@ -41,13 +41,20 @@ public class DeviceAction extends ActionSupport{
         Constant.flush(dataMap);
 	}
 	public void addDeviceAction(){
-		Date date = new Date();
-		//device.setCreateDate(new java.sql.Date(date.getTime()));
-		device.setCreateTime(date);
-		device.setCabinet(cabinetService.findJYCabinetById(device.getCabinet().getCabId()));
-		deviceService.saveJYDevice(device);
+		int data = 0;
+		if(this.deviceService.deviceIsExist(device.getName(), device.getPositionNumber(), device.getCabinet().getCabId())){
+			data = 0;
+		}
+		else {
+			data = 1;
+			Date date = new Date();
+			//device.setCreateDate(new java.sql.Date(date.getTime()));
+			device.setCreateTime(date);
+			device.setCabinet(cabinetService.findJYCabinetById(device.getCabinet().getCabId()));
+			deviceService.saveJYDevice(device);
+		}
 		Map<String,Object> dataMap = new HashMap<String,Object>();
-		dataMap.put("data", 1);
+		dataMap.put("data", data);
         Constant.flush(dataMap);
 	}
 	public void updateDeviceAction(){

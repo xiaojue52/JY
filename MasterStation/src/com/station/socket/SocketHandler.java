@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import com.station.constant.Constant;
+import com.station.po.JYAlarm;
 import com.station.po.JYCabinet;
 import com.station.service.JYChartDataService;
 import com.station.service.JYSocketService;
@@ -153,7 +154,7 @@ public class SocketHandler {
 			String tempStr = "5100000|" + command[1] + "|0XCR";
 			String cabNumber = command[1].substring(0,5);
 			Date date = new Date();
-			this.socketService.saveAlarm(cabNumber, 2, date, "故障");
+			this.socketService.saveAlarm(cabNumber, JYAlarm.DEVICEREEOR, date, "故障");
 			this.sendCommand(tempStr, client);
 			return null;
 		}
@@ -234,7 +235,7 @@ public class SocketHandler {
 					}
 					for (int i=0;i<list.size();i++){
 						Date date = new Date();
-						this.socketService.saveAlarm(list.get(i), 2, date, "离线");
+						this.socketService.saveAlarm(list.get(i), JYAlarm.DEVICEREEOR, date, "离线");
 						
 					}
 					return list;
@@ -331,7 +332,7 @@ public class SocketHandler {
 			order = new HashMap<String, String>();
 		}
 		order.put("heartBeat", Constant.getCurrentDateStr());
-		order.put("reviceTemp", Constant.getCurrentDateStr());
+		//order.put("reviceTemp", Constant.getCurrentDateStr());
 		order.put("monitorTimeOK", "0");
 		JYCabinet cabinet = this.socketService.getCabinet(cabNumber);
 		if (cabinet==null)return;

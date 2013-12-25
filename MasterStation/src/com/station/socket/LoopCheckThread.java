@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.station.constant.Constant;
+import com.station.po.JYAlarm;
 import com.station.service.JYSocketService;
 
 public class LoopCheckThread extends Thread{
@@ -54,18 +55,19 @@ public class LoopCheckThread extends Thread{
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
 		if (diff>=Constant.HEARTBEATTIME*60*1000){
-			this.socketService.saveAlarm(cabNumber, 0, d2, "离线");
+			this.socketService.saveAlarm(cabNumber, JYAlarm.HEARTBEATOFFLINE, d2, "离线");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n");
 	}
 	private void checkReviceTemp(String cabNumber,String date) throws ParseException{
-		if (date==null)return;
+		if (date==null||this.socketService.getCabinet(cabNumber)==null)return;
+		long mTime = (Long.valueOf(this.socketService.getCabinet(cabNumber).getCabType().getSubValue())+1)*60*1000;
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
-		if (diff>=Constant.RECIVETEMPTIME){
-			this.socketService.saveAlarm(cabNumber, 1, d2, "离线");
+		if (diff>=mTime){
+			this.socketService.saveAlarm(cabNumber, JYAlarm.DEVICEOFFLINE, d2, "离线");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n"+Constant.reciveTempTime);
 	}

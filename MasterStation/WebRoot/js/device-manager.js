@@ -371,7 +371,7 @@ DeviceManager.Cabinet.cabinet = function(order){
 		success : function(returnData) {
 			var obj = eval("("+returnData+")");
 			if(obj.data=="0")
-				alert("操作失败");
+				alert("编号相同，请重新输入");
 			else{
 				//alert(obj.data);
 				if (order==1){
@@ -411,7 +411,7 @@ DeviceManager.Device.device = function(order){
 		success : function(returnData) {
 			var obj = eval("("+returnData+")");
 			if(obj.data=="0")
-				alert("操作失败");
+				alert("此柜体变送器活间隔号重复");
 			else{
 				//alert(obj.data);
 				if (order==1){

@@ -176,15 +176,31 @@ public class JYSocketServiceImpl implements JYSocketService {
 		List<JYDevice> list = deviceDAO.findJYDeviceByHql("from JYDevice device where device.tag = 1 and device.cabinet.tag = 1 and device.cabinet.cabNumber ='"+cabNumber+"'");
 		if (list.size()>0){
 			JYCabinet cabinet = list.get(0).getCabinet();
-			if (cabinet.getAlarm()!=null&&type!=2)return;
-			alarm.setAlarmText(content);
-			alarm.setDate(date);
-			alarm.setId(String.valueOf(System.nanoTime()));
-			alarm.setIsCabinet("1");
-			alarm.setStatus("0");
-			cabinet.setAlarm(alarm);
-			cabinet.setDetectTime(date);
-			alarm.setDevice(list.get(0));
+			//if (cabinet.getAlarm()!=null&&type!=2)return;
+			JYAlarm preAlarm = cabinet.getAlarm();
+			if (preAlarm!=null){
+				if (type==0)return;
+				switch (Integer.valueOf(preAlarm.getType())){
+				case 1:
+					if (type==1)return;
+					break;
+				case 2:
+					return;
+					default:
+						break;
+				}
+				
+			}{
+				alarm.setAlarmText(content);
+				alarm.setDate(date);
+				alarm.setId(String.valueOf(System.nanoTime()));
+				alarm.setIsCabinet("1");
+				alarm.setStatus("0");
+				alarm.setType(String.valueOf(type));
+				cabinet.setAlarm(alarm);
+				cabinet.setDetectTime(date);
+				alarm.setDevice(list.get(0));
+			}
 			this.alarmDAO.saveJYAlarm(alarm);
 			this.cabinetDAO.updateJYCabinet(cabinet);		
 		}

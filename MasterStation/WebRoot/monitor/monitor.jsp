@@ -174,7 +174,7 @@ String path = request.getContextPath();
 						</s:if>
 						</table>
 					</td>
-					<s:if test="#cabinet.alarm!=null">
+					<s:if test="#cabinet.alarm!=null&&#cabinet.alarm.type==\"1\"">
 					<td width="10%" style="color:#ff0000">
 					</s:if>
 					<s:else>

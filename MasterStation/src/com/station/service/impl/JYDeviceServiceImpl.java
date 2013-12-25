@@ -119,4 +119,13 @@ public class JYDeviceServiceImpl implements JYDeviceService {
 		// TODO Auto-generated method stub
 		return deviceDAO.getTotalCount(hql);
 	}
+
+	@Override
+	public boolean deviceIsExist(String name, Integer positionNumber, String cabId) {
+		// TODO Auto-generated method stub
+		String hql = "from JYDevice device where device.tag = 1 and device.cabinet.cabId = '"+cabId+"' and (device.name = '"+name+"' or device.positionNumber = "+positionNumber+")";
+		List<JYDevice> list = this.deviceDAO.findJYDeviceByHql(hql);
+		if (list.size()>0)return true;
+		return false;
+	}
 }

@@ -1,6 +1,9 @@
 package com.station.po;
 
 public class JYAlarm {
+	public final static int DEVICEREEOR = 2;
+	public final static int DEVICEOFFLINE = 1;
+	public final static int HEARTBEATOFFLINE = 0;
 	private String id;
 	private String alarmText;
 	private String note;
@@ -9,8 +12,15 @@ public class JYAlarm {
 	private JYDevice device;
 	private String isCabinet;
 	private java.util.Date date;
+	private String type;
 	
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public java.util.Date getDate() {
 		return date;
 	}

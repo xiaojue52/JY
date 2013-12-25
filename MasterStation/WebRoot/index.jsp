@@ -34,7 +34,7 @@
 	</head>
 	<body style="width:100%;height:100%;background-image: url('images/indexbg.png');overflow:hidden">
     	<div id="imgDiv" style="height: 455px;width: 600px;position: absolute;">
-    		
+    		<form>
     		<div class="wordDiv" style="margin-top:160px;margin-left: 130px;">请输入你的姓名:</div>
 			<div style="margin-left: 130px;margin-top: 5px;">
 				<input maxLength=8 id="username" type="text" name="username" style="width:350px;"
@@ -46,10 +46,11 @@
 					/>
 			</div>
 			<div style="margin-top:20px;margin-right: 130px;" align="right">
-				<input type="button" value="登  录" onclick="Login.verify();"/>
+				<input type="submit" value="登  录" onclick="Login.verify();return false;"/>
 			</div>
     		<div class="wordDiv" style="margin-top:0px;" align="center"><span class="errorMessage" id="error"></span></div>
 			<div class="wordDiv" style="margin-top:40px;" align="center">如果您没有注册账号或已经忘记密码，请联系管理员!</div>
+			</form>
 		</div>
 	</body>
 </html>

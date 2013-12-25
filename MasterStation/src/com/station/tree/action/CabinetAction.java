@@ -35,11 +35,18 @@ public class CabinetAction extends ActionSupport{
         Constant.flush(dataMap);
 	}
 	public void addCabinetAction(){
-		Date date = new Date();
-		cabinet.setCreateTime(date);
-		cabinetService.saveJYCabinet(cabinet);
+		int data = 0;
+		if(this.cabinetService.cabinetIsExist(cabinet.getCabNumber())){
+			data = 0;
+		}
+		else {
+			data = 1;
+			Date date = new Date();
+			cabinet.setCreateTime(date);
+			cabinetService.saveJYCabinet(cabinet);
+		}
 		Map<String,Object> dataMap = new HashMap<String,Object>();
-        dataMap.put("data", 1);
+        dataMap.put("data", data);
         Constant.flush(dataMap);
 	}
 	public void updateCabinetAction(){
