@@ -12,6 +12,7 @@ var createDayChart = function() {
 		contentType : "json",
 		success : function(returnData) {
 			var obj = eval("(" + returnData + ")");
+			//alert(obj.A.startDate+":::"+Date.UTC(2013,11,26));
 			$('#container').highcharts(
 					{
 						title : {
@@ -55,6 +56,7 @@ var createDayChart = function() {
 						series : [ {
 							name : "A相",	
 							pointStart:obj.A.startDate,
+							//pointStart:Date.UTC(2013,11,26),
 							data : obj.A.data
 						}, {
 							name : 'B相',

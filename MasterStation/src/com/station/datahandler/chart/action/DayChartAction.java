@@ -160,7 +160,7 @@ public class DayChartAction extends ActionSupport {
 			list.add(listH.get(i).getValue());
 		}
 		if (listH.size()>0){	
-			data.startDate = listH.get(0).getDate().getTime();
+			data.startDate = listH.get(0).getDate().getTime()+8*60*60*1000;
 		}
 		data.name = arg0;
 		data.data = list;
@@ -189,8 +189,8 @@ public class DayChartAction extends ActionSupport {
 				+ queryLine + "%' and "
 				+ "history.detector.device.cabinet.cabNumber like '%"
 				+ queryNumber + "%' and "
-				+ "history.detector.device.id like '%" + queryDeviceId
-				+ "%' and " + "history.detector.name like '%" + queryDetector
+				+ "history.detector.device.id = '" + queryDeviceId
+				+ "' and " + "history.detector.name like '%" + queryDetector
 				+ "%' and "
 				+ "history.detector.device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " + "history.date>= TO_DATE('"

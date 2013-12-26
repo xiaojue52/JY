@@ -167,7 +167,7 @@ public class MoreChartAction extends ActionSupport {
 				//String strD = "{name:\""+str+"\",data:"+listValue+"}";
 				MoreData moreData = new MoreData();
 				if (list.size()>0)
-					moreData.pointStart = list.get(0).getDate().getTime();
+					moreData.pointStart = list.get(0).getDate().getTime()+8*60*60*1000;
 				moreData.name = str;
 				moreData.data = listValue;
 				listD.add(moreData);
