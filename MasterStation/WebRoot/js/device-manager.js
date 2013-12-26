@@ -118,6 +118,7 @@ Ext.onReady(function(){
     	                $("#deviceAddBtn").hide();
     	                $("#deviceUpdateBtn").show();
     	                $("#devicePositionNumber").val(obj.device.positionNumber);
+    	                $("#devicePositionNumber").attr("readonly","readonly");
     	                $("#deviceId").val(node.id);
     	                //$("#devicePage form").attr({"action":"updateDevice.action?device.deviceId="+node.id});
     	                $(".page").hide();
@@ -212,6 +213,7 @@ Ext.onReady(function(){
 	                $("#deviceCabinetId").val(this.node.id);
 	                $("#deviceNote").val("");
 	                $("#devicePositionNumber").val("");
+	                $("#devicePositionNumber").removeAttr("readonly");
 	                $("#deviceTitle").text("增加变送器");
 	                $("#deviceAddBtn").show();
 	                $("#deviceUpdateBtn").hide();
@@ -411,7 +413,7 @@ DeviceManager.Device.device = function(order){
 		success : function(returnData) {
 			var obj = eval("("+returnData+")");
 			if(obj.data=="0")
-				alert("此柜体变送器活间隔号重复");
+				alert("间隔序号重复");
 			else{
 				//alert(obj.data);
 				if (order==1){

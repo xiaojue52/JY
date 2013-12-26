@@ -42,7 +42,7 @@ public class DeviceAction extends ActionSupport{
 	}
 	public void addDeviceAction(){
 		int data = 0;
-		if(this.deviceService.deviceIsExist(device.getName(), device.getPositionNumber(), device.getCabinet().getCabId())){
+		if(this.deviceService.deviceIsExist( device.getPositionNumber(), device.getCabinet().getCabId())){
 			data = 0;
 		}
 		else {

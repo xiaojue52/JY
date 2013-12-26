@@ -23,5 +23,5 @@ public interface JYDeviceService {
 	
 	public void removeJYDevices(List<JYDevice> list);
 	
-	public boolean deviceIsExist(String name,Integer positionNumber, String cabId);
+	public boolean deviceIsExist(Integer positionNumber, String cabId);
 }
