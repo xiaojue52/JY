@@ -50,7 +50,8 @@ public class CabinetAction extends ActionSupport{
         Constant.flush(dataMap);
 	}
 	public void updateCabinetAction(){
-		
+		cabinet.setAlarm(this.cabinetService.findJYCabinetById(this.cabinet.getCabId()).getAlarm());
+		//cabinet.set
 		cabinet.setCreateTime(this.cabinetService.findJYCabinetById(this.cabinet.getCabId()).getCreateTime());
 		cabinetService.updateJYCabinet(cabinet);
 		Map<String,Object> dataMap = new HashMap<String,Object>();

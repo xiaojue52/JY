@@ -414,6 +414,5 @@
     	    		
     	    	</div>
 			</div>
-			<div>${session.userLevel }</div>
 	</body>
 </html>
