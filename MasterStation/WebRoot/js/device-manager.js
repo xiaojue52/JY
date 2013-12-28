@@ -57,7 +57,7 @@ Ext.onReady(function(){
     	                $("#cabinetNote").val(obj.cabinet.note);
     	                $("#cabinetTime").val(obj.dateTime);
     	                $("#cabinetTitle").text("柜体设备");
-    	                $("#cabNumber").attr("readonly","readonly");
+    	                //$("#cabNumber").attr("readonly","readonly");
     	                $("#cabinetAddBtn").hide();
     	                $("#cabinetUpdateBtn").show();
     	                $("#cabinetId").val(node.id);
@@ -194,7 +194,7 @@ Ext.onReady(function(){
 	                $("#cabNumber").val("");
 	                $("#simNumber").val("");
 	                $("#simSNumber").val("");
-	                $("#cabNumber").removeAttr("readonly");
+	                //$("#cabNumber").removeAttr("readonly");
 	                DeviceManager.removeChecked(1);
 	                DeviceManager.removeChecked(2);
 	                DeviceManager.removeChecked(3);

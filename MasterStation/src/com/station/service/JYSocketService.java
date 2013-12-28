@@ -14,4 +14,5 @@ public interface JYSocketService {
 	public void saveAlarm(String cabNumber,int type,Date date,String content);
 	public JYCabinet getCabinet(String cabNumber);//分钟
 	public boolean cabinetIsExist(String cabNumber);
+	public List<JYCabinet> findCabinetsByHql(String hql);
 }

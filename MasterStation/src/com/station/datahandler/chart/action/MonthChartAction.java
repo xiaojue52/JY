@@ -21,10 +21,28 @@ public class MonthChartAction extends ActionSupport {
 	private String queryUser;
 	private String queryStartDate;
 	private String queryEndDate;
+	private String queryStartOtherDate;
+	private String queryEndOtherDate;
 	private String queryDeviceId;
 	private String queryDetector;
 	private int pageList = 10;
 	private List<Integer> pageNumberList = new ArrayList<Integer>();
+
+	public String getQueryStartOtherDate() {
+		return queryStartOtherDate;
+	}
+
+	public void setQueryStartOtherDate(String queryStartOtherDate) {
+		this.queryStartOtherDate = queryStartOtherDate;
+	}
+
+	public String getQueryEndOtherDate() {
+		return queryEndOtherDate;
+	}
+
+	public void setQueryEndOtherDate(String queryEndOtherDate) {
+		this.queryEndOtherDate = queryEndOtherDate;
+	}
 
 	public List<Integer> getPageNumberList() {
 		pageNumberList.clear();
@@ -133,48 +151,88 @@ public class MonthChartAction extends ActionSupport {
 	}
 	class ChartData{
 		public String name;
-		public List<Float> data;
-		public long startDate;
+		public List<List<Double>> data;
 	}
-	private ChartData getChartData(String arg0,int arg1){
-		ChartData data = new ChartData(); 
-		final String hql = this.createSql(arg0,arg1);
+	private ChartData getChartData(String arg0,int arg1,int arg2){
+		ChartData chartData = new ChartData(); 
+		final String hql = this.createSql(arg0,arg1,arg2);
 		List<JYHistoryMonthChartData> listH = this.historyMonthChartDataService
 		.findJYHistoryMonthChartDataByHql(hql);
-		List<Float> list = new ArrayList<Float>();
+		List<List<Double>> data = new ArrayList<List<Double>>();
 		for (int i = 0; i < listH.size(); i++) {
-			list.add(listH.get(i).getValue());
+			List<Double> list = new ArrayList<Double>();
+			list.add(Double.valueOf(listH.get(i).getDate().getDate()));
+			if (listH.get(i).getValue()!=null)
+				list.add(Double.valueOf(listH.get(i).getValue()));
+			else
+				list.add(null);
+			data.add(list);
 		}
-		if (listH.size()>0){	
-			data.startDate = listH.get(0).getDate().getTime()+8*60*60*1000;
+		String name;
+		if (arg1==1){
+			name = arg0+"MAX值";
+		}else
+			name = arg0+"Min值";
+		
+		if (arg2==0){
+			name = queryStartDate.split("-")[1]+"月"+name;
 		}
-		data.name = arg0;
-		data.data = list;
-		return data;
+		else
+			name = queryStartOtherDate.split("-")[1]+"月"+name;
+		chartData.name = name;
+		chartData.data = data;
+		return chartData;
 	}
 	public void listHistoryAction() throws Exception {
-		ChartData dataAMax = getChartData("A相",1);
-		ChartData dataBMax = getChartData("B相",1);
-		ChartData dataCMax = getChartData("C相",1);
-		ChartData dataDMax = getChartData("环境",1);
-		ChartData dataAMin = getChartData("A相",0);
-		ChartData dataBMin = getChartData("B相",0);
-		ChartData dataCMin = getChartData("C相",0);
-		ChartData dataDMin = getChartData("环境",0);
+		List<ChartData> listValue = new ArrayList<ChartData>();
+		ChartData dataAMax = getChartData("A相",1,0);
+		listValue.add(dataAMax);
+		ChartData dataAMin = getChartData("A相",0,0);
+		listValue.add(dataAMin);
+		
+		
+		ChartData dataBMax = getChartData("B相",1,0);
+		listValue.add(dataBMax);
+		ChartData dataBMin = getChartData("B相",0,0);
+		listValue.add(dataBMin);
+		
+		ChartData dataCMax = getChartData("C相",1,0);
+		listValue.add(dataCMax);
+		ChartData dataCMin = getChartData("C相",0,0);
+		listValue.add(dataCMin);
+		
+		ChartData dataDMax = getChartData("环境",1,0);
+		listValue.add(dataDMax);
+		ChartData dataDMin = getChartData("环境",0,0);
+		listValue.add(dataDMin);
+		
+		if (!queryStartOtherDate.equals("-1")){
+			ChartData dataAOMax = getChartData("A相",1,1);
+			listValue.add(dataAOMax);
+			ChartData dataAOMin = getChartData("A相",0,1);
+			listValue.add(dataAOMin);
+			ChartData dataBOMax = getChartData("B相",1,1);
+			listValue.add(dataBOMax);
+			ChartData dataBOMin = getChartData("B相",0,1);
+			listValue.add(dataBOMin);
+			
+			ChartData dataCOMax = getChartData("C相",1,1);
+			listValue.add(dataCOMax);
+			ChartData dataCOMin = getChartData("C相",0,1);
+			listValue.add(dataCOMin);
+			
+			ChartData dataDOMax = getChartData("环境",1,1);
+			listValue.add(dataDOMax);
+			ChartData dataDOMin = getChartData("环境",0,1);
+			listValue.add(dataDOMin);
+		}
 		
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("AMax", dataAMax);
-		dataMap.put("BMax", dataBMax);
-		dataMap.put("CMax", dataCMax);
-		dataMap.put("DMax", dataDMax);
-		dataMap.put("AMin", dataAMin);
-		dataMap.put("BMin", dataBMin);
-		dataMap.put("CMin", dataCMin);
-		dataMap.put("DMin", dataDMin);
+		dataMap.put("data", listValue);
 		Constant.flush(dataMap);
 	}
     //tag:0-min 1-max
-	public String createSql(String detector,int tag) {
+	public String createSql(String detector,int tag,int which) {
 		String hql = "from JYHistoryMonthChartData history where ";
 		if (queryLine == null || queryLine.length() == 0)
 			queryLine = "%";
@@ -188,10 +246,24 @@ public class MonthChartAction extends ActionSupport {
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
 			queryEndDate = "9999-12-12";
+		if (queryStartOtherDate == null || queryStartOtherDate.length() == 0)
+			queryStartOtherDate = "1000-01-01";
+		if (queryEndOtherDate == null || queryEndOtherDate.length() == 0)
+			queryEndOtherDate = "9999-12-12";
 		if (queryDeviceId == null || queryDeviceId.length() == 0)
 			queryDeviceId = "%";
 		if (queryDetector == null || queryDetector.length() == 0)
 			queryDetector = "%";
+		String queryStart;
+		String queryEnd;
+		if (which==0){
+			queryStart = queryStartDate;
+			queryEnd = queryEndDate;
+		}else{
+			queryStart = queryStartOtherDate;
+			queryEnd = queryEndOtherDate;
+		}
+			
 		hql = hql + "history.detector.device.cabinet.line.name like '%"
 				+ queryLine + "%' and "
 				+ "history.detector.device.cabinet.cabNumber like '%"
@@ -201,9 +273,9 @@ public class MonthChartAction extends ActionSupport {
 				+ "%' and "
 				+ "history.detector.device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " + "history.date>= TO_DATE('"
-				+ queryStartDate + " 00:00:00"
+				+ queryStart + " 00:00:00"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "history.date <= TO_DATE('" + queryEndDate + " 23:59:59"
+				+ "history.date <= TO_DATE('" + queryEnd + " 23:59:59"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "history.detector.device.cabinet.user.username like '%"
 				+ queryUser + "%' and history.detector.name ='" + detector

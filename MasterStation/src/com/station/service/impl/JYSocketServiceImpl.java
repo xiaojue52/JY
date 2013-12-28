@@ -228,4 +228,10 @@ public class JYSocketServiceImpl implements JYSocketService {
 		return false;
 	}
 
+	@Override
+	public List<JYCabinet> findCabinetsByHql(String hql) {
+		// TODO Auto-generated method stub
+		return cabinetDAO.findJYCabinetByHql(hql);
+	}
+
 }

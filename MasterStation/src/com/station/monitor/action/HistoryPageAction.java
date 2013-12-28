@@ -156,34 +156,4 @@ public class HistoryPageAction extends ActionSupport {
 		this.pageBean = cabinetHistoryService.getPerPage(pageList, page, hql);
 		return SUCCESS;
 	}
-
-	public String createSql() {
-		
-		String hql = "from JYCabinetHistory cabinetHistory where ";
-		if (queryLine == null || queryLine.length() == 0)
-			queryLine = "%";
-		if (queryNumber == null || queryNumber.length() == 0)
-			queryNumber = "%";
-		if (queryType == null || queryType.length() == 0)
-			queryType = "%";
-		if (queryUser == null || queryUser.length() == 0)
-			queryUser = "%";
-		if (queryStartDate == null || queryStartDate.length() == 0)
-			queryStartDate = "1000-01-01";
-		if (queryEndDate == null || queryEndDate.length() == 0)
-			queryEndDate = "9999-12-12";
-		hql = hql + "cabinetHistory.cabinet.line.name like '%"
-				+ queryLine + "%' and "
-				+ "cabinetHistory.cabinet.cabNumber like '%"
-				+ queryNumber + "%' and "
-				+ "cabinetHistory.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "cabinetHistory.date>= TO_DATE('"
-				+ queryStartDate + "','YYYY-MM-DD') and "
-				+ "cabinetHistory.date <= TO_DATE('" + queryEndDate
-				+ "','YYYY-MM-DD') and "
-				+ "cabinetHistory.cabinet.user.username like '%"
-				+ queryUser + "%' ORDER BY cabinetHistory.date DESC";
-		return hql;
-	}
-
 }

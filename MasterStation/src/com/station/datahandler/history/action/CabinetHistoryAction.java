@@ -188,9 +188,11 @@ public class CabinetHistoryAction extends ActionSupport {
 				+ queryNumber + "%' and "
 				+ "cabinetHistory.cabinet.cabType.value like '%"
 				+ queryType + "%' and " + "cabinetHistory.date>= TO_DATE('"
-				+ queryStartDate + "','YYYY-MM-DD') and "
+				+ queryStartDate + " 00:00:00"
+				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "cabinetHistory.date <= TO_DATE('" + queryEndDate
-				+ "','YYYY-MM-DD') and "
+				+ " 23:59:59"
+				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "cabinetHistory.cabinet.user.username like '%"
 				+ queryUser + "%' "+orderStr;
 		return hql;

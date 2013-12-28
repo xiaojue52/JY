@@ -12,6 +12,7 @@ import com.station.service.JYChartDataService;
 import com.station.service.JYSocketService;
 import com.station.service.impl.JYCabinetServiceImpl;
 import com.station.system.action.MonitorTimeAction;
+import com.station.tree.action.CabinetAction;
 
 public class SocketRoute {
 	private JYSocketService socketService;
@@ -27,6 +28,7 @@ public class SocketRoute {
 		SocketAction.setSocketRoute(this);
 		MonitorTimeAction.setSocketRoute(this);
 		JYCabinetServiceImpl.setSocketRoute(this);
+		CabinetAction.setSocketRoute(this);
 	}
 
 	public List<String> sendCommandToGetTempWithCabNumberList(String[] cabNumberList){
@@ -101,6 +103,9 @@ public class SocketRoute {
 	}
 	public void removedCabinet(String cabNumber){
 		this.socketHandler.removeOrderMap(cabNumber);
+	}
+	public void addCabinet(String cabNumber){
+		this.socketHandler.addCabinet(cabNumber);
 	}
 	public void removedSocket(Socket socket){
 		this.socketHandler.removedSocket(socket);

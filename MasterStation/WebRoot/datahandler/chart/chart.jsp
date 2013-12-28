@@ -42,12 +42,15 @@
 		<br/><br/>
 		<div id="dayMenu">
 		<span><input type="button" value="变送器" onclick="Chart.setPageFrameSrc('listDeviceComAction.action')"/><select id="dayDevice" style="width:200px;height:20px;"/></select></span>
+		<span><input type="button" value="前一天" onclick="Chart.upDay();"/></span>
 		<span>选择日期：</span><span><input id="dayLineDate" type="text" readonly='readonly' onfocus="DatePicker.setday(this)"/></span>
+		<span><input type="button" value="后一天" onclick="Chart.downDay();"/></span>
 		<span><input type="button" value="生成曲线" onclick="Chart.dayChart()"/></span>
 		</div>
 		<div id="monthMenu" style="display:none">
 		<span><input type="button" value="变送器" onclick="Chart.setPageFrameSrc('listDeviceComAction.action')"/><select id="monthDevice" style="width:200px;height:20px;"/></select></span>
 		<span>选择月份：</span><span><input id="monthLineDate" type="text" readonly='readonly' onfocus="DatePicker.setmonth(this)"/></span>
+		<span>选择对比月份：</span><span><input id="monthLineOtherDate" type="text" readonly='readonly' onfocus="DatePicker.setmonth(this)"/></span>
 		<span><input type="button" value="生成曲线" onclick="Chart.monthChart()"/></span>
 		</div>
 		<div id="moreMenu" style="display:none">

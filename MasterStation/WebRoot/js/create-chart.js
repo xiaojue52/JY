@@ -53,24 +53,7 @@ var createDayChart = function() {
 								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2])
 					        }
 					    },
-						series : [ {
-							name : "A相",	
-							pointStart:obj.A.startDate,
-							//pointStart:Date.UTC(2013,11,26),
-							data : obj.A.data
-						}, {
-							name : 'B相',
-							pointStart:obj.B.startDate,
-							data : obj.B.data
-						}, {
-							name : 'C相',
-							pointStart:obj.C.startDate,
-							data : obj.C.data
-						}, {
-							name : '环境',
-							pointStart:obj.D.startDate,
-							data : obj.D.data
-						} ],
+						series : obj.data,
 						exporting : {
 							enabled : false
 						}
@@ -84,16 +67,25 @@ var createDayChart = function() {
 
 var createMonthChart = function() {
 	var startTime = $('#monthLineDate').val();
+	var startOtherTime = $('#monthLineOtherDate').val();
 	if (startTime.length==0){alert("请选择日期！");return;}
-	var endTime = startTime+"-31";
+	if (startOtherTime.length==0){startOtherTime = -1}
+	var endTime = new Date(startTime.split('-')[0],startTime.split('-')[1],"00").format("yyyy-MM-dd").toString();
+	
 	startTime = startTime + "-01";
-	//var temp = startTime.substring(5,7);
-	//alert(endTime);
-	var dateList = startTime.split("-");
+	var endOtherTime = -1;
+	if (startOtherTime!=-1){
+		endOtherTime = new Date(startOtherTime.split('-')[0],startOtherTime.split('-')[1],"00").format("yyyy-MM-dd").toString();
+		startOtherTime = startOtherTime+"-01";
+	}
 	$.ajax( {
 		type : "post",
-		url : "monthChart.action?queryDeviceId=" + $('#monthDevice').val()+"&queryStartDate="+startTime+"&queryEndDate="+endTime,
-		contentType : "json",
+		url : "monthChart.action",
+		data:"queryDeviceId=" + $('#monthDevice').val()+
+		"&queryStartDate="+	startTime+"&queryEndDate="+endTime+
+		"&queryStartOtherDate="+startOtherTime+"&queryEndOtherDate="+endOtherTime
+			,
+		dataType : "text",
 		success : function(returnData) {
 
 			var obj = eval("(" + returnData + ")");
@@ -131,53 +123,17 @@ var createMonthChart = function() {
 							verticalAlign : 'middle',
 							borderWidth : 0
 						},
-						plotOptions: {
-					        series: {
-								pointInterval: 24*60*60 * 1000,
-								pointStart: Date.UTC(dateList[0], (dateList[1]-1), dateList[2])
-					        }
-					    },
-						series : [
-								{
-									name : 'A相Max',
-									pointStart:obj.AMax.startDate,
-									data : obj.AMax.data
-								},
-								{
-									name : 'A相Min',
-									pointStart:obj.AMin.startDate,
-									data : obj.AMin.data
-								},
-								{
-									name : 'B相Max',
-									pointStart:obj.BMax.startDate,
-									data : obj.BMax.data
-								},
-								{
-									name : 'B相Min',
-									pointStart:obj.BMin.startDate,
-									data : obj.BMin.data
-								} ,
-								{
-									name : 'C相Max',
-									pointStart:obj.CMax.startDate,
-									data : obj.CMax.data
-								},
-								{
-									name : 'C相Min',
-									pointStart:obj.CMin.startDate,
-									data : obj.CMin.data
-								},
-								{
-									name : '环境Max',
-									pointStart:obj.DMax.startDate,
-									data : obj.DMax.data
-								},
-								{
-									name : '环境Min',
-									pointStart:obj.DMin.startDate,
-									data : obj.DMin.data
-								}],
+						
+					    xAxis: {
+							labels: {
+		                    formatter: function() {
+		                        return this.value;
+		                    }
+		                },
+		                maxPadding: 0.05,
+		                showLastLabel: true
+			            },
+						series : obj.data,
 						exporting : {
 							enabled : false
 						}
@@ -208,7 +164,8 @@ var createMoreChart = function() {
 		success : function(returnData) {
 
 			var obj = eval("(" + returnData + ")");
-			//var date = eval("(["+obj.data+"])");
+			//alert(obj.name);
+			//alert(obj.data.name+"::::"+obj.data.data);
 			$('#container').highcharts(
 					{
 						title : {
@@ -265,6 +222,24 @@ var Chart = {
 	dayChart : createDayChart,
 	monthChart : createMonthChart,
 	moreChart : createMoreChart
+};
+Chart.upDay = function(){
+	var startTime = $('#dayLineDate').val();
+	if (startTime.length==0){alert("请选择日期！");return;}
+	var date = new Date(startTime.split('-')[0],startTime.split('-')[1]-1,startTime.split('-')[2]);
+	date.setDate(date.getDate()-1);
+	var dayTime = date.format("yyyy-MM-dd");
+	$('#dayLineDate').val(dayTime);
+	Chart.dayChart();
+};
+Chart.downDay= function(){
+	var startTime = $('#dayLineDate').val();
+	if (startTime.length==0){alert("请选择日期！");return;}
+	var date = new Date(startTime.split('-')[0],startTime.split('-')[1]-1,startTime.split('-')[2]);
+	date.setDate(date.getDate()+1);
+	var dayTime = date.format("yyyy-MM-dd");
+	$('#dayLineDate').val(dayTime);
+	Chart.dayChart();
 };
 //Chart.dayChart();
 Chart.showedTag = 0;

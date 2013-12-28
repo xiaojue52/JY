@@ -140,16 +140,16 @@ public class MoreChartAction extends ActionSupport {
 	public void setPageBean(PageBean pageBean) {
 		this.pageBean = pageBean;
 	}
+	
 	class MoreData{
 		public String name;
-		public List<Float> data;
-		public long pointStart;
+		public List<List<Double>> data;
 	}
 	public void listHistoryAction() throws Exception {
 		String[] listDetector = queryStrings.split(",");
 		if (listDetector.length==0||listDetector[0].length()==0)return;
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		List<MoreData> listD = new ArrayList<MoreData>();
+		List<MoreData> listMoreData = new ArrayList<MoreData>();
 		for (int i = 0; i < listDetector.length; i++) {
 			final String hql = this.createSql(listDetector[i]);
 			List<JYHistoryChartData> list = this.historyChartDataService.findJYHistoryChartDataByHql(hql);
@@ -159,22 +159,27 @@ public class MoreChartAction extends ActionSupport {
 				list.get(0).getDetector().getDevice().getCabinet().getCabType().getValue()+
 				list.get(0).getDetector().getDevice().getName()+
 				list.get(0).getDetector().getName();
-				List<Float> listValue = new ArrayList<Float>();
+				List<List<Double>> listValue = new ArrayList<List<Double>>();
 				for (int j=0;j<list.size();j++){
-					listValue.add(list.get(j).getValue());
+					List<Double> value = new ArrayList<Double>();
+
+					value.add(Double.valueOf(list.get(j).getDate().getTime()+8*60*60*1000));
+					
+					if (list.get(j).getValue()!=null){
+						value.add(Double.valueOf(list.get(j).getValue()));
+					}else
+						value.add(null);
+					
+					listValue.add(value);
 				}
-				//map.put(str, listValue);
-				//String strD = "{name:\""+str+"\",data:"+listValue+"}";
+
 				MoreData moreData = new MoreData();
-				if (list.size()>0)
-					moreData.pointStart = list.get(0).getDate().getTime()+8*60*60*1000;
 				moreData.name = str;
 				moreData.data = listValue;
-				listD.add(moreData);
+				listMoreData.add(moreData);
 			}
-			// dataMap.put(list.get(0).getDetector().getDevice().get, value);
 		}
-		dataMap.put("data", listD);
+		dataMap.put("data", listMoreData);
 		Constant.flush(dataMap);
 	}
 

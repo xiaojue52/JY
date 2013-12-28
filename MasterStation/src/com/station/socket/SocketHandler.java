@@ -26,6 +26,16 @@ public class SocketHandler {
 	private LoopCheckThread checkThread;
 	public SocketHandler(JYSocketService socketService,JYChartDataService chartDataService){
 		this.socketService = socketService;
+		
+		String hql = "from JYCabinet cabinet where tag = 1";
+		List<JYCabinet> list = this.socketService.findCabinetsByHql(hql);
+		for (int i =0;i<list.size();i++){
+			Map<String, String> order = new HashMap<String, String>();
+			order.put("heartBeat", Constant.getCurrentDateStr());
+			//order.put("reviceTemp", Constant.getCurrentDateStr());
+			order.put("monitorTimeOK", "0");
+			orderMap.put(list.get(i).getCabNumber(), order);
+		}
 		checkThread = new LoopCheckThread(orderMap, socketService);
 		checkThread.start();
 		halfHourEvent = new HalfHourEvent(chartDataService);
@@ -373,5 +383,11 @@ public class SocketHandler {
 			e.printStackTrace();
 		}
 	}
-	
+	public void addCabinet(String cabNumber){
+		Map<String, String> order = new HashMap<String, String>();
+		order.put("heartBeat", Constant.getCurrentDateStr());
+		//order.put("reviceTemp", Constant.getCurrentDateStr());
+		order.put("monitorTimeOK", "0");
+		orderMap.put(cabNumber, order);
+	}
 }

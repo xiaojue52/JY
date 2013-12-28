@@ -157,10 +157,23 @@
 					<td colspan="4" align="center">基本信息</td>
 					</tr>
 					<tr>
+					<td class="td_left" width="200px">终端编号：</td>
+					<td>
+						<input id="terminal" value="自动生成，跟终端匹配" type="text" readonly="readonly"
+							class="readonly"  style="height: 22px;width:200px;"/>
+					</td>
+					
 					<td class="td_left" width="200px">所属线路：</td>
 					<td>
 						<input id="line" value="" type="text" readonly="readonly"
 							class="readonly"  style="height: 22px;width:200px;"/>
+					</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100">柜体编号：</td>
+					<td>
+						<input maxlength=5 class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
+							type="text" style="ime-mode:disabled;height: 22px;width:200px;"/><span style="color:red">*</span>
 					</td>
 					<td class="td_left" width="200px">柜体类型：</td>
 					<td>
@@ -176,13 +189,10 @@
 							%>
 						</select>
 					</td>
+					
+					
 					</tr>
 					<tr>
-					<td class="td_left" width="100">柜体编号：</td>
-					<td>
-						<input maxlength=5 class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
-							type="text" style="ime-mode:disabled;height: 22px;width:200px;"/><span style="color:red">*</span>
-					</td>
 					<td class="td_left" width="100">电压等级：</td>
 					<td>
 						<select name="cabinet.powerLevel.id" id="powerLevel" style="height: 22px;width:200px;">
@@ -197,8 +207,7 @@
 							%>
 						</select>
 					</td>
-					</tr>
-					<tr>
+					
 					<td class="td_left" width="100">管理者：</td>
 					<td>
 						<select id="user" name="cabinet.user.userId" style="height: 22px;width:200px;">
@@ -213,9 +222,25 @@
 							%>
 						</select>
 					</td>
+					</tr>
+					<tr>
 					<td class="td_left" width="100">添加时间：</td>
 					<td width="270">
 						<input id="cabinetTime" type="text" value="自动生成" readonly="readonly" class="readonly" style="height: 22px;width:200px;"/>
+					</td>
+					<td class="td_left" width="100">管理班组：</td>
+					<td>
+						<select id="user" name="cabinet.user.userId" style="height: 22px;width:200px;">
+							<%
+								for (int i = 0; i < userList.size(); i++) {
+							%>
+							<option value='<%=userList.get(i).getUserId()%>'>
+								<%=userList.get(i).getUsername()%>
+							</option>
+							<%
+								}
+							%>
+						</select>
 					</td>
 					</tr>
 					<tr>

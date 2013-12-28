@@ -244,9 +244,11 @@ public class AlarmAction extends ActionSupport {
 				+ "%' and "
 				+ "alarm.device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " + "alarm.date>= TO_DATE('"
-				+ queryStartDate + "','YYYY-MM-DD') and "
+				+ queryStartDate+" 00:00:00"
+				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "alarm.date <= TO_DATE('" + queryEndDate
-				+ "','YYYY-MM-DD') and "
+				+ " 23:59:59"
+				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "alarm.device.cabinet.user.username like '%"
 				+ queryUser + "%'" +
 				orderStr;
