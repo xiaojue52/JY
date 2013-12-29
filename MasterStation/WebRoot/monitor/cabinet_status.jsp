@@ -140,15 +140,18 @@ String path = request.getContextPath();
 						<s:date name="#cabinet.detectTime" format="yyyy-MM-dd HH:mm:ss" />
 					</td>
 					<td width="16%">
-						<s:if test="#cabinet.alarm!=null">
-						<s:property value="#cabinet.alarm.alarmText" />
+						<s:if test="#cabinet.status == -1">
+							未启用
 						</s:if>
-						<s:elseif test="#cabinet.detectTime!=null">
+						<s:elseif test="#cabinet.status == 0">
+							 停用
+						</s:elseif>
+						<s:elseif test="#cabinet.alarm!=null">
+						<s:property value="#cabinet.alarm.alarmText" />
+						</s:elseif>
+						<s:elseif test="#cabinet.alarm==null">
 							在线
 						</s:elseif>
-						<s:else>
-							未启用
-						</s:else>
 					</td>
 					<td width="10%">
 						<s:property value="#cabinet.user.username" />

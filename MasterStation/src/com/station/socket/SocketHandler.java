@@ -339,7 +339,7 @@ public class SocketHandler {
 	private void addOrderMap(String cabNumber,Socket client) {
 		Map<String, String> order = orderMap.get(cabNumber);
 		if (order == null) {
-			order = new HashMap<String, String>();
+			return;
 		}
 		order.put("heartBeat", Constant.getCurrentDateStr());
 		//order.put("reviceTemp", Constant.getCurrentDateStr());

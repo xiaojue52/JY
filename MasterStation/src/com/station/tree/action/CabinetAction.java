@@ -7,17 +7,12 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
 import com.station.po.JYCabinet;
 import com.station.service.JYCabinetService;
-import com.station.socket.SocketRoute;
+
 
 
 @SuppressWarnings("serial")
 public class CabinetAction extends ActionSupport{
 	private JYCabinetService cabinetService;
-	private static SocketRoute socketRoute;
-
-	public static void setSocketRoute(SocketRoute socketRoute) {
-		CabinetAction.socketRoute = socketRoute;
-	}
 	private JYCabinet cabinet;
 
 	public JYCabinet getCabinet() {
@@ -48,8 +43,9 @@ public class CabinetAction extends ActionSupport{
 			data = 1;
 			Date date = new Date();
 			cabinet.setCreateTime(date);
+			if(cabinet.getStatus()==0)
+				cabinet.setStatus(-1);
 			cabinetService.saveJYCabinet(cabinet);
-			socketRoute.addCabinet(cabinet.getCabNumber());
 		}
 		Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("data", data);

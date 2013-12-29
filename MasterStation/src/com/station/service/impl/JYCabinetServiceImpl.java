@@ -171,6 +171,8 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		}
 		cabinet.setAlarmTypeCollect(alarmTypeCollect);
 		cabinetDAO.saveJYCabinet(cabinet);
+		if(cabinet.getStatus()==1)
+			socketRoute.addCabinet(cabinet.getCabNumber());
 	}
 
 	@Override
@@ -227,6 +229,8 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		}
 		
 		cabinetDAO.updateJYCabinet(cabinet);
+		if(cabinet.getStatus()!=1)
+			socketRoute.removedCabinet(cabinet.getCabNumber());
 	}
 
 	@Override

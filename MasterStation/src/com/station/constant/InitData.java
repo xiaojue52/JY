@@ -13,10 +13,12 @@ import com.station.po.JYAlarmTypeCollect;
 import com.station.po.JYConstant;
 import com.station.po.JYKeyGenerator;
 import com.station.po.JYUser;
+import com.station.po.JYUserGroup;
 import com.station.service.JYAlarmTypeCollectService;
 import com.station.service.JYAlarmTypeService;
 import com.station.service.JYConstantService;
 import com.station.service.JYKeyGeneratorService;
+import com.station.service.JYUserGroupService;
 import com.station.service.JYUserService;
 
 public class InitData {
@@ -25,7 +27,11 @@ public class InitData {
 	private JYConstantService constantService;
 	private JYAlarmTypeService alarmTypeService;
 	private JYAlarmTypeCollectService alarmTypeCollectService;
+	private JYUserGroupService userGroupService;
 	
+	public void setUserGroupService(JYUserGroupService userGroupService) {
+		this.userGroupService = userGroupService;
+	}
 	public void setAlarmTypeCollectService(
 			JYAlarmTypeCollectService alarmTypeCollectService) {
 		this.alarmTypeCollectService = alarmTypeCollectService;
@@ -42,6 +48,15 @@ public class InitData {
 	public void setUserService(JYUserService userService) {
 		this.userService = userService;
 	}
+	private void initUserGroupTable(){
+		String hql = "from JYUserGroup userGroup where userGroup.groupName = '--'";
+		if (this.userGroupService.findJYUserGroupByHql(hql).size()==0){
+			JYUserGroup userGroup = new JYUserGroup();
+			userGroup.setGroupName("--");
+			userGroup.setLeaderName("--");
+			this.userGroupService.saveJYUserGroup(userGroup);
+		}
+	}
 	private void initUserTable(){
 		String hql = "from JYUser user where user.username = 'admin'";
 		if (this.userService.findUserByHql(hql).size()==0){
@@ -54,6 +69,8 @@ public class InitData {
 			user.setUsername("--");
 			user.setPassword(MD5.CreateMD5String("--------"));
 			user.setUserLevel("com_admin");
+			String hql0 = "from JYUserGroup userGroup where userGroup.groupName = '--'";
+			user.setUserGroup(this.userGroupService.findJYUserGroupByHql(hql0).get(0));
 			this.userService.saveUser(user);
 		}
 	}
@@ -201,6 +218,7 @@ public class InitData {
 		this.readCondig(event);
 	}
 	private void initTable(){
+		initUserGroupTable();
 		initConstantTable();
 		initKeyGeneratorTable();
 		initUserTable();

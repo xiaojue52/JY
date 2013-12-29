@@ -192,7 +192,7 @@ public class MainAction extends ActionSupport {
 		+ "cabinet.cabType.value like '%"
 		+ queryType + "%' and " 
 		+ "cabinet.user.username like '%"
-		+ queryUser + "%' and cabinet.tag = 1 "+orderStr;
+		+ queryUser + "%' and cabinet.tag = 1 and cabinet.status = 1 "+orderStr;
 		return hql;
 	}
 	

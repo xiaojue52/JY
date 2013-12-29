@@ -9,7 +9,15 @@ public class JYUser {
 	private String jobLevel;
 	private String userLevel;
 	private Integer isFirstLogin;
+	private JYUserGroup userGroup;
 	
+	public JYUserGroup getUserGroup() {
+		return userGroup;
+	}
+
+	public void setUserGroup(JYUserGroup userGroup) {
+		this.userGroup = userGroup;
+	}
 
 	public Integer getIsFirstLogin() {
 		return isFirstLogin;

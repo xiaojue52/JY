@@ -244,14 +244,17 @@
 					</td>
 					</tr>
 					<tr>
+						<td class="td_left" width="100"><input type="checkbox" id="cabinetStatusCheckBox" onclick="DeviceManager.switchCabinetStatus(this);"/><input name="cabinet.status" id="cabinetStatus" type="hidden" value="-1" /></td>
+						<td width="270" colspan="3">
+						<input type="text" value="启用" readonly="readonly" class="readonly" style="height: 22px;width:200px;"/>
+					</td>
+					</tr>
+					<tr>
 					<td class="td_left" width="100">备注：</td>
 					<td width="270" colspan="3">
 						<textarea onkeyup="this.value = this.value.substring(0, 200)"  name="cabinet.note" id="cabinetNote" cols="30" rows="5" style="width:200px;"></textarea>
 					</td>
 				</tr>
-					
-					
-				
 				<tr>
 				<td colspan="2" align="center"><table class="tableStyle" style="margin-bottom: 5px;margin-top: 5px;">
 				<tr>

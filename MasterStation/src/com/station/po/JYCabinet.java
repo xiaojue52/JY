@@ -19,9 +19,9 @@ public class JYCabinet {
 	private List<JYDevice> deviceList;
 	private JYAlarm alarm;
 	private String note;
-	private Date createTime;
-	private Integer status;
-	private Date detectTime;
+	private Date createTime; //创建时间
+	private Integer status; //-1未启用，0停用，1启用
+	private Date detectTime; //监测时间
 
 	public Date getDetectTime() {
 		return detectTime;

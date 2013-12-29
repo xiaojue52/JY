@@ -18,5 +18,10 @@
   <property name="company" type="string" column="company" length="40"/>
   <property name="jobLevel" type="string" column="job_level" length="40"/>
   <property name="userLevel" type="string" column="user_level" length="20"/>
+  <many-to-one name="userGroup"
+  		class="com.station.po.JYUserGroup" outer-join="true"
+  		not-null="true" lazy="false">
+  		<column name="group_id"></column>
+  	</many-to-one>	
  </class>
 </hibernate-mapping>

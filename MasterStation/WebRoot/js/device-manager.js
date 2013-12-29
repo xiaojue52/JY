@@ -1,3 +1,19 @@
+function cleanCabinetMes(){
+	$("#cabNumber").val("");
+    $("#simNumber").val("");
+    $("#simSNumber").val("");
+    $("#terminal").val("自动生成，跟终端匹配");
+    $("#cabinetTime").val("自动生成");
+    $("#cabinetStatus").val("-1");
+    document.getElementById("cabinetStatusCheckBox").checked = false;
+}
+function cleanDeviceMes(){
+	$("#deviceNote").val("");
+    $("#devicePositionNumber").val("");
+    $("#devicePositionNumber").removeAttr("readonly");
+    $("#deviceNumber").val("");
+    $("#deviceName").val("");
+}
 var DeviceManager = {};
 DeviceManager.windowTree = {};
 DeviceManager.currentNode = {};
@@ -61,6 +77,12 @@ Ext.onReady(function(){
     	                $("#cabinetAddBtn").hide();
     	                $("#cabinetUpdateBtn").show();
     	                $("#cabinetId").val(node.id);
+    	                $("#terminal").val(node.id);
+    	                $("#cabinetStatus").val(obj.cabinet.status);
+    	                if (obj.cabinet.status==1){
+    	                	document.getElementById("cabinetStatusCheckBox").checked = true;
+    	                }else
+    	                	document.getElementById("cabinetStatusCheckBox").checked = false;
     	                //$("#cabinetPage form").attr({"action":"updateCabinet.action?cabinet.cabId="+node.id});
     	                
     	                if (obj.cabinet.alarmTypeCollect.id == "-1"){
@@ -191,9 +213,7 @@ Ext.onReady(function(){
     			case 1:
     				$("#line").val(this.node.text);
     				$("#lineId").val(this.node.id);
-	                $("#cabNumber").val("");
-	                $("#simNumber").val("");
-	                $("#simSNumber").val("");
+    				cleanCabinetMes();
 	                //$("#cabNumber").removeAttr("readonly");
 	                DeviceManager.removeChecked(1);
 	                DeviceManager.removeChecked(2);
@@ -207,13 +227,10 @@ Ext.onReady(function(){
 	    			$("#cabinetPage").show();
     				break;	
     			case 2:
-    				$("#deviceNumber").val("");
-	                $("#deviceName").val("");
+    				
 	                $("#cabinet").val(this.node.text);
 	                $("#deviceCabinetId").val(this.node.id);
-	                $("#deviceNote").val("");
-	                $("#devicePositionNumber").val("");
-	                $("#devicePositionNumber").removeAttr("readonly");
+	                cleanDeviceMes();
 	                $("#deviceTitle").text("增加变送器");
 	                $("#deviceAddBtn").show();
 	                $("#deviceUpdateBtn").hide();
@@ -367,7 +384,8 @@ DeviceManager.Cabinet.cabinet = function(order){
 		"&cabinet.alarmTypeCollect.alarmType3.value="+$("#input3").val()+
 		"&cabinet.alarmTypeCollect.alarmType3.enable="+$("#enable3").val()+
 		"&cabinet.line.lineId="+$("#lineId").val()+
-		"&cabinet.cabId="+$("#cabinetId").val()
+		"&cabinet.cabId="+$("#cabinetId").val()+
+		"&cabinet.status="+$("#cabinetStatus").val()
 		,
 		dataType:'text',
 		success : function(returnData) {
@@ -378,6 +396,9 @@ DeviceManager.Cabinet.cabinet = function(order){
 				//alert(obj.data);
 				if (order==1){
 					DeviceManager.currentNode.setText($("#cabNumber").val()+$("#cabType").find("option:selected").text());
+				}
+				if (order==0){
+					cleanCabinetMes();
 				}
 				DeviceManager.currentNode.reload();	
 			}
@@ -419,6 +440,9 @@ DeviceManager.Device.device = function(order){
 				if (order==1){
 					DeviceManager.currentNode.setText($("#deviceName").val());
 				}
+				if (order==0){
+					cleanDeviceMes();
+				}
 				DeviceManager.currentNode.reload();		
 			}
 		},
@@ -449,3 +473,9 @@ DeviceManager.deleteDevice = function(url){
 		}
 	});
 };
+DeviceManager.switchCabinetStatus = function(arg){
+	if (arg.checked==true){
+		$("#cabinetStatus").val(1);
+	}else
+		$("#cabinetStatus").val(0);
+}

@@ -43,6 +43,7 @@
 				<value>com/station/po/xml/JYAlarmTypeCollect.hbm.xml</value>
 				<value>com/station/po/xml/JYAlarm.hbm.xml</value>
 				<value>com/station/po/xml/JYCabinetHistory.hbm.xml</value>
+				<value>com/station/po/xml/JYUserGroup.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -138,11 +139,25 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="jyUserGroupDAO" class="com.station.dao.impl.JYUserGroupDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
 
 	<!-- service -->
 	<bean id="jyUserService" class="com.station.service.impl.JYUserServiceImpl">
 		<property name="userDAO">
 			<ref bean="jyUserDAO" />
+		</property>
+		<property name="cabinetDAO">
+			<ref bean="jyCabinetDAO" />
+		</property>
+	</bean>
+	<bean id="jyUserGroupService" class="com.station.service.impl.JYUserGroupServiceImpl">
+		<property name="userGroupDAO">
+			<ref bean="jyUserGroupDAO" />
 		</property>
 		<property name="cabinetDAO">
 			<ref bean="jyCabinetDAO" />
@@ -450,6 +465,9 @@
 		<property name="alarmTypeCollectService">
 			<ref bean="jyAlarmTypeCollectService" />
 		</property>
+		<property name="userGroupService">
+			<ref bean="jyUserGroupService" />
+		</property>
 	</bean>
 	<bean id="AlarmTypeAction" scope="session" class="com.station.system.action.AlarmTypeAction">
 		<property name="alarmTypeService">
@@ -507,6 +525,11 @@
 	</bean>
 	<bean id="HeartBeatAction" scope="session" class="com.station.system.action.HeartBeatAction">
 
+	</bean>
+	<bean id="UserGroupAction" scope="session" class="com.station.group.action.UserGroupAction">
+		<property name="userGroupService">
+			<ref bean="jyUserGroupService" />
+		</property>
 	</bean>
 	
 </beans>
