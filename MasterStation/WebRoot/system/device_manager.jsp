@@ -13,7 +13,7 @@
 	String username = (String) request.getSession().getAttribute("username");		
 	if (username == null)
 		response.sendRedirect(basePath + "index.jsp");
-	List<JYUser> userList = new ArrayList<JYUser>();
+	List<JYUserGroup> userGroupList = new ArrayList<JYUserGroup>();
 	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
 	
 	if (username!=null)
@@ -23,7 +23,7 @@
 			.getAttribute(
 					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 	DataList dataList = (DataList) wac.getBean("DataList");
-	userList = dataList.getUser();
+	userGroupList = dataList.getAllUserGroups();
 	cabTypeList = dataList.getCabTpyeConstant();
 	}
 %>
@@ -64,18 +64,17 @@
 							%>
 					</select>
 				</span>
-				<span>管理者：<select id="queryUser">
+				<span>管理班组：
+						<select id="queryUserGroup">
 						<option value='-1'>全部</option>
-						<%
-								for (int i = 0; i < userList.size(); i++) {
+							<%
+								for (int i = 0; i < userGroupList.size(); i++) {
 							%>
-						<option value='<%=userList.get(i).getUsername()%>'>
-							<%=userList.get(i).getUsername()%>
-						</option>
-						<%
+							<option value='<%=userGroupList.get(i).getId()%>'><%=userGroupList.get(i).getGroupName()%></option>
+							<%
 								}
 							%>
-					</select>
+						</select>	
 				</span>
 				<span><input style="width: 48px;" class="toolbarButton"
 						type="button" value="查询" onclick="DeviceManager.queryDevice();" />

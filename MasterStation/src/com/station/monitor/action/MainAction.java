@@ -11,7 +11,7 @@ import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
 import com.station.po.JYConstant;
-import com.station.po.JYUser;
+import com.station.po.JYUserGroup;
 import com.station.service.JYMonitorService;
 
 @SuppressWarnings("serial")
@@ -24,15 +24,23 @@ public class MainAction extends ActionSupport {
     private int pageList = 10;
 	private List<Integer> pageNumberList = new ArrayList<Integer>();
 	private DataList dataList;
-	private List<JYUser> userList;
+	private List<JYUserGroup> userGroupList;
 	private List<JYConstant> cabTypeList;
 	private String queryLine;
 	private String queryNumber;
 	private String queryType;
-	private String queryUser;
+	private String queryUserGroup;
 	private String orderColumn = "cabinet.cabId";
 	private float a = 1f;
 	
+
+	public List<JYUserGroup> getUserGroupList() {
+		return userGroupList;
+	}
+
+	public void setUserGroupList(List<JYUserGroup> userGroupList) {
+		this.userGroupList = userGroupList;
+	}
 
 	public float getA() {
 		return a;
@@ -75,12 +83,13 @@ public class MainAction extends ActionSupport {
 		this.queryType = queryType;
 	}
 
-	public String getQueryUser() {
-		return queryUser;
+
+	public String getQueryUserGroup() {
+		return queryUserGroup;
 	}
 
-	public void setQueryUser(String queryUser) {
-		this.queryUser = queryUser;
+	public void setQueryUserGroup(String queryUserGroup) {
+		this.queryUserGroup = queryUserGroup;
 	}
 
 	public DataList getDataList() {
@@ -91,13 +100,6 @@ public class MainAction extends ActionSupport {
 		this.dataList = dataList;
 	}
 
-	public List<JYUser> getUserList() {
-		return userList;
-	}
-
-	public void setUserList(List<JYUser> userList) {
-		this.userList = userList;
-	}
 
 	public List<JYConstant> getCabTypeList() {
 		return cabTypeList;
@@ -154,7 +156,7 @@ public class MainAction extends ActionSupport {
 			a = 1f;
 		if (Constant.FUNCTIONNUM.equals("1"))
 			a = 1.2f;
-		userList = dataList.getUser();
+		userGroupList = dataList.getAllUserGroups();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
 		this.pageBean = monitorService.getPerPage(pageList, page, hql);
@@ -174,7 +176,7 @@ public class MainAction extends ActionSupport {
 			orderStr = "ORDER BY "+orderColumn;
 		String temp="1=1 and ";
 		if (LoginStatus.checkUserAccess()==2){
-			temp = "(cabinet.user.username = '"+LoginStatus.getUsername()+"' or cabinet.user.username = '--') and ";
+			temp = "(cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or cabinet.userGroup.groupName = '--') and ";
 		}
 		String hql = "from JYCabinet cabinet where "+temp;
 		if (queryLine == null || queryLine.length() == 0)
@@ -183,16 +185,16 @@ public class MainAction extends ActionSupport {
 			queryNumber = "%";
 		if (queryType == null || queryType.length() == 0)
 			queryType = "%";
-		if (queryUser == null || queryUser.length() == 0)
-			queryUser = "%";
+		if (queryUserGroup == null || queryUserGroup.length() == 0)
+			queryUserGroup = "%";
 		hql = hql + "cabinet.line.name like '%"
 		+ queryLine + "%' and "
 		+ "cabinet.cabNumber like '%"
 		+ queryNumber + "%' and "
 		+ "cabinet.cabType.value like '%"
 		+ queryType + "%' and " 
-		+ "cabinet.user.username like '%"
-		+ queryUser + "%' and cabinet.tag = 1 and cabinet.status = 1 "+orderStr;
+		+ "cabinet.userGroup.groupName like '%"
+		+ queryUserGroup + "%' and cabinet.tag = 1 and cabinet.status = 1 "+orderStr;
 		return hql;
 	}
 	

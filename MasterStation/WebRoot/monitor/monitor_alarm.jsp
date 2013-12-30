@@ -54,7 +54,7 @@
 								<span>报警内容</span>
 							</th>
 							<th width="10%">
-								<span>管理人员</span>
+								<span>管理班组</span>
 							</th>
 							<th width="10%">
 								<span>维修状态</span>
@@ -107,12 +107,7 @@
 								</td>
 								<td width="10%">
 										<s:if test="#alarm.device !=null">
-									   		<s:if test="#alarm.device.cabinet.managerTag==1">
-												<s:property value="#alarm.device.cabinet.userGroup.groupName" />
-											</s:if>
-											<s:else>
-												<s:property value="#alarm.device.cabinet.user.username" />
-											</s:else>
+											<s:property value="#alarm.device.cabinet.userGroup.groupName" />
 										</s:if>
 								</td>
 								<td width="10%">

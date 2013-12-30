@@ -18,7 +18,7 @@ public class MoreChartAction extends ActionSupport {
 	private String queryLine;
 	private String queryNumber;
 	private String queryType;
-	private String queryUser;
+	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
 	private String queryDevice;
@@ -96,12 +96,12 @@ public class MoreChartAction extends ActionSupport {
 		this.queryType = queryType;
 	}
 
-	public String getQueryUser() {
-		return queryUser;
+	public String getQueryUserGroup() {
+		return queryUserGroup;
 	}
 
-	public void setQueryUser(String queryUser) {
-		this.queryUser = queryUser;
+	public void setQueryUserGroup(String queryUserGroup) {
+		this.queryUserGroup = queryUserGroup;
 	}
 
 	public String getQueryStartDate() {
@@ -191,8 +191,8 @@ public class MoreChartAction extends ActionSupport {
 			queryNumber = "%";
 		if (queryType == null || queryType.length() == 0)
 			queryType = "%";
-		if (queryUser == null || queryUser.length() == 0)
-			queryUser = "%";
+		if (queryUserGroup == null || queryUserGroup.length() == 0)
+			queryUserGroup = "%";
 		if (queryStartDate == null || queryStartDate.length() == 0)
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
@@ -213,8 +213,8 @@ public class MoreChartAction extends ActionSupport {
 				+ queryStartDate+" 00:00:00" + "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "history.date <= TO_DATE('" + queryEndDate+" 23:59:59"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "history.detector.device.cabinet.user.username like '%"
-				+ queryUser + "%' and history.detector.detectorId ='"
+				+ "history.detector.device.cabinet.userGroup.groupName like '%"
+				+ queryUserGroup + "%' and history.detector.detectorId ='"
 				+ detectorId+"' order by history.date";
 		return hql;
 	}

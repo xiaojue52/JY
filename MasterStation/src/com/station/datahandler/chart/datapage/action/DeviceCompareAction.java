@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
 import com.station.po.JYConstant;
-import com.station.po.JYUser;
+import com.station.po.JYUserGroup;
 import com.station.service.JYDeviceService;
 
 @SuppressWarnings("serial")
@@ -20,12 +21,12 @@ public class DeviceCompareAction extends ActionSupport {
 	private String queryLine;
 	private String queryNumber;
 	private String queryType;
-	private String queryUser;
+	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
 	private String queryDevice;
 	private String queryDetector;
-	private List<JYUser> userList;
+	private List<JYUserGroup> userGroupList;
 	private List<JYConstant> cabTypeList;
 	private int pageList = 10;
 	private List<Integer> pageNumberList = new ArrayList<Integer>();
@@ -59,12 +60,21 @@ public class DeviceCompareAction extends ActionSupport {
 		this.cabTypeList = cabTypeList;
 	}
 
-	public List<JYUser> getUserList() {
-		return userList;
+
+	public String getQueryUserGroup() {
+		return queryUserGroup;
 	}
 
-	public void setUserList(List<JYUser> userList) {
-		this.userList = userList;
+	public void setQueryUserGroup(String queryUserGroup) {
+		this.queryUserGroup = queryUserGroup;
+	}
+
+	public List<JYUserGroup> getUserGroupList() {
+		return userGroupList;
+	}
+
+	public void setUserGroupList(List<JYUserGroup> userGroupList) {
+		this.userGroupList = userGroupList;
 	}
 
 	public void setDataList(DataList dataList) {
@@ -111,13 +121,6 @@ public class DeviceCompareAction extends ActionSupport {
 		this.queryType = queryType;
 	}
 
-	public String getQueryUser() {
-		return queryUser;
-	}
-
-	public void setQueryUser(String queryUser) {
-		this.queryUser = queryUser;
-	}
 
 	public String getQueryStartDate() {
 		return queryStartDate;
@@ -156,7 +159,7 @@ public class DeviceCompareAction extends ActionSupport {
 	}
 
 	public String listAction() throws Exception {
-		userList = dataList.getUser();
+		userGroupList = dataList.getAllUserGroups();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
 		//final String hql = "from JYDevice device where tag = 1";
@@ -168,7 +171,7 @@ public class DeviceCompareAction extends ActionSupport {
 	public String createSql() {
 		String temp="1=1 and ";
 		if (LoginStatus.checkUserAccess()==2){
-			temp = "(device.cabinet.user.username = '"+LoginStatus.getUsername()+"' or device.cabinet.user.username = '--') and ";
+			temp = "(device.cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or device.cabinet.userGroup.groupName = '--') and ";
 		}
 		String hql = "from JYDevice device where "+temp;
 		if (queryLine == null || queryLine.length() == 0)
@@ -177,8 +180,8 @@ public class DeviceCompareAction extends ActionSupport {
 			queryNumber = "%";
 		if (queryType == null || queryType.length() == 0)
 			queryType = "%";
-		if (queryUser == null || queryUser.length() == 0)
-			queryUser = "%";
+		if (queryUserGroup == null || queryUserGroup.length() == 0)
+			queryUserGroup = "%";
 		if (queryStartDate == null || queryStartDate.length() == 0)
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
@@ -195,8 +198,8 @@ public class DeviceCompareAction extends ActionSupport {
 				+ "%' and " 
 				+ "device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " 
-				+ "device.cabinet.user.username like '%"
-				+ queryUser + "%' and tag = 1 order by to_number(replace(device.deviceId,'Device','')) desc";
+				+ "device.cabinet.userGroup.groupName like '%"
+				+ queryUserGroup + "%' and tag = 1 order by to_number(replace(device.deviceId,'Device','')) desc";
 		return hql;
 	}
 

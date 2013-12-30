@@ -23,7 +23,7 @@ public class CreateTreeAction extends ActionSupport {
 	private String queryLine = "-1";
 	private String queryType = "-1";
 	private String queryNumber = "-1";
-	private String queryUser = "-1";
+	private String queryUserGroup = "-1";
 	private String toExpendLineId = "-1";
 
 	
@@ -60,12 +60,12 @@ public class CreateTreeAction extends ActionSupport {
 		this.queryNumber = queryNumber;
 	}
 
-	public String getQueryUser() {
-		return queryUser;
+	public String getQueryUserGroup() {
+		return queryUserGroup;
 	}
 
-	public void setQueryUser(String queryUser) {
-		this.queryUser = queryUser;
+	public void setQueryUserGroup(String queryUserGroup) {
+		this.queryUserGroup = queryUserGroup;
 	}
 
 	public int getTag() {
@@ -129,14 +129,14 @@ public class CreateTreeAction extends ActionSupport {
 			} else if (level.equals("3")){
 				jsonString = treeService.getDetectorNodes(detectorService,id);
 			} else if (level.equals("0")&&tag==1){
-				jsonString = treeService.queryCabinet(cabinetService, this.queryLine, this.queryType, this.queryNumber, this.queryUser);
+				jsonString = treeService.queryCabinet(cabinetService, this.queryLine, this.queryType, this.queryNumber, this.queryUserGroup);
 			}
 			level = null;
 			tag = 0;
 			queryLine = "-1";
 			queryType = "-1";
 			queryNumber = "-1";
-			queryUser = "-1";
+			queryUserGroup = "-1";
 			out.println(jsonString);
 			out.flush();
 			out.close();

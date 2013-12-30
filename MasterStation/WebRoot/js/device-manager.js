@@ -69,7 +69,6 @@ Ext.onReady(function(){
     	                $("#simSNumber").val(obj.cabinet.simSNumber);
     	                $("#cabType").val(obj.cabinet.cabType.id);
     	                $("#powerLevel").val(obj.cabinet.powerLevel.id);
-    	                $("#user").val(obj.cabinet.user.userId);
     	                $("#cabinetNote").val(obj.cabinet.note);
     	                $("#cabinetTime").val(obj.dateTime);
     	                $("#cabinetTitle").text("柜体设备");
@@ -80,14 +79,7 @@ Ext.onReady(function(){
     	                $("#terminal").val(node.id);
     	                $("#userGroup").val(obj.cabinet.userGroup.id);
     	                $("#cabinetStatus").val(obj.cabinet.status);
-    	                if (obj.cabinet.managerTag==1){
-    	                	DeviceManager.managerSwitch("userGroup","user");
-    	                	document.getElementById("managerSwitch1").checked = true;
-    	                }
-    	                else{
-    	                	DeviceManager.managerSwitch("user","userGroup");
-    	                	document.getElementById("managerSwitch0").checked = true;
-    	                }
+
     	                if (obj.cabinet.status==1){
     	                	document.getElementById("cabinetStatusCheckBox").checked = true;
     	                }else
@@ -171,7 +163,7 @@ Ext.onReady(function(){
     	                $("#parentDeviceNumber").val(obj.detector.device.deviceNumber);
     	                $("#parentDeviceName").val(obj.detector.device.name);
     	                $("#parentCabinet").val(obj.detector.device.cabinet.cabNumber+obj.detector.device.cabinet.cabType.value);
-    	                $("#detectorUser").val(obj.detector.device.cabinet.user.username);
+    	                $("#detectorUserGroup").val(obj.detector.device.cabinet.userGroup.groupName);
     	                $(".page").hide();
     	    			$("#detectorPage").show();
     	            }  
@@ -287,20 +279,20 @@ DeviceManager.queryDevice = function(){
 	var queryLine = $('#queryLine').val();
 	var queryType = $('#queryType').val();
 	var queryNumber = $('#queryNumber').val();
-	var queryUser = $('#queryUser').val();
+	var queryUserGroup = $('#queryUserGroup').val();
 	//alert(queryLine);
 	if (queryLine.length==0)queryLine='-1';
 	if (queryType.length==0)queryType='-1';
 	if (queryNumber.length==0)queryNumber='-1';
-	if (queryUser.length==0)queryUser='-1';
-	if (queryLine=="-1"&&queryType=='-1'&&queryNumber=='-1'&&queryUser=='-1'){
+	if (queryUserGroup.length==0)queryUserGroup='-1';
+	if (queryLine=="-1"&&queryType=='-1'&&queryNumber=='-1'&&queryUserGroup=='-1'){
 		DeviceManager.windowTree.loader.baseParams.tag = 0;
 	}else
 		DeviceManager.windowTree.loader.baseParams.tag = 1;
 	DeviceManager.windowTree.loader.baseParams.queryLine = queryLine;
 	DeviceManager.windowTree.loader.baseParams.queryType = queryType;
 	DeviceManager.windowTree.loader.baseParams.queryNumber = queryNumber;
-	DeviceManager.windowTree.loader.baseParams.queryUser = queryUser;
+	DeviceManager.windowTree.loader.baseParams.queryUserGroup = queryUserGroup;
 	
 	//alert(queryLine.length);
 	DeviceManager.windowTree.root.reload();
@@ -384,7 +376,6 @@ DeviceManager.Cabinet.cabinet = function(order){
 		data:"cabinet.cabType.id="+$("#cabType").val()+
 		"&cabinet.cabNumber="+$("#cabNumber").val()+
 		"&cabinet.powerLevel.id="+$("#powerLevel").val()+
-		"&cabinet.user.userId="+$("#user").val()+
 		"&cabinet.note="+$("#cabinetNote").val()+
 		"&cabinet.simNumber="+$("#simNumber").val()+
 		"&cabinet.simSNumber="+$("#simSNumber").val()+
@@ -397,8 +388,7 @@ DeviceManager.Cabinet.cabinet = function(order){
 		"&cabinet.line.lineId="+$("#lineId").val()+
 		"&cabinet.cabId="+$("#cabinetId").val()+
 		"&cabinet.status="+$("#cabinetStatus").val()+
-		"&cabinet.userGroup.id="+$("#userGroup").val()+
-		"&cabinet.managerTag="+$("input[name='managerSwitch']:checked").val()
+		"&cabinet.userGroup.id="+$("#userGroup").val()
 		,
 		dataType:'text',
 		success : function(returnData) {
@@ -491,16 +481,4 @@ DeviceManager.switchCabinetStatus = function(arg){
 		$("#cabinetStatus").val(1);
 	}else
 		$("#cabinetStatus").val(0);
-}
-DeviceManager.managerSwitch = function(id,dsableId,tag){
-	$("#"+id).removeAttr("disabled");
-	if (tag==1){
-		$("#"+dsableId+" option").each(function(){
-			if($(this).attr("data")=="--"){
-				$("#"+dsableId).val($(this).val());
-				return false;
-			}
-		});
-	}
-	$("#"+dsableId).attr("disabled","disabled");
 }

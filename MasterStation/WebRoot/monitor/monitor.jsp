@@ -71,14 +71,14 @@ String path = request.getContextPath();
 									</s:iterator>
 								</select> </span>
 						
-						<span>管理者：<select name="queryUser">
+						<span>管理班组：<select name="queryUserGroup">
 						 	<option value="">全部</option>	
-							<s:iterator value="userList" var="user" status="status">
-							 <s:if test="queryUser==#user.username">
-							 	<option value="<s:property value="#user.username"/>" selected="selected"><s:property value="#user.username"/></option>
+							<s:iterator value="userGroupList" var="userGroup" status="status">
+							 <s:if test="queryUserGroup==#userGroup.groupName">
+							 	<option value="<s:property value="#userGroup.groupName"/>" selected="selected"><s:property value="#userGroup.groupName"/></option>
 							 </s:if>
 							 <s:else>
-								<option value="<s:property value="#user.username"/>"><s:property value="#user.username"/></option>
+								<option value="<s:property value="#userGroup.groupName"/>"><s:property value="#userGroup.groupName"/></option>
 							</s:else>
 							</s:iterator>				
 								
@@ -118,7 +118,7 @@ String path = request.getContextPath();
 					<span>报警信息</span>
 				</th>
 				<th width="7%">
-					<span class="comSpan" onclick="Control.orderByColumn('mainAction.action','cabinet.user.username')">管理人员</span>
+					<span class="comSpan" onclick="Control.orderByColumn('mainAction.action','cabinet.userGroup.groupName')">管理班组</span>
 				</th>
 				<th width="7%">
 					<span>操作</span>
@@ -197,12 +197,7 @@ String path = request.getContextPath();
 						</s:if>
 					</td>
 					<td width="7%">
-						<s:if test="#cabinet.managerTag==1">
-							<s:property value="#cabinet.userGroup.groupName" />
-						</s:if>
-						<s:else>
-							<s:property value="#cabinet.user.username" />
-						</s:else>
+						<s:property value="#cabinet.userGroup.groupName" />
 					</td>
 					<td width="7%">
 						<a href="javascript:void(0)" onClick="Monitor.setPageFrameSrc('listPageAlarm.action?cabId=<s:property value="#cabinet.cabId"/>');">历史报警</a><br/>

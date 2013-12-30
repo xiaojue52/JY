@@ -44,7 +44,7 @@
 				<tr>
 					<td align="center">
 						<input type="hidden" id="groupId" name="userGroup.id"
-							value="${userGroup.id}" />
+							value="" />
 						<input type="submit" value="提交" class="comButton" onclick="return Control.checkInput('group-details-page','checkInput-groupdetailspage','ecl-groupdetailspage');" style="margin-left:30px;"/>
 					</td>
 					<td align="center">	

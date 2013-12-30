@@ -28,7 +28,7 @@ public class UnhandledAlarmAction extends ActionSupport {
 	private String queryLine;
 	private String queryNumber;
 	private String queryType;
-	private String queryUser;
+	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
 	private String queryDevice;
@@ -38,6 +38,14 @@ public class UnhandledAlarmAction extends ActionSupport {
 	private int unhandledTag = 0;//全部
 	private JYAlarm alarmTemp;
 	
+
+	public String getQueryUserGroup() {
+		return queryUserGroup;
+	}
+
+	public void setQueryUserGroup(String queryUserGroup) {
+		this.queryUserGroup = queryUserGroup;
+	}
 
 	public JYAlarm getAlarmTemp() {
 		return alarmTemp;
@@ -87,13 +95,6 @@ public class UnhandledAlarmAction extends ActionSupport {
 		this.queryType = queryType;
 	}
 
-	public String getQueryUser() {
-		return queryUser;
-	}
-
-	public void setQueryUser(String queryUser) {
-		this.queryUser = queryUser;
-	}
 
 	public String getQueryStartDate() {
 		return queryStartDate;
@@ -196,11 +197,11 @@ public class UnhandledAlarmAction extends ActionSupport {
 	public String createSql(){
 		String temp="1=1 and ";
 		if (LoginStatus.checkUserAccess()==2){
-			temp = "(alarm.device.cabinet.user.username = '"+LoginStatus.getUsername()+"' or alarm.device.cabinet.user.username = '--') and ";
+			temp = "(cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or cabinet.userGroup.groupName = '--') and ";
 		}
 		String hql = "from JYAlarm alarm where "+temp;
 		if (unhandledTag==1){
-			queryLine = null;queryNumber=null;queryType=null;queryUser=null;queryStartDate=null;queryEndDate=null;
+			queryLine = null;queryNumber=null;queryType=null;queryUserGroup=null;queryStartDate=null;queryEndDate=null;
 			queryRepairStatus = "0";
 		}
 		if (queryLine == null || queryLine.length() == 0)
@@ -209,8 +210,8 @@ public class UnhandledAlarmAction extends ActionSupport {
 			queryNumber = "%";
 		if (queryType == null || queryType.length() == 0)
 			queryType = "%";
-		if (queryUser == null || queryUser.length() == 0)
-			queryUser = "%";
+		if (queryUserGroup == null || queryUserGroup.length() == 0)
+			queryUserGroup = "%";
 		if (queryStartDate == null || queryStartDate.length() == 0)
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
@@ -231,8 +232,8 @@ public class UnhandledAlarmAction extends ActionSupport {
 				+ queryStartDate + "','YYYY-MM-DD') and "
 				+ "alarm.date <= TO_DATE('" + queryEndDate
 				+ "','YYYY-MM-DD') and "
-				+ "alarm.device.cabinet.user.username like '%"
-				+ queryUser + "%')" +
+				+ "alarm.device.cabinet.userGroup.groupName like '%"
+				+ queryUserGroup + "%')" +
 				" ORDER BY alarm.date DESC";
 		unhandledTag = 0;
 		return hql;

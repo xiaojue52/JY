@@ -3,6 +3,7 @@ package com.station.tree;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.station.constant.Constant;
 import com.station.constant.LoginStatus;
 import com.station.po.JYCabinet;
 import com.station.po.JYDetector;
@@ -38,16 +39,16 @@ public class TreeService {
 		//System.out.print(jsonString);	
 		return jsonString;
 	}
-	public String queryCabinet(JYCabinetService cabinetService, String queryLine, String queryType, String queryNumber, String queryUser){
+	public String queryCabinet(JYCabinetService cabinetService, String queryLine, String queryType, String queryNumber, String queryUserGroup){
 		if (queryLine.equals("-1"))queryLine = "%"; 
 		if (queryType.equals("-1")) queryType = "%"; 
 		if (queryNumber.equals("-1")) queryNumber = "%";
-		if (queryUser.equals("-1")) queryUser = "%";
+		if (queryUserGroup.equals("-1")) queryUserGroup = "%";
 		String temp="1=1 and ";
 		if (LoginStatus.checkUserAccess()==2){
-			temp = "(cabinet.user.username = '"+LoginStatus.getUsername()+"' or cabinet.user.username = '--') and ";
+			temp = "(cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or cabinet.userGroup.groupName = '--') and ";
 		}
-		String hql = "from JYCabinet cabinet where "+temp+" cabinet.line.name like '%"+queryLine+"%' and cabinet.cabType.value like '%"+queryType+"%' and cabinet.cabNumber like '%"+queryNumber+"%' and cabinet.user.username like '%"+queryUser+"%' and tag = 1 order by to_number(replace(cabinet.cabId,'Cab','')) desc";
+		String hql = "from JYCabinet cabinet where "+temp+" cabinet.line.name like '%"+queryLine+"%' and cabinet.cabType.value like '%"+queryType+"%' and cabinet.cabNumber like '%"+queryNumber+"%' and cabinet.userGroup.groupName like '%"+queryUserGroup+"%' and tag = 1 order by to_number(replace(cabinet.cabId,'Cab','')) desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
 		
 
@@ -95,7 +96,7 @@ public class TreeService {
 	public String getCabinetNodes(JYCabinetService cabinetService, String lineId) {
 		String temp="1=1 and ";
 		if (LoginStatus.checkUserAccess()==2){
-			temp = "(cabinet.user.username = '"+LoginStatus.getUsername()+"' or cabinet.user.username = '--') and ";
+			temp = "(cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or cabinet.userGroup.groupName = '--') and ";
 		}
 		String hql = "from JYCabinet cabinet where "+temp+" cabinet.line.lineId = '"+lineId+"' and tag = 1 order by to_number(replace(cabinet.cabId,'Cab','')) desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);

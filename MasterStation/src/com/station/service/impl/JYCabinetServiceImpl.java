@@ -10,7 +10,6 @@ import com.station.po.JYAlarmTypeCollect;
 import com.station.po.JYCabinet;
 import com.station.po.JYDetector;
 import com.station.po.JYDevice;
-import com.station.po.JYUser;
 import com.station.service.JYAlarmTypeCollectService;
 import com.station.service.JYAlarmTypeService;
 import com.station.service.JYCabinetService;
@@ -18,13 +17,11 @@ import com.station.service.JYConstantService;
 import com.station.service.JYDetectorService;
 import com.station.service.JYDeviceService;
 import com.station.service.JYLineService;
-import com.station.service.JYUserService;
 import com.station.socket.SocketRoute;
 
 public class JYCabinetServiceImpl implements JYCabinetService {
 
 	private JYCabinetDAO cabinetDAO;
-	private JYUserService userService;
 	private JYLineService lineService;
 	private JYAlarmTypeService alarmTypeService;
 	private JYAlarmTypeCollectService alarmTypeCollectService;
@@ -44,10 +41,6 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 
 	public void setDeviceService(JYDeviceService deviceService) {
 		this.deviceService = deviceService;
-	}
-
-	public void setUserService(JYUserService userService) {
-		this.userService = userService;
 	}
 
 	public void setLineService(JYLineService lineService) {
@@ -123,8 +116,6 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		// TODO Auto-generated method stub
 		//cabinetDAO.removeJYCabinet(arg0);
 		arg0.setTag(0);
-		JYUser user  =  this.userService.findUserByHql("from JYUser user where user.username = '--'").get(0);
-		arg0.setUser(user);
 		cabinetDAO.updateJYCabinet(arg0);
 		String hql = "from JYDevice device where device.cabinet.cabId = '"+arg0.getCabId()+"'";
 		List<JYDevice> list = this.deviceService.findJYDeviceByHql(hql);
@@ -144,9 +135,6 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		
 		JYCabinet cabinet = arg0;
 		cabinet.setTag(1);
-		if (cabinet.getUser()!=null&&userService.findUserById(cabinet.getUser().getUserId())!=null){
-			cabinet.setUser(userService.findUserById(cabinet.getUser().getUserId()));
-		}
 		cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
 		cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
 		cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
@@ -181,7 +169,6 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		JYCabinet cabinet = arg0;
 		cabinet.setTag(1);
 		cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
-		cabinet.setUser(userService.findUserById(cabinet.getUser().getUserId()));
 		cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
 		cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
 		JYAlarmTypeCollect alarmTypeCollect = null;

@@ -64,16 +64,16 @@
 						</td>
 					
 						<td>
-						<span>管理者：<select name="queryUser">
+						<span>管理班组：<select name="queryUserGroup">
 						 	<option value="">全部</option>	
-							<s:iterator value="userList" var="user" status="status">
-							 <s:if test="queryUser==#user.username">
-							 	<option value="<s:property value="#user.username"/>" selected="selected"><s:property value="#user.username"/></option>
+							<s:iterator value="userGroupList" var="userGroup" status="status">
+							 <s:if test="queryUserGroup==#userGroup.groupName">
+							 	<option value="<s:property value="#userGroup.groupName"/>" selected="selected"><s:property value="#userGroup.groupName"/></option>
 							 </s:if>
 							 <s:else>
-								<option value="<s:property value="#user.username"/>"><s:property value="#user.username"/></option>
+								<option value="<s:property value="#userGroup.groupName"/>"><s:property value="#userGroup.groupName"/></option>
 							</s:else>
-							</s:iterator>				
+							</s:iterator>					
 								
 							</select> </span>
 							
@@ -127,7 +127,7 @@
 								<span>变送器</span>
 							</th>
 							<th width="15%">
-								<span>管理人员</span>
+								<span>管理班组</span>
 							</th>
 							<th width="20%">
 								<span>安装时间</span>
@@ -167,12 +167,7 @@
 									<s:property value="#device.name"/>
 								</td>
 								<td width="15%">
-									<s:if test="#device.cabinet.managerTag==1">
-											<s:property value="#device.cabinet.userGroup.groupName" />
-										</s:if>
-										<s:else>
-											<s:property value="#device.cabinet.user.username" />
-										</s:else>
+									<s:property value="#device.cabinet.userGroup.groupName" />
 								</td>
 								<td width="20%">
 									<s:date name="#device.createTime" format="yyyy-MM-dd" />

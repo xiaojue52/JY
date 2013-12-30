@@ -8,7 +8,6 @@ public class JYCabinet {
 	private String cabId;
 	private JYLine line;
 	private String cabNumber;
-	private JYUser user;
 	//private String powerLevel;
 	private JYConstant powerLevel;
 	private JYConstant cabType;
@@ -23,14 +22,7 @@ public class JYCabinet {
 	private Integer status; //-1未启用，0停用，1启用
 	private Date detectTime; //监测时间
 	private JYUserGroup userGroup;
-	private Integer managerTag;//0用户，1组
 
-	public Integer getManagerTag() {
-		return managerTag;
-	}
-	public void setManagerTag(Integer managerTag) {
-		this.managerTag = managerTag;
-	}
 	public JYUserGroup getUserGroup() {
 		return userGroup;
 	}
@@ -94,12 +86,7 @@ public class JYCabinet {
 	public void setLine(JYLine line) {
 		this.line = line;
 	}
-	public JYUser getUser() {
-		return user;
-	}
-	public void setUser(JYUser user) {
-		this.user = user;
-	}
+
 	public String getCabNumber() {
 		return cabNumber;
 	}

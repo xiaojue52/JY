@@ -60,7 +60,7 @@
 								<span>间隔采集器历史数据</span>
 							</th>
 							<th width="10%">
-								<span>管理人员</span>
+								<span>管理班组</span>
 							</th>
 						</tr>
 	  			</table>
@@ -108,13 +108,7 @@
 									</table>
 								</td>
 								<td width="10%">
-		
-									   	<s:if test="#history.cabinet.managerTag==1">
-											<s:property value="#history.cabinet.userGroup.groupName" />
-										</s:if>
-										<s:else>
-											<s:property value="#history.cabinet.user.username" />
-										</s:else>
+									<s:property value="#history.cabinet.userGroup.groupName" />
 								</td>
 							</tr>
 						</s:iterator>

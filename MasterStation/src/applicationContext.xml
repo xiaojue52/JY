@@ -151,9 +151,6 @@
 		<property name="userDAO">
 			<ref bean="jyUserDAO" />
 		</property>
-		<property name="cabinetDAO">
-			<ref bean="jyCabinetDAO" />
-		</property>
 	</bean>
 	<bean id="jyUserGroupService" class="com.station.service.impl.JYUserGroupServiceImpl">
 		<property name="userGroupDAO">
@@ -177,9 +174,6 @@
 		</property>
 		<property name="lineService">
 			<ref bean="jyLineService" />
-		</property>
-		<property name="userService">
-			<ref bean="jyUserService" />
 		</property>
 		<property name="constantService">
 			<ref bean="jyConstantService" />
@@ -386,9 +380,6 @@
 	<bean id="HistoryPageAction" scope="session" class="com.station.monitor.action.HistoryPageAction">
 		<property name="cabinetHistoryService">
 			<ref bean="jyCabinetHistoryService" />
-		</property>
-		<property name="dataList">
-			<ref bean="DataList"/>
 		</property>
 	</bean>
 

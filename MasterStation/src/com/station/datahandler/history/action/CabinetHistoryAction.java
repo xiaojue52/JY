@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
 import com.station.po.JYConstant;
-import com.station.po.JYUser;
+import com.station.po.JYUserGroup;
 import com.station.service.JYCabinetHistoryService;
 
 @SuppressWarnings("serial")
@@ -20,10 +21,10 @@ public class CabinetHistoryAction extends ActionSupport {
 	private String queryLine;
 	private String queryNumber;
 	private String queryType;
-	private String queryUser;
+	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
-	private List<JYUser> userList;
+	private List<JYUserGroup> userGroupList;
 	private List<JYConstant> cabTypeList;
 	private int pageList = 10;
 	private List<Integer> pageNumberList = new ArrayList<Integer>();
@@ -66,12 +67,21 @@ public class CabinetHistoryAction extends ActionSupport {
 		this.cabTypeList = cabTypeList;
 	}
 
-	public List<JYUser> getUserList() {
-		return userList;
+
+	public String getQueryUserGroup() {
+		return queryUserGroup;
 	}
 
-	public void setUserList(List<JYUser> userList) {
-		this.userList = userList;
+	public void setQueryUserGroup(String queryUserGroup) {
+		this.queryUserGroup = queryUserGroup;
+	}
+
+	public List<JYUserGroup> getUserGroupList() {
+		return userGroupList;
+	}
+
+	public void setUserGroupList(List<JYUserGroup> userGroupList) {
+		this.userGroupList = userGroupList;
 	}
 
 	public void setDataList(DataList dataList) {
@@ -101,15 +111,6 @@ public class CabinetHistoryAction extends ActionSupport {
 	public void setQueryType(String queryType) {
 		this.queryType = queryType;
 	}
-
-	public String getQueryUser() {
-		return queryUser;
-	}
-
-	public void setQueryUser(String queryUser) {
-		this.queryUser = queryUser;
-	}
-
 	public String getQueryStartDate() {
 		return queryStartDate;
 	}
@@ -149,7 +150,7 @@ public class CabinetHistoryAction extends ActionSupport {
 	}
 
 	public String listHistoryAction() throws Exception {
-		userList = dataList.getUser();
+		userGroupList = dataList.getAllUserGroups();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
 		//final String hql = "from JYCabinetHistory cabinetHistory";
@@ -167,7 +168,7 @@ public class CabinetHistoryAction extends ActionSupport {
 			orderStr = "ORDER BY "+orderColumn;
 		String temp="1=1 and ";
 		if (LoginStatus.checkUserAccess()==2){
-			temp = "(cabinetHistory.cabinet.user.username = '"+LoginStatus.getUsername()+"' or cabinetHistory.cabinet.user.username = '--') and ";
+			temp = "(cabinetHistory.cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("suerGroup")+"' or cabinetHistory.cabinet.userGroup.groupName = '--') and ";
 		}
 		String hql = "from JYCabinetHistory cabinetHistory where "+temp;
 		if (queryLine == null || queryLine.length() == 0)
@@ -176,8 +177,8 @@ public class CabinetHistoryAction extends ActionSupport {
 			queryNumber = "%";
 		if (queryType == null || queryType.length() == 0)
 			queryType = "%";
-		if (queryUser == null || queryUser.length() == 0)
-			queryUser = "%";
+		if (queryUserGroup == null || queryUserGroup.length() == 0)
+			queryUserGroup = "%";
 		if (queryStartDate == null || queryStartDate.length() == 0)
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
@@ -193,8 +194,8 @@ public class CabinetHistoryAction extends ActionSupport {
 				+ "cabinetHistory.date <= TO_DATE('" + queryEndDate
 				+ " 23:59:59"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "cabinetHistory.cabinet.user.username like '%"
-				+ queryUser + "%' "+orderStr;
+				+ "cabinetHistory.cabinet.userGroup.groupName like '%"
+				+ queryUserGroup + "%' "+orderStr;
 		return hql;
 	}
 

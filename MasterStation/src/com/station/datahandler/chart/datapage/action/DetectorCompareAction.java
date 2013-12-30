@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.station.constant.Constant;
 import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
 import com.station.po.JYConstant;
-import com.station.po.JYUser;
+import com.station.po.JYUserGroup;
 import com.station.service.JYDetectorService;
 
 @SuppressWarnings("serial")
@@ -20,12 +21,12 @@ public class DetectorCompareAction extends ActionSupport {
 	private String queryLine;
 	private String queryNumber;
 	private String queryType;
-	private String queryUser;
+	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
 	private String queryDevice;
 	private String queryDetector;
-	private List<JYUser> userList;
+	private List<JYUserGroup> userGroupList;
 	private List<JYConstant> cabTypeList;
 	private int pageList = 10;
 	private List<Integer> pageNumberList = new ArrayList<Integer>();
@@ -59,12 +60,12 @@ public class DetectorCompareAction extends ActionSupport {
 		this.cabTypeList = cabTypeList;
 	}
 
-	public List<JYUser> getUserList() {
-		return userList;
+	public List<JYUserGroup> getUserGroupList() {
+		return userGroupList;
 	}
 
-	public void setUserList(List<JYUser> userList) {
-		this.userList = userList;
+	public void setUserGroupList(List<JYUserGroup> userGroupList) {
+		this.userGroupList = userGroupList;
 	}
 
 	public void setDataList(DataList dataList) {
@@ -111,12 +112,13 @@ public class DetectorCompareAction extends ActionSupport {
 		this.queryType = queryType;
 	}
 
-	public String getQueryUser() {
-		return queryUser;
+
+	public String getQueryUserGroup() {
+		return queryUserGroup;
 	}
 
-	public void setQueryUser(String queryUser) {
-		this.queryUser = queryUser;
+	public void setQueryUserGroup(String queryUserGroup) {
+		this.queryUserGroup = queryUserGroup;
 	}
 
 	public String getQueryStartDate() {
@@ -156,7 +158,7 @@ public class DetectorCompareAction extends ActionSupport {
 	}
 
 	public String listAction() throws Exception {
-		userList = dataList.getUser();
+		userGroupList = dataList.getAllUserGroups();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
 		//final String hql = "from JYDetector detector where tag = 1";
@@ -168,7 +170,7 @@ public class DetectorCompareAction extends ActionSupport {
 	public String createSql() {
 		String temp="1=1 and ";
 		if (LoginStatus.checkUserAccess()==2){
-			temp = "(detector.device.cabinet.user.username = '"+LoginStatus.getUsername()+"' or detector.device.cabinet.user.username = '--') and ";
+			temp = "(detector.device.cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or detector.device.cabinet.userGroup.groupName = '--') and ";
 		}
 		String hql = "from JYDetector detector where "+temp;
 		if (queryLine == null || queryLine.length() == 0)
@@ -177,8 +179,8 @@ public class DetectorCompareAction extends ActionSupport {
 			queryNumber = "%";
 		if (queryType == null || queryType.length() == 0)
 			queryType = "%";
-		if (queryUser == null || queryUser.length() == 0)
-			queryUser = "%";
+		if (queryUserGroup == null || queryUserGroup.length() == 0)
+			queryUserGroup = "%";
 		if (queryStartDate == null || queryStartDate.length() == 0)
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
@@ -194,8 +196,8 @@ public class DetectorCompareAction extends ActionSupport {
 				+ "%' and " 
 				+ "detector.device.cabinet.cabType.value like '%"
 				+ queryType + "%' and " 
-				+ "detector.device.cabinet.user.username like '%"
-				+ queryUser + "%' and tag = 1 order by to_number(replace(detector.detectorId,'Detector','')) desc";
+				+ "detector.device.cabinet.userGroup.groupName like '%"
+				+ queryUserGroup + "%' and tag = 1 order by to_number(replace(detector.detectorId,'Detector','')) desc";
 		return hql;
 	}
 

@@ -2,7 +2,6 @@ package com.station.service.impl;
 
 import java.util.List;
 
-import com.station.dao.JYCabinetDAO;
 import com.station.dao.JYUserDAO;
 import com.station.pagebean.PageBean;
 import com.station.po.JYUser;
@@ -11,11 +10,6 @@ import com.station.service.JYUserService;
 public class JYUserServiceImpl implements JYUserService {
 
 	private JYUserDAO userDAO;
-	private JYCabinetDAO cabinetDAO;
-	
-	public void setCabinetDAO(JYCabinetDAO cabinetDAO) {
-		this.cabinetDAO = cabinetDAO;
-	}
 
 	public void setUserDAO(JYUserDAO userDAO) {
 		this.userDAO = userDAO;
@@ -68,15 +62,8 @@ public class JYUserServiceImpl implements JYUserService {
 	@Override
 	public int removeUser(JYUser user) {
 		// TODO Auto-generated method stub
-		String hql = "from JYCabinet cabinet where cabinet.user.userId = '"+user.getUserId()+"'";
-		if(this.cabinetDAO.findJYCabinetByHql(hql).size()>0){
-			return -1;
-		}
-		else{
-			userDAO.removeUser(user);
-			return 1;
-		}
-		
+		userDAO.removeUser(user);
+		return 1;
 	}
 
 	@Override

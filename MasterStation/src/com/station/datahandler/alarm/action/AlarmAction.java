@@ -13,7 +13,7 @@ import com.station.data.DataList;
 import com.station.pagebean.PageBean;
 import com.station.po.JYAlarm;
 import com.station.po.JYConstant;
-import com.station.po.JYUser;
+import com.station.po.JYUserGroup;
 import com.station.service.JYAlarmService;
 
 @SuppressWarnings("serial")
@@ -28,12 +28,12 @@ public class AlarmAction extends ActionSupport {
 	private String queryLine;
 	private String queryNumber;
 	private String queryType;
-	private String queryUser;
+	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
 	private String queryDevice;
 	private String queryRepairStatus;
-	private List<JYUser> userList;
+	private List<JYUserGroup> userGroupList;
 	private List<JYConstant> cabTypeList;
 	private int unhandledTag = 0;//全部
 	private JYAlarm alarmTemp;
@@ -96,12 +96,12 @@ public class AlarmAction extends ActionSupport {
 		this.queryType = queryType;
 	}
 
-	public String getQueryUser() {
-		return queryUser;
+	public String getQueryUserGroup() {
+		return queryUserGroup;
 	}
 
-	public void setQueryUser(String queryUser) {
-		this.queryUser = queryUser;
+	public void setQueryUserGroup(String queryUserGroup) {
+		this.queryUserGroup = queryUserGroup;
 	}
 
 	public String getQueryStartDate() {
@@ -136,12 +136,13 @@ public class AlarmAction extends ActionSupport {
 		this.queryRepairStatus = queryRepairStatus;
 	}
 
-	public List<JYUser> getUserList() {
-		return userList;
+
+	public List<JYUserGroup> getUserGroupList() {
+		return userGroupList;
 	}
 
-	public void setUserList(List<JYUser> userList) {
-		this.userList = userList;
+	public void setUserGroupList(List<JYUserGroup> userGroupList) {
+		this.userGroupList = userGroupList;
 	}
 
 	public List<JYConstant> getCabTypeList() {
@@ -194,7 +195,7 @@ public class AlarmAction extends ActionSupport {
 
 
 	public String listAlarmAction() throws Exception {
-		userList = dataList.getUser();
+		userGroupList = dataList.getAllUserGroups();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
 		//final String hql = "from JYAlarm alarm where alarm.device.cabinet.user.username like '%%%' ORDER BY id DESC";
@@ -212,11 +213,11 @@ public class AlarmAction extends ActionSupport {
 			orderStr = "ORDER BY "+orderColumn;
 		String temp="1=1 and ";
 		if (LoginStatus.checkUserAccess()==2){
-			temp = "(alarm.device.cabinet.user.username = '"+LoginStatus.getUsername()+"' or alarm.device.cabinet.user.username = '--') and ";
+			temp = "(alarm.device.cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or alarm.device.cabinet.userGroup.groupName = '--') and ";
 		}
 		String hql = "from JYAlarm alarm where "+temp;
 		if (unhandledTag==1){
-			queryLine = null;queryNumber=null;queryType=null;queryUser=null;queryStartDate=null;queryEndDate=null;
+			queryLine = null;queryNumber=null;queryType=null;queryUserGroup=null;queryStartDate=null;queryEndDate=null;
 			queryRepairStatus = "0";
 		}
 		if (queryLine == null || queryLine.length() == 0)
@@ -225,8 +226,8 @@ public class AlarmAction extends ActionSupport {
 			queryNumber = "%";
 		if (queryType == null || queryType.length() == 0)
 			queryType = "%";
-		if (queryUser == null || queryUser.length() == 0)
-			queryUser = "%";
+		if (queryUserGroup == null || queryUserGroup.length() == 0)
+			queryUserGroup = "%";
 		if (queryStartDate == null || queryStartDate.length() == 0)
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
@@ -249,8 +250,8 @@ public class AlarmAction extends ActionSupport {
 				+ "alarm.date <= TO_DATE('" + queryEndDate
 				+ " 23:59:59"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "alarm.device.cabinet.user.username like '%"
-				+ queryUser + "%'" +
+				+ "alarm.device.cabinet.userGroup.groupName like '%"
+				+ queryUserGroup + "%'" +
 				orderStr;
 		unhandledTag = 0;
 		return hql;

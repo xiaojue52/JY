@@ -11,7 +11,6 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 	String username = (String) request.getSession().getAttribute("username");
-	List<JYUser> userList = new ArrayList<JYUser>();
 	List<JYConstant> powerLevelList = new ArrayList<JYConstant>();
 	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
 	List<JYUserGroup> userGroupList = new ArrayList<JYUserGroup>();
@@ -22,7 +21,6 @@
 			.getAttribute(
 					WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 	DataList dataList = (DataList) wac.getBean("DataList");
-	userList = dataList.getUser();
 	powerLevelList = dataList.getPowerLevelConstant();
 	cabTypeList = dataList.getCabTpyeConstant();
 	userGroupList = dataList.getAllUserGroups();
@@ -106,9 +104,9 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="td_left">管理者</td>
+					<td class="td_left">管理班组</td>
 					<td>
-						<input id="detectorUser" type="text" value="" readonly="readonly" class="readonly" style="height: 22px;width:260px;"/>
+						<input id="detectorUserGroup" type="text" value="" readonly="readonly" class="readonly" style="height: 22px;width:260px;"/>
 					</td>
 				</tr>
 				<tr>
@@ -215,7 +213,7 @@
 					</td>
 					</tr>
 					<tr>
-					<td class="td_left" width="100"><input id="managerSwitch1" checked="checked" onclick="DeviceManager.managerSwitch('userGroup','user',1);" type="radio" name="managerSwitch" style="padding-right:10px;" value="1"/>管理班组：</td>
+					<td class="td_left" width="100">管理班组：</td>
 					<td>
 						<select id="userGroup" name="cabinet.userGroup.id" style="height: 22px;width:200px;">
 							<%
@@ -232,22 +230,6 @@
 						<td width="270">
 						<span>启用</span>
 					</td>
-					
-					</tr>
-					<tr>
-					<td class="td_left" width="100"><input id="managerSwitch0" onclick="DeviceManager.managerSwitch('user','userGroup',1);" type="radio" name="managerSwitch" style="padding-right:22px;" value="0"/>管理者：</td>
-					<td colspan="3">
-						<select disabled="disabled" id="user" name="cabinet.user.userId" style="height: 22px;width:200px;">
-							<%
-								for (int i = 0; i < userList.size(); i++) {
-							%>
-							<option value='<%=userList.get(i).getUserId()%>' data="<%=userList.get(i).getUsername()%>"><%=userList.get(i).getUsername()%></option>
-							<%
-								}
-							%>
-						</select>
-					</td>
-						
 					</tr>
 					<tr>
 					<td class="td_left" width="100">备注：</td>
