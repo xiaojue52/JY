@@ -14,7 +14,7 @@
 	List<JYUser> userList = new ArrayList<JYUser>();
 	List<JYConstant> powerLevelList = new ArrayList<JYConstant>();
 	List<JYConstant> cabTypeList = new ArrayList<JYConstant>();
-	
+	List<JYUserGroup> userGroupList = new ArrayList<JYUserGroup>();
 	if (username!=null)
 	{
 	WebApplicationContext wac = (WebApplicationContext) config
@@ -25,6 +25,7 @@
 	userList = dataList.getUser();
 	powerLevelList = dataList.getPowerLevelConstant();
 	cabTypeList = dataList.getCabTpyeConstant();
+	userGroupList = dataList.getAllUserGroups();
 	}
 %>
 
@@ -208,46 +209,45 @@
 						</select>
 					</td>
 					
-					<td class="td_left" width="100">管理者：</td>
-					<td>
-						<select id="user" name="cabinet.user.userId" style="height: 22px;width:200px;">
-							<%
-								for (int i = 0; i < userList.size(); i++) {
-							%>
-							<option value='<%=userList.get(i).getUserId()%>'>
-								<%=userList.get(i).getUsername()%>
-							</option>
-							<%
-								}
-							%>
-						</select>
-					</td>
-					</tr>
-					<tr>
 					<td class="td_left" width="100">添加时间：</td>
 					<td width="270">
 						<input id="cabinetTime" type="text" value="自动生成" readonly="readonly" class="readonly" style="height: 22px;width:200px;"/>
 					</td>
-					<td class="td_left" width="100">管理班组：</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100"><input id="managerSwitch1" checked="checked" onclick="DeviceManager.managerSwitch('userGroup','user',1);" type="radio" name="managerSwitch" style="padding-right:10px;" value="1"/>管理班组：</td>
 					<td>
-						<select id="user" name="cabinet.user.userId" style="height: 22px;width:200px;">
+						<select id="userGroup" name="cabinet.userGroup.id" style="height: 22px;width:200px;">
 							<%
-								for (int i = 0; i < userList.size(); i++) {
+								for (int i = 0; i < userGroupList.size(); i++) {
 							%>
-							<option value='<%=userList.get(i).getUserId()%>'>
-								<%=userList.get(i).getUsername()%>
-							</option>
+							<option value='<%=userGroupList.get(i).getId()%>' data="<%=userGroupList.get(i).getGroupName()%>"><%=userGroupList.get(i).getGroupName()%></option>
 							<%
 								}
 							%>
 						</select>
 					</td>
+					
+					<td class="td_left" width="100"><input type="checkbox" id="cabinetStatusCheckBox" onclick="DeviceManager.switchCabinetStatus(this);"/><input name="cabinet.status" id="cabinetStatus" type="hidden" value="-1" /></td>
+						<td width="270">
+						<span>启用</span>
+					</td>
+					
 					</tr>
 					<tr>
-						<td class="td_left" width="100"><input type="checkbox" id="cabinetStatusCheckBox" onclick="DeviceManager.switchCabinetStatus(this);"/><input name="cabinet.status" id="cabinetStatus" type="hidden" value="-1" /></td>
-						<td width="270" colspan="3">
-						<input type="text" value="启用" readonly="readonly" class="readonly" style="height: 22px;width:200px;"/>
+					<td class="td_left" width="100"><input id="managerSwitch0" onclick="DeviceManager.managerSwitch('user','userGroup',1);" type="radio" name="managerSwitch" style="padding-right:22px;" value="0"/>管理者：</td>
+					<td colspan="3">
+						<select disabled="disabled" id="user" name="cabinet.user.userId" style="height: 22px;width:200px;">
+							<%
+								for (int i = 0; i < userList.size(); i++) {
+							%>
+							<option value='<%=userList.get(i).getUserId()%>' data="<%=userList.get(i).getUsername()%>"><%=userList.get(i).getUsername()%></option>
+							<%
+								}
+							%>
+						</select>
 					</td>
+						
 					</tr>
 					<tr>
 					<td class="td_left" width="100">备注：</td>

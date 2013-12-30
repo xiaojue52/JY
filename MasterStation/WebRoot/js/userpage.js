@@ -42,7 +42,7 @@ function getUserDetails(id){
 				$("#user_userLevel").html("<option value='user'>普通用户</option><option value='com_admin'>普通管理员</option>");
 			}else
 				$("#user_userLevel").html("<option value='com_admin'>普通管理员</option><option value='user'>普通用户</option>");
-			
+			$("#user_userGroup").val(user.userGroup.id);
 			$("#addUser_dialogDiv").hide();
 			$("#userDetails_dialogDiv").show();
 			$("#BgDiv").css( {

@@ -8,7 +8,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
 import com.station.po.JYConstant;
 import com.station.po.JYUser;
+import com.station.po.JYUserGroup;
 import com.station.service.JYConstantService;
+import com.station.service.JYUserGroupService;
 import com.station.service.JYUserService;
 
 @SuppressWarnings("serial")
@@ -16,7 +18,11 @@ public class DataList extends ActionSupport {
 
 	private JYUserService userService;
 	private JYConstantService constantService;
+	private JYUserGroupService userGroupService;
 
+	public void setUserGroupService(JYUserGroupService userGroupService) {
+		this.userGroupService = userGroupService;
+	}
 	public void setConstantService(JYConstantService constantService) {
 		this.constantService = constantService;
 	}
@@ -24,7 +30,7 @@ public class DataList extends ActionSupport {
 		this.userService = userService;
 	}
 	public List<JYUser> getUser(){
-		HttpSession session = ServletActionContext.getRequest ().getSession();
+		HttpSession session = ServletActionContext.getRequest().getSession();
 		String userLevel =  (String) session.getAttribute("userLevel");
 		String userId = (String)session.getAttribute("userId");
 		if (userLevel!=null&&(userLevel.equals("super_admin")||userLevel.endsWith("user"))){
@@ -43,6 +49,29 @@ public class DataList extends ActionSupport {
 			return list;
 		}
 		
+	}
+	public List<JYUserGroup> getAllUserGroups(){
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		String userLevel =  (String) session.getAttribute("userLevel");
+		String userId = (String)session.getAttribute("userId");
+		if (userLevel!=null&&(userLevel.equals("super_admin")||userLevel.endsWith("user"))){
+			String hql = "from JYUserGroup userGroup";
+			return this.userGroupService.findJYUserGroupByHql(hql);
+		}else{
+			String hql = "from JYUserGroup userGroup where userGroup.groupName = '--'";
+			JYUserGroup userGroup = this.userGroupService.findJYUserGroupByHql(hql).get(0);
+			JYUser user = this.userService.findUserById(userId);
+			JYUserGroup userGroup1 = user.getUserGroup();
+			List<JYUserGroup> list = new ArrayList<JYUserGroup>();
+			if (userGroup1.getId()==userGroup.getId()){
+				list.add(userGroup);
+			}else
+			{
+				list.add(userGroup);
+				list.add(userGroup1);
+			}
+			return list;
+		}
 	}
 	public List<JYUser> getAllUser(){
 		String hql = "from JYUser user";

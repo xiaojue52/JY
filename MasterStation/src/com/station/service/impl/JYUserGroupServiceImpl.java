@@ -2,7 +2,7 @@ package com.station.service.impl;
 
 import java.util.List;
 
-import com.station.dao.JYCabinetDAO;
+import com.station.dao.JYUserDAO;
 import com.station.dao.JYUserGroupDAO;
 import com.station.pagebean.PageBean;
 import com.station.po.JYUserGroup;
@@ -11,11 +11,14 @@ import com.station.service.JYUserGroupService;
 public class JYUserGroupServiceImpl implements JYUserGroupService {
 
 	private JYUserGroupDAO userGroupDAO;
-	private JYCabinetDAO cabinetDAO;
-	
-	public void setCabinetDAO(JYCabinetDAO cabinetDAO) {
-		this.cabinetDAO = cabinetDAO;
+	private JYUserDAO userDAO;
+
+
+	public void setUserDAO(JYUserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
+
+
 
 	public void setUserGroupDAO(JYUserGroupDAO userGroupDAO) {
 		this.userGroupDAO = userGroupDAO;
@@ -52,7 +55,8 @@ public class JYUserGroupServiceImpl implements JYUserGroupService {
 	@Override
 	public List<JYUserGroup> findJYUserGroupByHql(String hql) {
 		// TODO Auto-generated method stub
-		return userGroupDAO.findJYUserGroupByHql(hql);
+		List<JYUserGroup> list =  userGroupDAO.findJYUserGroupByHql(hql);
+		return list;
 	}
 
 	@Override
@@ -70,11 +74,16 @@ public class JYUserGroupServiceImpl implements JYUserGroupService {
 	@Override
 	public int removeJYUserGroup(JYUserGroup arg0) {
 		// TODO Auto-generated method stub
-		String hql = "from JYCabinet cabinet where cabinet.user.userGroup.id = '"+arg0.getId()+"'";
-		if(this.cabinetDAO.findJYCabinetByHql(hql).size()>0){
+		String hql = "from JYUser user where user.userGroup.id = '"+arg0.getId()+"'";
+		if(this.userDAO.findUserByHql(hql).size()>0){
 			return -1;
 		}
 		else{
+			String hql0 = "from JYCabinet cabinet where cabinet.userGroup.id = '"+arg0.getId()+"'";
+			if(this.userDAO.findUserByHql(hql0).size()>0){
+				return -1;
+			}
+			
 			userGroupDAO.removeJYUserGroup(arg0);
 			return 1;
 		}

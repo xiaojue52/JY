@@ -172,13 +172,13 @@
 								<span>报警内容</span>
 							</th>
 							<th width="10%">
-								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.device.cabinet.user.username')">管理者</span>
+								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.device.cabinet.user.username')">管理人员</span>
 							</th>
 							<th width="10%">
 								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.status')">维修状态</span>
 							</th>
 							<th width="10%">
-								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.repairUser')">维修者</span>
+								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.repairUser')">维修人员</span>
 							</th>
 
 							<th width="10%">
@@ -230,7 +230,12 @@
 								</td>
 								<td width="10%">
 										<s:if test="#alarm.device !=null">
-									   		<s:property value="#alarm.device.cabinet.user.username" />
+									   		<s:if test="#alarm.device.cabinet.managerTag==1">
+												<s:property value="#alarm.device.cabinet.userGroup.groupName" />
+											</s:if>
+											<s:else>
+												<s:property value="#alarm.device.cabinet.user.username" />
+											</s:else>
 										</s:if>
 								</td>
 								<td width="10%">

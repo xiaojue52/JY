@@ -131,7 +131,7 @@
 								<span>采集器</span>
 							</th>
 							<th width="15%">
-								<span>管理者</span>
+								<span>管理人员</span>
 							</th>
 							<th width="20%">
 								<span>安装时间</span>
@@ -172,7 +172,12 @@
 									<s:property value="#detector.name" />
 								</td>
 								<td width="15%">
-									<s:property value="#detector.device.cabinet.user.username" />
+									<s:if test="#detector.device.cabinet.managerTag==1">
+											<s:property value="#detector.device.cabinet.userGroup.groupName" />
+										</s:if>
+										<s:else>
+											<s:property value="#detector.device.cabinet.user.username" />
+										</s:else>
 								</td>
 								<td width="20%">
 									<s:date name="#detector.device.createTime" format="yyyy-MM-dd" />

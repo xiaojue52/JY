@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -84,5 +85,9 @@ public class Constant {
 			return false;
 		}
 		return true;
+	}
+	public static String getSessionStringAttr(String arg0){
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		return (String)session.getAttribute(arg0);
 	}
 }

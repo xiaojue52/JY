@@ -22,7 +22,21 @@ public class JYCabinet {
 	private Date createTime; //创建时间
 	private Integer status; //-1未启用，0停用，1启用
 	private Date detectTime; //监测时间
+	private JYUserGroup userGroup;
+	private Integer managerTag;//0用户，1组
 
+	public Integer getManagerTag() {
+		return managerTag;
+	}
+	public void setManagerTag(Integer managerTag) {
+		this.managerTag = managerTag;
+	}
+	public JYUserGroup getUserGroup() {
+		return userGroup;
+	}
+	public void setUserGroup(JYUserGroup userGroup) {
+		this.userGroup = userGroup;
+	}
 	public Date getDetectTime() {
 		return detectTime;
 	}

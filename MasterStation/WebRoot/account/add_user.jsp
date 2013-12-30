@@ -1,10 +1,25 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java"
+	import="org.springframework.web.context.WebApplicationContext"%>
+<%@ page language="java" import="com.station.data.DataList" import="com.station.po.*"%>	
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	String username = (String) request.getSession().getAttribute("username");	
+	
+	List<JYUserGroup> list = new ArrayList<JYUserGroup>();
+	if (username!=null)
+		{
+			WebApplicationContext wac = (WebApplicationContext) config
+					.getServletContext()
+					.getAttribute(
+							WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+			DataList dataList = (DataList) wac.getBean("DataList");
+			list = dataList.getAllUserGroups();
+		}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -76,7 +91,22 @@
 						</select>
 					</td>
 				</tr>
-
+				<tr>
+					<td align="right">
+						<span>所属班组：</span>
+					</td>
+					<td>
+						<select name="user.userGroup.id"  style="width:120px;">
+							<%
+								for(int i=0;i<list.size();i++) {
+							%>
+							<option value='<%=list.get(i).getId()%>'>
+								<%=list.get(i).getGroupName()%>
+							</option>
+							<%} %>
+						</select>
+					</td>
+				</tr>
 				<tr>
 					<td align="center">
 						<input type="submit" value="提交" onclick="return Control.checkInput('add-user-page','checkInput-adduserpage','ecl-adduserpage');" class="comButton" style="margin-left:30px;"/>

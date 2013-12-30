@@ -40,10 +40,16 @@
   		lazy="false" cascade="save-update,persist">
   		<column name="alarm_type_collect_id"></column>
   	</many-to-one>
+  	<many-to-one name="userGroup"
+  		class="com.station.po.JYUserGroup" outer-join="true"
+  		not-null="true" lazy="false">
+  		<column name="user_group_id"></column>
+  	</many-to-one>
   <property name="cabNumber" type="string" column="cab_Number" length="20"/>
   <property name="simNumber" type="string" column="sim_Number" length="11"/>
   <property name="simSNumber" type="string" column="sim_S_Number" length="20"/>
   <property name="tag" type="java.lang.Integer" column="tag"/>
+  <property name="managerTag" type="java.lang.Integer" column="manager_tag"/>
   <property name="status" type="java.lang.Integer" column="status"/>
   <property name="createTime" type="java.util.Date" column="create_Time"/>
   <property name="detectTime" type="java.util.Date" column="detect_Time"/>

@@ -60,7 +60,7 @@
 		<div><span class="errorMessage">班组名冲突！</span></div>
 		</s:if>
 		<s:if test="ret==-2">
-		<div><span class="errorMessage">删除班组失败！请删除班组下面的用户！</span></div>
+		<div><span class="errorMessage">删除班组失败！请删除班组下面的用户、解除相关设备！</span></div>
 		</s:if>
 <div
 		style="min-width:900px;width: 100%; height: 460px; margin-top: 0px;">
@@ -71,16 +71,16 @@
 	  <table id="table_th" class="gridtable">
 	  			<tr>
 				<th width="10%">
-					<span class="comSpan">序号</span>
+					<span>序号</span>
 				</th>
 				<th width="15%">
-					<span class="comSpan">班组名称</span>
+					<span>班组名称</span>
 				</th>
 				<th width="15%">
-					<span class="comSpan">班组负责人</span>
+					<span>班组负责人</span>
 				</th>
 				<th width="15%">
-					<span class="comSpan">备注</span>
+					<span>备注</span>
 				</th>
 				<th width="15%">
 					<span>操作</span>
@@ -127,7 +127,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<select class="pagination-page-list" name="pageList" onchange="window.location='listUserGroup.action?pageList='+this.options[this.options.selectedIndex].value">
+								<select class="pagination-page-list" name="pageList" onchange="window.location='listUserGroups.action?pageList='+this.options[this.options.selectedIndex].value">
 									<s:iterator value="pageNumberList" var="number">
 									 
 										<s:if test="#number==pageList">
@@ -144,7 +144,7 @@
 							</td>
 							<td>
 							    <s:if test="CurrentPage>1">
-								<a href="listUserGroup.action?page=1"
+								<a href="listUserGroups.action?page=1"
 									class="pagination-first-btn p-plain">
 									<span class="pagination-first  p-btn">&nbsp;</span>
 								</a>
@@ -158,7 +158,7 @@
 							</td>
 							<td>
 								<s:if test="CurrentPage>1">
-								<a href="listUserGroup.action?page=${CurrentPage-1 }"
+								<a href="listUserGroups.action?page=${CurrentPage-1 }"
 									class="pagination-prev-btn p-plain"><span
 									class="pagination-prev  p-btn">&nbsp;</span>
 								</a>
@@ -187,7 +187,7 @@
 							</td>
 							<td>
 								<s:if test="%{CurrentPage< TotalPage}">
-								<a href="listUserGroup.action?page=${CurrentPage+1 }"
+								<a href="listUserGroups.action?page=${CurrentPage+1 }"
 									class="pagination-next-btn p-plain"><span
 									class="pagination-next p-btn">&nbsp;</span>
 								</a>
@@ -207,7 +207,7 @@
 								</a>
 								</s:if>
 								<s:else>
-								<a href="listUserGroup.action?page=${TotalPage}"
+								<a href="listUserGroups.action?page=${TotalPage}"
 									class="pagination-last-btn p-plain"><span
 									class="pagination-last p-btn ">&nbsp;</span>
 								</a>
@@ -217,7 +217,7 @@
 								<div class="pagination-btn-separator"></div>
 							</td>
 							<td>
-								<a href="listUserGroup.action?page=${CurrentPage}" class="pagination-load-btn p-plain"><span
+								<a href="listUserGroups.action?page=${CurrentPage}" class="pagination-load-btn p-plain"><span
 									class="pagination-load p-btn">&nbsp;</span>
 								</a>
 							</td>

@@ -31,7 +31,7 @@ public class AddUserAction extends ActionSupport {
 		List<JYUser> list = this.userService.findUserByHql(hql);
 		if (list.size()>0){
 			return ERROR;
-		}else{
+		}else{ 
 			String password = MD5.CreateMD5String(this.user.getPassword());
 			this.user.setPassword(password);
 			this.user.setIsFirstLogin(1);

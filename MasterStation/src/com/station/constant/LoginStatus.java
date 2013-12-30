@@ -19,6 +19,7 @@ public class LoginStatus {
 		session.setAttribute("userLevel", user.getUserLevel());
 		session.setAttribute("userId", user.getUserId());
 		session.setAttribute("isFirstLogin", user.getIsFirstLogin());
+		session.setAttribute("userGroup", user.getUserGroup().getGroupName());
 		//session.setAttribute("password", user.getPassword());
 		session.setAttribute("topContent", Constant.TOPNAME);
 		session.setAttribute("bottomContent", Constant.BOTTOMNAME);
@@ -33,6 +34,7 @@ public class LoginStatus {
 		session.setAttribute("userLevel", null);
 		session.setAttribute("userId", null);
 		session.setAttribute("isFirstLogin", null);
+		session.setAttribute("userGroup", null);
 		session.invalidate();
 		//session.setAttribute("password", null);
 	}

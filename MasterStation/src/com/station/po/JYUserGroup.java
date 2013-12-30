@@ -1,11 +1,20 @@
 package com.station.po;
 
+import java.util.List;
+
 public class JYUserGroup {
 	private Integer id;
 	private String leaderName;
 	private String groupName;
 	private String note;
+	private List<JYUser> userList;
 
+	public List<JYUser> getUserList() {
+		return userList;
+	}
+	public void setUserList(List<JYUser> userList) {
+		this.userList = userList;
+	}
 	public String getNote() {
 		return note;
 	}

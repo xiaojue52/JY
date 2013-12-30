@@ -70,8 +70,8 @@
 	  <div style="background-color:#f5f5f5;overflow: hidden;">
 	  <table id="table_th" class="gridtable">
 	  			<tr>
-				<th width="10%">
-					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.userId')">用户编号</span>
+				<th width="5%">
+					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.userId')">编号</span>
 				</th>
 				<th width="15%">
 					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.username')">用户名</span>
@@ -82,8 +82,10 @@
 				<th width="15%">
 					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.company')">所在单位</span>
 				</th>
-				
-				<th width="15%">
+				<th width="10%">
+					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.userGroup')">所属班组</span>
+				</th>
+				<th width="10%">
 					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.userLevel')">系统角色</span>
 				</th>
 				<th width="15%">
@@ -106,7 +108,7 @@
 					<tr onmouseout="javascript:this.bgColor='#ffffff'"
  onmouseover="javascript:this.bgColor='#f5fafe'">
 				</s:else>
-					<td width="10%">
+					<td width="5%">
 						<s:property value="userId" />
 					</td>
 					<td width="15%">
@@ -118,8 +120,10 @@
 					<td width="15%">
 						<s:property value="company" />
 					</td>
-					
-					<td width="15%">
+					<td width="10%">
+						<s:property value="userGroup.groupName" />
+					</td>
+					<td width="10%">
 						<s:if test="%{#account.userLevel == 'user'}">
 							<span>普通用户</span>
 						</s:if>
@@ -262,7 +266,7 @@
 		</script>
 	</div>		
 		<div id="BgDiv"></div>
-			<div id="DialogDiv" style="display:none;width:300px;height:310px;">
+			<div id="DialogDiv" style="display:none;width:300px;height:358px;">
 				<h2>操作<a class="btnClose">关闭</a></h2>
 				<div id="addUser_dialogDiv">
     	    		<jsp:include page="/account/add_user.jsp"></jsp:include>

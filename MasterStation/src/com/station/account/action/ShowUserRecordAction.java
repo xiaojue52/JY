@@ -12,7 +12,6 @@ public class ShowUserRecordAction extends ActionSupport {
 
 	private JYUser user;
 	private JYUserService userService;
-
 	public void setUserService(JYUserService userService) {
 		this.userService = userService;
 	}

@@ -1,6 +1,8 @@
 package com.station.group.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -18,7 +20,19 @@ public class UserGroupAction extends ActionSupport{
 	private int pageList = 10;
 	private int ret = 0;
 	private int code = 0;
+	private List<Integer> pageNumberList = new ArrayList<Integer>();
 	
+	public List<Integer> getPageNumberList() {
+		pageNumberList.clear();
+		pageNumberList.add(10);
+		pageNumberList.add(20);
+		pageNumberList.add(30);
+		pageNumberList.add(40);
+		return pageNumberList;
+	}
+	public void setPageNumberList(List<Integer> pageNumberList) {
+		this.pageNumberList = pageNumberList;
+	}
 	public int getCode() {
 		return code;
 	}
@@ -85,7 +99,9 @@ public class UserGroupAction extends ActionSupport{
 		}
 	}
 	public String deleteUserGroupAction(){
-		this.userGroupService.removeJYUserGroup(userGroup);
+		if(this.userGroupService.removeJYUserGroup(userGroup)==-1){
+			return ERROR;
+		}
 		return SUCCESS;
 	}
 	public String updateUserGroupAction(){
@@ -106,9 +122,13 @@ public class UserGroupAction extends ActionSupport{
 		Constant.flush(dataMap);
 	}
 	public String listUserGroupsAction(){
-		if (code==-1){
+		if (code == -1){
 			ret = -1;
-		}else
+		}
+		if (code == -2){
+			ret = -2;
+		}
+		else
 			ret = 0;
 		final String hql = this.createSql();
 		this.pageBean = this.userGroupService.getPerPage(pageList, page, hql);

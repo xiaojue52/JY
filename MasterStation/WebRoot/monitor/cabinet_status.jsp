@@ -111,7 +111,7 @@ String path = request.getContextPath();
 					<span>设备信息</span>
 				</th>
 				<th width="10%">
-					<span class="comSpan" onclick="Control.orderByColumn('getCabinetStatus.action','cabinet.user.username')">管理者</span>
+					<span class="comSpan" onclick="Control.orderByColumn('getCabinetStatus.action','cabinet.user.username')">管理人员</span>
 				</th>
 			</tr>
 		</table>	
@@ -154,7 +154,12 @@ String path = request.getContextPath();
 						</s:elseif>
 					</td>
 					<td width="10%">
-						<s:property value="#cabinet.user.username" />
+						<s:if test="#cabinet.managerTag==1">
+							<s:property value="#cabinet.userGroup.groupName" />
+						</s:if>
+						<s:else>
+							<s:property value="#cabinet.user.username" />
+						</s:else>
 					</td>
 				</tr>
 			</s:iterator>

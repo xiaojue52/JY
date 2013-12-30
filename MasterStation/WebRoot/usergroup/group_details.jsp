@@ -22,7 +22,7 @@
 						<span>班组名称：</span>
 					</td>
 					<td>
-						<input maxLength=20 class="checkInput-groupdetailspage" type="text"  id="groupName" name="userGroup.groupName" value="" style="width:120px;"/>
+						<input maxLength=20 class="checkInput-groupdetailspage" type="text"  id="groupName" name="userGroup.groupName" value="" style="width:120px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>

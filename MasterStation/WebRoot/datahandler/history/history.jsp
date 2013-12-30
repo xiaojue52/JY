@@ -150,7 +150,7 @@
 								<span>间隔采集器历史数据</span>
 							</th>
 							<th width="10%">
-								<span class="comSpan" onclick="Control.orderByColumn('cabinetHistory.action','cabinetHistory.cabinet.user.username')">管理者</span>
+								<span class="comSpan" onclick="Control.orderByColumn('cabinetHistory.action','cabinetHistory.cabinet.user.username')">管理人员</span>
 							</th>
 						</tr>
 	  			</table>
@@ -199,7 +199,12 @@
 									</table>
 								</td>
 								<td width="10%">
-									<s:property value="#history.cabinet.user.username" />
+									<s:if test="#history.cabinet.managerTag==1">
+											<s:property value="#history.cabinet.userGroup.groupName" />
+										</s:if>
+										<s:else>
+											<s:property value="#history.cabinet.user.username" />
+										</s:else>
 								</td>
 							</tr>
 						</s:iterator>

@@ -114,11 +114,11 @@ String path = request.getContextPath();
 				<th width="10%">
 					<span>采集时间</span>
 				</th>
-				<th width="22%">
+				<th width="20%">
 					<span>报警信息</span>
 				</th>
-				<th width="5%">
-					<span class="comSpan" onclick="Control.orderByColumn('mainAction.action','cabinet.user.username')">管理者</span>
+				<th width="7%">
+					<span class="comSpan" onclick="Control.orderByColumn('mainAction.action','cabinet.user.username')">管理人员</span>
 				</th>
 				<th width="7%">
 					<span>操作</span>
@@ -185,7 +185,7 @@ String path = request.getContextPath();
 						<s:date name="#cabinet.deviceList[0].detectorList[0].history.date" format="HH:mm:ss"/>
 						</s:if>
 					</td>
-					<td width="22%">
+					<td width="20%">
 						<s:if test="#cabinet.deviceList!=null&&#cabinet.deviceList.size()>0">
 						<s:iterator value="#cabinet.deviceList" var="device">
 							<s:if test="#device.alarm!=null">
@@ -196,8 +196,13 @@ String path = request.getContextPath();
 						</s:iterator>
 						</s:if>
 					</td>
-					<td width="5%">
-						<s:property value="#cabinet.user.username" />
+					<td width="7%">
+						<s:if test="#cabinet.managerTag==1">
+							<s:property value="#cabinet.userGroup.groupName" />
+						</s:if>
+						<s:else>
+							<s:property value="#cabinet.user.username" />
+						</s:else>
 					</td>
 					<td width="7%">
 						<a href="javascript:void(0)" onClick="Monitor.setPageFrameSrc('listPageAlarm.action?cabId=<s:property value="#cabinet.cabId"/>');">历史报警</a><br/>

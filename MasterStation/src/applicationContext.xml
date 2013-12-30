@@ -159,8 +159,8 @@
 		<property name="userGroupDAO">
 			<ref bean="jyUserGroupDAO" />
 		</property>
-		<property name="cabinetDAO">
-			<ref bean="jyCabinetDAO" />
+		<property name="userDAO">
+			<ref bean="jyUserDAO" />
 		</property>
 	</bean>
 	<bean id="jyLineService" class="com.station.service.impl.JYLineServiceImpl">
@@ -447,6 +447,9 @@
 		</property>
 		<property name="constantService">
 			<ref bean="jyConstantService" />
+		</property>
+		<property name="userGroupService">
+			<ref bean="jyUserGroupService" />
 		</property>
 	</bean>
 	<bean id="InitData" class="com.station.constant.InitData">
