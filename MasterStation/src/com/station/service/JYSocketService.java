@@ -8,11 +8,12 @@ import com.station.po.JYCabinet;
 
 
 public interface JYSocketService {
-	public void saveDate(String cabNumber,Map<Integer,List<Float>> map,String createDate);
+	public void saveDate(String cabId,Map<Integer,List<Float>> map,String createDate);
 	//public void saveAlarmDate(String cabNumber,Map<Integer,List<Float>> map,String createDate);
-	public void updateCabinetStatus(String cabNumber);
-	public void saveAlarm(String cabNumber,int type,Date date,String content);
-	public JYCabinet getCabinet(String cabNumber);//分钟
-	public boolean cabinetIsExist(String cabNumber);
+	public void updateCabinetStatus(String cabId);
+	public void saveAlarm(String cabId,int type,Date date,String content);
+	public JYCabinet getCabinet(String cabId);//分钟
+	public boolean cabinetIsExist(String cabId);
 	public List<JYCabinet> findCabinetsByHql(String hql);
+	//public JYCabinet getCabinetById(String id);
 }

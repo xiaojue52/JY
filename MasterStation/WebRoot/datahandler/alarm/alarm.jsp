@@ -61,13 +61,23 @@
 							</span>
 						</td>
 						<td>
-							<span>变送器：
-							<s:if test="queryDevice == \"%\"||queryDevice==null">
-							<input name='queryDevice' type="text" /> 
-							</s:if>
-							<s:else>
-							<input name='queryDevice' type="text" value="<s:property value="queryDevice"/>"/> 
-							</s:else>
+							<span>报警类型：
+							<select name='queryAlarmType'>
+										<option value="">全部</option>	
+										<s:if test="queryAlarmType==\"1\"">
+										<option value="1" selected="selected">设备故障</option>
+										<option value="0">温度异常</option>
+										</s:if>
+										<s:elseif test="queryAlarmType==\"0\"">
+										<option value="1">设备故障</option>
+										<option value="0" selected="selected">温度异常</option>
+										</s:elseif>
+										<s:else>
+										<option value="1">设备故障</option>
+										<option value="0">温度异常</option>
+										</s:else>
+										
+									</select>
 							 </span>
 						</td>
 						<td>

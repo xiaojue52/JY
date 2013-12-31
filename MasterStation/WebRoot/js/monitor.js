@@ -38,7 +38,7 @@ var QueryDeviceTemp = {
 			}
 			$.ajax({
 				type:"post",
-				url:"getTempDate.action",
+				url:"socketGetTempData.action",
 				data:"cabinetListStr="+QueryDeviceTemp.cabinetList,
 				dataType:"text", 
 				beforeSend:function(XMLHttpRequest){ $("body").append('<div id="load" style="z-index:10; position:absolute; width:99%;height:100%;top:0px;background-color: #e3e3e3;opacity: 0.5;filter: alpha(opacity = 50);-moz-opacity: 0.5;text-align:center"><img style="margin-top:250px;" src="images/loading.gif" /></div>'); },
@@ -51,7 +51,17 @@ var QueryDeviceTemp = {
 						window.location = "mainAction.action";
 					}
 					else {
-						alert(obj.data+"柜体离线");
+						var offlineCabinet = [];
+						$(".monitor_checkbox").each(function(){
+							//alert(QueryDeviceTemp.cabinetList);
+							if (this.checked==true){
+								for (var i=0;i<obj.data.length;i++){
+									if ($(this).val()==obj.data[i])
+										offlineCabinet.push($(this).attr('data'));
+								}
+							}
+						});
+						alert(offlineCabinet+"柜体离线");
 						window.location = "mainAction.action";
 					}
 					

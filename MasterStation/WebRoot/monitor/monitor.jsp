@@ -138,7 +138,7 @@ String path = request.getContextPath();
  onmouseover="javascript:this.bgColor='#f5fafe'">
 				</s:else>
 					<td width="4%">
-						<input class="monitor_checkbox" type="checkbox" value="${cabinet.cabNumber}"/>
+						<input class="monitor_checkbox" type="checkbox" value="${cabinet.cabId}" data="${cabinet.cabNumber}"/>
 						<s:property value="#status.count+(pageList*(page-1))"/>
 					</td>
 					<td width="8%">

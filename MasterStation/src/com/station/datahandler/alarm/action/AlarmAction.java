@@ -31,7 +31,7 @@ public class AlarmAction extends ActionSupport {
 	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
-	private String queryDevice;
+	private String queryAlarmType;
 	private String queryRepairStatus;
 	private List<JYUserGroup> userGroupList;
 	private List<JYConstant> cabTypeList;
@@ -120,12 +120,12 @@ public class AlarmAction extends ActionSupport {
 		this.queryEndDate = queryEndDate;
 	}
 
-	public String getQueryDevice() {
-		return queryDevice;
+	public String getQueryAlarmType() {
+		return queryAlarmType;
 	}
 
-	public void setQueryDevice(String queryDevice) {
-		this.queryDevice = queryDevice;
+	public void setQueryAlarmType(String queryAlarmType) {
+		this.queryAlarmType = queryAlarmType;
 	}
 
 	public String getQueryRepairStatus() {
@@ -218,7 +218,7 @@ public class AlarmAction extends ActionSupport {
 		String hql = "from JYAlarm alarm where "+temp;
 		if (unhandledTag==1){
 			queryLine = null;queryNumber=null;queryType=null;queryUserGroup=null;queryStartDate=null;queryEndDate=null;
-			queryRepairStatus = "0";
+			queryRepairStatus = "0";queryAlarmType=null;
 		}
 		if (queryLine == null || queryLine.length() == 0)
 			queryLine = "%";
@@ -232,15 +232,15 @@ public class AlarmAction extends ActionSupport {
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
 			queryEndDate = "9999-12-12";
-		if (queryDevice == null || queryDevice.length() == 0)
-			queryDevice = "%";
+		if (queryAlarmType == null || queryAlarmType.length() == 0)
+			queryAlarmType = "%";
 		if (queryRepairStatus == null || queryRepairStatus.length() == 0)
 			queryRepairStatus = "%";
 		hql = hql + "alarm.device.cabinet.line.name like '%"
 				+ queryLine + "%' and "
 				+ "alarm.device.cabinet.cabNumber like '%"
 				+ queryNumber + "%' and "
-				+ "alarm.device.name like '%" + queryDevice
+				+ "alarm.isCabinet like '%" + queryAlarmType
 				+ "%' and " + "alarm.status like '%" + queryRepairStatus
 				+ "%' and "
 				+ "alarm.device.cabinet.cabType.value like '%"

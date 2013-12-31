@@ -21,12 +21,12 @@ public class SocketAction extends ActionSupport {
 	public static void setSocketRoute(SocketRoute socketRoute){
 		SocketAction.socketRoute = socketRoute;
 	}
-	public void getTempDateAction() {
+	public void getTempDataAction() {
 		//System.out.print("getTempDataAction");
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		String[] cabinetList = this.cabinetListStr.split(",");
 		if (cabinetList.length==0||cabinetList[0].length()==0)dataMap.put("data", 0);
-		List<String> list =socketRoute.sendCommandToGetTempWithCabNumberList(cabinetList);
+		List<String> list =socketRoute.sendCommandToGetTempWithCabIdList(cabinetList);
 		
 		if(list==null){
 			dataMap.put("data", 1);

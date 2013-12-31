@@ -10,7 +10,16 @@ public class JYUser {
 	private String userLevel;
 	private Integer isFirstLogin;
 	private JYUserGroup userGroup;
+	private Integer canRecMes;
 	
+	public Integer getCanRecMes() {
+		return canRecMes;
+	}
+
+	public void setCanRecMes(Integer canRecMes) {
+		this.canRecMes = canRecMes;
+	}
+
 	public JYUserGroup getUserGroup() {
 		return userGroup;
 	}

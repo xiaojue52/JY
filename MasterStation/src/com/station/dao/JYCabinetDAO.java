@@ -6,7 +6,7 @@ import com.station.po.JYCabinet;
 
 
 public interface JYCabinetDAO {
-	public void saveJYCabinet(JYCabinet arg0);
+	public String saveJYCabinet(JYCabinet arg0);
 
 	public void removeJYCabinet(JYCabinet arg0);
 

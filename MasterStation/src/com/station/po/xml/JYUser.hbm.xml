@@ -18,6 +18,7 @@
   <property name="company" type="string" column="company" length="40"/>
   <property name="jobLevel" type="string" column="job_level" length="40"/>
   <property name="userLevel" type="string" column="user_level" length="20"/>
+  <property name="canRecMes" type="java.lang.Integer" column="can_recMes"/>
   <many-to-one name="userGroup"
   		class="com.station.po.JYUserGroup" outer-join="true"
   		not-null="true" lazy="false">

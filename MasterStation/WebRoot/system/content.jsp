@@ -171,7 +171,7 @@
 					<tr>
 					<td class="td_left" width="100">柜体编号：</td>
 					<td>
-						<input maxlength=5 class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
+						<input maxlength=20 class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
 							type="text" style="ime-mode:disabled;height: 22px;width:200px;"/><span style="color:red">*</span>
 					</td>
 					<td class="td_left" width="200px">柜体类型：</td>
@@ -299,8 +299,8 @@
 				
 				<tr>
 					<td colspan="2" align="center">
-					<input id="cabinetUpdateBtn" style="width: 60px;display:none" type="button" value="更新" onclick="DeviceManager.checkValue(); if(Control.checkInput('cabinet-page','checkInput-cabinetpage')&&Control.checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5)){DeviceManager.Cabinet.cabinet(1)};"/>
-					<input id="cabinetAddBtn" style="width: 60px;display:none" type="button" value="增加" onclick="DeviceManager.checkValue(); if(Control.checkInput('cabinet-page','checkInput-cabinetpage')&&Control.checkInputFixedLength('cabinet-page','checkInput-cabinetpage',5)){DeviceManager.Cabinet.cabinet(0)};"/>
+					<input id="cabinetUpdateBtn" style="width: 60px;display:none" type="button" value="更新" onclick="DeviceManager.checkValue(); if(Control.checkInput('cabinet-page','checkInput-cabinetpage')){DeviceManager.Cabinet.cabinet(1)};"/>
+					<input id="cabinetAddBtn" style="width: 60px;display:none" type="button" value="增加" onclick="DeviceManager.checkValue(); if(Control.checkInput('cabinet-page','checkInput-cabinetpage')){DeviceManager.Cabinet.cabinet(0)};"/>
 					</td>
 				</tr>	
 				</table>

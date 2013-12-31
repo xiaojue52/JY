@@ -30,7 +30,7 @@ public class Constant {
 	public static String MONITORTIMEERROR = "-5";
 	public static String OK = "1";
 	public static long HEARTBEATTIME = 1*60*1000;
-	public static final long LOOPCHECKTIME = 1000;
+	public static final long LOOPCHECKTIME = 5000;
 	public static final String ALARMTYPE1HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1000'";
 	public static final String ALARMTYPE2HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1001'";
 	public static final String ALARMTYPE3HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1002'";

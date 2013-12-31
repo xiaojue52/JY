@@ -63,9 +63,9 @@ public class JYCabinetDAOImpl extends HibernateDaoSupport implements JYCabinetDA
 	}
 
 	@Override
-	public void saveJYCabinet(JYCabinet arg0) {
+	public String saveJYCabinet(JYCabinet arg0) {
 		// TODO Auto-generated method stub
-		this.getHibernateTemplate().save(arg0);
+		return (String)this.getHibernateTemplate().save(arg0);
 	}
 
 	@Override

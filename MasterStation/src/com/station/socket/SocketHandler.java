@@ -16,7 +16,9 @@ import com.station.po.JYCabinet;
 import com.station.service.JYChartDataService;
 import com.station.service.JYSocketService;
 import com.station.timer.HalfHourEvent;
-
+/*
+ * 处理socket相关命令，负责解析
+ */
 public class SocketHandler {
 	private JYSocketService socketService;
 	private List<String> realCabList;
@@ -24,17 +26,21 @@ public class SocketHandler {
 	private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();//主站注册的设备
 	private HalfHourEvent halfHourEvent;
 	private LoopCheckThread checkThread;
+	/*
+	 * 构造函数
+	 * 实例化的时候将所有的柜体加入到内存中，以便一一对应
+	 */
 	public SocketHandler(JYSocketService socketService,JYChartDataService chartDataService){
 		this.socketService = socketService;
 		
-		String hql = "from JYCabinet cabinet where tag = 1";
+		String hql = "from JYCabinet cabinet where cabinet.tag = 1 and cabinet.status = 1";
 		List<JYCabinet> list = this.socketService.findCabinetsByHql(hql);
 		for (int i =0;i<list.size();i++){
 			Map<String, String> order = new HashMap<String, String>();
 			order.put("heartBeat", Constant.getCurrentDateStr());
 			//order.put("reviceTemp", Constant.getCurrentDateStr());
 			order.put("monitorTimeOK", "0");
-			orderMap.put(list.get(i).getCabNumber(), order);
+			orderMap.put(list.get(i).getCabId(), order);
 		}
 		checkThread = new LoopCheckThread(orderMap, socketService);
 		checkThread.start();
@@ -45,19 +51,18 @@ public class SocketHandler {
 	 * 保存socket连接，保存柜体编号
 	 */
 	public String parseLogin(String str, Socket client) {
-		// Mes = "0000000|#000000|000000XCR";
+		// Mes = "0000000|#000000|1395476582|XCR";
 		// Ret = "0100000|#000000|0XCR";
 		String command[] = str.split("[|]");
-		if (command != null && command.length == 3 && command[0].length() == 7
-				&& command[1].length() == 7) {
+		if (command != null && command.length == 4 && command[0].length() == 7) {
 			if (command[0].equals("0000000")) {
-				String cabNumber = command[1].substring(0, 5);
+				String cabId = command[1];
 				
-				if(!socketService.cabinetIsExist(cabNumber)){
+				if(!socketService.cabinetIsExist(cabId)){
 					this.sendCommand(Constant.NOCABINET, client);
 					return null;
 				}
-				this.init(cabNumber, client);
+				this.init(cabId, client);
 				String tempStr = "0100000|" + command[1] + "|0XCR";
 				this.sendCommand(tempStr, client);
 				return null;
@@ -75,8 +80,8 @@ public class SocketHandler {
 		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 5 && command[0].length() == 7
-				&& command[1].length() == 7 && command[2].length() == 14) {
-			String cabNumber = command[1].substring(0, 5);
+				&& command[2].length() == 14) {
+			String cabId = command[1];
 			String dateStr = command[2];
 			String tempData = command[3];
 			
@@ -84,8 +89,8 @@ public class SocketHandler {
 				this.sendCommand(Constant.REALTEMPERROR, client);
 				return null;
 			}
-			realCabList.add(cabNumber);
-			this.setTempValue(cabNumber, tempData, dateStr);
+			realCabList.add(cabId);
+			this.setTempValue(cabId, tempData, dateStr);
 			return null;
 		}
 		this.sendCommand(Constant.REALTEMPERROR, client);
@@ -99,14 +104,14 @@ public class SocketHandler {
 		// Ret = "2100000|#000000|0XCR";
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 5 && command[0].length() == 7
-				&& command[1].length() == 7 && command[2].length() == 14) {
-			String cabNumber = command[1].substring(0, 5);
+				 && command[2].length() == 14) {
+			String cabId = command[1];
 			String dateStr = command[2];
-			Map<String, String> order = orderMap.get(cabNumber);
+			Map<String, String> order = orderMap.get(cabId);
 			order.put("reviceTemp", dateStr);
-			orderMap.put(cabNumber, order);
+			orderMap.put(cabId, order);
 			String tempData = command[3];
-			this.setTempValue(cabNumber, tempData, dateStr);
+			this.setTempValue(cabId, tempData, dateStr);
 			String tempStr = "2100000|" + command[1] + "|0XCR";
 
 			this.sendCommand(tempStr, client);
@@ -124,8 +129,8 @@ public class SocketHandler {
 		// Ret = "3100000|#000000|0XCR";
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 3 && command[0].length() == 7) {
-			String cabNumber = command[1].substring(0,5);
-			Map<String, String> order = this.orderMap.get(cabNumber);
+			String cabId = command[1];
+			Map<String, String> order = this.orderMap.get(cabId);
 			if (order!=null){
 				order.put("monitorTimeOK", "1");
 				return null;
@@ -162,9 +167,9 @@ public class SocketHandler {
 		if (command != null && command.length == 3 && command[0].length() == 7) {
 			this.storeHeartBertOrder(command[1].substring(0, 5));
 			String tempStr = "5100000|" + command[1] + "|0XCR";
-			String cabNumber = command[1].substring(0,5);
+			String cabId = command[1];
 			Date date = new Date();
-			this.socketService.saveAlarm(cabNumber, JYAlarm.DEVICEREEOR, date, "故障");
+			this.socketService.saveAlarm(cabId, JYAlarm.DEVICEREEOR, date, "故障");
 			this.sendCommand(tempStr, client);
 			return null;
 		}
@@ -173,12 +178,12 @@ public class SocketHandler {
 		return null;
 	}
 
-	private void storeHeartBertOrder(String cabNumber) {
+	private void storeHeartBertOrder(String cabId) {
 
-		Map<String, String> order = orderMap.get(cabNumber);
+		Map<String, String> order = orderMap.get(cabId);
 		order.put("heartBeat", Constant.getCurrentDateStr());
-		orderMap.put(cabNumber, order);
-		this.socketService.updateCabinetStatus(cabNumber);
+		orderMap.put(cabId, order);
+		this.socketService.updateCabinetStatus(cabId);
 	}
 	/*
 	 * 设置上传时间
@@ -191,16 +196,16 @@ public class SocketHandler {
 		while(iter.hasNext()){
 			Map.Entry<String, Map<String, String>> mEntry = (Map.Entry<String, Map<String, String>>)iter.next();
 			Map<String, String> order = (Map<String, String>)mEntry.getValue();
-			String cabNumber = (String)mEntry.getKey();
+			String cabId = (String)mEntry.getKey();
 			String mTime = value;
 			if (mTime.length()==1){
 				mTime ="0"+mTime;
 			}
-			Socket client = (Socket)clientMap.get(cabNumber);
+			Socket client = (Socket)clientMap.get(cabId);
 			if (client==null)continue;
 			order.put("monitorTimeOK", "0");
 
-			String tempStr = "3000000|" + cabNumber + "00|"+mTime+"XCR";
+			String tempStr = "3000000|" + cabId + "|"+mTime+"XCR";
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -213,16 +218,16 @@ public class SocketHandler {
 	/*
 	 * 读取实时温度
 	 */
-	public List<String> sendCommandToGetTempWithCabNumberList(String[] cabNumberList) {
+	public List<String> sendCommandToGetTempWithCabIdList(String[] cabIdList) {
 		// Mes = "1000000|#000000|XCR"
 		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
 		realCabList = new ArrayList<String>();
-		List<String> list =  Arrays.asList(cabNumberList);
+		List<String> list =  Arrays.asList(cabIdList);
 
 		for (int i = 0; i < list.size(); i++) {
-			String cabNumber = list.get(i);
-			Socket client = clientMap.get(cabNumber);
-			String queryStr = "1000000|" + cabNumber + "00|XCR";
+			String cabId = list.get(i);
+			Socket client = clientMap.get(cabId);
+			String queryStr = "1000000|" + cabId + "|XCR";
 			this.sendCommand(queryStr, client);
 		}
 		int delay = 0;
@@ -257,31 +262,31 @@ public class SocketHandler {
 			}
 		}
 	}
-	private void init(String cabNumber,Socket client){
-		clientMap.put(cabNumber, client);
-		this.addOrderMap(cabNumber,client);
-		socketService.updateCabinetStatus(cabNumber);
+	private void init(String cabId,Socket client){
+		clientMap.put(cabId, client);
+		this.addOrderMap(cabId,client);
+		socketService.updateCabinetStatus(cabId);
 	}
-	public void checkInit(String cabNumber,Socket client){
-		Map<String, String> order = orderMap.get(cabNumber);
+	public void checkInit(String cabId,Socket client){
+		Map<String, String> order = orderMap.get(cabId);
 		if (order == null) 
 			return;
 		else{
 			String monitorTimeOK = order.get("monitorTimeOK");
 			if (monitorTimeOK.equals("0")){
-				JYCabinet cabinet = this.socketService.getCabinet(cabNumber);
+				JYCabinet cabinet = this.socketService.getCabinet(cabId);
 				if (cabinet==null)return;
 				String mTime = cabinet.getCabType().getSubValue();
 				if (mTime.length()==1){
 					mTime ="0"+mTime;
 				}
-				String queryStr = "3000000|" + cabNumber + "00|"+mTime+"XCR";
+				String queryStr = "3000000|" + cabId + "|"+mTime+"XCR";
 				this.sendCommand(queryStr, client);
 			}
 		}
 			
 	}
-	private void setTempValue(String cabNumber, String arg0, String dateStr) {
+	private void setTempValue(String cabId, String arg0, String dateStr) {
 
 		Map<Integer, List<Float>> map = new HashMap<Integer, List<Float>>();
 		String tempList[] = arg0.split("[*]");
@@ -315,8 +320,8 @@ public class SocketHandler {
 					map.put(positionNumber, vL);
 				}
 			}
-			socketService.saveDate(cabNumber, map, dateStr);
-			this.socketService.updateCabinetStatus(cabNumber);
+			socketService.saveDate(cabId, map, dateStr);
+			this.socketService.updateCabinetStatus(cabId);
 		}
 	}
 	public void removedSocket(Socket socket) {
@@ -336,31 +341,31 @@ public class SocketHandler {
 			}
 		}
 	}
-	private void addOrderMap(String cabNumber,Socket client) {
-		Map<String, String> order = orderMap.get(cabNumber);
+	private void addOrderMap(String cabId,Socket client) {
+		Map<String, String> order = orderMap.get(cabId);
 		if (order == null) {
 			return;
 		}
 		order.put("heartBeat", Constant.getCurrentDateStr());
 		//order.put("reviceTemp", Constant.getCurrentDateStr());
 		order.put("monitorTimeOK", "0");
-		JYCabinet cabinet = this.socketService.getCabinet(cabNumber);
+		JYCabinet cabinet = this.socketService.getCabinet(cabId);
 		if (cabinet==null)return;
 		String mTime = cabinet.getCabType().getSubValue();
 		if (mTime.length()==1){
 			mTime = "0"+mTime;
 		}
-		String queryStr = "3000000|" + cabNumber + "00|"+mTime+"XCR";
+		String queryStr = "3000000|" + cabId + "|"+mTime+"XCR";
 		this.sendCommand(queryStr, client);
-		orderMap.put(cabNumber, order);
+		orderMap.put(cabId, order);
 	}
-	public void removeOrderMap(String cabNumber) {
-		orderMap.remove(cabNumber);
-		clientMap.remove(cabNumber);
+	public void removeOrderMap(String cabId) {
+		orderMap.remove(cabId);
+		clientMap.remove(cabId);
 	}
-	public boolean isLogined(String cabNumber,Socket client){
-		if(orderMap.get(cabNumber)!=null){
-			clientMap.put(cabNumber, client);//如有则替换
+	public boolean isLogined(String cabId,Socket client){
+		if(orderMap.get(cabId)!=null){
+			clientMap.put(cabId, client);//如有则替换
 			return true;
 		}	
 		else 
@@ -383,11 +388,11 @@ public class SocketHandler {
 			e.printStackTrace();
 		}
 	}
-	public void addCabinet(String cabNumber){
+	public void addCabinet(String cabId){
 		Map<String, String> order = new HashMap<String, String>();
 		order.put("heartBeat", Constant.getCurrentDateStr());
 		//order.put("reviceTemp", Constant.getCurrentDateStr());
 		order.put("monitorTimeOK", "0");
-		orderMap.put(cabNumber, order);
+		orderMap.put(cabId, order);
 	}
 }

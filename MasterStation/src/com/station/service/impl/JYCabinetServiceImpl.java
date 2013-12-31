@@ -120,7 +120,7 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		String hql = "from JYDevice device where device.cabinet.cabId = '"+arg0.getCabId()+"'";
 		List<JYDevice> list = this.deviceService.findJYDeviceByHql(hql);
 		this.deviceService.removeJYDevices(list);
-		socketRoute.removedCabinet(arg0.getCabNumber());
+		socketRoute.removedCabinet(arg0.getCabId());
 	}
 	@Override
 	public void removeJYCabinets(List<JYCabinet> list){
@@ -158,15 +158,20 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 			alarmType3.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE3HQL).get(0));
 		}
 		cabinet.setAlarmTypeCollect(alarmTypeCollect);
-		cabinetDAO.saveJYCabinet(cabinet);
+		String cabId = cabinetDAO.saveJYCabinet(cabinet);
 		if(cabinet.getStatus()==1)
-			socketRoute.addCabinet(cabinet.getCabNumber());
+			socketRoute.addCabinet(cabId);
 	}
 
 	@Override
 	public void updateJYCabinet(JYCabinet arg0) {
 		// TODO Auto-generated method stub
 		JYCabinet cabinet = arg0;
+		if(cabinet.getStatus()!=1)
+			socketRoute.removedCabinet(cabinet.getCabId());
+		else
+			socketRoute.addCabinet(cabinet.getCabId());
+		
 		cabinet.setTag(1);
 		cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
 		cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
@@ -216,8 +221,6 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		}
 		
 		cabinetDAO.updateJYCabinet(cabinet);
-		if(cabinet.getStatus()!=1)
-			socketRoute.removedCabinet(cabinet.getCabNumber());
 	}
 
 	@Override

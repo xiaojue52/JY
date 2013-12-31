@@ -36,38 +36,39 @@ public class LoopCheckThread extends Thread{
 	private void loopCheck(Map<String, Map<String, String>> orderMap){
 		Iterator<Map.Entry<String, Map<String, String>>> iter = orderMap.entrySet().iterator();
 		while (iter.hasNext()) {
+			
 			Map.Entry<String, Map<String, String>> mEntry = (Map.Entry<String, Map<String, String>>) iter.next();
-			String cabNumber = (String) mEntry.getKey();
+			String cabId = (String) mEntry.getKey();
 			Map<String, String> order = (Map<String, String>)mEntry.getValue();
-			//System.out.print(cabNumber);
+			System.out.print(cabId+"\n");
 			try {
-				checkHeartBeat(cabNumber,order.get("heartBeat"));
-				checkReviceTemp(cabNumber,order.get("reviceTemp"));
+				checkHeartBeat(cabId,order.get("heartBeat"));
+				checkReviceTemp(cabId,order.get("reviceTemp"));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	private void checkHeartBeat(String cabNumber,String date) throws ParseException{
+	private void checkHeartBeat(String cabId,String date) throws ParseException{
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
 		if (diff>=Constant.HEARTBEATTIME*60*1000){
-			this.socketService.saveAlarm(cabNumber, JYAlarm.HEARTBEATOFFLINE, d2, "离线");
+			this.socketService.saveAlarm(cabId, JYAlarm.HEARTBEATOFFLINE, d2, "离线");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n");
 	}
-	private void checkReviceTemp(String cabNumber,String date) throws ParseException{
-		if (date==null||this.socketService.getCabinet(cabNumber)==null)return;
-		long mTime = (Long.valueOf(this.socketService.getCabinet(cabNumber).getCabType().getSubValue())+1)*60*1000;
+	private void checkReviceTemp(String cabId,String date) throws ParseException{
+		if (date==null||this.socketService.getCabinet(cabId)==null)return;
+		long mTime = (Long.valueOf(this.socketService.getCabinet(cabId).getCabType().getSubValue())+1)*60*1000;
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime()-d1.getTime();
 		if (diff>=mTime){
-			this.socketService.saveAlarm(cabNumber, JYAlarm.DEVICEOFFLINE, d2, "离线");
+			this.socketService.saveAlarm(cabId, JYAlarm.DEVICEOFFLINE, d2, "离线");
 		}
 		//System.out.print("\n"+diff+"\n"+diff+"\n"+Constant.reciveTempTime);
 	}

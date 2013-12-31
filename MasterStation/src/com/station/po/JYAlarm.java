@@ -8,9 +8,9 @@ public class JYAlarm {
 	private String alarmText;
 	private String note;
 	private String repairUser; //维修人员
-	private String status;
+	private String status; //维修状态
 	private JYDevice device;
-	private String isCabinet;
+	private String isCabinet; //是否是柜子
 	private java.util.Date date;
 	private String type;
 	

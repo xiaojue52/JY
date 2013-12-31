@@ -38,6 +38,7 @@ function getUserDetails(id){
 			$("#user_contact").val(user.contact);
 			$("#user_jobLevel").val(user.jobLevel);
 			$("#user_userId").val(user.userId);
+			$("#user_canRecMes").val(user.canRecMes);
 			if (user.userLevel=="user"){
 				$("#user_userLevel").html("<option value='user'>普通用户</option><option value='com_admin'>普通管理员</option>");
 			}else

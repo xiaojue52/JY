@@ -150,7 +150,7 @@
  	</action>
 </package>
 <package name="Socket" extends="abstract_struts" namespace="/"> 
-	<action name="getTempDate" class="SocketAction" method="getTempDateAction"> 
+	<action name="socketGetTempData" class="SocketAction" method="getTempDataAction"> 
  	</action>
 </package>
 <package name="Config" extends="abstract_struts" namespace="/"> 

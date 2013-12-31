@@ -73,7 +73,7 @@
 				<th width="5%">
 					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.userId')">编号</span>
 				</th>
-				<th width="15%">
+				<th width="10%">
 					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.username')">用户名</span>
 				</th>
 				<th width="15%">
@@ -91,7 +91,10 @@
 				<th width="15%">
 					<span class="comSpan" onclick="Control.orderByColumn('listUser.action','user.jobLevel')">职务级别</span>
 				</th>
-				<th width="15%">
+				<th width="10%">
+					<span>短信接收</span>
+				</th>
+				<th width="10%">
 					<span>操作</span>
 				</th>
 			</tr>
@@ -111,7 +114,7 @@
 					<td width="5%">
 						<s:property value="userId" />
 					</td>
-					<td width="15%">
+					<td width="10%">
 						<s:property value="username" />
 					</td>
 					<td width="15%">
@@ -134,7 +137,15 @@
 					<td width="15%">
 						<s:property value="jobLevel" />
 					</td>
-					<td width="15%">
+					<td width="10%">
+						<s:if test="canRecMes == 1">
+							<span>是</span>
+						</s:if>
+						<s:else>
+							<span>否</span>
+						</s:else>
+					</td>
+					<td width="10%">
 						<a
 							href="#" onclick="getUserDetails('<s:property value="userId" />');return false" />修改</a>
 						<a
@@ -266,7 +277,7 @@
 		</script>
 	</div>		
 		<div id="BgDiv"></div>
-			<div id="DialogDiv" style="display:none;width:300px;height:358px;">
+			<div id="DialogDiv" style="display:none;width:300px;height:410px;">
 				<h2>操作<a class="btnClose">关闭</a></h2>
 				<div id="addUser_dialogDiv">
     	    		<jsp:include page="/account/add_user.jsp"></jsp:include>

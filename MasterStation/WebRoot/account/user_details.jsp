@@ -66,6 +66,21 @@
 				</tr>
 				<tr>
 					<td align="right">
+						<span>短信接收：</span>
+					</td>
+					<td>
+						<select id="user_canRecMes" name="user.canRecMes"  style="width:120px;">
+							<option value="1">
+								是
+							</option>
+							<option value="0">
+								否
+							</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
 						<span>系统角色：</span>
 					</td>
 					<td>
