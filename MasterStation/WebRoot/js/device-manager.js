@@ -91,6 +91,7 @@ Ext.onReady(function(){
     	                	DeviceManager.removeChecked(1);
     	                	DeviceManager.removeChecked(2);
     	                	DeviceManager.removeChecked(3);
+    	                	DeviceManager.removeChecked(4);
     	                }else
     	                {
     	                	if (obj.cabinet.alarmTypeCollect.alarmType1.enable==0){
@@ -229,6 +230,7 @@ Ext.onReady(function(){
 	                DeviceManager.removeChecked(1);
 	                DeviceManager.removeChecked(2);
 	                DeviceManager.removeChecked(3);
+	                DeviceManager.removeChecked(4);
 	                $("#cabinetTitle").text("增加柜体设备");
 	                //$("#cabinetPage form").attr({"action":"addCabinet.action"});
 	                $("#cabinetAddBtn").show();
@@ -382,6 +384,7 @@ DeviceManager.Line.line = function(){
 };
 DeviceManager.Cabinet = {};
 DeviceManager.Cabinet.cabinet = function(order){
+	//alert("4:"+$("#enable4").val()+"--"+"3:"+$("#enable3").val())
 	if(DeviceManager.currentNode==null){
 		alert("设备不存在");
 		return;

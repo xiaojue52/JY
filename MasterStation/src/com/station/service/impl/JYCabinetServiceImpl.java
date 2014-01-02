@@ -173,7 +173,8 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 			alarmTypeCollect = this.createAlarmCollection(cabinet);
 			cabinet.setAlarmTypeCollect(alarmTypeCollect);
 			cabinetDAO.updateJYCabinet(cabinet);
-		}	
+		}else
+			cabinetDAO.updateJYCabinet(cabinet);
 	}
 
 	@Override
