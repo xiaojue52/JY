@@ -14,7 +14,14 @@ public class AlarmTypeAction extends ActionSupport{
 	private JYAlarmType alarmType1;
 	private JYAlarmType alarmType2;
 	private JYAlarmType alarmType3;
+	private JYAlarmType alarmType4;
 
+	public JYAlarmType getAlarmType4() {
+		return alarmType4;
+	}
+	public void setAlarmType4(JYAlarmType alarmType4) {
+		this.alarmType4 = alarmType4;
+	}
 	public JYAlarmType getAlarmType1() {
 		return alarmType1;
 	}
@@ -49,6 +56,11 @@ public class AlarmTypeAction extends ActionSupport{
 		alarmType13.setEnable(alarmType3.getEnable());
 		alarmType13.setValue(alarmType3.getValue());
 		alarmTypeService.updateJYAlarmType(alarmType13);
+		JYAlarmType alarmType14 = alarmTypeService.findJYAlarmTypeById("-11003");
+		alarmType14.setEnable(alarmType4.getEnable());
+		alarmType14.setValue(alarmType4.getValue());
+		alarmType14.setSubValue(alarmType4.getSubValue());
+		alarmTypeService.updateJYAlarmType(alarmType14);
 		Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("data", 1);
         Constant.flush(dataMap);
@@ -57,6 +69,7 @@ public class AlarmTypeAction extends ActionSupport{
 		alarmType1 = this.alarmTypeService.findJYAlarmTypeById("-11000");
 		alarmType2 = this.alarmTypeService.findJYAlarmTypeById("-11001");
 		alarmType3 = this.alarmTypeService.findJYAlarmTypeById("-11002");
+		alarmType4 = this.alarmTypeService.findJYAlarmTypeById("-11003");
 		return SUCCESS;
 	}
 }

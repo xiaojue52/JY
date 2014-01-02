@@ -153,15 +153,19 @@ public class InitData {
 			
 			key.setType("AlarmType");
 			key.setKey("1000");
-			key.setValue("报警温度超出设定值（T1°）");
+			key.setValue("报警温度超出设定值（T1℃）");
 			this.constantService.saveJYConstant(key);
 			key.setType("AlarmType");
 			key.setKey("1001");
-			key.setValue("三相之间温差超出设定值（T2°）");
+			key.setValue("三相之间温差超出设定值（T2℃）");
 			this.constantService.saveJYConstant(key);
 			key.setType("AlarmType");
 			key.setKey("1002");
-			key.setValue("三相与环境温差超出设定值（T3°）");
+			key.setValue("三相与环境温差超出设定值（T3℃）");
+			this.constantService.saveJYConstant(key);
+			key.setType("AlarmType");
+			key.setKey("1003");
+			key.setValue("特定间隔（T4m）时间内温度超过设定值（T5℃）");
 			this.constantService.saveJYConstant(key);
 		}
 	}
@@ -193,6 +197,15 @@ public class InitData {
 			key.setType(type);
 			key.setIsDefault(0);
 			this.alarmTypeService.saveJYAlarmType(key);
+			
+			type = this.constantService.findJYConstantByHql(Constant.ALARMTYPE4HQL).get(0);
+			key.setId("-11003");
+			key.setEnable(1);
+			key.setValue(10.0f);
+			key.setSubValue(15);
+			key.setType(type);
+			key.setIsDefault(0);
+			this.alarmTypeService.saveJYAlarmType(key);
 		}
 	}
 	private void initAlarmTypeCollectTable(){
@@ -202,11 +215,13 @@ public class InitData {
 			JYAlarmType type1 = this.alarmTypeService.findJYAlarmTypeById("-11000");
 			JYAlarmType type2 = this.alarmTypeService.findJYAlarmTypeById("-11001");
 			JYAlarmType type3 = this.alarmTypeService.findJYAlarmTypeById("-11002");
+			JYAlarmType type4 = this.alarmTypeService.findJYAlarmTypeById("-11003");
 			
 			key.setId("-1");
 			key.setAlarmType1(type1);
 			key.setAlarmType2(type2);
 			key.setAlarmType3(type3);
+			key.setAlarmType3(type4);
 			this.alarmTypeCollectService.saveJYAlarmTypeCollect(key);
 		}
 	}

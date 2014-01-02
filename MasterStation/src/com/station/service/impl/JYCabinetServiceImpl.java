@@ -16,13 +16,11 @@ import com.station.service.JYCabinetService;
 import com.station.service.JYConstantService;
 import com.station.service.JYDetectorService;
 import com.station.service.JYDeviceService;
-import com.station.service.JYLineService;
 import com.station.socket.SocketRoute;
 
 public class JYCabinetServiceImpl implements JYCabinetService {
 
 	private JYCabinetDAO cabinetDAO;
-	private JYLineService lineService;
 	private JYAlarmTypeService alarmTypeService;
 	private JYAlarmTypeCollectService alarmTypeCollectService;
 	private JYConstantService constantService;
@@ -41,10 +39,6 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 
 	public void setDeviceService(JYDeviceService deviceService) {
 		this.deviceService = deviceService;
-	}
-
-	public void setLineService(JYLineService lineService) {
-		this.lineService = lineService;
 	}
 
 	public void setAlarmTypeService(JYAlarmTypeService alarmTypeService) {
@@ -135,27 +129,17 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		
 		JYCabinet cabinet = arg0;
 		cabinet.setTag(1);
-		cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
-		cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
-		cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
+		//cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
+		//cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
+		//cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
 
 		JYAlarmTypeCollect alarmTypeCollect = null;
-		if (cabinet.getAlarmTypeCollect().getAlarmType1().getEnable()==0&&cabinet.getAlarmTypeCollect().getAlarmType2().getEnable()==0&&cabinet.getAlarmTypeCollect().getAlarmType3().getEnable()==0){
+		if (this.isGlobalAlarmCollection(cabinet)){
 			alarmTypeCollect = this.alarmTypeCollectService.findJYAlarmTypeCollectById("-1");
 		}
 		else
 		{
-			alarmTypeCollect = cabinet.getAlarmTypeCollect();
-			alarmTypeCollect.setId(cabinet.getCabNumber()+Constant.getCurrentDateStr());
-			JYAlarmType alarmType1 = alarmTypeCollect.getAlarmType1();
-			JYAlarmType alarmType2 = alarmTypeCollect.getAlarmType2();
-			JYAlarmType alarmType3 = alarmTypeCollect.getAlarmType3();
-			alarmType1.setId(alarmTypeCollect.getId()+1000);
-			alarmType1.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE1HQL).get(0));
-			alarmType2.setId(alarmTypeCollect.getId()+1001);
-			alarmType2.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE2HQL).get(0));
-			alarmType3.setId(alarmTypeCollect.getId()+1002);
-			alarmType3.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE3HQL).get(0));
+			alarmTypeCollect = this.createAlarmCollection(cabinet);
 		}
 		cabinet.setAlarmTypeCollect(alarmTypeCollect);
 		String cabId = cabinetDAO.saveJYCabinet(cabinet);
@@ -173,54 +157,23 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 			socketRoute.addCabinet(cabinet.getCabId());
 		
 		cabinet.setTag(1);
-		cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
-		cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
-		cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
+		//cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
+		//cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
+		//cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
 		JYAlarmTypeCollect alarmTypeCollect = null;
-		if (cabinet.getAlarmTypeCollect().getAlarmType1().getEnable()==0&&cabinet.getAlarmTypeCollect().getAlarmType2().getEnable()==0&&cabinet.getAlarmTypeCollect().getAlarmType3().getEnable()==0){
+		if (this.isGlobalAlarmCollection(cabinet)){
 			alarmTypeCollect = this.alarmTypeCollectService.findJYAlarmTypeCollectById("-1");
-			if (cabinet.getAlarmTypeCollect().getId().equals("-1")){
-				cabinet.setAlarmTypeCollect(alarmTypeCollect);
-				cabinetDAO.updateJYCabinet(cabinet);
-				return;
+			if (!cabinet.getAlarmTypeCollect().getId().equals("-1")){
+				this.removedAlarmCollection(cabinet);
 			}
-			JYAlarmTypeCollect collect = cabinet.getAlarmTypeCollect();
 			cabinet.setAlarmTypeCollect(alarmTypeCollect);
 			cabinetDAO.updateJYCabinet(cabinet);
-			JYAlarmType type1 = collect.getAlarmType1();
-			JYAlarmType type2 = collect.getAlarmType2();
-			JYAlarmType type3 = collect.getAlarmType3();
-			collect.setAlarmType1(null);
-			collect.setAlarmType2(null);
-			collect.setAlarmType3(null);
-			this.alarmTypeCollectService.updateJYAlarmTypeCollect(collect);
-			this.alarmTypeCollectService.removeJYAlarmTypeCollect(collect);
-			type1.setType(null);
-			type2.setType(null);
-			type3.setType(null);
-			this.alarmTypeService.updateJYAlarmType(type1);
-			this.alarmTypeService.updateJYAlarmType(type2);
-			this.alarmTypeService.updateJYAlarmType(type3);
-			this.alarmTypeService.removeJYAlarmType(type1);
-			this.alarmTypeService.removeJYAlarmType(type2);
-			this.alarmTypeService.removeJYAlarmType(type3);
 			return;
-			//cabinet.getAlarmTypeCollect().setAlarmType1(null);
-			//cabinet.setAlarmTypeCollect(alarmTypeCollect);
 		}else if(cabinet.getAlarmTypeCollect().getId().equals("-1")){
-			alarmTypeCollect = new JYAlarmTypeCollect();
-			alarmTypeCollect = cabinet.getAlarmTypeCollect();
-			alarmTypeCollect.setId(cabinet.getCabNumber()+Constant.getCurrentDateStr());
-			JYAlarmType alarmType1 = alarmTypeCollect.getAlarmType1();
-			JYAlarmType alarmType2 = alarmTypeCollect.getAlarmType2();
-			JYAlarmType alarmType3 = alarmTypeCollect.getAlarmType3();
-			alarmType1.setId(alarmTypeCollect.getId()+1000);
-			alarmType2.setId(alarmTypeCollect.getId()+1001);
-			alarmType3.setId(alarmTypeCollect.getId()+1002);
+			alarmTypeCollect = this.createAlarmCollection(cabinet);
 			cabinet.setAlarmTypeCollect(alarmTypeCollect);
-		}
-		
-		cabinetDAO.updateJYCabinet(cabinet);
+			cabinetDAO.updateJYCabinet(cabinet);
+		}	
 	}
 
 	@Override
@@ -237,5 +190,57 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 			return true;
 		}
 		return false;
+	}
+	private boolean isGlobalAlarmCollection(JYCabinet cabinet){
+		if(cabinet.getAlarmTypeCollect().getAlarmType1().getEnable()==0
+				&&cabinet.getAlarmTypeCollect().getAlarmType2().getEnable()==0
+				&&cabinet.getAlarmTypeCollect().getAlarmType3().getEnable()==0
+				&&cabinet.getAlarmTypeCollect().getAlarmType4().getEnable()==0)
+			return true;
+		else
+			return false;
+			
+	}
+	private JYAlarmTypeCollect createAlarmCollection(JYCabinet cabinet){
+		JYAlarmTypeCollect alarmTypeCollect = cabinet.getAlarmTypeCollect();
+		alarmTypeCollect.setId(cabinet.getCabNumber()+Constant.getCurrentDateStr());
+		JYAlarmType alarmType1 = alarmTypeCollect.getAlarmType1();
+		JYAlarmType alarmType2 = alarmTypeCollect.getAlarmType2();
+		JYAlarmType alarmType3 = alarmTypeCollect.getAlarmType3();
+		JYAlarmType alarmType4 = alarmTypeCollect.getAlarmType4();
+		alarmType1.setId(alarmTypeCollect.getId()+1000);
+		alarmType1.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE1HQL).get(0));
+		alarmType2.setId(alarmTypeCollect.getId()+1001);
+		alarmType2.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE2HQL).get(0));
+		alarmType3.setId(alarmTypeCollect.getId()+1002);
+		alarmType3.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE3HQL).get(0));
+		alarmType4.setId(alarmTypeCollect.getId()+1003);
+		alarmType4.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE4HQL).get(0));
+		return alarmTypeCollect;
+	}
+	private void removedAlarmCollection(JYCabinet cabinet){
+		JYAlarmTypeCollect collect = cabinet.getAlarmTypeCollect();
+		JYAlarmType type1 = collect.getAlarmType1();
+		JYAlarmType type2 = collect.getAlarmType2();
+		JYAlarmType type3 = collect.getAlarmType3();
+		JYAlarmType type4 = collect.getAlarmType4();
+		collect.setAlarmType1(null);
+		collect.setAlarmType2(null);
+		collect.setAlarmType3(null);
+		collect.setAlarmType4(null);
+		this.alarmTypeCollectService.updateJYAlarmTypeCollect(collect);
+		this.alarmTypeCollectService.removeJYAlarmTypeCollect(collect);
+		type1.setType(null);
+		type2.setType(null);
+		type3.setType(null);
+		type4.setType(null);
+		this.alarmTypeService.updateJYAlarmType(type1);
+		this.alarmTypeService.updateJYAlarmType(type2);
+		this.alarmTypeService.updateJYAlarmType(type3);
+		this.alarmTypeService.updateJYAlarmType(type4);
+		this.alarmTypeService.removeJYAlarmType(type1);
+		this.alarmTypeService.removeJYAlarmType(type2);
+		this.alarmTypeService.removeJYAlarmType(type3);
+		this.alarmTypeService.removeJYAlarmType(type4);
 	}
 }

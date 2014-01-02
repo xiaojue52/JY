@@ -18,6 +18,7 @@
   		<column name="device_id"></column>
   	</many-to-one>	
   <property name="type" type="string" column="type"/>	
+  <property name="times" type="java.lang.Integer" column="times"/>	
  </class>
  
 </hibernate-mapping>

@@ -89,7 +89,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 					.next();
 			List<Float> valueList = (List<Float>) mEntry.getValue();
 			Integer positionNumber = (Integer)mEntry.getKey();
-			String hql = "from JYDetector detector where and detector.device.cabinet.cabId='" +
+			String hql = "from JYDetector detector where detector.device.cabinet.cabId='" +
 			cabId+"' and detector.device.tag = 1" +
 				" and detector.device.positionNumber = "+positionNumber+" order by to_number(replace(detector.detectorId,'Detector',''))";
 			List<JYDetector> list = this.detectorDAO.findJYDetectorByHql(hql);
@@ -115,6 +115,18 @@ public class JYSocketServiceImpl implements JYSocketService {
 		float c = valueList.get(2);
 		float d = valueList.get(3);
 		JYDevice device = list.get(0).getDevice();
+		
+		String hql0 = "from JYAlarm alarm where alarm.device.deviceId = '"+device.getDeviceId()+"' and alarm.isCabinet = '0' order by alarm.date"; 
+		
+		List<JYAlarm> listAlarms = this.alarmDAO.findJYAlarmByHql(hql0);
+		JYAlarm preAlarm = null;
+		if (listAlarms!=null&&listAlarms.size()>0){
+			preAlarm = listAlarms.get(0);
+		}
+		String preAlarmText = "";
+		if (preAlarm!=null){
+			preAlarmText = preAlarm.getAlarmText();
+		}
 		JYAlarmTypeCollect collect = device.getCabinet().getAlarmTypeCollect();
 		JYAlarmType type1 = collect.getAlarmType1();
 		JYAlarmType type2 = collect.getAlarmType2();
@@ -143,15 +155,23 @@ public class JYSocketServiceImpl implements JYSocketService {
 			}
 		}
 		if (alarmText.length()>0){
-			alarm.setIsCabinet("0");
-			alarm.setDevice(device);
-			alarm.setStatus("0");
-			alarm.setAlarmText(alarmText);
-			alarm.setId(String.valueOf(System.nanoTime()));
+			if (device.getAlarm()!=null&&device.getAlarm().getAlarmText().equals(alarmText)&&preAlarmText.equals(alarmText)){
+				preAlarm.setTimes(preAlarm.getTimes()+1);
+				this.alarmDAO.saveJYAlarm(preAlarm);
+				//this.deviceDAO.updateJYDevice(device);
+			}else
+			{
+				alarm.setTimes(1);
+				alarm.setIsCabinet("0");
+				alarm.setDevice(device);
+				alarm.setStatus("0");
+				alarm.setAlarmText(alarmText);
+				alarm.setId(String.valueOf(System.nanoTime()));
 			
-			this.alarmDAO.saveJYAlarm(alarm);
-			device.setAlarm(alarm);
-			this.deviceDAO.updateJYDevice(device);
+				this.alarmDAO.saveJYAlarm(alarm);
+				device.setAlarm(alarm);
+				this.deviceDAO.updateJYDevice(device);
+			}
 		}
 	}
 
@@ -190,6 +210,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 				}
 				
 			}{
+				alarm.setTimes(1);
 				alarm.setAlarmText(content);
 				alarm.setDate(date);
 				alarm.setId(String.valueOf(System.nanoTime()));

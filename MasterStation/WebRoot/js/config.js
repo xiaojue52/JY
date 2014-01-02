@@ -1,3 +1,4 @@
+
 var setEnable = function(id) {
 	if (document.getElementById("alarmTypeEnable" + id).checked == true)
 		$("#enable" + id).val(1);
@@ -86,14 +87,27 @@ var updateAlarmType = function(){
 	if ($("#value2").val().length==0)
 		$("#value2").val(0);
 	if ($("#value3").val().length==0)
+		$("#value3").val(0);
+	if ($("#value4").val().length==0)
 		$("#value4").val(0);
+	if ($("#value5").val().length==0)
+		$("#value5").val(0);
 	$.ajax( {
 		type : "post",
 		url : "updateAlarmType.action",
-		data:"alarmType1.enable=" + $("#enable1").val()+"&alarmType1.value="+$("#value1").val()+"&alarmType2.enable="+$("#enable2").val()+"&alarmType2.value="+$("#value2").val()+"&alarmType3.enable="+$("#enable3").val()+"&alarmType3.value="+$("#value3").val(),
-		dataType:'text',
-		success : function(returnData) {
-			var obj = eval("("+returnData+")");
+		data:{
+				"alarmType1.enable" : $("#enable1").val(),
+				"alarmType1.value":$("#value1").val(),
+				"alarmType2.enable":$("#enable2").val(),
+				"alarmType2.value":$("#value2").val(),
+				"alarmType3.enable":$("#enable3").val(),
+				"alarmType3.value":$("#value3").val(),
+				"alarmType4.enable":$("#enable4").val(),
+				"alarmType4.subValue":$("#value4").val(),
+				"alarmType4.value":$("#value5").val()
+				},
+		dataType:'json',
+		success : function(obj) {
 			if(obj.data==1)
 				alert("更新成功");
 			else
@@ -116,21 +130,26 @@ var setCabinetType = function() {
 };
 var init = function() {
 	$("#upTime").val($("#cabType").val());
-	var enbale1 = $("#enable1").val();
-	var enbale2 = $("#enable2").val();
-	var enbale3 = $("#enable3").val();
-	if (enbale1 == 1)
+	var enable1 = $("#enable1").val();
+	var enable2 = $("#enable2").val();
+	var enable3 = $("#enable3").val();
+	var enable4 = $("#enable4").val();
+	if (enable1 == 1)
 		document.getElementById("alarmTypeEnable1").checked = true;
 	else
 		document.getElementById("alarmTypeEnable1").checked = false;
-	if (enbale2 == 1)
+	if (enable2 == 1)
 		document.getElementById("alarmTypeEnable2").checked = true;
 	else
 		document.getElementById("alarmTypeEnable2").checked = false;
-	if (enbale3 == 1)
+	if (enable3 == 1)
 		document.getElementById("alarmTypeEnable3").checked = true;
 	else
 		document.getElementById("alarmTypeEnable3").checked = false;
+	if (enable4 == 1)
+		document.getElementById("alarmTypeEnable4").checked = true;
+	else
+		document.getElementById("alarmTypeEnable4").checked = false;
 
 	for (var i=1;i<29;i++){
 		var option;

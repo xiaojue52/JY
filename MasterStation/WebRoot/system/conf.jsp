@@ -48,7 +48,7 @@
 		<script type="text/javascript" src="<%=path%>/js/control.js"></script>
 	</head>
 
-	<body style="padding:0;overflow:hidden;">
+	<body style="padding:0;">
 		<div class="config_page">
 			<s:form>
 			<div class="config_time">
@@ -128,11 +128,11 @@
 							<input id="enable1" type="hidden" value="<s:property value="alarmType1.enable"/>" />
 						</td>
 						<td>
-							报警温度超出设定阀值（T1°）
+							报警温度超出设定阀值（T1℃）
 						</td>
 						<td>
 							T1=
-							<input style="ime-mode:disabled;" class="floatNumber" id="value1" type="text" value="<s:property value="alarmType1.value"/>"/>
+							<input style="ime-mode:disabled;" class="numberInput" id="value1" type="text" value="<s:property value="alarmType1.value"/>"/>
 						</td>
 					</tr>
 					<tr>
@@ -142,11 +142,11 @@
 							<input id="enable2" type="hidden" value="<s:property value="alarmType2.enable"/>"/>
 						</td>
 						<td>
-							三相之间的温度差超过设定值（T2°）
+							三相之间的温度差超过设定值（T2℃）
 						</td>
 						<td>
 							T2=
-							<input style="ime-mode:disabled;" class="floatNumber" id="value2" type="text" value="<s:property value="alarmType2.value"/>" />
+							<input style="ime-mode:disabled;" class="numberInput" id="value2" type="text" value="<s:property value="alarmType2.value"/>" />
 						</td></tr>
 					<tr>
 					<td>
@@ -155,12 +155,28 @@
 							<input type="hidden" id="enable3" value="<s:property value="alarmType3.enable"/>"/>
 						</td>
 						<td>
-							三相与环境温度差超过设定值（T3°）
+							三相与环境温度差超过设定值（T3℃）
 						</td>
 						<td>
 							T3=
-							<input style="ime-mode:disabled;" class="floatNumber" id="value3" type="text" value="<s:property value="alarmType3.value"/>" />
+							<input style="ime-mode:disabled;" class="numberInput" id="value3" type="text" value="<s:property value="alarmType3.value"/>" />
 						</td></tr>
+					<tr>
+					<td>
+							4
+							<input id="alarmTypeEnable4" type="checkbox" onclick="Config.setEnable(4)"/>
+							<input type="hidden" id="enable4" value="<s:property value="alarmType4.enable"/>"/>
+						</td>
+						<td>
+							特定间隔（T4m）时间内温度超过设定值（T5℃）
+						</td>
+						<td>
+							T4=
+							<input style="ime-mode:disabled;" class="numberInput" id="value4" type="text" Maxlength="5" value="<s:property value="alarmType4.subValue"/>" />
+							<br/>
+							T5=
+							<input style="ime-mode:disabled;" class="numberInput" id="value5" type="text" value="<s:property value="alarmType4.value"/>" />
+						</td></tr>	
 
 				</table>
 				<span> <input style="margin-top:8px;" type="button" value="确定" onclick="Config.updateAlarmType();"> </span>

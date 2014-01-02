@@ -6,7 +6,14 @@ public class JYAlarmType {
 	private Float value;
 	private Integer enable;
 	private Integer isDefault;
+	private Integer subValue;
 
+	public Integer getSubValue() {
+		return subValue;
+	}
+	public void setSubValue(Integer subValue) {
+		this.subValue = subValue;
+	}
 	public String getId() {
 		return id;
 	}

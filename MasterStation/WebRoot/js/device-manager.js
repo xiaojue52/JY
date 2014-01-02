@@ -1,3 +1,4 @@
+
 function cleanCabinetMes(){
 	$("#cabNumber").val("");
     $("#simNumber").val("");
@@ -114,6 +115,14 @@ Ext.onReady(function(){
     	                	{
     	                		DeviceManager.addChecked(3);
     	                		$("#input3").val(obj.cabinet.alarmTypeCollect.alarmType3.value);
+    	                	}
+    	                	if (obj.cabinet.alarmTypeCollect.alarmType4.enable==0){
+    	                		DeviceManager.removeChecked(4);
+    	                	}
+    	                	else
+    	                	{
+    	                		DeviceManager.addChecked(4);
+    	                		$("#input4").val(obj.cabinet.alarmTypeCollect.alarmType3.value);
     	                	}
     	                }
     	                
@@ -299,35 +308,44 @@ DeviceManager.queryDevice = function(){
 };
 DeviceManager.checkBoxSwitch = function(id){
 	if (document.getElementById("checkbox"+id).checked==true){
-		//removeChecked(id);
 		$("#input"+id).removeClass("readonly");
 		$("#input"+id).removeAttr("readonly");
-		$("#checkbox"+id).attr("checked","checked");
 		$("#enable"+id).val(1);
+		if (id==4){
+			$("#input5").removeClass("readonly");
+			$("#input5").removeAttr("readonly");
+		}
 	}
 	else
 	{
-		//alert('2');
-		//addChecked(id);
 		$("#input"+id).addClass("readonly");
 		$("#input"+id).attr("readonly","readonly");
-		$("#checkbox"+id).removeAttr("checked");
 		$("#enable"+id).val(0);
+		if (id==4){
+			$("#input5").addClass("readonly");
+			$("#input5").attr("readonly","readonly");
+		}
 	}
 };
 DeviceManager.addChecked = function(id){
 	document.getElementById("checkbox"+id).checked = true;
 	$("#input"+id).removeClass("readonly");
 	$("#input"+id).removeAttr("readonly");
-	$("#checkbox"+id).attr("checked","checked");
 	$("#enable"+id).val(1);
+	if (id==4){
+		$("#input5").removeClass("readonly");
+		$("#input5").removeAttr("readonly");
+	}
 };
 DeviceManager.removeChecked = function(id){
 	document.getElementById("checkbox"+id).checked = false;
 	$("#input"+id).addClass("readonly");
 	$("#input"+id).attr("readonly","readonly");
-	$("#checkbox"+id).removeAttr("checked");
 	$("#enable"+id).val(0);
+	if (id==4){
+		$("#input5").addClass("readonly");
+		$("#input5").attr("readonly","readonly");
+	}
 };
 DeviceManager.checkValue = function(){
 	if ($("#input1").val().length==0)
@@ -336,6 +354,10 @@ DeviceManager.checkValue = function(){
 		$("#input2").val(0);
 	if ($("#input3").val().length==0)
 		$("#input3").val(0);
+	if ($("#input4").val().length==0)
+		$("#input4").val(0);
+	if ($("#input5").val().length==0)
+		$("#input5").val(0);
 };
 DeviceManager.Line = {};
 DeviceManager.Line.line = function(){
@@ -385,6 +407,9 @@ DeviceManager.Cabinet.cabinet = function(order){
 		"&cabinet.alarmTypeCollect.alarmType2.enable="+$("#enable2").val()+
 		"&cabinet.alarmTypeCollect.alarmType3.value="+$("#input3").val()+
 		"&cabinet.alarmTypeCollect.alarmType3.enable="+$("#enable3").val()+
+		"&cabinet.alarmTypeCollect.alarmType4.value="+$("#input5").val()+
+		"&cabinet.alarmTypeCollect.alarmType4.subValue="+$("#input4").val()+
+		"&cabinet.alarmTypeCollect.alarmType4.enable="+$("#enable4").val()+
 		"&cabinet.line.lineId="+$("#lineId").val()+
 		"&cabinet.cabId="+$("#cabinetId").val()+
 		"&cabinet.status="+$("#cabinetStatus").val()+

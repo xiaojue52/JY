@@ -14,5 +14,6 @@
   <property name="value" type="java.lang.Float" column="value"/>
   <property name="enable" type="java.lang.Integer" column="enable"/>
   <property name="isDefault" type="java.lang.Integer" column="isDefault"/>
+  <property name="subValue" type="java.lang.Integer" column="subValue"/>
  </class>
 </hibernate-mapping>

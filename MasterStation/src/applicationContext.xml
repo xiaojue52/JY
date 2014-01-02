@@ -172,9 +172,6 @@
 		<property name="cabinetDAO">
 			<ref bean="jyCabinetDAO" />
 		</property>
-		<property name="lineService">
-			<ref bean="jyLineService" />
-		</property>
 		<property name="constantService">
 			<ref bean="jyConstantService" />
 		</property>

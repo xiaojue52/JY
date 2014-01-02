@@ -265,29 +265,42 @@
 					</tr>
 					<tr>
 					<td class="td_left" width="200px"><input type="checkbox" id="checkbox1" onclick="DeviceManager.checkBoxSwitch('1')" />
-						T1(°)：</td>
-					<td>
-						<input class="floatNumber" id="input1" name="cabinet.alarmTypeCollect.alarmType1.value" type="text" value="75" class="readonly" readonly="readonly"
+						</td>
+					<td align="right">T1(℃)：
+						<input class="numberInput" id="input1" name="cabinet.alarmTypeCollect.alarmType1.value" type="text" value="75" class="readonly" readonly="readonly"
 							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
 						<input id="enable1" type="hidden" name="cabinet.alarmTypeCollect.alarmType1.enable" value=""/>	
 					</td>
 					</tr>
 					<tr>
 					<td class="td_left" width="100"><input type="checkbox" id="checkbox2" onclick="DeviceManager.checkBoxSwitch('2')" />
-						T2(°)：</td>
-					<td>
-						<input class="floatNumber" id="input2" name="cabinet.alarmTypeCollect.alarmType2.value"  type="text" value="15" class="readonly" readonly="readonly"
+						</td>
+					<td align="right">T2(℃)：
+						<input class="numberInput" id="input2" name="cabinet.alarmTypeCollect.alarmType2.value"  type="text" value="15" class="readonly" readonly="readonly"
 							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
 							<input id="enable2" type="hidden" name="cabinet.alarmTypeCollect.alarmType2.enable" value=""/>	
 					</td>
 					</tr>
 					<tr>
 					<td class="td_left" width="100"><input type="checkbox" id="checkbox3" onclick="DeviceManager.checkBoxSwitch('3')" />
-						T3(°)：</td>
-					<td>
-						<input class="floatNumber" id="input3" name="cabinet.alarmTypeCollect.alarmType3.value" type="text" value="15" class="readonly" readonly="readonly"
+						</td>
+					<td align="right">T3(℃)：
+						<input class="numberInput" id="input3" name="cabinet.alarmTypeCollect.alarmType3.value" type="text" value="15" class="readonly" readonly="readonly"
 							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
 							<input id="enable3" name="cabinet.alarmTypeCollect.alarmType3.enable" type="hidden" value=""/>	
+					</td>
+					</tr>
+					<tr>
+					<td class="td_left" width="100"><input type="checkbox" id="checkbox4" onclick="DeviceManager.checkBoxSwitch('4')" />
+						</td>
+					<td align="right">T4(m)：
+						<input class="numberInput" id="input4" name="cabinet.alarmTypeCollect.alarmType4.subValue" type="text" value="15" class="readonly" readonly="readonly"
+							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
+							<input id="enable4" name="cabinet.alarmTypeCollect.alarmType4.enable" type="hidden" value=""/>	
+						<br>
+						T5(℃)：
+						<input class="numberInput" id="input5" name="cabinet.alarmTypeCollect.alarmType4.value" type="text" value="15" class="readonly" readonly="readonly"
+							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
 					</td>
 					</tr>
 				

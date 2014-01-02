@@ -13,8 +13,14 @@ public class JYAlarm {
 	private String isCabinet; //是否是柜子
 	private java.util.Date date;
 	private String type;
+	private Integer times;//重复次数
 	
-	
+	public Integer getTimes() {
+		return times;
+	}
+	public void setTimes(Integer times) {
+		this.times = times;
+	}
 	public String getType() {
 		return type;
 	}

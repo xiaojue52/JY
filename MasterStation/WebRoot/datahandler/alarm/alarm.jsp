@@ -181,14 +181,17 @@
 							<th width="20%">
 								<span>报警内容</span>
 							</th>
+							<th width="5%">
+								<span>次数</span>
+							</th>
 							<th width="10%">
 								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.device.cabinet.userGroup.groupName')">管理班组</span>
 							</th>
 							<th width="10%">
-								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.status')">维修状态</span>
+								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.status')">状态</span>
 							</th>
-							<th width="10%">
-								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.repairUser')">维修人员</span>
+							<th width="5%">
+								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.repairUser')">确认者</span>
 							</th>
 
 							<th width="10%">
@@ -238,6 +241,9 @@
 								<td width="20%">
 									<s:property escape="false" value="alarmText"/>
 								</td>
+								<td width="5%">
+									<s:property value="times"/>
+								</td>
 								<td width="10%">
 										<s:if test="#alarm.device !=null">
 												<s:property value="#alarm.device.cabinet.userGroup.groupName" />
@@ -251,7 +257,7 @@
 										已维修
 									</s:else>
 								</td>
-								<td width="10%">
+								<td width="5%">
 									<s:property value="repairUser" />
 
 								</td>

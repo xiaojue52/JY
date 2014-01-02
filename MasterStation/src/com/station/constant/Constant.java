@@ -34,6 +34,7 @@ public class Constant {
 	public static final String ALARMTYPE1HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1000'";
 	public static final String ALARMTYPE2HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1001'";
 	public static final String ALARMTYPE3HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1002'";
+	public static final String ALARMTYPE4HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1003'";
 	public static String TOPNAME = "";
 	public static String BOTTOMNAME = "";
 	public static String LOGIMAGEPATH ="";

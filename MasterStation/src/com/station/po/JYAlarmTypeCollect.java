@@ -5,6 +5,14 @@ public class JYAlarmTypeCollect {
 	private JYAlarmType alarmType1;
 	private JYAlarmType alarmType2;
 	private JYAlarmType alarmType3;
+	private JYAlarmType alarmType4;
+	
+	public JYAlarmType getAlarmType4() {
+		return alarmType4;
+	}
+	public void setAlarmType4(JYAlarmType alarmType4) {
+		this.alarmType4 = alarmType4;
+	}
 	public String getId() {
 		return id;
 	}
