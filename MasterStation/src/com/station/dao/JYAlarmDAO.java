@@ -20,4 +20,6 @@ public interface JYAlarmDAO {
 
 	public List<JYAlarm> getPerPage(final String hql,final int startRow,final int countPerpage);
 	
+	public void removeMultiplAlarms(String hql);
+	
 }

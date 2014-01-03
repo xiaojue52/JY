@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.station.constant.Constant;
-import com.station.service.JYChartDataService;
+import com.station.service.JYTimerTaskService;
 import com.station.service.JYSocketService;
 import com.station.service.impl.JYCabinetServiceImpl;
 import com.station.system.action.MonitorTimeAction;
@@ -27,8 +27,8 @@ public class SocketRoute {
 				.getWebApplicationContext(sce.getServletContext());
 		socketService = (JYSocketService) applicationContext
 				.getBean("jySocketService");
-		JYChartDataService chartDataService = (JYChartDataService) applicationContext
-				.getBean("jyChartDataService");;
+		JYTimerTaskService chartDataService = (JYTimerTaskService) applicationContext
+				.getBean("jyTimerTaskService");;
 		socketHandler = new SocketHandler(socketService,chartDataService);
 		
 		SocketAction.setSocketRoute(this);

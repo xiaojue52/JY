@@ -116,7 +116,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 		float d = valueList.get(3);
 		JYDevice device = list.get(0).getDevice();
 		
-		String hql0 = "from JYAlarm alarm where alarm.device.deviceId = '"+device.getDeviceId()+"' and alarm.isCabinet = '0' order by alarm.date"; 
+		String hql0 = "from JYAlarm alarm where alarm.device.deviceId = '"+device.getDeviceId()+"' and alarm.isCabinet = '0' and alarm.type = '5' and alarm.status = '0' order by alarm.date desc"; 
 		
 		List<JYAlarm> listAlarms = this.alarmDAO.findJYAlarmByHql(hql0);
 		JYAlarm preAlarm = null;
@@ -165,6 +165,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 				alarm.setIsCabinet("0");
 				alarm.setDevice(device);
 				alarm.setStatus("0");
+				alarm.setType("5");
 				alarm.setAlarmText(alarmText);
 				alarm.setId(String.valueOf(System.nanoTime()));
 			

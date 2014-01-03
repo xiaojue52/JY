@@ -254,9 +254,18 @@
 			<ref bean="jyHistoryService" />
 		</property>
 	</bean>
-	<bean id="jyChartDataService" class="com.station.service.impl.JYChartDataServiceImpl">
+	<bean id="jyTimerTaskService" class="com.station.service.impl.JYTimerTaskerviceImpl">
 		<property name="detectorDAO">
 			<ref bean="jyDetectorDAO" />
+		</property>
+		<property name="deviceDAO">
+			<ref bean="jyDeviceDAO" />
+		</property>
+		<property name="alarmDAO">
+			<ref bean="jyAlarmDAO" />
+		</property>
+		<property name="historyDAO">
+			<ref bean="jyHistoryDAO" />
 		</property>
 		<property name="historyChartDataDAO">
 			<ref bean="jyHistoryChartDataDAO" />

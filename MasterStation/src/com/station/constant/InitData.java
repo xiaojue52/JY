@@ -165,7 +165,7 @@ public class InitData {
 			this.constantService.saveJYConstant(key);
 			key.setType("AlarmType");
 			key.setKey("1003");
-			key.setValue("特定间隔（T4m）时间内温度超过设定值（T5℃）");
+			key.setValue("特定间隔（T4m）时间内温度变化超过设定值（T5℃）");
 			this.constantService.saveJYConstant(key);
 		}
 	}
@@ -179,7 +179,6 @@ public class InitData {
 			key.setEnable(1);
 			key.setValue(15.0f);
 			key.setType(type);
-			key.setIsDefault(0);
 			this.alarmTypeService.saveJYAlarmType(key);
 			
 			type = this.constantService.findJYConstantByHql(Constant.ALARMTYPE2HQL).get(0);
@@ -187,7 +186,6 @@ public class InitData {
 			key.setEnable(1);
 			key.setValue(25.0f);
 			key.setType(type);
-			key.setIsDefault(0);
 			this.alarmTypeService.saveJYAlarmType(key);
 			
 			type = this.constantService.findJYConstantByHql(Constant.ALARMTYPE3HQL).get(0);
@@ -195,7 +193,6 @@ public class InitData {
 			key.setEnable(1);
 			key.setValue(35.0f);
 			key.setType(type);
-			key.setIsDefault(0);
 			this.alarmTypeService.saveJYAlarmType(key);
 			
 			type = this.constantService.findJYConstantByHql(Constant.ALARMTYPE4HQL).get(0);
@@ -204,7 +201,6 @@ public class InitData {
 			key.setValue(10.0f);
 			key.setSubValue(15);
 			key.setType(type);
-			key.setIsDefault(0);
 			this.alarmTypeService.saveJYAlarmType(key);
 		}
 	}
@@ -221,7 +217,7 @@ public class InitData {
 			key.setAlarmType1(type1);
 			key.setAlarmType2(type2);
 			key.setAlarmType3(type3);
-			key.setAlarmType3(type4);
+			key.setAlarmType4(type4);
 			this.alarmTypeCollectService.saveJYAlarmTypeCollect(key);
 		}
 	}

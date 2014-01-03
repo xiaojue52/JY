@@ -13,9 +13,9 @@ import java.util.Map;
 import com.station.constant.Constant;
 import com.station.po.JYAlarm;
 import com.station.po.JYCabinet;
-import com.station.service.JYChartDataService;
+import com.station.service.JYTimerTaskService;
 import com.station.service.JYSocketService;
-import com.station.timer.HalfHourEvent;
+import com.station.timer.TimerEvent;
 /*
  * 处理socket相关命令，负责解析
  */
@@ -24,13 +24,13 @@ public class SocketHandler {
 	private List<String> realCabList;
 	private Map<String, Socket> clientMap = new HashMap<String, Socket>();//当前连接的设备
 	private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();//主站注册的设备
-	private HalfHourEvent halfHourEvent;
+	private TimerEvent halfHourEvent;
 	private LoopCheckThread checkThread;
 	/*
 	 * 构造函数
 	 * 实例化的时候将所有的柜体加入到内存中，以便一一对应
 	 */
-	public SocketHandler(JYSocketService socketService,JYChartDataService chartDataService){
+	public SocketHandler(JYSocketService socketService,JYTimerTaskService chartDataService){
 		this.socketService = socketService;
 		
 		String hql = "from JYCabinet cabinet where cabinet.tag = 1 and cabinet.status = 1";
@@ -44,7 +44,7 @@ public class SocketHandler {
 		}
 		checkThread = new LoopCheckThread(orderMap, socketService);
 		checkThread.start();
-		halfHourEvent = new HalfHourEvent(chartDataService);
+		halfHourEvent = new TimerEvent(chartDataService);
 		halfHourEvent.startTimer();
 	}
 	/*

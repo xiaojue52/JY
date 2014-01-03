@@ -168,7 +168,7 @@
 							<input type="hidden" id="enable4" value="<s:property value="alarmType4.enable"/>"/>
 						</td>
 						<td>
-							特定间隔（T4m）时间内温度超过设定值（T5℃）
+							特定间隔（T4m）时间内温度变化超过设定值（T5℃）
 						</td>
 						<td>
 							T4=

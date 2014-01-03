@@ -30,7 +30,7 @@ public class Constant {
 	public static String MONITORTIMEERROR = "-5";
 	public static String OK = "1";
 	public static long HEARTBEATTIME = 1*60*1000;
-	public static final long LOOPCHECKTIME = 5000;
+	public static final long LOOPCHECKTIME = 10000;
 	public static final String ALARMTYPE1HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1000'";
 	public static final String ALARMTYPE2HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1001'";
 	public static final String ALARMTYPE3HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1002'";
@@ -42,11 +42,17 @@ public class Constant {
 	public static String MESDATE = "";
 	public static String FUNCTIONNUM = "";
 	public static String getCurrentDateStr() {
-		 Date date = new Date();
-		 String str = null;
-		 SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-		 str = df.format(date);
-		 return str;
+		Date date = new Date();
+		String str = null;
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		str = df.format(date);
+		return str;
+	}
+	public static String convertDateToStr(Date date){
+		String str = null;
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		str = df.format(date);
+		return str;
 	}
 	public static void flush(Map<String,Object> dataMap){
 		HttpServletResponse response = ServletActionContext.getResponse();

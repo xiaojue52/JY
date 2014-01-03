@@ -5,7 +5,6 @@ public class JYAlarmType {
 	private JYConstant type;
 	private Float value;
 	private Integer enable;
-	private Integer isDefault;
 	private Integer subValue;
 
 	public Integer getSubValue() {
@@ -39,11 +38,4 @@ public class JYAlarmType {
 	public void setEnable(Integer enable) {
 		this.enable = enable;
 	}
-	public Integer getIsDefault() {
-		return isDefault;
-	}
-	public void setIsDefault(Integer isDefault) {
-		this.isDefault = isDefault;
-	}
-
 }

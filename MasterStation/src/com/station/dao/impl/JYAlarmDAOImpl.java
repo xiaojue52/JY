@@ -70,5 +70,9 @@ public class JYAlarmDAOImpl extends HibernateDaoSupport implements JYAlarmDAO {
 		// TODO Auto-generated method stub
 		return getHibernateTemplate().find(hql).size();
 	}
+	@Override
+	public void removeMultiplAlarms(String hql){
+		this.getSession().createQuery(hql);
+	}
 
 }

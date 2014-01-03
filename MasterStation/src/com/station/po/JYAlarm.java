@@ -12,7 +12,7 @@ public class JYAlarm {
 	private JYDevice device;
 	private String isCabinet; //是否是柜子
 	private java.util.Date date;
-	private String type;
+	private String type; //用来区分报警等级，针对柜子报警
 	private Integer times;//重复次数
 	
 	public Integer getTimes() {
