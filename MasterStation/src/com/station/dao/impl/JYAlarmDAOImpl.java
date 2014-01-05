@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -72,7 +73,11 @@ public class JYAlarmDAOImpl extends HibernateDaoSupport implements JYAlarmDAO {
 	}
 	@Override
 	public void removeMultiplAlarms(String hql){
-		this.getSession().createQuery(hql);
+		//this.getSession().createQuery(hql);
+		Session session = this.getSession();
+		SQLQuery query = session.createSQLQuery(hql);
+		query.executeUpdate();
+
 	}
 
 }

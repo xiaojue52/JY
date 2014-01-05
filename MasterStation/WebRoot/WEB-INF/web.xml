@@ -60,10 +60,6 @@
 	<listener>
 		<listener-class>com.station.constant.InitProjectListener</listener-class>
 	</listener>
-	<!-- 配置socket -->
-	<listener>
-		<listener-class>com.station.socket.SocketServletContextListener</listener-class>
-	</listener>
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>

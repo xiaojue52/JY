@@ -11,7 +11,6 @@ public class TimerEvent {
 	private final static long JOB_INTERNAL = 1000 * 60 * 30;
 	private final static long DAY_JOB_INTERNAL = 1000 * 60 * 60 * 24;
 	private final static long CHECK_INTERNAL = 1000 * 60 * 15;
-	private final static long DELETE_INTERNAL = 1000 * 60 * 60 * 24 * 25;
 	private JYTimerTaskService timerTaskService;
 	private Timer timer1; //每半小时读取一次历史数据放到报表数据库
 	private Timer timer2; //每天读取一次历史数据放到月报表数据库
@@ -48,20 +47,20 @@ public class TimerEvent {
 		
 		Calendar currentTime3 = Calendar.getInstance();
 		currentTime3.setTime(new Date());		
-		int mi3 = currentTime3.get(Calendar.MINUTE);
-		currentTime3.set(Calendar.MINUTE, mi3+1);
-		Date date3 = currentTime3.getTime();
+		int month = currentTime3.get(Calendar.MONTH);
+		currentTime3.set(Calendar.MONTH, month+2);
+		Date NextTwoMonth = currentTime3.getTime();
 		
-		Calendar currentTime4 = Calendar.getInstance();
-		currentTime4.setTime(new Date());		
-		int mi4 = currentTime4.get(Calendar.MINUTE);
-		currentTime3.set(Calendar.MINUTE, mi4+2);
-		Date date4 = currentTime3.getTime();
+		/*Calendar testTime = Calendar.getInstance();
+		testTime.setTime(new Date());
+		int m = testTime.get(Calendar.MINUTE);
+		testTime.set(Calendar.MINUTE, m+1);
+		Date test = testTime.getTime();*/
 
 		timer1.schedule(new GetHistoryTask(), NextHour, JOB_INTERNAL);
 		timer2.scheduleAtFixedRate(new GetMaxAndMinHistoryTask(), NextDay, DAY_JOB_INTERNAL);
-		timer3.schedule(new CheckTempTask(), date3, CHECK_INTERNAL);
-		timer4.schedule(new RemoveCabinetAlartTask(), date4, DELETE_INTERNAL);
+		timer3.schedule(new CheckTempTask(), 1000*60*1, CHECK_INTERNAL);
+		timer4.schedule(new RemoveCabinetAlartTask(), NextTwoMonth);
 	}
 	class GetHistoryTask extends TimerTask{
 
@@ -95,6 +94,18 @@ public class TimerEvent {
 		@Override
 		public void run(){
 			timerTaskService.removeCabinetStatusAlarmAtFixedRate();
+			Calendar currentTime3 = Calendar.getInstance();
+			currentTime3.setTime(new Date());		
+			int month = currentTime3.get(Calendar.MONTH);
+			currentTime3.set(Calendar.MONTH, month+2);
+			Date NextTwoMonth = currentTime3.getTime();
+			
+			/*Calendar testTime = Calendar.getInstance();
+			testTime.setTime(new Date());
+			int m = testTime.get(Calendar.MINUTE);
+			testTime.set(Calendar.MINUTE, m+1);
+			Date test = testTime.getTime();*/
+			timer4.schedule(new RemoveCabinetAlartTask(), NextTwoMonth);
 		}
 	}
 	public void stopTimer(){

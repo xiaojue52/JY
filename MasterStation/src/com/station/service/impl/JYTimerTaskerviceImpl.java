@@ -175,7 +175,18 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 	@Override
 	public void removeCabinetStatusAlarmAtFixedRate() {
 		// TODO Auto-generated method stub
-		String hql = "delete from jy_alarm j where ((j.id) in (select d.alarm_id from jy_device d)) or ((j.id) in (select c.alarm_id from jy_cabinet c))";
-		//this.alarmDAO.removeMultiplAlarms(hql);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		int month = calendar.get(Calendar.MONTH);		
+		calendar.set(Calendar.MONTH, month - 3);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE,0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND,0);
+		Date date = calendar.getTime();
+		String startStr = Constant.convertDateToStr(date);
+		String hql = "delete from jy_alarm j where j.c_date < to_date('"+startStr+"','YYYY-MM-DD HH24:mi:ss') and (j.id) not in (select d.alarm_id from jy_device d) and (j.id) not in (select c.alarm_id from jy_cabinet c)";
+		this.alarmDAO.removeMultiplAlarms(hql);
 	}
 }
