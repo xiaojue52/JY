@@ -54,6 +54,7 @@ public class Constant {
 		str = df.format(date);
 		return str;
 	}
+
 	public static void flush(Map<String,Object> dataMap){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html;charset=utf-8");

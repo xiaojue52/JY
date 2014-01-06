@@ -71,4 +71,10 @@ public class JYAlarmServiceImpl implements JYAlarmService {
 		// TODO Auto-generated method stub
 		return alarmDAO.getTotalCount(hql);
 	}
+
+	@Override
+	public List<?> findCostomizeObjHql(String hql) {
+		// TODO Auto-generated method stub
+		return this.alarmDAO.findCostomizeObjHql(hql);
+	}
 }

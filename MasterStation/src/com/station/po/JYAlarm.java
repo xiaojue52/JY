@@ -4,6 +4,9 @@ public class JYAlarm {
 	public final static int DEVICEREEOR = 2;
 	public final static int DEVICEOFFLINE = 1;
 	public final static int HEARTBEATOFFLINE = 0;
+	public final static int TERMINALREPEAT = 3;
+	public final static int TEMPCHANGTOFAST = 4;
+	public final static int TEMPEXCEPTION = 5;
 	private String id;
 	private String alarmText;
 	private String note;

@@ -76,15 +76,21 @@
 </package>
 
 <package name="DataPage" extends="abstract_struts" namespace="/">
-<action name="listDeviceComAction" class="DeviceCompareAction" method="listAction">
+	<action name="listDeviceComAction" class="DeviceCompareAction" method="listAction">
    <result name="success">/datahandler/chart/datapage/device.jsp</result>
   </action>
   <action name="listDetectorComAction" class="DetectorCompareAction" method="listAction">
    <result name="success">/datahandler/chart/datapage/detector.jsp</result>
   </action>
+  <action name="listCabinetComAction" class="CabinetCompareAction" method="listAction">
+   <result name="success">/datahandler/chart/datapage/cabinet.jsp</result>
+  </action>
 </package>
 
 <package name="Chart" extends="abstract_struts" namespace="/"> 
+	<action name="cabinetChart" class="CabinetChartAction" method="listAlarmAction">
+ 	<result name="json"></result>
+ 	</action> 
  	<action name="dayChart" class="DayChartAction" method="listHistoryAction">
  	<result name="json"></result>
  	</action> 

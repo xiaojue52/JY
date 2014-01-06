@@ -492,7 +492,20 @@
 		</property>
 	</bean>
 	
+	<bean id="CabinetCompareAction" scope="session" class="com.station.datahandler.chart.datapage.action.CabinetAction">
+		<property name="cabinetService">
+			<ref bean="jyCabinetService" />
+		</property>
+		<property name="dataList">
+			<ref bean="DataList"/>
+		</property>
+	</bean>
 	
+	<bean id="CabinetChartAction" scope="session" class="com.station.datahandler.chart.action.CabinetChartAction">
+		<property name="alarmService">
+			<ref bean="jyAlarmService" />
+		</property>
+	</bean>
 	<bean id="DayChartAction" scope="session" class="com.station.datahandler.chart.action.DayChartAction">
 		<property name="historyService">
 			<ref bean="jyHistoryService" />

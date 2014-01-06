@@ -31,6 +31,9 @@
 	<body>	
 	<div class="toolbar">
 		<span>
+			<input type="button" value="柜体状态" onclick="Chart.cabinetBtnClick()"/>
+		</span>
+		<span>
 			<input type="button" value="日温度对比" onclick="Chart.dayBtnClick()"/>
 		</span>
 		<span>	
@@ -40,11 +43,18 @@
 			<input type="button" value="监测单元温度对比" onclick="Chart.moreBtnClick()"/>
 		</span>	
 		<br/><br/>
-		<div id="dayMenu">
+		<div id="cabinetMenu">
+		<span><input type="button" value="柜体" onclick="Chart.setPageFrameSrc('listCabinetComAction.action')"/><select id="cabinet" style="width:200px;height:20px;"/></select></span>
+		<span><input type="button" value="前一天" onclick="Chart.upDay(0);"/></span>
+		<span>选择日期：</span><span><input id="cabinetDate" type="text" readonly='readonly' onfocus="DatePicker.setday(this)"/></span>
+		<span><input type="button" value="后一天" onclick="Chart.downDay(0);"/></span>
+		<span><input type="button" value="生成柱状图" onclick="Chart.cabinetChart()"/></span>
+		</div>
+		<div id="dayMenu" style="display:none">
 		<span><input type="button" value="变送器" onclick="Chart.setPageFrameSrc('listDeviceComAction.action')"/><select id="dayDevice" style="width:200px;height:20px;"/></select></span>
-		<span><input type="button" value="前一天" onclick="Chart.upDay();"/></span>
+		<span><input type="button" value="前一天" onclick="Chart.upDay(1);"/></span>
 		<span>选择日期：</span><span><input id="dayLineDate" type="text" readonly='readonly' onfocus="DatePicker.setday(this)"/></span>
-		<span><input type="button" value="后一天" onclick="Chart.downDay();"/></span>
+		<span><input type="button" value="后一天" onclick="Chart.downDay(1);"/></span>
 		<span><input type="button" value="生成曲线" onclick="Chart.dayChart()"/></span>
 		</div>
 		<div id="monthMenu" style="display:none">

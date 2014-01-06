@@ -150,7 +150,7 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		}
 		if(alarmText.length()==0)return;
 		
-		String hql = "from JYAlarm alarm where alarm.type = '4' and alarm.status = '0' and alarm.isCabinet = '0' and alarm.device.deviceId = '"+device.getDeviceId()+"' order by alarm.date desc";
+		String hql = "from JYAlarm alarm where alarm.type = '"+JYAlarm.TEMPCHANGTOFAST+"' and alarm.status = '0' and alarm.isCabinet = '0' and alarm.device.deviceId = '"+device.getDeviceId()+"' order by alarm.date desc";
 		List<JYAlarm> alarmList = this.alarmDAO.findJYAlarmByHql(hql);
 		if (alarmList.size()>0&&alarmList.get(0).getAlarmText().equals(alarmText)&&device.getAlarm().getAlarmText().equals(alarmText)){
 			alarmList.get(0).setTimes(alarmList.get(0).getTimes()+1);
@@ -163,7 +163,7 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 			alarm.setIsCabinet("0");
 			alarm.setStatus("0");
 			alarm.setTimes(1);
-			alarm.setType("4");
+			alarm.setType(String.valueOf(JYAlarm.TEMPCHANGTOFAST));
 			alarm.setAlarmText(alarmText);
 			alarm.setId(String.valueOf(System.nanoTime()));
 			this.alarmDAO.saveJYAlarm(alarm);

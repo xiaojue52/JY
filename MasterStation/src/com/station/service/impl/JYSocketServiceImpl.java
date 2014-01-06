@@ -116,7 +116,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 		float d = valueList.get(3);
 		JYDevice device = list.get(0).getDevice();
 		
-		String hql0 = "from JYAlarm alarm where alarm.device.deviceId = '"+device.getDeviceId()+"' and alarm.isCabinet = '0' and alarm.type = '5' and alarm.status = '0' order by alarm.date desc"; 
+		String hql0 = "from JYAlarm alarm where alarm.device.deviceId = '"+device.getDeviceId()+"' and alarm.isCabinet = '0' and alarm.type = '"+JYAlarm.TERMINALREPEAT+"' and alarm.status = '0' order by alarm.date desc"; 
 		
 		List<JYAlarm> listAlarms = this.alarmDAO.findJYAlarmByHql(hql0);
 		JYAlarm preAlarm = null;
@@ -165,7 +165,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 				alarm.setIsCabinet("0");
 				alarm.setDevice(device);
 				alarm.setStatus("0");
-				alarm.setType("5");
+				alarm.setType(String.valueOf(JYAlarm.TERMINALREPEAT));
 				alarm.setAlarmText(alarmText);
 				alarm.setId(String.valueOf(System.nanoTime()));
 			
@@ -179,19 +179,24 @@ public class JYSocketServiceImpl implements JYSocketService {
 	@Override
 	public void updateCabinetStatus(String cabId) {
 		// TODO Auto-generated method stub
-		List<JYCabinet> list = cabinetDAO.findJYCabinetByHql("from JYCabinet cabinet where cabinet.tag = 1 and cabinet.cabId ='"+cabId+"'");
-		if (list.size()>0){
-			Date date = new Date();
-			list.get(0).setDetectTime(date);
-			list.get(0).setStatus(1);
-			list.get(0).setAlarm(null);
-		}
+		JYCabinet cabinet = this.cabinetDAO.findJYCabinetById(cabId);
+		Date date = new Date();
+		cabinet.setDetectTime(date);
+		cabinet.setStatus(1);
+		cabinet.setAlarm(null);
+		this.cabinetDAO.updateJYCabinet(cabinet);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.station.service.JYSocketService#saveAlarm(java.lang.String, int, java.util.Date, java.lang.String)
+	 * 柜体故障
+	 */
 	@Override
 	public void saveAlarm(String cabId, int type, Date date,
 			String content) {
 		// TODO Auto-generated method stub
+		
 		JYAlarm alarm = new JYAlarm();
 		List<JYDevice> list = deviceDAO.findJYDeviceByHql("from JYDevice device where device.tag = 1 and device.cabinet.tag = 1 and device.cabinet.cabId ='"+cabId+"'");
 		if (list.size()>0){
@@ -206,8 +211,8 @@ public class JYSocketServiceImpl implements JYSocketService {
 					break;
 				case 2:
 					return;
-					default:
-						break;
+				default:
+					break;
 				}
 				
 			}{
@@ -224,19 +229,13 @@ public class JYSocketServiceImpl implements JYSocketService {
 			}
 			this.alarmDAO.saveJYAlarm(alarm);
 			this.cabinetDAO.updateJYCabinet(cabinet);		
-		}
-		
+		}	
 	}
 
 	@Override
 	public JYCabinet getCabinet(String cabId) {
 		// TODO Auto-generated method stub
-		List<JYCabinet> list = cabinetDAO.findJYCabinetByHql("from JYCabinet cabinet where cabinet.tag = 1 and cabinet.cabId ='"+cabId+"'");
-		if (list.size()>0){
-			//String str =  list.get(0).getCabType().getSubValue();
-			return list.get(0);
-		}
-		return null;
+		return this.cabinetDAO.findJYCabinetById(cabId);
 	}
 
 	@Override

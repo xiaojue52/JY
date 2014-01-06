@@ -71,10 +71,8 @@ public class SocketRoute {
 			
 		String orderStr = str.substring(0, 2);
 		
-		if (!orderStr.equals("31")) {
-			this.socketHandler.checkInit(cabId,client);
-		}
-		// Mes = "0000000|#000000|000000XCR";
+		
+		// Mes = "0000000|#000000|18655087654XCR";
 		// Ret = "0100000|#000000|0XCR";
 		if (orderStr.equals("00")) {// 登陆
 			return socketHandler.parseLogin(str, client);
@@ -82,34 +80,38 @@ public class SocketRoute {
 		// Mes = "1000000|#000000|XCR"
 		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
 		if (orderStr.equals("11")) {// 实时招测
-			if (this.socketHandler.isLogined(cabId,client))
+			if (this.socketHandler.isExist(cabId,client))
 				return socketHandler.parseRealTempData(str, client);
 		}
 		// Mes = "2000000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XCR";
 		// Ret = "2100000|#000000|0XCR";
 		if (orderStr.equals("20")) {// 温度
-			if (this.socketHandler.isLogined(cabId,client))
+			if (this.socketHandler.isExist(cabId,client))
 				return socketHandler.parseTempData(str, client);
 		}
 		// Mes = "3000000|#000000|10XCR";
 		// Ret = "3100000|#000000|0XCR";
 		if (orderStr.equals("31")) {// 上传周期
-			if (this.socketHandler.isLogined(cabId,client))
+			if (this.socketHandler.isExist(cabId,client))
 				return socketHandler.parseMonitorTime(str, client);
 		}
 		// Mes = "4000000|#000000|XCR";
 		// Ret = "4100000|#000000|0XCR";
 		if (orderStr.equals("40")) {// 心跳
-			if (this.socketHandler.isLogined(cabId,client))
+			if (this.socketHandler.isExist(cabId,client))
 				return socketHandler.parseHeartBeat(str, client);
 		}
 		// Mes = "5000000|#000000|XCR";
 		// Ret = "5100000|#000000|0XCR";
 		if (orderStr.equals("50")) {// 上传故障
-			if (this.socketHandler.isLogined(cabId,client))
+			if (this.socketHandler.isExist(cabId,client))
 				return socketHandler.parseDeviceError(str, client);
 		}
-		
+		// Mes = "3000000|#000000|XCR";
+		// Ret = "3100000|#000000|10|0XCR";
+		if (orderStr.equals("30")) {
+			this.socketHandler.parseMonitorTimeSetting(str,client);
+		}
 		String tempStr = Constant.CODEERROR;
 		this.socketHandler.sendCommand(tempStr, client);
 		return null;

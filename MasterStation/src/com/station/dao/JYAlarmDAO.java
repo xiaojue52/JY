@@ -2,6 +2,7 @@ package com.station.dao;
 
 import java.util.List;
 
+import com.station.datahandler.chart.action.CabinetChartAction.ComResult;
 import com.station.po.JYAlarm;
 
 
@@ -21,5 +22,7 @@ public interface JYAlarmDAO {
 	public List<JYAlarm> getPerPage(final String hql,final int startRow,final int countPerpage);
 	
 	public void removeMultiplAlarms(String hql);
+	
+	public List<ComResult> findCostomizeObjHql(String hql);
 	
 }
