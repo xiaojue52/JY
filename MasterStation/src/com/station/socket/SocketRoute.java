@@ -110,7 +110,8 @@ public class SocketRoute {
 		// Mes = "3000000|#000000|XCR";
 		// Ret = "3100000|#000000|10|0XCR";
 		if (orderStr.equals("30")) {
-			this.socketHandler.parseMonitorTimeSetting(str,client);
+			if (this.socketHandler.isExist(cabId,client))
+				return this.socketHandler.parseMonitorTimeSetting(str,client);
 		}
 		String tempStr = Constant.CODEERROR;
 		this.socketHandler.sendCommand(tempStr, client);

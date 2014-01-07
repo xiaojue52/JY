@@ -283,7 +283,7 @@ public class SocketHandler {
 		else
 			socketService.updateCabinetStatus(cabId);
 	}
-	public void parseMonitorTimeSetting(String str,Socket client){
+	public String parseMonitorTimeSetting(String str,Socket client){
 		// Mes = "3000000|#000000|XCR";
 		// Ret = "3100000|#000000|10|0XCR";
 		String command[] = str.split("[|]");
@@ -291,7 +291,7 @@ public class SocketHandler {
 			//this.storeHeartBertOrder(command[1].substring(0, 5));
 			String cabId = command[1];
 			JYCabinet cabinet = this.socketService.getCabinet(cabId);
-			if (cabinet==null)return;
+			if (cabinet==null)return null;
 			String mTime = cabinet.getCabType().getSubValue();
 			if (mTime.length()==1){
 				mTime ="0"+mTime;
@@ -304,6 +304,7 @@ public class SocketHandler {
 			String tempStr = "3100000|" + command[1] + "|00|1XCR";
 			this.sendCommand(tempStr, client);
 		}
+		return null;
 	}
 	private void setTempValue(String cabId, String arg0, String dateStr) {
 
