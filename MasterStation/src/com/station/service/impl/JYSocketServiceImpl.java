@@ -176,6 +176,9 @@ public class JYSocketServiceImpl implements JYSocketService {
 		}
 	}
 
+	/**
+	 * 清除报警，设备状态改为在线
+	 */
 	@Override
 	public void updateCabinetStatus(String cabId) {
 		// TODO Auto-generated method stub
@@ -253,5 +256,18 @@ public class JYSocketServiceImpl implements JYSocketService {
 		// TODO Auto-generated method stub
 		return cabinetDAO.findJYCabinetByHql(hql);
 	}
+
+	@Override
+	public String getHistoryDateString(String cabId) {
+		// TODO Auto-generated method stub
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		String hql = "from JYHistory history where history.detector.device.cabinet.cabId = '"+cabId+"' order by history.date desc";
+		List<JYHistory> list = this.historyDAO.findJYHistoryByHql(hql);
+		if (list.size()>0)
+			return df.format(list.get(0).getDate());
+		return null;
+	}
+	
 
 }

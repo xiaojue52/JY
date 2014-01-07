@@ -20,6 +20,10 @@ public interface JYAlarmService {
 	public int getTotalCount(String hql);
 
 	public PageBean getPerPage(int countPerpage,int currentPage, String hql);
-	
+	/**
+	 * 查找记录返回自定object[]
+	 * @param hql 参数hql，非sql
+	 * @return
+	 */
 	public List<?> findCostomizeObjHql(String hql);
 }

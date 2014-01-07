@@ -145,7 +145,7 @@ String path = request.getContextPath();
 						<s:property value="#cabinet.line.name" /><br/>
 						
 					</td>
-					<s:if test="#cabinet.alarm!=null||#cabinet.deviceList==null||#cabinet.deviceList.size()==0">
+					<s:if test="#cabinet.alarm!=null||#cabinet.deviceList==null||#cabinet.deviceList.size()==0||#cabinet.detectTime==null">
 					<td width="8%" style="color:#ff0000">
 					</s:if>
 					<s:else>

@@ -24,11 +24,13 @@ import org.w3c.dom.Element;
 import com.google.gson.Gson;
 
 public class Constant {
-	public static String NOCABINET = "-4";
-	public static String CODEERROR = "-2";
-	public static String REALTEMPERROR = "-3";
-	public static String MONITORTIMEERROR = "-5";
-	public static String OK = "1";
+	public static final String NOCABINET = "-4";
+	public static final String CODEERROR = "-2";
+	public static final String REALTEMPERROR = "-3";
+	public static final String MONITORTIMEERROR = "-5";
+	public static final String DEVICENOTEXIST = "-6";
+	public static final String UNLOGINED = "-7";
+	public static final String OK = "1";
 	public static long HEARTBEATTIME = 1*60*1000;
 	public static final long LOOPCHECKTIME = 10000;
 	public static final String ALARMTYPE1HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1000'";
@@ -41,6 +43,10 @@ public class Constant {
 	public static String MESUSER = "";
 	public static String MESDATE = "";
 	public static String FUNCTIONNUM = "";
+	/**
+	 * yyyyMMddHHmmss
+	 * @return
+	 */
 	public static String getCurrentDateStr() {
 		Date date = new Date();
 		String str = null;
@@ -48,6 +54,11 @@ public class Constant {
 		str = df.format(date);
 		return str;
 	}
+	/**
+	 * yyyy-MM-dd HH:mm:ss
+	 * @param date
+	 * @return
+	 */
 	public static String convertDateToStr(Date date){
 		String str = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -14,7 +14,7 @@ public class SocketListener extends Thread {
 	private ServerSocket server = null;
 	private final int port = 10000;
 	private SocketRoute socketRoute;
-	private Map<Socket, Socket> listMap = new HashMap<Socket, Socket>();
+	private Map<Socket, Socket> listMap = new HashMap<Socket, Socket>(); //当前连入系统的所有socket的，包括非法的
 
 	public SocketListener(ServletContextEvent sce) {
 		//this.sce = sce;
@@ -100,7 +100,6 @@ public class SocketListener extends Thread {
 					Map.Entry<Socket, Socket> mEntry = (Map.Entry<Socket, Socket>) iter
 							.next();
 					Socket client = (Socket) mEntry.getValue();
-					//Socket key = (Socket) mEntry.getKey();
 					client.close();	
 				}
 				socketRoute.stop();

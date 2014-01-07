@@ -199,12 +199,7 @@
 									</table>
 								</td>
 								<td width="10%">
-									<s:if test="#history.cabinet.managerTag==1">
-											<s:property value="#history.cabinet.userGroup.groupName" />
-										</s:if>
-										<s:else>
-											<s:property value="#history.cabinet.user.username" />
-										</s:else>
+									<s:property value="#history.cabinet.userGroup.groupName" />
 								</td>
 							</tr>
 						</s:iterator>

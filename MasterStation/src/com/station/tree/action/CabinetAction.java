@@ -45,6 +45,7 @@ public class CabinetAction extends ActionSupport{
 			cabinet.setCreateTime(date);
 			if(cabinet.getStatus()==0)
 				cabinet.setStatus(-1);
+			cabinet.setDetectTime(null);
 			cabinetService.saveJYCabinet(cabinet);
 		}
 		Map<String,Object> dataMap = new HashMap<String,Object>();

@@ -149,6 +149,9 @@ String path = request.getContextPath();
 						<s:elseif test="#cabinet.deviceList==null||#cabinet.deviceList.size()==0">
 							未添加采集设备
 						</s:elseif>
+						<s:elseif test="#cabinet.detectTime==null">
+							离线
+						</s:elseif>
 						<s:elseif test="#cabinet.alarm!=null">
 						<s:property value="#cabinet.alarm.alarmText" />
 						</s:elseif>

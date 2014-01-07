@@ -16,8 +16,11 @@ import com.station.po.JYCabinet;
 import com.station.service.JYTimerTaskService;
 import com.station.service.JYSocketService;
 import com.station.timer.TimerEvent;
-/*
+
+/**
  * 处理socket相关命令，负责解析
+ * @author Administrator
+ *
  */
 public class SocketHandler {
 	private JYSocketService socketService;
@@ -26,9 +29,10 @@ public class SocketHandler {
 	private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();//主站注册的设备
 	private TimerEvent halfHourEvent;
 	private LoopCheckThread checkThread;
-	/*
-	 * 构造函数
-	 * 实例化的时候将所有的柜体加入到内存中，以便一一对应
+	/**
+	 * 专门用于解析socket通信
+	 * @param socketService
+	 * @param chartDataService
 	 */
 	public SocketHandler(JYSocketService socketService,JYTimerTaskService chartDataService){
 		this.socketService = socketService;
@@ -36,19 +40,18 @@ public class SocketHandler {
 		String hql = "from JYCabinet cabinet where cabinet.tag = 1 and cabinet.status = 1";
 		List<JYCabinet> list = this.socketService.findCabinetsByHql(hql);
 		for (int i =0;i<list.size();i++){
-			Map<String, String> order = new HashMap<String, String>();
-			order.put("heartBeat", Constant.getCurrentDateStr());
-			//order.put("reviceTemp", Constant.getCurrentDateStr());
-			order.put("monitorTimeOK", "0");
-			orderMap.put(list.get(i).getCabId(), order);
+			this.addCabinet(list.get(i).getCabId());
 		}
 		checkThread = new LoopCheckThread(orderMap, socketService);
 		checkThread.start();
 		halfHourEvent = new TimerEvent(chartDataService);
 		halfHourEvent.startTimer();
 	}
-	/*
-	 * 保存socket连接，保存柜体ID
+	/**
+	 * 解析登陆
+	 * @param str
+	 * @param client
+	 * @return
 	 */
 	public String parseLogin(String str, Socket client) {
 		// Mes = "0000000|#000000|1395476582|XCR";
@@ -59,11 +62,6 @@ public class SocketHandler {
 				String cabId = command[1];
 				String phoneNumber = command[2];
 				
-				Map<String, String> order = orderMap.get(cabId);
-				if (order == null) {
-					this.sendCommand(Constant.NOCABINET, client);
-					return null;
-				}
 				this.init(cabId, client,phoneNumber);
 				String tempStr = "0100000|" + command[1] + "|0XCR";
 				this.sendCommand(tempStr, client);
@@ -74,8 +72,36 @@ public class SocketHandler {
 		this.sendCommand(tempStr, client);
 		return null;
 	}
-	/*
+	/**
+	 * 初始化设备信息
+	 * @param cabId
+	 * @param client
+	 * @param phoneNumber
+	 */
+	private void init(String cabId,Socket client,String phoneNumber){
+		Map<String, String> order = orderMap.get(cabId);
+		if (order == null) {
+			return;
+		}
+		String prePhoneNumber = order.get("phoneNumber");
+		order.put("heartBeat", Constant.getCurrentDateStr());
+		//order.put("reviceTemp", Constant.getCurrentDateStr());
+		order.put("isLogined", "1");
+		order.put("monitorTimeOK", "0");
+		order.put("phoneNumber",phoneNumber);
+		orderMap.put(cabId, order);
+		if(prePhoneNumber!=null&&!prePhoneNumber.equals(phoneNumber)){
+			//出现重复的终端
+			this.socketService.saveAlarm(cabId, JYAlarm.TERMINALREPEAT, new Date(), "终端重复（号码："+prePhoneNumber+"："+prePhoneNumber+"）");
+		}
+		else
+			socketService.updateCabinetStatus(cabId);
+	}
+	/**
 	 * 解析实时温度
+	 * @param str
+	 * @param client
+	 * @return
 	 */
 	public String parseRealTempData(String str, Socket client) {
 		// Mes = "1000000|#000000|XCR"
@@ -98,8 +124,11 @@ public class SocketHandler {
 		this.sendCommand(Constant.REALTEMPERROR, client);
 		return  null;
 	}
-	/*
+	/**
 	 * 解析上传温度
+	 * @param str
+	 * @param client
+	 * @return
 	 */
 	public String parseTempData(String str, Socket client) {
 		// Mes = "2000000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|XCR";
@@ -123,8 +152,11 @@ public class SocketHandler {
 		this.sendCommand(tempStr, client);
 		return null;
 	}
-	/*
-	 * 解析上传时间间隔
+	/**
+	 * 解析子站读取上传时间命令
+	 * @param str
+	 * @param client
+	 * @return
 	 */
 	public String parseMonitorTime(String str,Socket client){
 		// Mes = "3000000|#000000|10XCR";
@@ -143,9 +175,11 @@ public class SocketHandler {
 		this.sendCommand(tempStr, client);
 		return null;
 	}
-	/*
-	 * 解析心跳时间
-	 * 将收到指令时间存储到orderMap,以便于循环和当前时间对比，看是否超过设定超时时间
+	/**
+	 * 解析心跳命令，保存收到此次命令的时间，以便监测是否超时
+	 * @param str
+	 * @param client
+	 * @return
 	 */
 	public String parseHeartBeat(String str, Socket client) {
 		// Mes = "4000000|#000000|XCR";
@@ -162,6 +196,12 @@ public class SocketHandler {
 		return null;
 	}
 	
+	/**
+	 * 解析设备故障
+	 * @param str
+	 * @param client
+	 * @return
+	 */
 	public String parseDeviceError(String str, Socket client) {
 		// Mes = "5000000|#000000|XCR";
 		// Ret = "5100000|#000000|0XCR";
@@ -180,6 +220,10 @@ public class SocketHandler {
 		return null;
 	}
 
+	/**
+	 * 更新最新心跳时间
+	 * @param cabId
+	 */
 	private void storeHeartBertOrder(String cabId) {
 
 		Map<String, String> order = orderMap.get(cabId);
@@ -187,8 +231,10 @@ public class SocketHandler {
 		orderMap.put(cabId, order);
 		this.socketService.updateCabinetStatus(cabId);
 	}
-	/*
-	 * 设置上传时间
+	/**
+	 * 设置上传温度数据周期
+	 * @param type 柜体类型
+	 * @param value 时间周期
 	 */
 	public void sendCommandToSetMonitorTime(String type,String value){
 		// Mes = "3200000|#000000|10|XCR";
@@ -217,8 +263,10 @@ public class SocketHandler {
 			this.sendCommand(tempStr, client);
 		}
 	}
-	/*
-	 * 读取实时温度
+	/**
+	 * 发送实时查询温度命令，返回超时的设备id数组
+	 * @param cabIdList 柜体id数组
+	 * @return
 	 */
 	public List<String> sendCommandToGetTempWithCabIdList(String[] cabIdList) {
 		// Mes = "1000000|#000000|XCR"
@@ -264,25 +312,13 @@ public class SocketHandler {
 			}
 		}
 	}
-	private void init(String cabId,Socket client,String phoneNumber){
-		clientMap.put(cabId, client);
-		Map<String, String> order = orderMap.get(cabId);
-		if (order == null) {
-			return;
-		}
-		String prePhoneNumber = order.get("phoneNumber");
-		order.put("heartBeat", Constant.getCurrentDateStr());
-		//order.put("reviceTemp", Constant.getCurrentDateStr());
-		order.put("monitorTimeOK", "0");
-		order.put("phoneNumber",phoneNumber);
-		orderMap.put(cabId, order);
-		if(prePhoneNumber!=null&&!prePhoneNumber.equals(phoneNumber)){
-			//出现重复的终端
-			this.socketService.saveAlarm(cabId, JYAlarm.TERMINALREPEAT, new Date(), "终端重复（号码："+prePhoneNumber+"："+prePhoneNumber+"）");
-		}
-		else
-			socketService.updateCabinetStatus(cabId);
-	}
+	
+	/**
+	 * 解析温度上传时间
+	 * @param str
+	 * @param client
+	 * @return
+	 */
 	public String parseMonitorTimeSetting(String str,Socket client){
 		// Mes = "3000000|#000000|XCR";
 		// Ret = "3100000|#000000|10|0XCR";
@@ -306,6 +342,12 @@ public class SocketHandler {
 		}
 		return null;
 	}
+	/**
+	 * 解析温度
+	 * @param cabId
+	 * @param arg0
+	 * @param dateStr
+	 */
 	private void setTempValue(String cabId, String arg0, String dateStr) {
 
 		Map<Integer, List<Float>> map = new HashMap<Integer, List<Float>>();
@@ -344,6 +386,10 @@ public class SocketHandler {
 			this.socketService.updateCabinetStatus(cabId);
 		}
 	}
+	/**
+	 * 终端掉线后从内存移除
+	 * @param socket
+	 */
 	public void removedSocket(Socket socket) {
 		Iterator<Map.Entry<String, Socket>> iter = clientMap.entrySet()
 				.iterator();
@@ -354,18 +400,25 @@ public class SocketHandler {
 			String key = (String) mEntry.getKey();
 			if (temp == socket) {
 				clientMap.remove(key);
-				//Date d2 = new Date();
-				//this.socketService.saveAlarm(key, 1, d2, "离线");
-				System.out.print("移除socket！");
-				// ParseSocketData.deviceOffline(key);
+				this.Logout(key);
 			}
 		}
 	}
 
+	/**
+	 * 将设备从内存移除
+	 * @param cabId
+	 */
 	public void removeOrderMap(String cabId) {
 		orderMap.remove(cabId);
 		clientMap.remove(cabId);
 	}
+	/**
+	 * 监测内存中是否加载了设备，（取决于主站是否添加且启用）
+	 * @param cabId
+	 * @param client
+	 * @return
+	 */
 	public boolean isExist(String cabId,Socket client){
 		if(orderMap.get(cabId)!=null){
 			clientMap.put(cabId, client);//如有则替换
@@ -374,11 +427,18 @@ public class SocketHandler {
 		else 
 			return false;
 	}
-	
+	/**
+	 * 停止线程
+	 */
 	public void stop(){
 		this.checkThread.stopCheck();
 		this.halfHourEvent.stopTimer();
 	}
+	/**
+	 * 发送命令
+	 * @param str
+	 * @param client
+	 */
 	public void sendCommand(String str,Socket client){
 		if (client==null)return;
 		PrintWriter out = null;
@@ -391,11 +451,43 @@ public class SocketHandler {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 讲设备载入内存
+	 * @param cabId
+	 */
 	public void addCabinet(String cabId){
 		Map<String, String> order = new HashMap<String, String>();
 		order.put("heartBeat", Constant.getCurrentDateStr());
-		//order.put("reviceTemp", Constant.getCurrentDateStr());
+		String dateStr = this.socketService.getHistoryDateString(cabId);
+		if (dateStr!=null)
+			order.put("reviceTemp", dateStr);
+		order.put("isLogined", "0");
 		order.put("monitorTimeOK", "0");
 		orderMap.put(cabId, order);
+	}
+	/**
+	 * 判断终端是否登陆
+	 * @param cabId
+	 * @return
+	 */
+	public boolean isLogined(String cabId){
+		Map<String, String> order = orderMap.get(cabId);
+		if (order!=null){
+			String isLogined = order.get("isLogined");
+			if(isLogined.equals("1"))
+				return true;
+		}
+		return false;
+	}
+	/**
+	 * 登出
+	 * @param cabId
+	 */
+	private void Logout(String cabId){
+		Map<String, String> order = orderMap.get(cabId);
+		if (order!=null){
+			order.put("isLogined", "0");
+			orderMap.put(cabId, order);
+		}
 	}
 }

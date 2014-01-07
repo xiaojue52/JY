@@ -23,5 +23,5 @@ public interface JYCabinetService {
 	
 	public void removeJYCabinets(List<JYCabinet> list);
 	
-	public boolean cabinetIsExist(String cabNumber);
+	public boolean cabinetIsExist(String cabId);
 }

@@ -6,6 +6,11 @@ import com.station.po.JYCabinet;
 
 
 public interface JYCabinetDAO {
+	/**
+	 * 保存记录，返回记录id
+	 * @param arg0
+	 * @return
+	 */
 	public String saveJYCabinet(JYCabinet arg0);
 
 	public void removeJYCabinet(JYCabinet arg0);
