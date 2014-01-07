@@ -68,6 +68,7 @@ public class MonthChartAction extends ActionSupport {
 		public String name;
 		public List<List<Object>> data;
 	}
+	@SuppressWarnings("deprecation")
 	private ChartData getChartData(String arg0,int arg1,int arg2){
 		ChartData chartData = new ChartData(); 
 		final String hql = this.createSql(arg0,arg1,arg2);

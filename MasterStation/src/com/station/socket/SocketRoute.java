@@ -72,7 +72,7 @@ public class SocketRoute {
 		String orderStr = str.substring(0, 2);
 		
 		
-		// Mes = "0000000|#000000|18655087654XCR";
+		// Mes = "0000000|#000000|18655087654|XCR";
 		// Ret = "0100000|#000000|0XCR";
 		if (orderStr.equals("00")) {// 登陆
 			return socketHandler.parseLogin(str, client);

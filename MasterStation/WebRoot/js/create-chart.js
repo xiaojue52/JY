@@ -111,8 +111,7 @@ var createMonthChart = function() {
 					x : -20
 				},
 				xAxis : {
-					type : 'datetime',
-					minRange : 3600
+					tickInterval:1
 				},
 				yAxis : {
 					title : {
@@ -137,7 +136,10 @@ var createMonthChart = function() {
 				xAxis : {
 					labels : {
 						formatter : function() {
-							return this.value;
+							if (this.value.toString().indexOf('.')!=-1)
+								return this.value;
+							else
+								return this.value+"号";
 						}
 					},
 					maxPadding : 0.05,

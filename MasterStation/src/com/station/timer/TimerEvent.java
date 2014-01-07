@@ -43,7 +43,7 @@ public class TimerEvent {
 		currentTime2.set(Calendar.MINUTE, 59);
 		currentTime2.set(Calendar.SECOND, 59);
 		Date NextDay = currentTime2.getTime();
-		System.out.println(NextHour);
+		//System.out.println(NextHour);
 		
 		Calendar currentTime3 = Calendar.getInstance();
 		currentTime3.setTime(new Date());		

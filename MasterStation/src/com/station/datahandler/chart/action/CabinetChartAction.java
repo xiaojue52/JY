@@ -45,14 +45,16 @@ public class CabinetChartAction extends ActionSupport {
 	public void listAlarmAction() throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = df.parse(queryStartDate);
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		calendar.set(Calendar.DAY_OF_MONTH, day-3);
-		String startStr = df.format(calendar.getTime());
+		Calendar calendar1 = Calendar.getInstance();
+		calendar1.setTime(date);
+		int day = calendar1.get(Calendar.DAY_OF_MONTH);
+		calendar1.set(Calendar.DAY_OF_MONTH, day-3);
+		String startStr = df.format(calendar1.getTime());
 		
-		calendar.set(Calendar.DAY_OF_MONTH, day+3);
-		String endStr = df.format(calendar.getTime());
+		Calendar calendar2 = Calendar.getInstance();
+		calendar2.setTime(date);
+		calendar2.set(Calendar.DAY_OF_MONTH, day+3);
+		String endStr = df.format(calendar2.getTime());
 		
 		List<ChartData> listValue = new ArrayList<ChartData>();
 		ChartData data1 = this.getChartData("离线", startStr,endStr);

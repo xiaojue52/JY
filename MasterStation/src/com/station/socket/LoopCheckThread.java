@@ -40,7 +40,7 @@ public class LoopCheckThread extends Thread{
 			Map.Entry<String, Map<String, String>> mEntry = (Map.Entry<String, Map<String, String>>) iter.next();
 			String cabId = (String) mEntry.getKey();
 			Map<String, String> order = (Map<String, String>)mEntry.getValue();
-			System.out.print(cabId+"\n");
+			//System.out.print(cabId+"\n");
 			try {
 				checkHeartBeat(cabId,order.get("heartBeat"));
 				checkReviceTemp(cabId,order.get("reviceTemp"));

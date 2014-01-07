@@ -110,7 +110,7 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 			List<JYDetector> detectorList = this.detectorDAO.findJYDetectorByHql(hql0);
 			this.figureTemp(detectorList);
 		}
-		System.out.print("this is the check temp task method\n");
+		//System.out.print("this is the check temp task method\n");
 	}
 	private void figureTemp(List<JYDetector> list){
 		String alarmText = "";

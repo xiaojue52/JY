@@ -59,7 +59,8 @@ public class SocketHandler {
 				String cabId = command[1];
 				String phoneNumber = command[2];
 				
-				if(!socketService.cabinetIsExist(cabId)){
+				Map<String, String> order = orderMap.get(cabId);
+				if (order == null) {
 					this.sendCommand(Constant.NOCABINET, client);
 					return null;
 				}
