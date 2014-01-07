@@ -77,14 +77,13 @@ public class JYAlarmDAOImpl extends HibernateDaoSupport implements JYAlarmDAO {
 		Session session = this.getSession();
 		SQLQuery query = session.createSQLQuery(hql);
 		query.executeUpdate();
-
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List findCostomizeObjHql(String hql) {
 		// TODO Auto-generated method stub
-		SQLQuery query = this.getSession().createSQLQuery(hql);
+		Query query = this.getSession().createQuery(hql);
 		return query.list();
 	}
 

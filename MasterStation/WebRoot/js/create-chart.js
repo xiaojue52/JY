@@ -253,10 +253,9 @@ var createCabinetChart = function() {
 						+ "&queryStartDate=" + startTime,
 		dataType : "text",
 		success : function(returnData) {
-		alert(returnData);
-		var obj = eval("(" + returnData + ")");
-		$('#container').highcharts(
-		{
+			var obj = eval("(" + returnData + ")");
+			$('#container').highcharts(
+			{
 			chart : {
 					type : 'column'
 				},
@@ -266,7 +265,7 @@ var createCabinetChart = function() {
 				},
 			xAxis : {
 					type : 'datetime',
-					minRange : 3600
+					minRange : 60 * 60 * 1000 * 24
 				},
 			yAxis : {
 					min : 0,
@@ -278,7 +277,7 @@ var createCabinetChart = function() {
 			plotOptions : {
 					column : {
 					pointPadding : 0.2,
-					borderWidth : 0
+					borderWidth : 10
 				},
 
 					series : {

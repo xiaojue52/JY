@@ -40,7 +40,7 @@ public class CabinetChartAction extends ActionSupport {
 
 	class ChartData{
 		public String name;
-		public List<List<Long>> data = new ArrayList<List<Long>>();
+		public List<List<Object>> data = new ArrayList<List<Object>>();
 	}
 	public void listAlarmAction() throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -64,28 +64,21 @@ public class CabinetChartAction extends ActionSupport {
 		Constant.flush(dataMap);
 	}
 	
-	public class ComResult{
-		public String alarmText;
-		public String dateStr;
-		public String times;
-	}
 	@SuppressWarnings("unchecked")
 	private ChartData getChartData(String arg0,String arg1,String arg2){
 		ChartData chartData = new ChartData(); 
-		String hql = "select t.alarm_text,to_char(t.c_date,'yyyy-MM-dd'),sum(t.times) from jy_alarm t,jy_device d where d.cab_id = '"+queryCabId+"' and t.alarm_text = '"+arg0+"' and t.c_date>=to_date('"+arg1+"','yyyy-MM-dd') and t.c_date<=to_date('"+arg2+"','yyyy-MM-dd') group by t.alarm_text,to_char(t.c_date,'yyyy-MM-dd')";
-		List<ComResult> comResults = (List<ComResult>) this.alarmService.findCostomizeObjHql(hql);
+		String hql = "select alarm.alarmText,to_char(alarm.date,'yyyy-MM-dd'),sum(alarm.times) from JYAlarm alarm where alarm.device.cabinet.cabId = '"+queryCabId+"' and alarm.alarmText = '"+arg0+"' and alarm.date>=to_date('"+arg1+"','yyyy-MM-dd') and alarm.date<=to_date('"+arg2+"','yyyy-MM-dd') group by alarm.alarmText,to_char(alarm.date,'yyyy-MM-dd')";
+		//String hql = "select t.alarm_text,to_char(t.c_date,'yyyy-MM-dd'),sum(t.times) from jy_alarm t,jy_device d where d.cab_id = '"+queryCabId+"' and t.alarm_text = '"+arg0+"' and t.c_date>=to_date('"+arg1+"','yyyy-MM-dd') and t.c_date<=to_date('"+arg2+"','yyyy-MM-dd') group by t.alarm_text,to_char(t.c_date,'yyyy-MM-dd')";
+		List<Object[]> comResults = (List<Object[]>) this.alarmService.findCostomizeObjHql(hql);
 		chartData.name = arg0;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		for (int i=0;i<comResults.size();i++){
-			List<Long> list = new ArrayList<Long>();
+			List<Object> list = new ArrayList<Object>();
 			try {
-				Object obj = comResults.get(i);
-				ComResult test = new ComResult();
-				test.alarmText = "1";
-				test.dateStr = "2";
-				test.times = "3";
-				list.add(df.parse(comResults.get(i).dateStr).getTime()+8*60*60*1000);
-				list.add(Long.valueOf(comResults.get(i).times));
+				Object[] obj = comResults.get(i);
+
+				list.add(df.parse(obj[1].toString()).getTime()+8*60*60*1000);
+				list.add(Integer.valueOf(obj[2].toString()));
 				chartData.data.add(list);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
