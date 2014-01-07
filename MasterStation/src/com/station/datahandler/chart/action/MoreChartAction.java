@@ -6,26 +6,15 @@ import java.util.List;
 import java.util.Map;
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
-import com.station.pagebean.PageBean;
 import com.station.po.JYHistoryChartData;
 import com.station.service.JYHistoryChartDataService;
 
 @SuppressWarnings("serial")
 public class MoreChartAction extends ActionSupport {
 	private JYHistoryChartDataService historyChartDataService;
-	private PageBean pageBean;
-	private int page = 1;
-	private String queryLine;
-	private String queryNumber;
-	private String queryType;
-	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
-	private String queryDevice;
-	private String queryDetector;
 	private String queryStrings;
-	private int pageList = 10;
-	private List<Integer> pageNumberList = new ArrayList<Integer>();
 
 	public String getQueryStrings() {
 		return queryStrings;
@@ -33,75 +22,6 @@ public class MoreChartAction extends ActionSupport {
 
 	public void setQueryStrings(String queryStrings) {
 		this.queryStrings = queryStrings;
-	}
-
-	public List<Integer> getPageNumberList() {
-		pageNumberList.clear();
-		pageNumberList.add(10);
-		pageNumberList.add(20);
-		pageNumberList.add(30);
-		pageNumberList.add(40);
-		return pageNumberList;
-	}
-
-	public void setPageNumberList(List<Integer> pageNumberList) {
-		this.pageNumberList = pageNumberList;
-	}
-
-	public int getPageList() {
-		return pageList;
-	}
-
-	public void setPageList(int pageList) {
-		this.pageList = pageList;
-	}
-
-	public String getQueryDevice() {
-		return queryDevice;
-	}
-
-	public void setQueryDevice(String queryDevice) {
-		this.queryDevice = queryDevice;
-	}
-
-	public String getQueryDetector() {
-		return queryDetector;
-	}
-
-	public void setQueryDetector(String queryDetector) {
-		this.queryDetector = queryDetector;
-	}
-
-	public String getQueryLine() {
-		return queryLine;
-	}
-
-	public void setQueryLine(String queryLine) {
-		this.queryLine = queryLine;
-	}
-
-	public String getQueryNumber() {
-		return queryNumber;
-	}
-
-	public void setQueryNumber(String queryNumber) {
-		this.queryNumber = queryNumber;
-	}
-
-	public String getQueryType() {
-		return queryType;
-	}
-
-	public void setQueryType(String queryType) {
-		this.queryType = queryType;
-	}
-
-	public String getQueryUserGroup() {
-		return queryUserGroup;
-	}
-
-	public void setQueryUserGroup(String queryUserGroup) {
-		this.queryUserGroup = queryUserGroup;
 	}
 
 	public String getQueryStartDate() {
@@ -124,26 +44,10 @@ public class MoreChartAction extends ActionSupport {
 			JYHistoryChartDataService historyChartDataService) {
 		this.historyChartDataService = historyChartDataService;
 	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public PageBean getPageBean() {
-		return pageBean;
-	}
-
-	public void setPageBean(PageBean pageBean) {
-		this.pageBean = pageBean;
-	}
 	
 	class MoreData{
 		public String name;
-		public List<List<Double>> data;
+		public List<List<Object>> data;
 	}
 	public void listHistoryAction() throws Exception {
 		String[] listDetector = queryStrings.split(",");
@@ -159,17 +63,11 @@ public class MoreChartAction extends ActionSupport {
 				list.get(0).getDetector().getDevice().getCabinet().getCabType().getValue()+
 				list.get(0).getDetector().getDevice().getName()+
 				list.get(0).getDetector().getName();
-				List<List<Double>> listValue = new ArrayList<List<Double>>();
+				List<List<Object>> listValue = new ArrayList<List<Object>>();
 				for (int j=0;j<list.size();j++){
-					List<Double> value = new ArrayList<Double>();
-
-					value.add(Double.valueOf(list.get(j).getDate().getTime()+8*60*60*1000));
-					
-					if (list.get(j).getValue()!=null){
-						value.add(Double.valueOf(list.get(j).getValue()));
-					}else
-						value.add(null);
-					
+					List<Object> value = new ArrayList<Object>();
+					value.add(list.get(j).getDate().getTime()+8*60*60*1000);
+					value.add(list.get(j).getValue());					
 					listValue.add(value);
 				}
 
@@ -185,36 +83,18 @@ public class MoreChartAction extends ActionSupport {
 
 	public String createSql(String detectorId) {
 		String hql = "from JYHistoryChartData history where ";
-		if (queryLine == null || queryLine.length() == 0)
-			queryLine = "%";
-		if (queryNumber == null || queryNumber.length() == 0)
-			queryNumber = "%";
-		if (queryType == null || queryType.length() == 0)
-			queryType = "%";
-		if (queryUserGroup == null || queryUserGroup.length() == 0)
-			queryUserGroup = "%";
+
 		if (queryStartDate == null || queryStartDate.length() == 0)
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
 			queryEndDate = "9999-12-12";
-		if (queryDevice == null || queryDevice.length() == 0)
-			queryDevice = "%";
-		if (queryDetector == null || queryDetector.length() == 0)
-			queryDetector = "%";
-		hql = hql + "history.detector.device.cabinet.line.name like '%"
-				+ queryLine + "%' and "
-				+ "history.detector.device.cabinet.cabNumber like '%"
-				+ queryNumber + "%' and "
-				+ "history.detector.device.name like '%" + queryDevice
-				+ "%' and " + "history.detector.name like '%" + queryDetector
-				+ "%' and "
-				+ "history.detector.device.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "history.date>= TO_DATE('"
+
+		hql = hql 
+				+ "history.date>= TO_DATE('"
 				+ queryStartDate+" 00:00:00" + "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "history.date <= TO_DATE('" + queryEndDate+" 23:59:59"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "history.detector.device.cabinet.userGroup.groupName like '%"
-				+ queryUserGroup + "%' and history.detector.detectorId ='"
+				+"history.detector.detectorId ='"
 				+ detectorId+"' order by history.date";
 		return hql;
 	}

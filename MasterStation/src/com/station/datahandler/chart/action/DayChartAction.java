@@ -6,46 +6,15 @@ import java.util.List;
 import java.util.Map;
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
-import com.station.pagebean.PageBean;
 import com.station.po.JYHistory;
 import com.station.service.JYHistoryService;
 
 @SuppressWarnings("serial")
 public class DayChartAction extends ActionSupport {
 	private JYHistoryService historyService;
-	private PageBean pageBean;
-	private int page = 1;
-	private String queryLine;
-	private String queryNumber;
-	private String queryType;
-	private String queryUserGroup;
 	private String queryStartDate;
 	private String queryEndDate;
 	private String queryDeviceId;
-	private String queryDetector;
-	private int pageList = 10;
-	private List<Integer> pageNumberList = new ArrayList<Integer>();
-
-	public List<Integer> getPageNumberList() {
-		pageNumberList.clear();
-		pageNumberList.add(10);
-		pageNumberList.add(20);
-		pageNumberList.add(30);
-		pageNumberList.add(40);
-		return pageNumberList;
-	}
-
-	public void setPageNumberList(List<Integer> pageNumberList) {
-		this.pageNumberList = pageNumberList;
-	}
-
-	public int getPageList() {
-		return pageList;
-	}
-
-	public void setPageList(int pageList) {
-		this.pageList = pageList;
-	}
 
 	public String getQueryDeviceId() {
 		return queryDeviceId;
@@ -53,47 +22,6 @@ public class DayChartAction extends ActionSupport {
 
 	public void setQueryDeviceId(String queryDeviceId) {
 		this.queryDeviceId = queryDeviceId;
-	}
-
-	public String getQueryDetector() {
-		return queryDetector;
-	}
-
-	public void setQueryDetector(String queryDetector) {
-		this.queryDetector = queryDetector;
-	}
-
-	public String getQueryLine() {
-		return queryLine;
-	}
-
-	public void setQueryLine(String queryLine) {
-		this.queryLine = queryLine;
-	}
-
-	public String getQueryNumber() {
-		return queryNumber;
-	}
-
-	public void setQueryNumber(String queryNumber) {
-		this.queryNumber = queryNumber;
-	}
-
-	public String getQueryType() {
-		return queryType;
-	}
-
-	public void setQueryType(String queryType) {
-		this.queryType = queryType;
-	}
-
-
-	public String getQueryUserGroup() {
-		return queryUserGroup;
-	}
-
-	public void setQueryUserGroup(String queryUserGroup) {
-		this.queryUserGroup = queryUserGroup;
 	}
 
 	public String getQueryStartDate() {
@@ -116,24 +44,9 @@ public class DayChartAction extends ActionSupport {
 		this.historyService = historyService;
 	}
 
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public PageBean getPageBean() {
-		return pageBean;
-	}
-
-	public void setPageBean(PageBean pageBean) {
-		this.pageBean = pageBean;
-	}
 	class ChartData{
 		public String name;
-		public List<List<Double>> data;
+		public List<List<Object>> data;
 	}
 	public void listHistoryAction() throws Exception {
 		List<ChartData> listValue = new ArrayList<ChartData>();
@@ -156,14 +69,11 @@ public class DayChartAction extends ActionSupport {
 		final String hql = this.createSql(arg0);
 		List<JYHistory> listH = this.historyService
 		.findJYHistoryByHql(hql);
-		List<List<Double>> data = new ArrayList<List<Double>>();
+		List<List<Object>> data = new ArrayList<List<Object>>();
 		for (int i = 0; i < listH.size(); i++) {
-			List<Double> list = new ArrayList<Double>();
-			list.add(Double.valueOf(listH.get(i).getDate().getTime()+8*60*60*1000));
-			if (listH.get(i).getValue()!=null)
-				list.add(Double.valueOf(listH.get(i).getValue()));
-			else
-				list.add(null);
+			List<Object> list = new ArrayList<Object>();
+			list.add(listH.get(i).getDate().getTime()+8*60*60*1000);
+			list.add(listH.get(i).getValue());
 			data.add(list);
 		}
 
@@ -174,37 +84,21 @@ public class DayChartAction extends ActionSupport {
 	
 	public String createSql(String detector) {
 		String hql = "from JYHistory history where ";
-		if (queryLine == null || queryLine.length() == 0)
-			queryLine = "%";
-		if (queryNumber == null || queryNumber.length() == 0)
-			queryNumber = "%";
-		if (queryType == null || queryType.length() == 0)
-			queryType = "%";
-		if (queryUserGroup == null || queryUserGroup.length() == 0)
-			queryUserGroup = "%";
 		if (queryStartDate == null || queryStartDate.length() == 0)
 			queryStartDate = "1000-01-01";
 		if (queryEndDate == null || queryEndDate.length() == 0)
 			queryEndDate = "9999-12-12";
 		if (queryDeviceId == null || queryDeviceId.length() == 0)
 			queryDeviceId = "%";
-		if (queryDetector == null || queryDetector.length() == 0)
-			queryDetector = "%";
-		hql = hql + "history.detector.device.cabinet.line.name like '%"
-				+ queryLine + "%' and "
-				+ "history.detector.device.cabinet.cabNumber like '%"
-				+ queryNumber + "%' and "
+		hql = hql 
 				+ "history.detector.device.id = '" + queryDeviceId
-				+ "' and " + "history.detector.name like '%" + queryDetector
-				+ "%' and "
-				+ "history.detector.device.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "history.date>= TO_DATE('"
+				+ "' and "
+				+ "history.date>= TO_DATE('"
 				+ queryStartDate + " 00:00:00"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "history.date <= TO_DATE('" + queryEndDate + " 23:59:59"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "history.detector.device.cabinet.userGroup.groupName like '%"
-				+ queryUserGroup + "%' and history.detector.name = '" + detector
+				+ "history.detector.name = '" + detector
 				+ "'";
 		return hql;
 	}
