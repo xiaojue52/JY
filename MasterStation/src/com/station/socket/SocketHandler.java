@@ -92,7 +92,7 @@ public class SocketHandler {
 		orderMap.put(cabId, order);
 		if(prePhoneNumber!=null&&!prePhoneNumber.equals(phoneNumber)){
 			//出现重复的终端
-			this.socketService.saveAlarm(cabId, JYAlarm.TERMINALREPEAT, new Date(), "终端重复（号码："+prePhoneNumber+"："+prePhoneNumber+"）");
+			this.socketService.saveAlarm(cabId, JYAlarm.TERMINALREPEAT, new Date(), "终端重复（号码："+prePhoneNumber+"："+phoneNumber+"）");
 		}
 		else
 			socketService.updateCabinetStatus(cabId);

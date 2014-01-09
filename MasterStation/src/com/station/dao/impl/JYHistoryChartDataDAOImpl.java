@@ -46,7 +46,9 @@ public class JYHistoryChartDataDAOImpl extends HibernateDaoSupport implements JY
 	@Override
 	public int getTotalCount(String hql) {
 		// TODO Auto-generated method stub
-		return getHibernateTemplate().find(hql).size();
+		String hql0 = "select count(*) "+hql;  
+		Query query =  this.getSession().createQuery(hql0);  
+		return ((Long)query.uniqueResult()).intValue(); 
 	}
 
 	@SuppressWarnings("unchecked")

@@ -99,7 +99,7 @@ public class DayChartAction extends ActionSupport {
 				+ "history.date <= TO_DATE('" + queryEndDate + " 23:59:59"
 				+ "','YYYY-MM-DD HH24:mi:ss') and "
 				+ "history.detector.name = '" + detector
-				+ "'";
+				+ "' order by history.date";
 		return hql;
 	}
 
