@@ -1,7 +1,9 @@
 package com.station.account.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.pagebean.PageBean;
@@ -13,7 +15,7 @@ public class ListUsersAction extends ActionSupport {
 	private JYUserService userService;
 	private int page = 1;
 	private PageBean pageBean;
-	private int errorCode;
+	private int code;
 	private int ret;
 	private String username;
 	private String company;
@@ -79,12 +81,12 @@ public class ListUsersAction extends ActionSupport {
 		return userService;
 	}
 
-	public int getErrorCode() {
-		return errorCode;
+	public int getCode() {
+		return code;
 	}
 
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	public void setUserService(JYUserService userService) {
@@ -109,14 +111,17 @@ public class ListUsersAction extends ActionSupport {
 
 	public String execute() throws Exception {
 		String hql = this.createSql();
-		this.pageBean = userService.getPerPage(pageList, page, hql);
-		if (errorCode == -1){
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("username", "%"+username+"%");
+		parameters.put("company", "%"+company+"%");
+		this.pageBean = userService.getPerPage(pageList, page, hql,parameters);
+		if (code == -1){
 			ret = -1;
-		}else if(errorCode == -2){
+		}else if(code == -2){
 			ret = -2;
 		}else
 			ret = 0;
-		errorCode = 0;
+		code = 0;
 		return SUCCESS;
 	}
 
@@ -132,7 +137,7 @@ public class ListUsersAction extends ActionSupport {
 			username = "%";
 		if (company==null||company.length()==0)
 			company = "%";
-		hql = hql+"user.username like '%"+username+"%' "+"and user.company like '%"+company+"%' "+orderStr;		
+		hql = hql+"user.username like :username and user.company like :company "+orderStr;		
 		return hql;
 	}
 }

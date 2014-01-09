@@ -106,9 +106,9 @@ public class UserGroupAction extends ActionSupport{
 	}
 	public String updateUserGroupAction(){
 		String hql = "from JYUserGroup group where group.groupName = '"+this.userGroup.getGroupName()+"'";
-		
-		if (this.userGroupService.findJYUserGroupByHql(hql).size()>0){
-			JYUserGroup userGroup = this.userGroupService.findJYUserGroupByHql(hql).get(0);
+		List<JYUserGroup> list = this.userGroupService.findJYUserGroupByHql(hql);
+		if (list.size()>0){
+			JYUserGroup userGroup = list.get(0);
 			if (!userGroup.getId().equals(this.userGroup.getId()))
 				return ERROR;
 		}
@@ -131,7 +131,10 @@ public class UserGroupAction extends ActionSupport{
 		else
 			ret = 0;
 		final String hql = this.createSql();
-		this.pageBean = this.userGroupService.getPerPage(pageList, page, hql);
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("groupName", "%"+groupName+"%");
+		parameters.put("leaderName", "%"+leaderName+"%");
+		this.pageBean = this.userGroupService.getPerPage(pageList, page, hql,parameters);
 		code = 0; 
 		return SUCCESS;
 	}
@@ -142,7 +145,7 @@ public class UserGroupAction extends ActionSupport{
 			groupName = "%";
 		if (leaderName==null||leaderName.length()==0)
 			leaderName = "%";
-		hql = hql+"userGroup.groupName like '%"+groupName+"%' "+"and userGroup.leaderName like '%"+leaderName+"%' ";		
+		hql = hql+"userGroup.groupName like :groupName and userGroup.leaderName like :leaderName ";		
 		return hql;
 	}
 }

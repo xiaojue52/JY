@@ -80,6 +80,11 @@ Ext.onReady(function(){
     	                $("#terminal").val(node.id);
     	                $("#userGroup").val(obj.cabinet.userGroup.id);
     	                $("#cabinetStatus").val(obj.cabinet.status);
+    	                $("#alarmTypeCollect").val(obj.cabinet.alarmTypeCollect.id);
+    	                $("#type1Id").val(obj.cabinet.alarmTypeCollect.alarmType1.id);
+    	                $("#type2Id").val(obj.cabinet.alarmTypeCollect.alarmType2.id);
+    	                $("#type3Id").val(obj.cabinet.alarmTypeCollect.alarmType3.id);
+    	                $("#type4Id").val(obj.cabinet.alarmTypeCollect.alarmType4.id);
 
     	                if (obj.cabinet.status==1){
     	                	document.getElementById("cabinetStatusCheckBox").checked = true;
@@ -96,6 +101,7 @@ Ext.onReady(function(){
     	                {
     	                	if (obj.cabinet.alarmTypeCollect.alarmType1.enable==0){
     	                		DeviceManager.removeChecked(1);
+    	                		$("#input1").val(obj.cabinet.alarmTypeCollect.alarmType1.value);
     	                	}else
     	                	{
     	                		DeviceManager.addChecked(1);
@@ -103,6 +109,7 @@ Ext.onReady(function(){
     	                	}
     	                	if (obj.cabinet.alarmTypeCollect.alarmType2.enable==0){
     	                		DeviceManager.removeChecked(2);
+    	                		$("#input2").val(obj.cabinet.alarmTypeCollect.alarmType2.value);
     	                	}
     	                	else
     	                	{
@@ -111,6 +118,7 @@ Ext.onReady(function(){
     	                	}
     	                	if (obj.cabinet.alarmTypeCollect.alarmType3.enable==0){
     	                		DeviceManager.removeChecked(3);
+    	                		$("#input3").val(obj.cabinet.alarmTypeCollect.alarmType3.value);
     	                	}
     	                	else
     	                	{
@@ -119,11 +127,15 @@ Ext.onReady(function(){
     	                	}
     	                	if (obj.cabinet.alarmTypeCollect.alarmType4.enable==0){
     	                		DeviceManager.removeChecked(4);
+    	                		$("#input4").val(obj.cabinet.alarmTypeCollect.alarmType4.subValue);
+    	                		$("#input5").val(obj.cabinet.alarmTypeCollect.alarmType4.value);
     	                	}
     	                	else
     	                	{
     	                		DeviceManager.addChecked(4);
-    	                		$("#input4").val(obj.cabinet.alarmTypeCollect.alarmType3.value);
+    	                		//alert(obj.cabinet.alarmTypeCollect.alarmType4.subValue+":::"+obj.cabinet.alarmTypeCollect.alarmType4.value);
+    	                		$("#input4").val(obj.cabinet.alarmTypeCollect.alarmType4.subValue);
+    	                		$("#input5").val(obj.cabinet.alarmTypeCollect.alarmType4.value);
     	                	}
     	                }
     	                
@@ -416,7 +428,12 @@ DeviceManager.Cabinet.cabinet = function(order){
 		"&cabinet.line.lineId="+$("#lineId").val()+
 		"&cabinet.cabId="+$("#cabinetId").val()+
 		"&cabinet.status="+$("#cabinetStatus").val()+
-		"&cabinet.userGroup.id="+$("#userGroup").val()
+		"&cabinet.userGroup.id="+$("#userGroup").val()+
+		"&cabinet.alarmTypeCollect.id="+$("#alarmTypeCollect").val()+
+		"&cabinet.alarmTypeCollect.alarmType1.id="+$("#type1Id").val()+
+		"&cabinet.alarmTypeCollect.alarmType2.id="+$("#type2Id").val()+
+		"&cabinet.alarmTypeCollect.alarmType3.id="+$("#type3Id").val()+
+		"&cabinet.alarmTypeCollect.alarmType4.id="+$("#type4Id").val()
 		,
 		dataType:'text',
 		success : function(returnData) {
@@ -509,4 +526,4 @@ DeviceManager.switchCabinetStatus = function(arg){
 		$("#cabinetStatus").val(1);
 	}else
 		$("#cabinetStatus").val(0);
-}
+};

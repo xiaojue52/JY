@@ -56,13 +56,14 @@ public class UpdateUserAction extends ActionSupport {
 	
 	public String updateUser() throws Exception {
 		// TODO Auto-generated method stub
+		JYUser user0 = userService.findUserById(user.getUserId());
 		if (resetPassword==0){
-			user.setPassword(userService.findUserById(user.getUserId()).getPassword());
+			user.setPassword(user0.getPassword());
 		}else {
 			String str = MD5.CreateMD5String("000000");
 			user.setPassword(str);
 		}
-		user.setIsFirstLogin(userService.findUserById(user.getUserId()).getIsFirstLogin());
+		user.setIsFirstLogin(user0.getIsFirstLogin());
 		userService.updateUser(user);
 		return "users";
 	}

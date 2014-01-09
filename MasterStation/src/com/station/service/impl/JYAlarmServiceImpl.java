@@ -1,6 +1,8 @@
 package com.station.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import com.station.dao.JYAlarmDAO;
 import com.station.pagebean.PageBean;
 import com.station.po.JYAlarm;
@@ -45,15 +47,15 @@ public class JYAlarmServiceImpl implements JYAlarmService {
 	}
 
 	@Override
-	public PageBean getPerPage(int countPerpage, int currentPage, String hql) {
+	public PageBean getPerPage(int countPerpage, int currentPage, String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		int TotalCount=alarmDAO.getTotalCount(hql);//总记录数		
+		int TotalCount=alarmDAO.getTotalCount(hql,parameters);//总记录数		
 		int TotalPage=PageBean.countTotalPage(countPerpage, TotalCount);//总页数
 		final int startRow=PageBean.countStartRow(countPerpage, currentPage);//当前页开始的行
 		final int CountPerpage=countPerpage;//每页显示的记录数
 		final int CurrentPage=PageBean.countCurrentPage(currentPage);//当前页面
 		
-		List<JYAlarm> list= alarmDAO.getPerPage(hql, startRow, CountPerpage);//该页显示的记录
+		List<JYAlarm> list= alarmDAO.getPerPage(hql, startRow, CountPerpage,parameters);//该页显示的记录
 		
 		PageBean pageBean=new PageBean();
 		pageBean.setCurrentPage(CurrentPage);
@@ -67,9 +69,9 @@ public class JYAlarmServiceImpl implements JYAlarmService {
 	}
 
 	@Override
-	public int getTotalCount(String hql) {
+	public int getTotalCount(String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		return alarmDAO.getTotalCount(hql);
+		return alarmDAO.getTotalCount(hql,parameters);
 	}
 
 	@Override

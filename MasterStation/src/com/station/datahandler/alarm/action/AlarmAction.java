@@ -198,8 +198,15 @@ public class AlarmAction extends ActionSupport {
 		userGroupList = dataList.getAllUserGroups();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("queryLine", "%"+queryLine+"%");
+		parameters.put("queryNumber", "%"+queryNumber+"%");
+		parameters.put("queryAlarmType", "%"+queryAlarmType+"%");
+		parameters.put("queryRepairStatus", "%"+queryRepairStatus+"%");
+		parameters.put("queryType", "%"+queryType+"%");
+		parameters.put("queryUserGroup", "%"+queryUserGroup+"%");
 		//final String hql = "from JYAlarm alarm where alarm.device.cabinet.user.username like '%%%' ORDER BY id DESC";
-		this.pageBean = this.alarmService.getPerPage(pageList, page, hql);
+		this.pageBean = this.alarmService.getPerPage(pageList, page, hql,parameters);
 		//page = 1;
 		return SUCCESS;
 	}
@@ -236,22 +243,14 @@ public class AlarmAction extends ActionSupport {
 			queryAlarmType = "%";
 		if (queryRepairStatus == null || queryRepairStatus.length() == 0)
 			queryRepairStatus = "%";
-		hql = hql + "alarm.device.cabinet.line.name like '%"
-				+ queryLine + "%' and "
-				+ "alarm.device.cabinet.cabNumber like '%"
-				+ queryNumber + "%' and "
-				+ "alarm.isCabinet like '%" + queryAlarmType
-				+ "%' and " + "alarm.status like '%" + queryRepairStatus
-				+ "%' and "
-				+ "alarm.device.cabinet.cabType.value like '%"
-				+ queryType + "%' and " + "alarm.date>= TO_DATE('"
-				+ queryStartDate+" 00:00:00"
-				+ "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "alarm.date <= TO_DATE('" + queryEndDate
-				+ " 23:59:59"
-				+ "','YYYY-MM-DD HH24:mi:ss') and "
-				+ "alarm.device.cabinet.userGroup.groupName like '%"
-				+ queryUserGroup + "%'" +
+		hql = hql + "alarm.device.cabinet.line.name like :queryLine and "
+				+ "alarm.device.cabinet.cabNumber like :queryNumber and "
+				+ "alarm.isCabinet like :queryAlarmType and alarm.status like :queryRepairStatus and "
+				+ "alarm.device.cabinet.cabType.value like :queryType and alarm.date>= TO_DATE('"+queryStartDate+" 00:00:00'"
+				+ ",'YYYY-MM-DD HH24:mi:ss') and "
+				+ "alarm.date <= TO_DATE('"+queryEndDate+" 23:59:59'"
+				+ ",'YYYY-MM-DD HH24:mi:ss') and "
+				+ "alarm.device.cabinet.userGroup.groupName like :queryUserGroup "+
 				orderStr;
 		unhandledTag = 0;
 		return hql;
@@ -259,7 +258,16 @@ public class AlarmAction extends ActionSupport {
 	public void getUnhanledCountAction(){
 		unhandledTag = 1;
 		final String hql = this.createSql();
-		int count = this.alarmService.getTotalCount(hql);
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("queryLine", "%"+queryLine+"%");
+		parameters.put("queryNumber", "%"+queryNumber+"%");
+		parameters.put("queryAlarmType", "%"+queryAlarmType+"%");
+		parameters.put("queryRepairStatus", "%"+queryRepairStatus+"%");
+		parameters.put("queryType", "%"+queryType+"%");
+		parameters.put("queryStartDate", queryStartDate);
+		parameters.put("queryEndDate", queryEndDate);
+		parameters.put("queryUserGroup", "%"+queryUserGroup+"%");
+		int count = this.alarmService.getTotalCount(hql,parameters);
         Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("unhandledCount", count);
         Constant.flush(dataMap);

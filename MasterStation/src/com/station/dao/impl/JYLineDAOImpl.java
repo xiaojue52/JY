@@ -2,11 +2,15 @@ package com.station.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import com.station.constant.Constant;
 import com.station.dao.JYLineDAO;
 import com.station.po.JYLine;
 
@@ -16,16 +20,17 @@ public class JYLineDAOImpl extends HibernateDaoSupport implements JYLineDAO {
 	 * 查询总记录数
 	 */
 	@Override
-	public int getTotalCount(String hql) {
+	public int getTotalCount(String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
 		String hql0 = "select count(*) "+hql;  
 		Query query =  this.getSession().createQuery(hql0);  
+		query = Constant.setParameters(query, parameters);
 		return ((Long)query.uniqueResult()).intValue(); 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<JYLine> getPerPage(final String hql, final int startRow, final int countPerpage) {
+	public List<JYLine> getPerPage(final String hql, final int startRow, final int countPerpage,final Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
 		List<JYLine> list=getHibernateTemplate().executeFind(new HibernateCallback<Object>() {
 
@@ -34,6 +39,7 @@ public class JYLineDAOImpl extends HibernateDaoSupport implements JYLineDAO {
 					SQLException {
 				// TODO Auto-generated method stub
 				Query query=session.createQuery(hql);
+				query = Constant.setParameters(query, parameters);
 				query.setFirstResult(startRow);
 				query.setMaxResults(countPerpage);
 				List<JYLine> list=query.list();

@@ -30,16 +30,16 @@ public class JYCabinetHistoryServiceImpl implements JYCabinetHistoryService {
 	 * 分页查询
 	 */
 	@Override
-	public PageBean getPerPage(int countPerpage, int currentPage, String hql) {
+	public PageBean getPerPage(int countPerpage, int currentPage, String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
 		//final String hql="from JYUser user where user_level = 'user' or user_level = 'com_admin' order by id desc";
-		int TotalCount=cabinetHistoryDAO.getTotalCount(hql);//总记录数		
+		int TotalCount=cabinetHistoryDAO.getTotalCount(hql,parameters);//总记录数		
 		int TotalPage=PageBean.countTotalPage(countPerpage, TotalCount);//总页数
 		final int startRow=PageBean.countStartRow(countPerpage, currentPage);//当前页开始的行
 		final int CountPerpage=countPerpage;//每页显示的记录数
 		final int CurrentPage=PageBean.countCurrentPage(currentPage);//当前页面
 		
-		List<JYCabinetHistory> list= cabinetHistoryDAO.getPerPage(hql, startRow, CountPerpage);//该页显示的记录
+		List<JYCabinetHistory> list= cabinetHistoryDAO.getPerPage(hql, startRow, CountPerpage,parameters);//该页显示的记录
 		for (int i=0;i<list.size();i++){
 			String historyHql = "from JYHistory history where history.cabinetHistory.id = '"+list.get(i).getId()+"'";
 			List<JYHistory> historyList = historyService.findJYHistoryByHql(historyHql);
@@ -112,8 +112,8 @@ public class JYCabinetHistoryServiceImpl implements JYCabinetHistoryService {
 	}
 
 	@Override
-	public int getTotalCount(String hql) {
+	public int getTotalCount(String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		return cabinetHistoryDAO.getTotalCount(hql);
+		return cabinetHistoryDAO.getTotalCount(hql,parameters);
 	}
 }

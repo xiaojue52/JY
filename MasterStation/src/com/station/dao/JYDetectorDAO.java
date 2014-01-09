@@ -1,6 +1,7 @@
 package com.station.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.station.po.JYDetector;
 
@@ -16,8 +17,8 @@ public interface JYDetectorDAO {
 
 	public void updateJYDetector(JYDetector arg0);
 	
-	public int getTotalCount(String hql);
+	public int getTotalCount(String hql,Map<String,Object> parameters);
 
-	public List<JYDetector> getPerPage(final String hql,final int startRow,final int countPerpage);
+	public List<JYDetector> getPerPage(final String hql,final int startRow,final int countPerpage,Map<String,Object> parameters);
 	
 }

@@ -36,8 +36,9 @@
 	</head>
 
 	<body>
+	<form action="listAlarm.action" method="post">
 		<div class="toolbar">
-			<s:form action="listAlarm.action">
+			
 				<table>
 					<tr>
 						<td>
@@ -157,7 +158,7 @@
 							</tr>
 				</table>
 				<input type="hidden" name="page" value="1"/>
-			</s:form>
+			
 		</div>
 		<div class="center_table_div">
 
@@ -430,5 +431,6 @@
     	    		
     	    	</div>
 			</div>
+		</form>	
 	</body>
 </html>

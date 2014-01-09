@@ -1,7 +1,10 @@
 package com.station.monitor.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.pagebean.PageBean;
 import com.station.service.JYCabinetHistoryService;
@@ -67,9 +70,11 @@ public class HistoryPageAction extends ActionSupport {
 	}
 
 	public String listHistoryAction() throws Exception {
-		final String hql = "from JYCabinetHistory cabinetHistory where cabinetHistory.cabinet.cabId = '"+this.cabId+"' ORDER BY id DESC";
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("cabId", cabId);
+		final String hql = "from JYCabinetHistory cabinetHistory where cabinetHistory.cabinet.cabId = :cabId ORDER BY id DESC";
 		//final String hql = "select t.collect_time,wm_concat(t.detector_id), wm_concat(d.device_id), wm_concat(de.cab_id)from jy_history t, jy_detector d,jy_device de,jy_cabinet c where d.detector_id = t.detector_id and de.cab_id = c.cab_id and d.device_id = de.device_id group by  t.collect_time";
-		this.pageBean = cabinetHistoryService.getPerPage(pageList, page, hql);
+		this.pageBean = cabinetHistoryService.getPerPage(pageList, page, hql,parameters);
 		return SUCCESS;
 	}
 }

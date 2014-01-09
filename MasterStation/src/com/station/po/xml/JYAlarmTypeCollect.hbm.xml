@@ -9,22 +9,22 @@
  	 </id>
   <many-to-one name="alarmType1"
   		class="com.station.po.JYAlarmType" outer-join="true"
-		 lazy="false" cascade="save-update,persist">
+		 lazy="false">
   		<column name="alarm_type1_id"></column>
   	</many-to-one>	 
 	<many-to-one name="alarmType2"
   		class="com.station.po.JYAlarmType" outer-join="true"
-		 lazy="false" cascade="save-update,persist">
+		 lazy="false">
   		<column name="alarm_type2_id"></column>
   	</many-to-one>	 
   	<many-to-one name="alarmType3"
   		class="com.station.po.JYAlarmType" outer-join="true"
-		 lazy="false" cascade="save-update,persist">
+		 lazy="false">
   		<column name="alarm_type3_id"></column>
   	</many-to-one>	 
   	<many-to-one name="alarmType4"
   		class="com.station.po.JYAlarmType" outer-join="true"
-		 lazy="false" cascade="save-update,persist">
+		 lazy="false">
   		<column name="alarm_type4_id"></column>
   	</many-to-one>	
  </class>

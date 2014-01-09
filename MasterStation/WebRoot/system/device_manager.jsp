@@ -80,9 +80,8 @@
 						type="button" value="查询" onclick="DeviceManager.queryDevice();" />
 				</span>
 			</s:form>
-			<br/>
 		</div>
-		<div class="center_table_div" style="margin-top:5px;">
+		<div class="center_table_div" style="margin-top:9px;">
 		<script type="text/javascript">
 		Ext.BLANK_IMAGE_URL = 'js/ext/resources/images/default/tree/s.gif';
 		var tag = '<s:property value="tag"/>'; 

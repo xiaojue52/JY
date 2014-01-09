@@ -58,8 +58,9 @@ public class DeviceAction extends ActionSupport{
         Constant.flush(dataMap);
 	}
 	public void updateDeviceAction(){
-		device.setAlarm(this.deviceService.findJYDeviceById(this.device.getDeviceId()).getAlarm());
-		device.setCreateTime(this.deviceService.findJYDeviceById(this.device.getDeviceId()).getCreateTime());
+		JYDevice device0 = this.deviceService.findJYDeviceById(this.device.getDeviceId());
+		device.setAlarm(device0.getAlarm());
+		device.setCreateTime(device0.getCreateTime());
 		//device.setCabinet(cabinetService.findJYCabinetById(device.getCabinet().getCabId()));
 		deviceService.updateJYDevice(device);
 		Map<String,Object> dataMap = new HashMap<String,Object>();

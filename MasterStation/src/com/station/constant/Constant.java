@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.struts2.ServletActionContext;
+import org.hibernate.Query;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -108,5 +110,18 @@ public class Constant {
 	public static String getSessionStringAttr(String arg0){
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		return (String)session.getAttribute(arg0);
+	}
+	
+	public static Query setParameters(Query arg,Map<String,Object> parameters){
+		Query query = arg;
+		Iterator<Map.Entry<String, Object>> iter = parameters.entrySet()
+				.iterator();
+		while (iter.hasNext()) {
+			Map.Entry<String, Object> mEntry = (Map.Entry<String, Object>) iter.next();
+			Object obj = (Object) mEntry.getValue();
+			String key = (String) mEntry.getKey();
+			query.setParameter(key, obj);
+		}
+		return query;
 	}
 }

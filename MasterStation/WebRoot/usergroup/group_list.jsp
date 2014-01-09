@@ -32,8 +32,9 @@
 	</head>
 
 	<body>
+	<form action="listUserGroups.action" method="post">
 		<div class="toolbar">
-			<s:form action="listUserGroups.action">
+			
 				<span> 班组名称：
 				<s:if test="groupName == \"%\"||groupName==null">
 				<input name='groupName' type="text" /> 
@@ -53,7 +54,7 @@
 				<input type="hidden" name="page" value="1"/>
 				<span><input type="submit" value="查询" class="toolbarButton"/> </span>
 				<span><button id="btnShow" class="toolbarButton" onclick="return false;">添加班组</button></span>
-			</s:form>	
+		
 		</div>
 		<div class="center_table_div">
 		<s:if test="ret==-1">
@@ -253,5 +254,6 @@
     	    	</div>
 			</div>
 			</div>
+			</form>		
 	</body>
 </html>

@@ -1,7 +1,9 @@
 package com.station.datahandler.chart.datapage.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
@@ -162,9 +164,15 @@ public class DeviceCompareAction extends ActionSupport {
 		userGroupList = dataList.getAllUserGroups();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("queryLine", "%"+queryLine+"%");
+		parameters.put("queryNumber", "%"+queryNumber+"%");
+		parameters.put("queryType", "%"+queryType+"%");
+		parameters.put("queryUserGroup", "%"+queryUserGroup+"%");
+		parameters.put("queryDevice", "%"+queryDevice+"%");
 		//final String hql = "from JYDevice device where tag = 1";
 		//final String hql = "select t.collect_time,wm_concat(t.detector_id), wm_concat(d.device_id), wm_concat(de.cab_id)from jy_history t, jy_detector d,jy_device de,jy_cabinet c where d.detector_id = t.detector_id and de.cab_id = c.cab_id and d.device_id = de.device_id group by  t.collect_time";
-		this.pageBean = deviceService.getPerPage(pageList, page, hql);
+		this.pageBean = deviceService.getPerPage(pageList, page, hql,parameters);
 		return SUCCESS;
 	}
 
@@ -190,16 +198,11 @@ public class DeviceCompareAction extends ActionSupport {
 			queryDevice = "%";
 		if (queryDetector == null || queryDetector.length() == 0)
 			queryDetector = "%";
-		hql = hql + "device.cabinet.line.name like '%"
-				+ queryLine + "%' and "
-				+ "device.cabinet.cabNumber like '%"
-				+ queryNumber + "%' and "
-				+ "device.name like '%" + queryDevice
-				+ "%' and " 
-				+ "device.cabinet.cabType.value like '%"
-				+ queryType + "%' and " 
-				+ "device.cabinet.userGroup.groupName like '%"
-				+ queryUserGroup + "%' and tag = 1 order by to_number(replace(device.deviceId,'Device','')) desc";
+		hql = hql + "device.cabinet.line.name like :queryLine and "
+				+ "device.cabinet.cabNumber like :queryNumber and "
+				+ "device.name like :queryDevice and " 
+				+ "device.cabinet.cabType.value like :queryType and " 
+				+ "device.cabinet.userGroup.groupName like :queryUserGroup and tag = 1 order by to_number(replace(device.deviceId,'Device','')) desc";
 		return hql;
 	}
 

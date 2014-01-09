@@ -1,6 +1,7 @@
 package com.station.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.station.po.JYAlarm;
 
@@ -43,7 +44,7 @@ public interface JYAlarmDAO {
 	 * @param hql
 	 * @return
 	 */
-	public int getTotalCount(String hql);
+	public int getTotalCount(String hql,Map<String,Object> parameters);
 
 	/**
 	 * 获取分页记录
@@ -52,7 +53,7 @@ public interface JYAlarmDAO {
 	 * @param countPerpage
 	 * @return
 	 */
-	public List<JYAlarm> getPerPage(final String hql,final int startRow,final int countPerpage);
+	public List<JYAlarm> getPerPage(final String hql,final int startRow,final int countPerpage,Map<String,Object> parameters);
 	
 	/**
 	 * 删除符合条件的记录，

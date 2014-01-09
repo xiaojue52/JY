@@ -39,8 +39,9 @@
 	</head> 
 
 	<body>
+	<form action="cabinetHistory.action" method="post">
 		<div class="toolbar">
-			<s:form action="cabinetHistory.action">
+			
 				<table>
 					<tr>
 						<td>
@@ -122,7 +123,7 @@
 							</tr>
 				</table>
 				<input type="hidden" name="page" value="1"/>
-			</s:form>
+			
 		</div>
 		<div class="center_table_div">
 		
@@ -328,5 +329,6 @@
 			});
 							
 		</script>
+		</form>
 	</body>
 </html>

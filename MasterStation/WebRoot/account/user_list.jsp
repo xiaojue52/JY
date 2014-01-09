@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -11,6 +11,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<base href="<%=basePath%>">
 		<title>用户管理</title>
 		<link rel="stylesheet" type="text/css" href="css/table/src/css/extgrid.v.1.2.5.all.css" />
@@ -32,8 +33,8 @@
 	</head>
 
 	<body>
+	<form action="listUser.action" method="post">
 		<div class="toolbar">
-			<s:form action="listUser.action">
 				<span> 用户名：
 				<s:if test="username == \"%\"||username==null">
 				<input name='username' type="text" /> 
@@ -53,7 +54,7 @@
 				<input type="hidden" name="page" value="1"/>
 				<span><input type="submit" value="查询" class="toolbarButton"/> </span>
 				<span><button id="btnShow" class="toolbarButton" onclick="return false;">添加用户</button></span>
-			</s:form>	
+			
 		</div>
 		<div class="center_table_div">
 		<s:if test="ret==-1">
@@ -62,8 +63,9 @@
 		<s:if test="ret==-2">
 		<div><span class="errorMessage">删除用户失败！请解除用户拥有的柜体！</span></div>
 		</s:if>
-<div
+		<div
 		style="min-width:900px;width: 100%; height: 460px; margin-top: 0px;">
+		
 		<div class="datagrid-container datagrid-container-border"
 			id="datagrid_89353"
 			style="position: relative; overflow: hidden; width: 100%; height: 460px;">
@@ -156,6 +158,7 @@
 			</s:iterator>
 		</table></div>
 			<div class="datagrid-pager pagination" id="datagrid_89353_pager">
+			<s:form action="listUser.action">
 			<s:iterator value="pageBean">
 				<table border="0" cellpadding="0" cellspacing="0">
 					<tbody>
@@ -264,8 +267,10 @@
 					当前显示${(CurrentPage-1)*pageList+1 }到${CurrentPage*pageList }条，共${TotalCount}条
 				</div>
 				</s:iterator>
+				</s:form>	
 			</div>
 		</div>
+		
 		<script>
 			var table_tr = document.getElementById('table_tr');
 			$('#table_th').width(table_tr.scrollWidth);
@@ -275,7 +280,9 @@
 			});
 							
 		</script>
+		
 	</div>		
+
 		<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none;width:300px;height:410px;">
 				<h2>操作<a class="btnClose">关闭</a></h2>
@@ -286,6 +293,7 @@
     	    		<jsp:include page="/account/user_details.jsp"></jsp:include>
     	    	</div>
 			</div>
-			</div>
+	</div>
+	</form>	
 	</body>
 </html>

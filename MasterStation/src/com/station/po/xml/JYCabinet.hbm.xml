@@ -32,7 +32,7 @@
   	</many-to-one>
 	<many-to-one name="alarmTypeCollect"
   		class="com.station.po.JYAlarmTypeCollect" outer-join="true"
-  		lazy="false" cascade="save-update,persist">
+  		lazy="false">
   		<column name="alarm_type_collect_id"></column>
   	</many-to-one>
   	<many-to-one name="userGroup"

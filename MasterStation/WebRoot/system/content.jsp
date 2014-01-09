@@ -270,6 +270,7 @@
 						<input class="numberInput" id="input1" name="cabinet.alarmTypeCollect.alarmType1.value" type="text" value="75" class="readonly" readonly="readonly"
 							width="30px;" style="ime-mode:disabled;height: 22px;width:200px;"/>
 						<input id="enable1" type="hidden" name="cabinet.alarmTypeCollect.alarmType1.enable" value=""/>	
+						
 					</td>
 					</tr>
 					<tr>
@@ -319,6 +320,11 @@
 				</table>
 				<input id="lineId" name="cabinet.line.lineId" type="hidden" />
 				<input id="cabinetId" name="cabinet.cabId" type="hidden" />
+				<input id="alarmTypeCollect" name="cabinet.alarmTypeCollect.id" type="hidden" />
+				<input id="type1Id" name="cabinet.alarmTypeCollect.alarmType1.id" type="hidden" />
+				<input id="type2Id" name="cabinet.alarmTypeCollect.alarmType2.id" type="hidden" />
+				<input id="type3Id" name="cabinet.alarmTypeCollect.alarmType3.id" type="hidden" />
+				<input id="type4Id" name="cabinet.alarmTypeCollect.alarmType4.id" type="hidden" />
 
 			</s:form>
 		</div>

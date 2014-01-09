@@ -1,6 +1,7 @@
 package com.station.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.station.pagebean.PageBean;
 import com.station.po.JYAlarm;
@@ -17,9 +18,9 @@ public interface JYAlarmService {
 
 	public void updateJYAlarm(JYAlarm arg0);
 	
-	public int getTotalCount(String hql);
+	public int getTotalCount(String hql,Map<String,Object> parameters);
 
-	public PageBean getPerPage(int countPerpage,int currentPage, String hql);
+	public PageBean getPerPage(int countPerpage,int currentPage, String hql,Map<String,Object> parameters);
 	/**
 	 * 查找记录返回自定object[]
 	 * @param hql 参数hql，非sql

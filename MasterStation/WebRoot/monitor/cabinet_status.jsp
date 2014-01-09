@@ -35,8 +35,10 @@ String path = request.getContextPath();
 		<script src="js/control.js" type="text/javascript"></script>
 	</head>
 
-	<body><div class="toolbar">
-			       <s:form action="getCabinetStatus.action">
+	<body>
+	  <form action="getCabinetStatus.action" method="post">
+	<div class="toolbar">
+			     
 			       
 							<span>线路：
 							<s:if test="queryLine == \"%\"||queryLine==null">
@@ -82,7 +84,7 @@ String path = request.getContextPath();
 							</select> </span><span><input class="toolbarButton" type="submit" value="查询"/></span>
 						    <input type="hidden" name="orderColumn" value="cabinet.cabId"/>
 						    <input type="hidden" name="page" value="1"/>
-		</s:form>
+		
 		</div>
 		<div class="center_table_div">
 		
@@ -287,6 +289,7 @@ String path = request.getContextPath();
 							
 		</script>
 	</div></div>
+	</form>
 			</body>
 </html>
 		

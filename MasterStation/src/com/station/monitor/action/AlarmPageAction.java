@@ -1,7 +1,10 @@
 package com.station.monitor.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.pagebean.PageBean;
 import com.station.service.JYAlarmService;
@@ -67,8 +70,10 @@ public class AlarmPageAction extends ActionSupport {
 
 
 	public String listAlarmAction() throws Exception {
-		final String hql = "from JYAlarm alarm where alarm.device.cabinet.cabId = '"+cabId+"' ORDER BY alarm.date DESC";
-		this.pageBean = this.alarmService.getPerPage(pageList, page, hql);
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("cabId", cabId);
+		final String hql = "from JYAlarm alarm where alarm.device.cabinet.cabId = :cabId ORDER BY alarm.date DESC";
+		this.pageBean = this.alarmService.getPerPage(pageList, page, hql,parameters);
 		//page = 1;
 		return SUCCESS;
 	}

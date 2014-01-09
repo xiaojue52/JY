@@ -1,6 +1,8 @@
 package com.station.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import com.station.dao.JYHistoryMonthChartDataDAO;
 import com.station.pagebean.PageBean;
 import com.station.po.JYHistoryMonthChartData;
@@ -18,15 +20,15 @@ public class JYHistoryMonthChartDataServiceImpl implements JYHistoryMonthChartDa
 	 * 分页查询
 	 */
 	@Override
-	public PageBean getPerPage(int countPerpage, int currentPage, String hql) {
+	public PageBean getPerPage(int countPerpage, int currentPage, String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		int TotalCount=historyMonthChartDataDAO.getTotalCount(hql);//总记录数		
+		int TotalCount=historyMonthChartDataDAO.getTotalCount(hql,parameters);//总记录数		
 		int TotalPage=PageBean.countTotalPage(countPerpage, TotalCount);//总页数
 		final int startRow=PageBean.countStartRow(countPerpage, currentPage);//当前页开始的行
 		final int CountPerpage=countPerpage;//每页显示的记录数
 		final int CurrentPage=PageBean.countCurrentPage(currentPage);//当前页面
 		
-		List<JYHistoryMonthChartData> list= historyMonthChartDataDAO.getPerPage(hql, startRow, CountPerpage);//该页显示的记录
+		List<JYHistoryMonthChartData> list= historyMonthChartDataDAO.getPerPage(hql, startRow, CountPerpage,parameters);//该页显示的记录
 		
 		PageBean pageBean=new PageBean();
 		pageBean.setCurrentPage(CurrentPage);
@@ -71,8 +73,8 @@ public class JYHistoryMonthChartDataServiceImpl implements JYHistoryMonthChartDa
 	}
 
 	@Override
-	public int getTotalCount(String hql) {
+	public int getTotalCount(String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		return historyMonthChartDataDAO.getTotalCount(hql);
+		return historyMonthChartDataDAO.getTotalCount(hql,parameters);
 	}
 }

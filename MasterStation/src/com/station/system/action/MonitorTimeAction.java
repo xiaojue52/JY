@@ -36,7 +36,7 @@ public class MonitorTimeAction extends ActionSupport {
 			ret = 0;
 		}
 		else{
-			JYConstant arg = this.constantService.findJYConstantByHql(hql).get(0);
+			JYConstant arg = list.get(0);
 			arg.setSubValue(constant.getSubValue());
 			constantService.updateJYConstant(arg);
 			socketRoute.sendCommandToSetMonitorTime(constant.getValue(),constant.getSubValue());
@@ -54,7 +54,7 @@ public class MonitorTimeAction extends ActionSupport {
 			ret = "0";
 		}
 		else{
-			JYConstant arg = this.constantService.findJYConstantByHql(hql).get(0);
+			JYConstant arg = list.get(0);
 			ret = arg.getSubValue();
 		}
 		Map<String,Object> dataMap = new HashMap<String,Object>();

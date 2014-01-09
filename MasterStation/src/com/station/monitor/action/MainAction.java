@@ -2,7 +2,10 @@ package com.station.monitor.action;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -159,7 +162,12 @@ public class MainAction extends ActionSupport {
 		userGroupList = dataList.getAllUserGroups();
 		cabTypeList = dataList.getCabTpyeConstant();
 		final String hql = this.createSql();
-		this.pageBean = monitorService.getPerPage(pageList, page, hql);
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("queryLine", "%"+queryLine+"%");
+		parameters.put("queryNumber", "%"+queryNumber+"%");
+		parameters.put("queryType", "%"+queryType+"%");
+		parameters.put("queryUserGroup", "%"+queryUserGroup+"%");
+		this.pageBean = monitorService.getPerPage(pageList, page, hql,parameters);
 		//page = 1;
 		HttpServletRequest request = ServletActionContext.getRequest ();
 		request.setAttribute("methodCode",this.methodCode );
@@ -187,14 +195,10 @@ public class MainAction extends ActionSupport {
 			queryType = "%";
 		if (queryUserGroup == null || queryUserGroup.length() == 0)
 			queryUserGroup = "%";
-		hql = hql + "cabinet.line.name like '%"
-		+ queryLine + "%' and "
-		+ "cabinet.cabNumber like '%"
-		+ queryNumber + "%' and "
-		+ "cabinet.cabType.value like '%"
-		+ queryType + "%' and " 
-		+ "cabinet.userGroup.groupName like '%"
-		+ queryUserGroup + "%' and cabinet.tag = 1 and cabinet.status = 1 "+orderStr;
+		hql = hql + "cabinet.line.name like :queryLine and "
+		+ "cabinet.cabNumber like :queryNumber and "
+		+ "cabinet.cabType.value like :queryType and " 
+		+ "cabinet.userGroup.groupName like :queryUserGroup and cabinet.tag = 1 and cabinet.status = 1 "+orderStr;
 		return hql;
 	}
 	

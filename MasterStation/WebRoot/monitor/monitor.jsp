@@ -38,8 +38,9 @@ String path = request.getContextPath();
 	</head>
 
 	<body>
+	  <form action="mainAction.action" method="post">
 			       <div class="toolbar">
-			       <s:form action="mainAction.action">
+			     
 			       
 							<span>线路：
 							<s:if test="queryLine == \"%\"||queryLine==null">
@@ -86,7 +87,7 @@ String path = request.getContextPath();
 						<span><input class="toolbarButton" type="button" value="实时查询" onclick="Monitor.QueryDeviceTemp.getCabinetNumber();"/></span>
 						<input type="hidden" name="orderColumn" value="cabinet.cabId"/>
 						<input type="hidden" name="page" value="1"/>
-		</s:form>
+		
 		</div>
 		<div class="center_table_div">
 		
@@ -334,7 +335,7 @@ String path = request.getContextPath();
 				<h2>操作<a id="btnClose" onclick="Monitor.closePage();">关闭</a></h2>
     	   		<iframe src="" class="page_iframe" width=100% height=100% frameborder='0'></iframe>
 			</div>
-	
+	</form>
 			</body>
 </html>
 		

@@ -8,7 +8,7 @@
    	<generator class="assigned" />
  	 </id>
   <many-to-one name="type"
-  		class="com.station.po.JYConstant" outer-join="true" lazy="false" cascade="save-update,persist">
+  		class="com.station.po.JYConstant" outer-join="true" lazy="false">
   		<column name="alarm_type_id"></column>
   	</many-to-one>	 
   <property name="value" type="java.lang.Float" column="value"/>

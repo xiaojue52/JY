@@ -1,6 +1,7 @@
 package com.station.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.station.constant.Constant;
 import com.station.dao.JYCabinetDAO;
@@ -62,16 +63,16 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 	 * 分页查询
 	 */
 	@Override
-	public PageBean getPerPage(int countPerpage, int currentPage, String hql) {
+	public PageBean getPerPage(int countPerpage, int currentPage, String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
 		//final String hql="from JYUser user where user_level = 'user' or user_level = 'com_admin' order by id desc";
-		int TotalCount=cabinetDAO.getTotalCount(hql);//总记录数		
+		int TotalCount=cabinetDAO.getTotalCount(hql,parameters);//总记录数		
 		int TotalPage=PageBean.countTotalPage(countPerpage, TotalCount);//总页数
 		final int startRow=PageBean.countStartRow(countPerpage, currentPage);//当前页开始的行
 		final int CountPerpage=countPerpage;//每页显示的记录数
 		final int CurrentPage=PageBean.countCurrentPage(currentPage);//当前页面
 		
-		List<JYCabinet> list= cabinetDAO.getPerPage(hql, startRow, CountPerpage);//该页显示的记录
+		List<JYCabinet> list= cabinetDAO.getPerPage(hql, startRow, CountPerpage,parameters);//该页显示的记录
 		for (int i=0;i<list.size();i++){
 			String deviceHql = "from JYDevice device where tag = 1 and device.cabinet.cabId = '"+list.get(i).getCabId()+"'";
 			List<JYDevice> deviceList = deviceService.findJYDeviceByHql(deviceHql);
@@ -129,10 +130,6 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		
 		JYCabinet cabinet = arg0;
 		cabinet.setTag(1);
-		//cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
-		//cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
-		//cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
-
 		JYAlarmTypeCollect alarmTypeCollect = null;
 		if (this.isGlobalAlarmCollection(cabinet)){
 			alarmTypeCollect = this.alarmTypeCollectService.findJYAlarmTypeCollectById("-1");
@@ -154,12 +151,8 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		if(cabinet.getStatus()!=1)
 			socketRoute.removedCabinet(cabinet.getCabId());
 		else
-			socketRoute.addCabinet(cabinet.getCabId());
-		
+			socketRoute.addCabinet(cabinet.getCabId());	
 		cabinet.setTag(1);
-		//cabinet.setLine(lineService.findLineById(cabinet.getLine().getLineId()));
-		//cabinet.setPowerLevel(constantService.findJYConstantById(cabinet.getPowerLevel().getId()));
-		//cabinet.setCabType(constantService.findJYConstantById(cabinet.getCabType().getId()));
 		JYAlarmTypeCollect alarmTypeCollect = null;
 		if (this.isGlobalAlarmCollection(cabinet)){
 			alarmTypeCollect = this.alarmTypeCollectService.findJYAlarmTypeCollectById("-1");
@@ -174,13 +167,17 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 			cabinet.setAlarmTypeCollect(alarmTypeCollect);
 			cabinetDAO.updateJYCabinet(cabinet);
 		}else
+		{
+			this.saveAlarmType(cabinet);
 			cabinetDAO.updateJYCabinet(cabinet);
+		}
+
 	}
 
 	@Override
-	public int getTotalCount(String hql) {
+	public int getTotalCount(String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		return cabinetDAO.getTotalCount(hql);
+		return cabinetDAO.getTotalCount(hql,parameters);
 	}
 
 	@Override
@@ -217,6 +214,11 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		alarmType3.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE3HQL).get(0));
 		alarmType4.setId(alarmTypeCollect.getId()+1003);
 		alarmType4.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE4HQL).get(0));
+		this.alarmTypeService.saveJYAlarmType(alarmType1);
+		this.alarmTypeService.saveJYAlarmType(alarmType2);
+		this.alarmTypeService.saveJYAlarmType(alarmType3);
+		this.alarmTypeService.saveJYAlarmType(alarmType4);	
+		this.alarmTypeCollectService.saveJYAlarmTypeCollect(alarmTypeCollect);
 		return alarmTypeCollect;
 	}
 	private void removedAlarmCollection(JYCabinet cabinet){
@@ -225,23 +227,26 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		JYAlarmType type2 = collect.getAlarmType2();
 		JYAlarmType type3 = collect.getAlarmType3();
 		JYAlarmType type4 = collect.getAlarmType4();
-		collect.setAlarmType1(null);
-		collect.setAlarmType2(null);
-		collect.setAlarmType3(null);
-		collect.setAlarmType4(null);
-		this.alarmTypeCollectService.updateJYAlarmTypeCollect(collect);
+
 		this.alarmTypeCollectService.removeJYAlarmTypeCollect(collect);
-		type1.setType(null);
-		type2.setType(null);
-		type3.setType(null);
-		type4.setType(null);
-		this.alarmTypeService.updateJYAlarmType(type1);
-		this.alarmTypeService.updateJYAlarmType(type2);
-		this.alarmTypeService.updateJYAlarmType(type3);
-		this.alarmTypeService.updateJYAlarmType(type4);
 		this.alarmTypeService.removeJYAlarmType(type1);
 		this.alarmTypeService.removeJYAlarmType(type2);
 		this.alarmTypeService.removeJYAlarmType(type3);
 		this.alarmTypeService.removeJYAlarmType(type4);
+	}
+	private void saveAlarmType(JYCabinet cabinet){
+		JYAlarmTypeCollect alarmTypeCollect = cabinet.getAlarmTypeCollect();
+		JYAlarmType alarmType1 = alarmTypeCollect.getAlarmType1();
+		alarmType1.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE1HQL).get(0));
+		JYAlarmType alarmType2 = alarmTypeCollect.getAlarmType2();
+		alarmType2.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE2HQL).get(0));
+		JYAlarmType alarmType3 = alarmTypeCollect.getAlarmType3();
+		alarmType3.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE3HQL).get(0));
+		JYAlarmType alarmType4 = alarmTypeCollect.getAlarmType4();
+		alarmType4.setType(this.constantService.findJYConstantByHql(Constant.ALARMTYPE4HQL).get(0));
+		this.alarmTypeService.updateJYAlarmType(alarmType1);
+		this.alarmTypeService.updateJYAlarmType(alarmType2);
+		this.alarmTypeService.updateJYAlarmType(alarmType3);
+		this.alarmTypeService.updateJYAlarmType(alarmType4);	
 	}
 }

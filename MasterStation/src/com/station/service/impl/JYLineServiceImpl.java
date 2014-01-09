@@ -1,6 +1,8 @@
 package com.station.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import com.station.dao.JYLineDAO;
 import com.station.pagebean.PageBean;
 import com.station.po.JYCabinet;
@@ -26,16 +28,16 @@ public class JYLineServiceImpl implements JYLineService {
 	 * 分页查询
 	 */
 	@Override
-	public PageBean getPerPage(int countPerpage, int currentPage, String hql) {
+	public PageBean getPerPage(int countPerpage, int currentPage, String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
 		//final String hql="from JYUser user where user_level = 'user' or user_level = 'com_admin' order by id desc";
-		int TotalCount=lineDAO.getTotalCount(hql);//总记录数		
+		int TotalCount=lineDAO.getTotalCount(hql,parameters);//总记录数		
 		int TotalPage=PageBean.countTotalPage(countPerpage, TotalCount);//总页数
 		final int startRow=PageBean.countStartRow(countPerpage, currentPage);//当前页开始的行
 		final int CountPerpage=countPerpage;//每页显示的记录数
 		final int CurrentPage=PageBean.countCurrentPage(currentPage);//当前页面
 		
-		List<JYLine> list= lineDAO.getPerPage(hql, startRow, CountPerpage);//该页显示的记录
+		List<JYLine> list= lineDAO.getPerPage(hql, startRow, CountPerpage,parameters);//该页显示的记录
 		
 		PageBean pageBean=new PageBean();
 		pageBean.setCurrentPage(CurrentPage);
@@ -86,8 +88,8 @@ public class JYLineServiceImpl implements JYLineService {
 	}
 
 	@Override
-	public int getTotalCount(String hql) {
+	public int getTotalCount(String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		return lineDAO.getTotalCount(hql);
+		return lineDAO.getTotalCount(hql,parameters);
 	}
 }
