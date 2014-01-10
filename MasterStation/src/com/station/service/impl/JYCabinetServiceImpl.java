@@ -155,15 +155,18 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 			socketRoute.addCabinet(cabinet.getCabId());	
 		cabinet.setTag(1);
 		JYAlarmTypeCollect alarmTypeCollect = null;
+		JYAlarmTypeCollect preAlarmTypeCollect = this.cabinetDAO.findJYCabinetById(cabinet.getCabId()).getAlarmTypeCollect();
+		//JYCabinet ccc = this.cabinetDAO.findJYCabinetById(cabinet.getCabId());
 		if (this.isGlobalAlarmCollection(cabinet)){
+			
 			alarmTypeCollect = this.alarmTypeCollectService.findJYAlarmTypeCollectById("-1");
-			if (!cabinet.getAlarmTypeCollect().getId().equals("-1")){
-				this.removedAlarmCollection(cabinet);
-			}
 			cabinet.setAlarmTypeCollect(alarmTypeCollect);
 			cabinetDAO.updateJYCabinet(cabinet);
+			if (!preAlarmTypeCollect.getId().equals("-1")){
+				this.removedAlarmCollection(preAlarmTypeCollect);
+			}
 			return;
-		}else if(cabinet.getAlarmTypeCollect().getId().equals("-1")){
+		}else if(preAlarmTypeCollect.getId().equals("-1")){
 			alarmTypeCollect = this.createAlarmCollection(cabinet);
 			cabinet.setAlarmTypeCollect(alarmTypeCollect);
 			cabinetDAO.updateJYCabinet(cabinet);
@@ -222,8 +225,8 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 		this.alarmTypeCollectService.saveJYAlarmTypeCollect(alarmTypeCollect);
 		return alarmTypeCollect;
 	}
-	private void removedAlarmCollection(JYCabinet cabinet){
-		JYAlarmTypeCollect collect = cabinet.getAlarmTypeCollect();
+	private void removedAlarmCollection(JYAlarmTypeCollect arg){
+		JYAlarmTypeCollect collect = arg;
 		JYAlarmType type1 = collect.getAlarmType1();
 		JYAlarmType type2 = collect.getAlarmType2();
 		JYAlarmType type3 = collect.getAlarmType3();

@@ -55,7 +55,6 @@ public class CabinetAction extends ActionSupport{
 	public void updateCabinetAction(){
 		JYCabinet cabinet0 = this.cabinetService.findJYCabinetById(this.cabinet.getCabId());
 		cabinet.setAlarm(cabinet0.getAlarm());
-		//cabinet.set
 		cabinet.setCreateTime(cabinet0.getCreateTime());
 		cabinetService.updateJYCabinet(cabinet);
 		Map<String,Object> dataMap = new HashMap<String,Object>();

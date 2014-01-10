@@ -1,6 +1,8 @@
 package com.station.dao.impl;
 
 import java.util.List;
+
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.station.dao.JYAlarmTypeCollectDAO;
 import com.station.po.JYAlarmTypeCollect;
@@ -37,7 +39,10 @@ public class JYAlarmTypeCollectDAOImpl extends HibernateDaoSupport implements JY
 	@Override
 	public void updateJYAlarmTypeCollect(JYAlarmTypeCollect arg0) {
 		// TODO Auto-generated method stub
-		this.getHibernateTemplate().update(arg0);
+		Session session = this.getSession();
+		JYAlarmTypeCollect collect = (JYAlarmTypeCollect)session.merge(arg0);
+		session.save(collect);
+		//this.getHibernateTemplate().update(arg0);
 	}
 
 }

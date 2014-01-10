@@ -79,6 +79,10 @@ public class JYCabinetDAOImpl extends HibernateDaoSupport implements JYCabinetDA
 	@Override
 	public void updateJYCabinet(JYCabinet arg0) {
 		// TODO Auto-generated method stub
-		this.getHibernateTemplate().update(arg0);
+		Session session = this.getSession();
+		JYCabinet cabinet = (JYCabinet)session.merge(arg0);
+		session.save(cabinet);
+		
+		//this.getHibernateTemplate().update(arg0);
 	}
 }
