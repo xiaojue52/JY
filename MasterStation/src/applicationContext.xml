@@ -340,7 +340,7 @@
 		</property>
 	</bean>
 	<bean id="UnhandledAlarmAction" scope="request"
-		class="com.station.monitor.action.UnhandledAlarmAction">
+		class="com.station.datahandler.alarm.action.UnhandledAlarmAction">
 		<property name="alarmService">
 			<ref bean="jyAlarmService" />
 		</property>

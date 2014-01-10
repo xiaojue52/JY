@@ -1,5 +1,6 @@
 package com.station.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -64,11 +65,11 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 				history = new JYHistory();
 			}
 			//history.setDate(date);
-			JYHistoryChartData arg0 = new JYHistoryChartData();
-			arg0.setDate(date);
-			arg0.setDetector(list.get(i));
-			arg0.setValue(history.getValue());
-			historyChartDataDAO.saveJYHistoryChartData(arg0);
+			JYHistoryChartData historyChartData = new JYHistoryChartData();
+			historyChartData.setDate(date);
+			historyChartData.setDetector(list.get(i));
+			historyChartData.setValue(history.getValue());
+			historyChartDataDAO.saveJYHistoryChartData(historyChartData);
 		}
 		
 	}
@@ -76,11 +77,18 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 	@Override
 	public void saveHistoryMonthChartData() {
 		// TODO Auto-generated method stub
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		calendar.set(Calendar.DAY_OF_MONTH, day-1);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String dateStr = df.format(calendar.getTime());
 		String hql = "from JYDetector detector where tag = 1";
 		List<JYDetector> list = detectorDAO.findJYDetectorByHql(hql);
 		for (int i=0;i<list.size();i++){
-			String hql1 = "from JYHistoryChartData history where history.detector.detectorId = '"+list.get(i).getDetectorId()+"' order by history.value";
-			List<JYHistoryChartData> historyList = this.historyChartDataDAO.findJYHistoryChartDataByHql(hql1);
+			String hql1 = "from historyDAO history where history.detector.detectorId = '"+list.get(i).getDetectorId()+"' and history.date>=to_date('"+dateStr+" 00:00:00','YYYY-MM-DD HH24:mi:ss') and history.date<=to_date('"+dateStr+" 23:59:59','YYYY-MM-DD HH24:mi:ss') order by history.value";
+			List<JYHistory> historyList = this.historyDAO.findJYHistoryByHql(hql1);
 			if (historyList.size()>0){
 				int length = historyList.size();
 				JYHistoryMonthChartData max = new JYHistoryMonthChartData();

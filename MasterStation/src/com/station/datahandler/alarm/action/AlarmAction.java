@@ -35,7 +35,6 @@ public class AlarmAction extends ActionSupport {
 	private String queryRepairStatus;
 	private List<JYUserGroup> userGroupList;
 	private List<JYConstant> cabTypeList;
-	private int unhandledTag = 0;//全部
 	private JYAlarm alarmTemp;
 	private String orderColumn = "alarm.date";
 	
@@ -54,14 +53,6 @@ public class AlarmAction extends ActionSupport {
 
 	public void setAlarmTemp(JYAlarm alarmTemp) {
 		this.alarmTemp = alarmTemp;
-	}
-
-	public int getUnhandledTag() {
-		return unhandledTag;
-	}
-
-	public void setUnhandledTag(int unhandledTag) {
-		this.unhandledTag = unhandledTag;
 	}
 
 	public DataList getDataList() {
@@ -223,10 +214,7 @@ public class AlarmAction extends ActionSupport {
 			temp = "(alarm.device.cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or alarm.device.cabinet.userGroup.groupName = '--') and ";
 		}
 		String hql = "from JYAlarm alarm where "+temp;
-		if (unhandledTag==1){
-			queryLine = null;queryNumber=null;queryType=null;queryUserGroup=null;queryStartDate=null;queryEndDate=null;
-			queryRepairStatus = "0";queryAlarmType=null;
-		}
+
 		if (queryLine == null || queryLine.length() == 0)
 			queryLine = "%";
 		if (queryNumber == null || queryNumber.length() == 0)
@@ -252,25 +240,7 @@ public class AlarmAction extends ActionSupport {
 				+ ",'YYYY-MM-DD HH24:mi:ss') and "
 				+ "alarm.device.cabinet.userGroup.groupName like :queryUserGroup "+
 				orderStr;
-		unhandledTag = 0;
 		return hql;
-	}
-	public void getUnhanledCountAction(){
-		unhandledTag = 1;
-		final String hql = this.createSql();
-		Map<String,Object> parameters = new HashMap<String,Object>();
-		parameters.put("queryLine", "%"+queryLine+"%");
-		parameters.put("queryNumber", "%"+queryNumber+"%");
-		parameters.put("queryAlarmType", "%"+queryAlarmType+"%");
-		parameters.put("queryRepairStatus", "%"+queryRepairStatus+"%");
-		parameters.put("queryType", "%"+queryType+"%");
-		parameters.put("queryStartDate", queryStartDate);
-		parameters.put("queryEndDate", queryEndDate);
-		parameters.put("queryUserGroup", "%"+queryUserGroup+"%");
-		int count = this.alarmService.getTotalCount(hql,parameters);
-        Map<String,Object> dataMap = new HashMap<String,Object>();
-        dataMap.put("unhandledCount", count);
-        Constant.flush(dataMap);
 	}
 	
 	public String updateAlarmAction(){

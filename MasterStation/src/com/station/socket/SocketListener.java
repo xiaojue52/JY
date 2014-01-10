@@ -55,21 +55,20 @@ public class SocketListener extends Thread {
 					in = new BufferedReader(new InputStreamReader(client
 							.getInputStream()));
 					while (client.isConnected()) {
-						String str = "";
-						char[] cbuf = new char[1024];
-						int ret = in.read(cbuf, 0, 1024);
-						if (ret < 0) {
-							in.close();
-							listMap.get(client).close();
-							socketRoute.removedSocket(client);
-							break;
+						StringBuilder sb = new StringBuilder();
+						char c;
+						while( (c=(char)in.read())!=-1){
+							sb.append(c);
+							String str = sb.toString();
+							if (str.length()>7&&str.substring(str.length()-2).equals("CR")){
+								socketRoute.CheckString(str,client);
+								sb.setLength(0);
+							}
 						}
-						if (ret >= 1024)
-							cbuf[1023] = '\0';
-						else
-							cbuf[ret] = '\0';
-						str = String.valueOf(cbuf, 0, ret);
-						socketRoute.CheckString(str,client);
+						in.close();
+						listMap.get(client).close();
+						socketRoute.removedSocket(client);
+						break;
 					}
 				} catch (IOException ex) {
 					System.out.print("socket 读取 、输出失败！");

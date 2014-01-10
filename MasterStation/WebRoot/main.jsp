@@ -42,7 +42,7 @@
 		
 		<div id="north-div">
 			<div class="top_frame">
-	    		<span class="comSpan" onclick="setFrameSrc('mainAction.action','系统监控');"><a>首页 |</a> </span><span>欢迎<%=username %>登陆 | </span><span class="comSpan" onclick="setFrameSrc('listAlarm.action?unhandledTag=1&orderColumn=alarm.date','报警记录');"><img style="width:16px;height:16px;" src="images/message.png"/>未处理报警(<span id="unhandledCount" style="margin-left:0px;">0</span>) |</span> <span class="comSpan" onclick="ModifyPassword.showPage();"><img style="width:14px;height:14px;" src="images/modify.png"/>修改密码 |</span> <span class="comSpan" onclick="window.location.href='logout.action'"><img style="width:14px;height:14px;" src="images/quit.png"/>退出系统</span>
+	    		<span class="comSpan" onclick="setFrameSrc('mainAction.action','系统监控');"><a>首页 |</a> </span><span>欢迎<%=username %>登陆 | </span><span class="comSpan" onclick="setFrameSrc('listAlarm.action?queryRepairStatus=0&orderColumn=alarm.date','报警记录');"><img style="width:16px;height:16px;" src="images/message.png"/>未处理报警(<span id="unhandledCount" style="margin-left:0px;">0</span>) |</span> <span class="comSpan" onclick="ModifyPassword.showPage();"><img style="width:14px;height:14px;" src="images/modify.png"/>修改密码 |</span> <span class="comSpan" onclick="window.location.href='logout.action'"><img style="width:14px;height:14px;" src="images/quit.png"/>退出系统</span>
 			</div>
 			<div class="logDiv" id="top-content"><img src="<%=imagePath %>"><span><%=topContent %></span></div>
 		</div>

@@ -24,10 +24,6 @@ public class DeviceCompareAction extends ActionSupport {
 	private String queryNumber;
 	private String queryType;
 	private String queryUserGroup;
-	private String queryStartDate;
-	private String queryEndDate;
-	private String queryDevice;
-	private String queryDetector;
 	private List<JYUserGroup> userGroupList;
 	private List<JYConstant> cabTypeList;
 	private int pageList = 10;
@@ -83,22 +79,6 @@ public class DeviceCompareAction extends ActionSupport {
 		this.dataList = dataList;
 	}
 
-	public String getQueryDevice() {
-		return queryDevice;
-	}
-
-	public void setQueryDevice(String queryDevice) {
-		this.queryDevice = queryDevice;
-	}
-
-	public String getQueryDetector() {
-		return queryDetector;
-	}
-
-	public void setQueryDetector(String queryDetector) {
-		this.queryDetector = queryDetector;
-	}
-
 	public String getQueryLine() {
 		return queryLine;
 	}
@@ -121,23 +101,6 @@ public class DeviceCompareAction extends ActionSupport {
 
 	public void setQueryType(String queryType) {
 		this.queryType = queryType;
-	}
-
-
-	public String getQueryStartDate() {
-		return queryStartDate;
-	}
-
-	public void setQueryStartDate(String queryStartDate) {
-		this.queryStartDate = queryStartDate;
-	}
-
-	public String getQueryEndDate() {
-		return queryEndDate;
-	}
-
-	public void setQueryEndDate(String queryEndDate) {
-		this.queryEndDate = queryEndDate;
 	}
 
 	public void setDeviceService(JYDeviceService deviceService) {
@@ -169,7 +132,6 @@ public class DeviceCompareAction extends ActionSupport {
 		parameters.put("queryNumber", "%"+queryNumber+"%");
 		parameters.put("queryType", "%"+queryType+"%");
 		parameters.put("queryUserGroup", "%"+queryUserGroup+"%");
-		parameters.put("queryDevice", "%"+queryDevice+"%");
 		//final String hql = "from JYDevice device where tag = 1";
 		//final String hql = "select t.collect_time,wm_concat(t.detector_id), wm_concat(d.device_id), wm_concat(de.cab_id)from jy_history t, jy_detector d,jy_device de,jy_cabinet c where d.detector_id = t.detector_id and de.cab_id = c.cab_id and d.device_id = de.device_id group by  t.collect_time";
 		this.pageBean = deviceService.getPerPage(pageList, page, hql,parameters);
@@ -190,17 +152,8 @@ public class DeviceCompareAction extends ActionSupport {
 			queryType = "%";
 		if (queryUserGroup == null || queryUserGroup.length() == 0)
 			queryUserGroup = "%";
-		if (queryStartDate == null || queryStartDate.length() == 0)
-			queryStartDate = "1000-01-01";
-		if (queryEndDate == null || queryEndDate.length() == 0)
-			queryEndDate = "9999-12-12";
-		if (queryDevice == null || queryDevice.length() == 0)
-			queryDevice = "%";
-		if (queryDetector == null || queryDetector.length() == 0)
-			queryDetector = "%";
 		hql = hql + "device.cabinet.line.name like :queryLine and "
 				+ "device.cabinet.cabNumber like :queryNumber and "
-				+ "device.name like :queryDevice and " 
 				+ "device.cabinet.cabType.value like :queryType and " 
 				+ "device.cabinet.userGroup.groupName like :queryUserGroup and tag = 1 order by to_number(replace(device.deviceId,'Device','')) desc";
 		return hql;

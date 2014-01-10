@@ -29,8 +29,6 @@ public class TimerEvent {
 		Calendar currentTime1 = Calendar.getInstance();
 		currentTime1.setTime(new Date());
 		int currentHour = currentTime1.get(Calendar.HOUR);		
-		
-		
 		currentTime1.set(Calendar.HOUR, currentHour + 1);
 		currentTime1.set(Calendar.MINUTE, 0);
 		currentTime1.set(Calendar.SECOND, 0);
@@ -38,10 +36,12 @@ public class TimerEvent {
 		Date NextHour = currentTime1.getTime();
 		
 		Calendar currentTime2 = Calendar.getInstance();
-		currentTime2.setTime(new Date());		
-		currentTime2.set(Calendar.HOUR, 23);
-		currentTime2.set(Calendar.MINUTE, 59);
-		currentTime2.set(Calendar.SECOND, 59);
+		currentTime2.setTime(new Date());
+		int day = currentTime2.get(Calendar.DAY_OF_MONTH);
+		currentTime2.set(Calendar.DAY_OF_MONTH, day+1);
+		currentTime2.set(Calendar.HOUR, 1);
+		currentTime2.set(Calendar.MINUTE, 10);
+		currentTime2.set(Calendar.SECOND, 00);
 		Date NextDay = currentTime2.getTime();
 		//System.out.println(NextHour);
 		
