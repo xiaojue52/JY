@@ -1,5 +1,6 @@
 package com.station.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -201,7 +202,7 @@ public class JYCabinetServiceImpl implements JYCabinetService {
 	}
 	private JYAlarmTypeCollect createAlarmCollection(JYCabinet cabinet){
 		JYAlarmTypeCollect alarmTypeCollect = cabinet.getAlarmTypeCollect();
-		alarmTypeCollect.setId(cabinet.getCabNumber()+Constant.getCurrentDateStr());
+		alarmTypeCollect.setId(cabinet.getCabNumber()+Constant.getDateStr(new Date(),"yyyyMMddHHmmss"));
 		JYAlarmType alarmType1 = alarmTypeCollect.getAlarmType1();
 		JYAlarmType alarmType2 = alarmTypeCollect.getAlarmType2();
 		JYAlarmType alarmType3 = alarmTypeCollect.getAlarmType3();

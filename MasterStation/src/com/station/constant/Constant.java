@@ -46,24 +46,11 @@ public class Constant {
 	public static String MESDATE = "";
 	public static String FUNCTIONNUM = "";
 	/**
-	 * yyyyMMddHHmmss
 	 * @return
 	 */
-	public static String getCurrentDateStr() {
-		Date date = new Date();
+	public static String getDateStr(Date date,String format) {
 		String str = null;
-		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-		str = df.format(date);
-		return str;
-	}
-	/**
-	 * yyyy-MM-dd HH:mm:ss
-	 * @param date
-	 * @return
-	 */
-	public static String convertDateToStr(Date date){
-		String str = null;
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat df = new SimpleDateFormat(format);
 		str = df.format(date);
 		return str;
 	}

@@ -84,7 +84,7 @@ public class SocketHandler {
 			return;
 		}
 		String prePhoneNumber = order.get("phoneNumber");
-		order.put("heartBeat", Constant.getCurrentDateStr());
+		order.put("heartBeat", Constant.getDateStr(new Date(),"yyyyMMddHHmmss"));
 		//order.put("reviceTemp", Constant.getCurrentDateStr());
 		order.put("isLogined", "1");
 		order.put("monitorTimeOK", "0");
@@ -227,7 +227,7 @@ public class SocketHandler {
 	private void storeHeartBertOrder(String cabId) {
 
 		Map<String, String> order = orderMap.get(cabId);
-		order.put("heartBeat", Constant.getCurrentDateStr());
+		order.put("heartBeat", Constant.getDateStr(new Date(),"yyyyMMddHHmmss"));
 		orderMap.put(cabId, order);
 		this.socketService.updateCabinetStatus(cabId);
 	}
@@ -457,7 +457,16 @@ public class SocketHandler {
 	 */
 	public void addCabinet(String cabId){
 		Map<String, String> order = new HashMap<String, String>();
-		order.put("heartBeat", Constant.getCurrentDateStr());
+		JYCabinet cabinet = this.socketService.getCabinet(cabId);
+		Date detectTime = cabinet.getDetectTime();
+		String heartDateStr = "";
+		if(detectTime!=null){
+			//SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+			heartDateStr = Constant.getDateStr(detectTime,"yyyyMMddHHmmss");
+		}
+		else
+			heartDateStr = Constant.getDateStr(new Date(),"yyyyMMddHHmmss");
+		order.put("heartBeat", heartDateStr);
 		String dateStr = this.socketService.getHistoryDateString(cabId);
 		if (dateStr!=null)
 			order.put("reviceTemp", dateStr);

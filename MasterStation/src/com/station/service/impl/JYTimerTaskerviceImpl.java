@@ -137,8 +137,8 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		calendar.set(Calendar.MINUTE, currentM-subValue);
 		Date start = calendar.getTime();
 		
-		String endStr = Constant.convertDateToStr(end);
-		String startStr = Constant.convertDateToStr(start);
+		String endStr = Constant.getDateStr(end,"yyyy-MM-dd HH:mm:ss");
+		String startStr = Constant.getDateStr(start,"yyyy-MM-dd HH:mm:ss");
 		for(int i=0;i<list.size();i++){
 			
 			
@@ -193,7 +193,7 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND,0);
 		Date date = calendar.getTime();
-		String startStr = Constant.convertDateToStr(date);
+		String startStr = Constant.getDateStr(date,"yyyy-MM-dd HH:mm:ss");
 		String hql = "delete from jy_alarm j where j.c_date < to_date('"+startStr+"','YYYY-MM-DD HH24:mi:ss') and (j.id) not in (select d.alarm_id from jy_device d) and (j.id) not in (select c.alarm_id from jy_cabinet c)";
 		this.alarmDAO.removeMultiplAlarms(hql);
 	}
