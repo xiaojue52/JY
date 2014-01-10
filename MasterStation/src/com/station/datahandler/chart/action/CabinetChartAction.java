@@ -47,6 +47,7 @@ public class CabinetChartAction extends ActionSupport {
 		Date date = df.parse(queryStartDate);
 		Calendar calendar1 = Calendar.getInstance();
 		calendar1.setTime(date);
+		//System.out.print(date.getTime()+":::::"+calendar1.getTimeInMillis());
 		int day = calendar1.get(Calendar.DAY_OF_MONTH);
 		calendar1.set(Calendar.DAY_OF_MONTH, day-3);
 		String startStr = df.format(calendar1.getTime());

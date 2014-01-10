@@ -36,7 +36,10 @@ public class UnhandledAlarmAction extends ActionSupport {
 				" ORDER BY alarm.date DESC";
 		return hql;
 	}
-	public void getUnhanledCountAction(){
+	public void getUnhanledCountAction(){		
+		/*Date date = new Date();
+		String str = String.valueOf(date.getTime());
+		System.out.print(str.substring(str.length()-5)+"\n");*/
 		queryRepairStatus = "0";
 		final String hql = this.createSql();
 		Map<String,Object> parameters = new HashMap<String,Object>();

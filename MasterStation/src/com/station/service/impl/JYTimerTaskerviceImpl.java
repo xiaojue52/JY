@@ -13,6 +13,7 @@ import com.station.dao.JYHistoryDAO;
 import com.station.dao.JYHistoryMonthChartDataDAO;
 import com.station.po.JYAlarm;
 import com.station.po.JYAlarmType;
+import com.station.po.JYCabinet;
 import com.station.po.JYDetector;
 import com.station.po.JYDevice;
 import com.station.po.JYHistory;
@@ -60,9 +61,14 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		String hql = "from JYDetector detector where tag = 1";
 		List<JYDetector> list = detectorDAO.findJYDetectorByHql(hql);
 		for (int i=0;i<list.size();i++){
+			//if (list.get(i).getDevice().getCabinet().)
+			JYCabinet cabinet = list.get(i).getDevice().getCabinet();
+			JYAlarm alarm = cabinet.getAlarm();
+			if(cabinet.getStatus()!=1||(alarm!=null&&alarm.getAlarmText().equals("离线")))
+				continue;
 			JYHistory history = list.get(i).getHistory();
 			if (history==null){
-				history = new JYHistory();
+				continue;
 			}
 			//history.setDate(date);
 			JYHistoryChartData historyChartData = new JYHistoryChartData();

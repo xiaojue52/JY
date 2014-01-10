@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,7 +23,7 @@ import com.station.timer.TimerEvent;
  */
 public class SocketHandler {
 	private JYSocketService socketService;
-	private List<String> realCabList;
+	private Map<String,List<String>> realCabListMap = new HashMap<String,List<String>>();
 	private Map<String, Socket> clientMap = new HashMap<String, Socket>();//当前连接的设备
 	private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();//主站注册的设备
 	private TimerEvent halfHourEvent;
@@ -112,7 +111,8 @@ public class SocketHandler {
 			String cabId = command[1];
 			String dateStr = command[2];
 			String tempData = command[3];
-			
+			String taskNo = command[0].substring(2,7);
+			List<String> realCabList = this.realCabListMap.get(taskNo);
 			if (realCabList==null){
 				this.sendCommand(Constant.REALTEMPERROR, client);
 				return null;
@@ -271,21 +271,32 @@ public class SocketHandler {
 	public List<String> sendCommandToGetTempWithCabIdList(String[] cabIdList) {
 		// Mes = "1000000|#000000|XCR"
 		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
-		realCabList = new ArrayList<String>();
-		List<String> list =  Arrays.asList(cabIdList);
+		Date date = new Date();
+		String str = String.valueOf(date.getTime());
+		String taskNo = str.substring(str.length()-5);
+		List<String> realCabList = new ArrayList<String>();
+		realCabListMap.put(taskNo, realCabList);
+		List<String> list =  new ArrayList<String>();
+		for (int i=0;i<cabIdList.length;i++){
+			list.add(cabIdList[i]);
+		}
 
 		for (int i = 0; i < list.size(); i++) {
 			String cabId = list.get(i);
 			Socket client = clientMap.get(cabId);
-			String queryStr = "1000000|" + cabId + "|XCR";
+			String queryStr = "10"+taskNo+"|" + cabId + "|XCR";
 			this.sendCommand(queryStr, client);
 		}
 		int delay = 0;
 		while(true){
 			try {	
 				Thread.sleep(500);
-				if(realCabList.size()==list.size())return null;
-				else if(delay==10){
+				if(realCabList.size()==list.size()) 
+				{
+					realCabListMap.remove(taskNo);	
+					return null;
+				}
+				else if(delay==15){
 					for (int i=0;i<list.size();i++){
 						int j=0;
 						while(realCabList.size()>0){
@@ -299,10 +310,11 @@ public class SocketHandler {
 						}
 					}
 					for (int i=0;i<list.size();i++){
-						Date date = new Date();
+						//Date date = new Date();
 						this.socketService.saveAlarm(list.get(i), JYAlarm.DEVICEREEOR, date, "离线");
 						
 					}
+					realCabListMap.remove(taskNo);
 					return list;
 				}
 				delay++;			

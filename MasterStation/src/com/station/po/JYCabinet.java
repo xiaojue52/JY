@@ -36,6 +36,10 @@ public class JYCabinet {
 		this.detectTime = detectTime;
 	}
 
+	/**
+	 * -1未启用，0停用，1启用
+	 * @return
+	 */
 	public Integer getStatus() {
 		return status;
 	}
