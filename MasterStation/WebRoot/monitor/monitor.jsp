@@ -217,13 +217,13 @@ String path = request.getContextPath();
 					
 		</script>
 	</div></div>
-	
+		</form>
 	<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none">
 				<h2>操作<a id="btnClose" onclick="Monitor.closePage();">关闭</a></h2>
     	   		<iframe src="" class="page_iframe" width=100% height=100% frameborder='0'></iframe>
 			</div>
-	</form>
+
 			</body>
 </html>
 		

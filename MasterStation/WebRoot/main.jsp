@@ -60,8 +60,8 @@
 			<button onclick="setFrameSrc('getCabinetStatus.action','设备状态');" class="itemDiv">设备状态</button>
 		</div>
 		<div id="user_div" class="panelDiv">
-			<button onclick="setFrameSrc('listUser.action','用户管理');" class="itemDiv">用户管理</button>
 			<button onclick="setFrameSrc('listUserGroups.action','班组管理');" class="itemDiv">班组管理</button>
+			<button onclick="setFrameSrc('listUser.action','用户管理');" class="itemDiv">用户管理</button>
 		</div>	
 		<div id="system_div" class="panelDiv">
 					<button  onclick="setFrameSrc('createTree.action','设备管理');" class="itemDiv">设备管理</button>

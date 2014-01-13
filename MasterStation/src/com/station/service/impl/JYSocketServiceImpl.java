@@ -207,13 +207,13 @@ public class JYSocketServiceImpl implements JYSocketService {
 			//if (cabinet.getAlarm()!=null&&type!=2)return;
 			JYAlarm preAlarm = cabinet.getAlarm();
 			if (preAlarm!=null){
-				if (type==0)return;
+				if (type==JYAlarm.HEARTBEATOFFLINE)return;
 				switch (Integer.valueOf(preAlarm.getType())){
-				case 1:
-					if (type==1)return;
+				case JYAlarm.DEVICEOFFLINE:
+					if (type==JYAlarm.DEVICEOFFLINE)return;
 					break;
-				case 2:
-					return;
+				case JYAlarm.DEVICEREEOR:
+					break;
 				default:
 					break;
 				}

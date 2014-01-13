@@ -178,6 +178,6 @@ String path = request.getContextPath();
 		</script>
 	</div></div>
 	</form>
-			</body>
+</body>
 </html>
 		

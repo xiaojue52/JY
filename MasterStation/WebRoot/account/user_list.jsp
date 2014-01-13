@@ -169,8 +169,9 @@
 							
 		</script>
 		
-	</div>		
-
+	</div>	
+	</div>	
+</form>	
 		<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none;width:300px;height:410px;">
 				<h2>操作<a class="btnClose">关闭</a></h2>
@@ -181,7 +182,7 @@
     	    		<jsp:include page="/account/user_details.jsp"></jsp:include>
     	    	</div>
 			</div>
-	</div>
-	</form>	
+		
+	
 	</body>
 </html>

@@ -311,7 +311,7 @@ public class SocketHandler {
 					}
 					for (int i=0;i<list.size();i++){
 						//Date date = new Date();
-						this.socketService.saveAlarm(list.get(i), JYAlarm.DEVICEREEOR, date, "离线");
+						this.socketService.saveAlarm(list.get(i), JYAlarm.DEVICEOFFLINE, date, "离线");
 						
 					}
 					realCabListMap.remove(taskNo);

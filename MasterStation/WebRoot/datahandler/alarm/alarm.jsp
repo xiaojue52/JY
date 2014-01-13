@@ -293,6 +293,7 @@
 			});
 							
 		</script>
+	</form>	
 		<div id="BgDiv"></div>
 			<div id="DialogDiv" style="display:none;width:300px;height:310px;">
 				<h2>操作<a onClick="Alarm.closePage()">关闭</a></h2>
@@ -318,6 +319,6 @@
     	    		
     	    	</div>
 			</div>
-		</form>	
+
 	</body>
 </html>
