@@ -48,7 +48,7 @@
 				<tr>
 					<td class="td_left" width="100">变送器名称：</td>
 					<td width="270">
-						<input maxlength="20" class="checkInput-devicepage" name="device.name" id="deviceName" type="text"
+						<input maxlength="20" class="checkInput-devicepage stopSpChars" name="device.name" id="deviceName" type="text"
 						value="" style="height: 22px;width:260px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
@@ -131,7 +131,7 @@
 			<div><span class="errorMessage" id="line-page"> </span></div>
 			<div style="margin-top:100px;" >
 			线路名称：
-			<input maxLength=20 id="lineName" class="checkInput-linepage" name="line.name" type="text" value="请输入线路名称" /><span style="color:red">*</span>
+			<input maxLength=20 id="lineName" class="checkInput-linepage stopSpChars" name="line.name" type="text" value="请输入线路名称" /><span style="color:red">*</span>
 				<input id="lineAddBtn" type="button" value="确定"
 					style="margin-left: 10px;width:60px;" onclick=" if(Control.checkInput('line-page','checkInput-linepage')){DeviceManager.Line.line(0);};"/>
 			
@@ -171,7 +171,7 @@
 					<tr>
 					<td class="td_left" width="100">柜体编号：</td>
 					<td>
-						<input maxlength=20 class="checkInput-cabinetpage" name="cabinet.cabNumber" id="cabNumber" value=""
+						<input maxlength=20 class="checkInput-cabinetpage stopSpChars" name="cabinet.cabNumber" id="cabNumber" value=""
 							type="text" style="ime-mode:disabled;height: 22px;width:200px;"/><span style="color:red">*</span>
 					</td>
 					<td class="td_left" width="200px">柜体类型：</td>

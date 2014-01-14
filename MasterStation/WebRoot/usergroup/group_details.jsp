@@ -22,7 +22,7 @@
 						<span>班组名称：</span>
 					</td>
 					<td>
-						<input maxLength=20 class="checkInput-groupdetailspage" type="text"  id="groupName" name="userGroup.groupName" value="" style="width:120px;"/><span style="color:red">*</span>
+						<input maxLength=20 class="checkInput-groupdetailspage stopSpChars" type="text"  id="groupName" name="userGroup.groupName" value="" style="width:120px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -30,7 +30,7 @@
 						<span>班组负责人：</span>
 					</td>
 					<td>
-						<input maxLength=20 class="ecl-userdetailspage" type="text"  id="leaderName" name="userGroup.leaderName" value="" style="width:120px;"/>
+						<input maxLength=20 class="ecl-userdetailspage stopSpChars" type="text"  id="leaderName" name="userGroup.leaderName" value="" style="width:120px;"/>
 					</td>
 				</tr>
 					<tr>

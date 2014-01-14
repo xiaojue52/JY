@@ -83,7 +83,7 @@ public class JYUserGroupServiceImpl implements JYUserGroupService {
 			return -1;
 		}
 		else{
-			String hql0 = "from JYCabinet cabinet where cabinet.userGroup.id = ::userGroupId ";
+			String hql0 = "from JYCabinet cabinet where cabinet.userGroup.id = :userGroupId ";
 			if(this.userDAO.findUserByHql(hql0,parameters).size()>0){
 				return -1;
 			}

@@ -46,6 +46,9 @@
 		<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="<%=path%>/js/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="<%=path%>/js/control.js"></script>
+		<meta http-equiv="pragma" content="no-cache"> 
+    	<meta http-equiv="cache-control" content="no-cache"> 
+     	<meta http-equiv="expires" content="0">
 	</head>
 
 	<body style="padding:0;">

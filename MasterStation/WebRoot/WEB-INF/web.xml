@@ -44,6 +44,11 @@
 		<param-name>log4jConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/log4j.properties</param-value>
 	</context-param>
+	<listener>
+         <listener-class>
+             org.springframework.web.util.IntrospectorCleanupListener
+         </listener-class>
+     </listener>
 
 	<!-- 定义LOG4J监听器 -->
 	<listener>

@@ -40,7 +40,7 @@
 						<span>用户名：</span>
 					</td>
 					<td>
-						<input maxLength=8 class="checkInput-adduserpage" maxlength="8" type="text" name="user.username"  style="width:120px;"/><span style="color:red">*</span>
+						<input maxLength=8 class="checkInput-adduserpage stopSpChars" maxlength="8" type="text" name="user.username"  style="width:120px;"/><span style="color:red">*</span>
 					</td>
 				</tr>
 				<tr>
