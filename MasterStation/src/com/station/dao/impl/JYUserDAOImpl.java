@@ -18,9 +18,13 @@ import com.station.po.JYUser;
 public class JYUserDAOImpl extends HibernateDaoSupport implements JYUserDAO {
 
 	@SuppressWarnings("unchecked")
-	public List<JYUser> findUserByHql(String hql) {
+	@Override
+	public List<JYUser> findUserByHql(String hql,Map<String,Object> parameters) {
 		//String hql = "from JYUser user";
-		return (List<JYUser>) this.getHibernateTemplate().find(hql);
+		Session session = this.getSession();
+		Query query = session.createQuery(hql);
+		query = Constant.setParameters(query, parameters);
+		return (List<JYUser>) query.list();
 	}
 
 	public JYUser findUserById(String id) {

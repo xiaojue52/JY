@@ -13,7 +13,7 @@ public interface JYUserDAO {
 
 	public JYUser findUserById(String id);
 
-	public List<JYUser> findUserByHql(String hql);
+	public List<JYUser> findUserByHql(String hql,Map<String,Object> parameters);
 
 	public void updateUser(JYUser user);
 	

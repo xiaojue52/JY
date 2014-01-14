@@ -69,9 +69,11 @@ public class UserAction extends ActionSupport {
 	}
 
 	public String addUserAction() throws Exception {
-		String hql = "from JYUser user where user.username = '"
-				+ user.getUsername() + "'";
-		List<JYUser> list = this.userService.findUserByHql(hql);
+		String hql = "from JYUser user where user.username = :username ";
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("username", user.getUsername());
+		List<JYUser> list = this.userService.findUserByHql(hql,parameters);
+		
 		if (list.size() > 0) {
 			return ERROR;
 		} else {

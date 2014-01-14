@@ -59,7 +59,7 @@ public class InitData {
 	}
 	private void initUserTable(){
 		String hql = "from JYUser user where user.username = 'admin'";
-		if (this.userService.findUserByHql(hql).size()==0){
+		if (this.userService.findUserByHql(hql,null).size()==0){
 			JYUser user = new JYUser();
 			user.setUsername("admin");
 			user.setIsFirstLogin(1);

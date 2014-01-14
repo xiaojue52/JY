@@ -43,9 +43,9 @@ public class JYUserServiceImpl implements JYUserService {
 	}
 
 	@Override
-	public List<JYUser> findUserByHql(String hql) {
+	public List<JYUser> findUserByHql(String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		return userDAO.findUserByHql(hql);
+		return userDAO.findUserByHql(hql,parameters);
 	}
 
 	@Override

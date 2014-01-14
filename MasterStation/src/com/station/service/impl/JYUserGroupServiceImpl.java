@@ -1,5 +1,6 @@
 package com.station.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,13 +76,15 @@ public class JYUserGroupServiceImpl implements JYUserGroupService {
 	@Override
 	public int removeJYUserGroup(JYUserGroup arg0) {
 		// TODO Auto-generated method stub
-		String hql = "from JYUser user where user.userGroup.id = '"+arg0.getId()+"'";
-		if(this.userDAO.findUserByHql(hql).size()>0){
+		String hql = "from JYUser user where user.userGroup.id = :userGroupId ";
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("userGroupId", arg0.getId());
+		if(this.userDAO.findUserByHql(hql,parameters).size()>0){
 			return -1;
 		}
 		else{
-			String hql0 = "from JYCabinet cabinet where cabinet.userGroup.id = '"+arg0.getId()+"'";
-			if(this.userDAO.findUserByHql(hql0).size()>0){
+			String hql0 = "from JYCabinet cabinet where cabinet.userGroup.id = ::userGroupId ";
+			if(this.userDAO.findUserByHql(hql0,parameters).size()>0){
 				return -1;
 			}
 			
