@@ -54,9 +54,9 @@ public class JYUserGroupServiceImpl implements JYUserGroupService {
 	}
 
 	@Override
-	public List<JYUserGroup> findJYUserGroupByHql(String hql) {
+	public List<JYUserGroup> findJYUserGroupByHql(String hql,Map<String,Object> parameters) {
 		// TODO Auto-generated method stub
-		List<JYUserGroup> list =  userGroupDAO.findJYUserGroupByHql(hql);
+		List<JYUserGroup> list =  userGroupDAO.findJYUserGroupByHql(hql, parameters);
 		return list;
 	}
 

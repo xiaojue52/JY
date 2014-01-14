@@ -89,8 +89,11 @@ public class UserGroupAction extends ActionSupport{
 		this.userGroupService = userGroupService;
 	}
 	public String addUserGroupAction(){
-		String hql = "from JYUserGroup group where group.groupName = '"+this.userGroup.getGroupName()+"'";
-		if (this.userGroupService.findJYUserGroupByHql(hql).size()>0){
+		String hql = "from JYUserGroup group where group.groupName = :groupName";
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("groupName", this.userGroup.getGroupName());
+		List<JYUserGroup> list = this.userGroupService.findJYUserGroupByHql(hql,parameters);
+		if (list.size()>0){
 			return ERROR;
 		}
 		else{
@@ -105,8 +108,10 @@ public class UserGroupAction extends ActionSupport{
 		return SUCCESS;
 	}
 	public String updateUserGroupAction(){
-		String hql = "from JYUserGroup group where group.groupName = '"+this.userGroup.getGroupName()+"'";
-		List<JYUserGroup> list = this.userGroupService.findJYUserGroupByHql(hql);
+		String hql = "from JYUserGroup group where group.groupName = :groupName";
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("groupName", this.userGroup.getGroupName());
+		List<JYUserGroup> list = this.userGroupService.findJYUserGroupByHql(hql,parameters);
 		if (list.size()>0){
 			JYUserGroup userGroup = list.get(0);
 			if (!userGroup.getId().equals(this.userGroup.getId()))
@@ -125,7 +130,7 @@ public class UserGroupAction extends ActionSupport{
 		if (code == -1){
 			ret = -1;
 		}
-		if (code == -2){
+		else if (code == -2){
 			ret = -2;
 		}
 		else

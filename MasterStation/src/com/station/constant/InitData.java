@@ -50,7 +50,7 @@ public class InitData {
 	}
 	private void initUserGroupTable(){
 		String hql = "from JYUserGroup userGroup where userGroup.groupName = '--'";
-		if (this.userGroupService.findJYUserGroupByHql(hql).size()==0){
+		if (this.userGroupService.findJYUserGroupByHql(hql,null).size()==0){
 			JYUserGroup userGroup = new JYUserGroup();
 			userGroup.setGroupName("--");
 			userGroup.setLeaderName("--");
@@ -70,7 +70,7 @@ public class InitData {
 			user.setPassword(MD5.CreateMD5String("--------"));
 			user.setUserLevel("com_admin");
 			String hql0 = "from JYUserGroup userGroup where userGroup.groupName = '--'";
-			user.setUserGroup(this.userGroupService.findJYUserGroupByHql(hql0).get(0));
+			user.setUserGroup(this.userGroupService.findJYUserGroupByHql(hql0,null).get(0));
 			this.userService.saveUser(user);
 		}
 	}

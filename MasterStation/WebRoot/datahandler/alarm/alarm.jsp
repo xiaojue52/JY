@@ -301,7 +301,7 @@
     	    		<s:form id="form">
     	    		<div><span style="margin-left:8px;">报警信息：</span><textarea id="textarea" style="margin-left:30px;margin-top:8px;" readonly="readonly" cols="30" rows="5"></textarea></div>
     	    		
-    	    		<div style="margin-top:8px;"><span style="margin-left:8px;">维修备注：</span><textarea name="alarmTemp.note" style="margin-left:30px;margin-top:8px;" cols="30" rows="5"></textarea></div>
+    	    		<div style="margin-top:8px;"><span style="margin-left:8px;">维修备注：</span><textarea onkeyup="this.value = this.value.substring(0, 200)" name="alarmTemp.note" style="margin-left:30px;margin-top:8px;" cols="30" rows="5"></textarea></div>
     	    		
     	    		<div style="margin-top:12px;width:100%">
     	    		<table style="width:100%">

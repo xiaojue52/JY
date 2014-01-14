@@ -19,9 +19,12 @@ public class JYUserGroupDAOImpl extends HibernateDaoSupport implements JYUserGro
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<JYUserGroup> findJYUserGroupByHql(String hql) {
+	public List<JYUserGroup> findJYUserGroupByHql(String hql,Map<String,Object> parameters) {
 		//String hql = "from JYUserGroup arg0";
-		return (List<JYUserGroup>) this.getHibernateTemplate().find(hql);
+		Session session = this.getSession();
+		Query query = session.createQuery(hql);
+		query = Constant.setParameters(query, parameters);
+		return (List<JYUserGroup>) query.list();
 	}
 	@Override
 	public JYUserGroup findJYUserGroupById(Integer id) {

@@ -100,7 +100,9 @@ public class Constant {
 	}
 	
 	public static Query setParameters(Query arg,Map<String,Object> parameters){
+		
 		Query query = arg;
+		if (parameters==null)return query;
 		Iterator<Map.Entry<String, Object>> iter = parameters.entrySet()
 				.iterator();
 		while (iter.hasNext()) {

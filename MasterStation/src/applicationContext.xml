@@ -308,22 +308,7 @@
 			<ref bean="jyUserService" />
 		</property>
 	</bean>
-	<bean id="deleteUserAction" scope="request" class="com.station.account.action.DeleteUserAction">
-		<property name="userService">
-			<ref bean="jyUserService" />
-		</property>
-	</bean>
-	<bean id="updateUserAction" scope="request" class="com.station.account.action.UpdateUserAction">
-		<property name="userService">
-			<ref bean="jyUserService" />
-		</property>
-	</bean>
-	<bean id="showUserAction" scope="request" class="com.station.account.action.ShowUserRecordAction">
-		<property name="userService">
-			<ref bean="jyUserService" />
-		</property>
-	</bean>
-	<bean id="addUserAction" scope="request" class="com.station.account.action.AddUserAction">
+	<bean id="UserAction" scope="request" class="com.station.account.action.UserAction">
 		<property name="userService">
 			<ref bean="jyUserService" />
 		</property>

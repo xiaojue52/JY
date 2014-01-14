@@ -13,7 +13,7 @@ public interface JYUserGroupDAO {
 
 	public JYUserGroup findJYUserGroupById(Integer id);
 
-	public List<JYUserGroup> findJYUserGroupByHql(String hql);
+	public List<JYUserGroup> findJYUserGroupByHql(String hql,Map<String,Object> parameters);
 
 	public void updateJYUserGroup(JYUserGroup arg0);
 	

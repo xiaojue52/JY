@@ -56,10 +56,10 @@ public class DataList extends ActionSupport {
 		String userId = (String)session.getAttribute("userId");
 		if (userLevel!=null&&(userLevel.equals("super_admin")||userLevel.endsWith("user"))){
 			String hql = "from JYUserGroup userGroup";
-			return this.userGroupService.findJYUserGroupByHql(hql);
+			return this.userGroupService.findJYUserGroupByHql(hql,null);
 		}else{
 			String hql = "from JYUserGroup userGroup where userGroup.groupName = '--'";
-			JYUserGroup userGroup = this.userGroupService.findJYUserGroupByHql(hql).get(0);
+			JYUserGroup userGroup = this.userGroupService.findJYUserGroupByHql(hql,null).get(0);
 			JYUser user = this.userService.findUserById(userId);
 			JYUserGroup userGroup1 = user.getUserGroup();
 			List<JYUserGroup> list = new ArrayList<JYUserGroup>();

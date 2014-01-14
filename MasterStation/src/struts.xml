@@ -25,19 +25,19 @@
   <action name="listUser" class="listUsersAction">
    <result name="success">/account/user_list.jsp</result>
   </action>
-  <action name="updateUser" class="updateUserAction" method="updateUser">
+  <action name="updateUser" class="UserAction" method="updateUser">
    <result name="users" type="redirect">/listUser.action</result>
   </action>
-  <action name="updatePassword" class="updateUserAction" method="updatePassword">
+  <action name="updatePassword" class="UserAction" method="updatePassword">
   </action>
-  <action name="deleteUser" class="deleteUserAction">
+  <action name="deleteUser" class="UserAction" method="deleteUserAction">
    <result name="success" type="redirect">/listUser.action</result>
    <result name="error" type="redirect">/listUser.action?errorCode=-2</result>
   </action>
-  <action name="showUser" class="showUserAction" method="showUserAction">
+  <action name="showUser" class="UserAction" method="showUserAction">
    <result name="json"></result>
   </action>
-  <action name="addUser" class="addUserAction">
+  <action name="addUser" class="UserAction" method="addUserAction">
    <result name="success" type="redirect">/listUser.action</result>
    <result name="error" type="redirect">/listUser.action?code=-1</result>
   </action>

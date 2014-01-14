@@ -4,6 +4,7 @@ table.gridtable {
 	font-size:12px;
 	border-width: 1px;
 	border-collapse: collapse;
+	table-layout: fixed;
 	width:100%;
 }
 table.gridtable th {
@@ -22,6 +23,7 @@ table.gridtable td {
 	text-align:center;
 	font-size:12px;
 	background:none;
+	word-wrap:break-word;
 }
 
 table.gridtable span {
