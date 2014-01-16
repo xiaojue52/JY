@@ -15,7 +15,7 @@ public class TimerEvent {
 	private Timer timer1; //每半小时读取一次历史数据放到报表数据库
 	private Timer timer2; //每天读取一次历史数据放到月报表数据库
 	private Timer timer3; //每15分钟判断一下温度是否异常
-	private Timer timer4; //每25天清空一次前3个月的设备状态数据
+	private Timer timer4; //每2个月清空一次前3个月的设备状态数据
 	public TimerEvent(JYTimerTaskService timerTaskService){
 		this.timerTaskService = timerTaskService;
 	}
@@ -57,6 +57,7 @@ public class TimerEvent {
 		testTime.set(Calendar.MINUTE, m+1);
 		Date test = testTime.getTime();*/
 
+		//System.out.print(NextDay);
 		timer1.schedule(new GetHistoryTask(), NextHour, JOB_INTERNAL);
 		timer2.scheduleAtFixedRate(new GetMaxAndMinHistoryTask(), NextDay, DAY_JOB_INTERNAL);
 		timer3.schedule(new CheckTempTask(), 1000*60*1, CHECK_INTERNAL);

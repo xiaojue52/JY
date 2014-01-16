@@ -51,7 +51,8 @@ public class SocketListener extends Thread {
 			
 			public void run() {
 				BufferedReader in = null;
-				try {
+				
+				try {	
 					in = new BufferedReader(new InputStreamReader(client
 							.getInputStream()));
 					while (client.isConnected()) {
@@ -65,26 +66,14 @@ public class SocketListener extends Thread {
 								sb.setLength(0);
 							}
 						}
-						in.close();
-						listMap.get(client).close();
-						socketRoute.removedSocket(client);
+						removedClient(client,in);
 						break;
 					}
 				} catch (IOException ex) {
-					System.out.print("socket 读取 、输出失败！");
+					//System.out.print("socket 读取 、输出失败！");
 					// ex.printStackTrace();
-				} finally {
-					try {
-						in.close();
-					} catch (Exception e) {
-						System.out.print("socket 读取 close失败！");
-					}
-					try {
-						client.close();
-					} catch (Exception e) {
-						System.out.print("socket 关闭失败！");
-					}
-				}
+					removedClient(client,in);
+				} 
 			}
 
 		}).start();
@@ -92,6 +81,7 @@ public class SocketListener extends Thread {
 
 	public void closeSocketServer() {
 		try {
+			System.out.print("正在关闭socket\n");
 			if (null != server && !server.isClosed()) {
 				server.close();
 				Iterator<Map.Entry<Socket, Socket>> iter = listMap.entrySet().iterator();
@@ -108,5 +98,23 @@ public class SocketListener extends Thread {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-	}	
+	}
+	
+	private void removedClient(Socket client,BufferedReader in){
+		socketRoute.removedSocket(client);
+		try {
+			in.close();	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			if (listMap.get(client)!=null&&!listMap.get(client).isClosed())
+				listMap.get(client).close();
+			listMap.remove(client);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

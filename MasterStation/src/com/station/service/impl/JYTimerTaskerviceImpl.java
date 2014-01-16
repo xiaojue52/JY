@@ -93,7 +93,7 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		String hql = "from JYDetector detector where tag = 1";
 		List<JYDetector> list = detectorDAO.findJYDetectorByHql(hql);
 		for (int i=0;i<list.size();i++){
-			String hql1 = "from historyDAO history where history.detector.detectorId = '"+list.get(i).getDetectorId()+"' and history.date>=to_date('"+dateStr+" 00:00:00','YYYY-MM-DD HH24:mi:ss') and history.date<=to_date('"+dateStr+" 23:59:59','YYYY-MM-DD HH24:mi:ss') order by history.value";
+			String hql1 = "from JYHistory history where history.detector.detectorId = '"+list.get(i).getDetectorId()+"' and history.date>=to_date('"+dateStr+" 00:00:00','YYYY-MM-DD HH24:mi:ss') and history.date<=to_date('"+dateStr+" 23:59:59','YYYY-MM-DD HH24:mi:ss') order by history.value";
 			List<JYHistory> historyList = this.historyDAO.findJYHistoryByHql(hql1);
 			if (historyList.size()>0){
 				int length = historyList.size();
