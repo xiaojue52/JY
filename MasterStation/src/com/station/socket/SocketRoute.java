@@ -16,6 +16,7 @@ import com.station.system.action.MonitorTimeAction;
 public class SocketRoute {
 	private JYSocketService socketService;
 	private SocketHandler socketHandler;
+	private SocketDTUHandle socketDTUHandle;
 	/**
 	 * 构成函数
 	 * @param sce servletContextEvent
@@ -28,6 +29,7 @@ public class SocketRoute {
 		JYTimerTaskService chartDataService = (JYTimerTaskService) applicationContext
 				.getBean("jyTimerTaskService");;
 		socketHandler = new SocketHandler(socketService,chartDataService);
+		socketDTUHandle = new SocketDTUHandle();
 		
 		SocketAction.setSocketRoute(this);
 		MonitorTimeAction.setSocketRoute(this);
@@ -57,7 +59,7 @@ public class SocketRoute {
 	public void CheckString(String str, Socket client) {
 		// Mes = "0101CR";
 		if (str.equals("0101CR")){
-			socketHandler.parseDTUHeart();
+			socketDTUHandle.parseDTUHeart();
 			return;
 		}
 		
@@ -100,10 +102,7 @@ public class SocketRoute {
 			if (this.socketHandler.isLogined(cabId)){
 				socketHandler.parseRealTempData(str, client);
 				return;
-			}
-				
-			else
-			{
+			}else{
 				this.socketHandler.sendCommand(SocketHandler.UNLOGINED, client);
 				return;
 			}

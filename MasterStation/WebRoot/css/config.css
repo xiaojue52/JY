@@ -8,6 +8,7 @@
     overflow:auto;
 }
 .config_page .heartBeat_time{
+	display:none;
 	font-size:12px;
 	margin:0 auto;
 	width:640px;

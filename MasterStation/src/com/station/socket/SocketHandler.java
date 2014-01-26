@@ -1,3 +1,7 @@
+/**
+ * 处理业务相关命令,
+ * 心跳数据目前保留,但不处理
+ */
 package com.station.socket;
 
 import java.io.IOException;
@@ -55,13 +59,7 @@ public class SocketHandler {
 		halfHourEvent = new TimerEvent(chartDataService);
 		halfHourEvent.startTimer();
 	}
-	/**
-	 * 不发送数据
-	 * @return
-	 */
-	public void parseDTUHeart(){
-		return;
-	}
+	
 	/**
 	 * 解析登陆
 	 * @param str
@@ -186,7 +184,6 @@ public class SocketHandler {
 				order.put("monitorTimeOK", "1");
 				return;
 			}
-			
 		}
 		String tempStr = SocketHandler.MONITORTIMEERROR;
 		this.sendCommand(tempStr, client);
@@ -197,7 +194,7 @@ public class SocketHandler {
 	 * @param client
 	 * @return
 	 */
-	public void parseHeartBeat(String str, Socket client) {
+	/*public void parseHeartBeat(String str, Socket client) {
 		// Mes = "4000000|#000000|XCR";
 		// Ret = "4100000|#000000|0XCR";
 		String command[] = str.split("[|]");
@@ -209,7 +206,7 @@ public class SocketHandler {
 		}
 		String tempStr = "4100000|" + command[1] + "|1XCR";
 		this.sendCommand(tempStr, client);
-	}
+	}*/
 	
 	/**
 	 * 解析设备故障
@@ -238,13 +235,13 @@ public class SocketHandler {
 	 * 更新最新心跳时间
 	 * @param cabId
 	 */
-	private void storeHeartBertOrder(String cabId) {
+	/*private void storeHeartBertOrder(String cabId) {
 
 		Map<String, String> order = orderMap.get(cabId);
 		order.put("heartBeat", Constant.getDateStr(new Date(),"yyyyMMddHHmmss"));
 		orderMap.put(cabId, order);
 		this.socketService.updateCabinetStatus(cabId);
-	}
+	}*/
 	/**
 	 * 设置上传温度数据周期
 	 * @param type 柜体类型
