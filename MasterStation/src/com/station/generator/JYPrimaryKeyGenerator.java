@@ -1,3 +1,7 @@
+/**
+ * 用于生产cabinet、device、detector的命名规则
+ */
+
 package com.station.generator;
 
 import java.util.Properties;

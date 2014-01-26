@@ -25,11 +25,6 @@ public class EncodeFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 
-		/*if (request instanceof HttpServletRequest) {
-			 String url = ((HttpServletRequest)request).getRequestURL().toString();
-			 String queryString = ((HttpServletRequest)request).getQueryString();
-			 System.out.print(url+"\n"+queryString+"\n");
-		}*/
 		if (this.enable) {
 			request.setCharacterEncoding(this.encoding);
 		}

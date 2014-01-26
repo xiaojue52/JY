@@ -7,6 +7,7 @@ public class JYAlarm {
 	public final static int TERMINALREPEAT = 3;
 	public final static int TEMPCHANGTOFAST = 4;
 	public final static int TEMPEXCEPTION = 5;
+	public final static int TEMPERROR = 6;
 	private String id;
 	private String alarmText;
 	private String note;

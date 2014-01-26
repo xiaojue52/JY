@@ -1,3 +1,6 @@
+/**
+ * 计算内部温度算法设置类
+ */
 package com.station.system.action;
 
 import java.util.HashMap;

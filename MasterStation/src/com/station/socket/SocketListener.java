@@ -1,3 +1,7 @@
+/**
+ * 负责监听socket连接，
+ * 每次有连接进来，新建一个线程去处理
+ */
 package com.station.socket;
 
 import java.io.BufferedReader;
@@ -16,8 +20,11 @@ public class SocketListener extends Thread {
 	private SocketRoute socketRoute;
 	private Map<Socket, Socket> listMap = new HashMap<Socket, Socket>(); //当前连入系统的所有socket的，包括非法的
 
+	/**
+	 * 构造函数
+	 * @param sce
+	 */
 	public SocketListener(ServletContextEvent sce) {
-		//this.sce = sce;
 		socketRoute = new SocketRoute(sce);
 		try {
 			server = new ServerSocket(port);
@@ -28,6 +35,9 @@ public class SocketListener extends Thread {
 		}
 	}
 
+	/**
+	 * 监听socket连接
+	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -46,31 +56,37 @@ public class SocketListener extends Thread {
 		}
 	}
 
+	/**
+	 * 开启新线程，处理socket相关
+	 * @param client
+	 */
 	private void invoke(final Socket client) {
 		new Thread(new Runnable() {
 			
 			public void run() {
 				BufferedReader in = null;
-				
+				System.out.print("连接数:"+listMap.size()+"\n");
 				try {	
 					in = new BufferedReader(new InputStreamReader(client
 							.getInputStream()));
 					while (client.isConnected()) {
 						StringBuilder sb = new StringBuilder();
-						char c;
-						while( (c=(char)in.read())!=-1){
-							sb.append(c);
+						int c;
+						while( (c=in.read())!=-1){
+							//ST开始CR结束
+							//以收到时间为准
+							sb.append((char)c);
 							String str = sb.toString();
 							if (str.length()>7&&str.substring(str.length()-2).equals("CR")){
 								socketRoute.CheckString(str,client);
 								sb.setLength(0);
 							}
+							System.out.print((char)c);
 						}
 						removedClient(client,in);
 						break;
 					}
 				} catch (IOException ex) {
-					//System.out.print("socket 读取 、输出失败！");
 					// ex.printStackTrace();
 					removedClient(client,in);
 				} 
@@ -79,6 +95,9 @@ public class SocketListener extends Thread {
 		}).start();
 	}
 
+	/**
+	 * 关闭服务器，断开所有连接
+	 */
 	public void closeSocketServer() {
 		try {
 			System.out.print("正在关闭socket\n");
@@ -100,6 +119,11 @@ public class SocketListener extends Thread {
 		}
 	}
 	
+	/**
+	 * 终端断开连接，移除listMap内存中保存的相关信息
+	 * @param client
+	 * @param in
+	 */
 	private void removedClient(Socket client,BufferedReader in){
 		socketRoute.removedSocket(client);
 		try {
@@ -112,6 +136,7 @@ public class SocketListener extends Thread {
 			if (listMap.get(client)!=null&&!listMap.get(client).isClosed())
 				listMap.get(client).close();
 			listMap.remove(client);
+			System.out.print("\n连接数:"+listMap.size()+"\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,3 +1,7 @@
+/**
+ * 此类该版本剔除
+ * 心跳设置类
+ */
 package com.station.system.action;
 
 import java.util.HashMap;

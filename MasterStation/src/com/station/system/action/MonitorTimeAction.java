@@ -1,3 +1,6 @@
+/**
+ * 设置温度上传时间间隔类
+ */
 package com.station.system.action;
 
 import java.util.HashMap;

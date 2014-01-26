@@ -1,3 +1,7 @@
+/**
+ * 此功能该版本未实现
+ * 欠费提醒设置类
+ */
 package com.station.system.action;
 
 import java.util.HashMap;

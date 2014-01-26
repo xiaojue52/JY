@@ -54,6 +54,10 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		this.detectorDAO = detectorDAO;
 	}
 
+	/**
+	 * 每隔半小时取一次数据存入jy_history_chart表，
+	 * 此数据用于“监测单元数据对比”
+	 */
 	@Override
 	public void saveHistoryChartData() {
 		// TODO Auto-generated method stub
@@ -80,6 +84,10 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		
 	}
 
+	/**
+	 * 取每天的最大值、最小值存入jy_history_month_chart表，
+	 * 作为月温度对比数据
+	 */
 	@Override
 	public void saveHistoryMonthChartData() {
 		// TODO Auto-generated method stub
@@ -93,7 +101,7 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		String hql = "from JYDetector detector where tag = 1";
 		List<JYDetector> list = detectorDAO.findJYDetectorByHql(hql);
 		for (int i=0;i<list.size();i++){
-			String hql1 = "from JYHistory history where history.detector.detectorId = '"+list.get(i).getDetectorId()+"' and history.date>=to_date('"+dateStr+" 00:00:00','YYYY-MM-DD HH24:mi:ss') and history.date<=to_date('"+dateStr+" 23:59:59','YYYY-MM-DD HH24:mi:ss') order by history.value";
+			String hql1 = "from JYHistory history where history.detector.detectorId = '"+list.get(i).getDetectorId()+"' and history.date>=to_date('"+dateStr+" 00:00:00','YYYY-MM-DD HH24:mi:ss') and history.date<=to_date('"+dateStr+" 23:59:59','YYYY-MM-DD HH24:mi:ss') and history.value is not null order by history.value";
 			List<JYHistory> historyList = this.historyDAO.findJYHistoryByHql(hql1);
 			if (historyList.size()>0){
 				int length = historyList.size();
@@ -113,6 +121,9 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		}
 	}
 
+	/**
+	 * 监测时间段内温度的最大值和最小值是否超出设定值
+	 */
 	@Override
 	public void saveCheckedTempAlarm() {
 		// TODO Auto-generated method stub
@@ -150,11 +161,12 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 			
 			JYDetector detector = list.get(i);
 			//String text = alarmType.getType().ge
-			String hql = "from JYHistory history where history.detector.detectorId = '"+detector.getDetectorId()+"' and history.date >= TO_DATE('"+startStr+"','YYYY-MM-DD HH24:mi:ss') and history.date <= TO_DATE('"+endStr+"','YYYY-MM-DD HH24:mi:ss') order by history.value";
+			String hql = "from JYHistory history where history.detector.detectorId = '"+detector.getDetectorId()+"' and history.date >= TO_DATE('"+startStr+"','YYYY-MM-DD HH24:mi:ss') and history.date <= TO_DATE('"+endStr+"','YYYY-MM-DD HH24:mi:ss') and history.value is not null order by history.value";
 			List<JYHistory> historyList = this.historyDAO.findJYHistoryByHql(hql);
-			if (historyList.size()>2){
+			if (historyList.size()>=2){
 				Float min = historyList.get(0).getValue();
 				Float max = historyList.get(historyList.size()-1).getValue();
+				
 				if(Math.abs(max-min)>subValue){
 					//TODO
 					alarmText = detector.getName()+":"+subValue+"分钟内温度变化超过设定值（"+value+"℃）<br>";
@@ -186,6 +198,9 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 		}
 	}
 
+	/**
+	 * 删除3个月之前的报警信息
+	 */
 	@Override
 	public void removeCabinetStatusAlarmAtFixedRate() {
 		// TODO Auto-generated method stub

@@ -1,3 +1,6 @@
+/**
+ * 设置报警条件类
+ */
 package com.station.system.action;
 
 import java.util.HashMap;

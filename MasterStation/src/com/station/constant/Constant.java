@@ -1,3 +1,7 @@
+/**
+ * 定义一些相关常量和通用方法
+ */
+
 package com.station.constant;
 
 import java.io.File;
@@ -26,13 +30,6 @@ import org.w3c.dom.Element;
 import com.google.gson.Gson;
 
 public class Constant {
-	public static final String NOCABINET = "-4";
-	public static final String CODEERROR = "-2";
-	public static final String REALTEMPERROR = "-3";
-	public static final String MONITORTIMEERROR = "-5";
-	public static final String DEVICENOTEXIST = "-6";
-	public static final String UNLOGINED = "-7";
-	public static final String OK = "1";
 	public static long HEARTBEATTIME = 1*60*1000;
 	public static final long LOOPCHECKTIME = 10000;
 	public static final String ALARMTYPE1HQL = "from JYConstant key where key.type = 'AlarmType' and key.key = '1000'";
@@ -46,7 +43,10 @@ public class Constant {
 	public static String MESDATE = "";
 	public static String FUNCTIONNUM = "";
 	/**
-	 * @return
+	 * 转换日期
+	 * @param date 
+	 * @param format
+	 * @return 
 	 */
 	public static String getDateStr(Date date,String format) {
 		String str = null;
@@ -55,6 +55,10 @@ public class Constant {
 		return str;
 	}
 
+	/**
+	 * 输出string到页面
+	 * @param dataMap json格式数据
+	 */
 	public static void flush(Map<String,Object> dataMap){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html;charset=utf-8");
@@ -71,6 +75,14 @@ public class Constant {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 更新文件配置信息
+	 * @param path 文件路径
+	 * @param nodeName 节点名称
+	 * @param text 节点内容
+	 * @return 成功true，错误false
+	 */
 	public static boolean updateConfig(String path,String nodeName,String text){
 		File nameXml = new File(path);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -94,11 +106,22 @@ public class Constant {
 		}
 		return true;
 	}
+	/**
+	 * 获取session中存放的string
+	 * @param arg0
+	 * @return
+	 */
 	public static String getSessionStringAttr(String arg0){
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		return (String)session.getAttribute(arg0);
 	}
 	
+	/**
+	 * 设置sqlquery查询参数
+	 * @param arg query
+	 * @param parameters 参数map
+	 * @return
+	 */
 	public static Query setParameters(Query arg,Map<String,Object> parameters){
 		
 		Query query = arg;

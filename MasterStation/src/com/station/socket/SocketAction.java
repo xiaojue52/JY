@@ -1,3 +1,6 @@
+/**
+ * 查看实时数据类
+ */
 package com.station.socket;
 
 import java.util.HashMap;

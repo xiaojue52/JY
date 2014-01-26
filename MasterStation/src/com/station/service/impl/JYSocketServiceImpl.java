@@ -110,10 +110,10 @@ public class JYSocketServiceImpl implements JYSocketService {
 	}
 	public void checkAlarm(List<Float> valueList,List<JYDetector> list,Date date){
 		//return null;
-		float a = valueList.get(0);
-		float b = valueList.get(1);
-		float c = valueList.get(2);
-		float d = valueList.get(3);
+		Float a = valueList.get(0);
+		Float b = valueList.get(1);
+		Float c = valueList.get(2);
+		Float d = valueList.get(3);
 		JYDevice device = list.get(0).getDevice();
 		
 		String hql0 = "from JYAlarm alarm where alarm.device.deviceId = '"+device.getDeviceId()+"' and alarm.isCabinet = '0' and alarm.type = '"+JYAlarm.TERMINALREPEAT+"' and alarm.status = '0' order by alarm.date desc"; 
@@ -123,10 +123,36 @@ public class JYSocketServiceImpl implements JYSocketService {
 		if (listAlarms!=null&&listAlarms.size()>0){
 			preAlarm = listAlarms.get(0);
 		}
+		if(a==null||b==null||c==null||d==null){
+			if (preAlarm!=null&&preAlarm.getType().equals(String.valueOf(JYAlarm.TEMPERROR))){
+				preAlarm.setTimes(preAlarm.getTimes()+1);
+				this.alarmDAO.updateJYAlarm(preAlarm);
+			}
+			else{
+				JYAlarm alarm = new JYAlarm();
+				alarm.setAlarmText("温度无法解析");
+				alarm.setType(String.valueOf(JYAlarm.TEMPERROR));
+				alarm.setTimes(1);
+				alarm.setDate(date);
+				alarm.setIsCabinet("0");
+				alarm.setId(String.valueOf(System.nanoTime()));
+				alarm.setDevice(device);
+				alarm.setStatus("0");
+				this.alarmDAO.saveJYAlarm(alarm);
+				device.setAlarm(alarm);
+				this.deviceDAO.updateJYDevice(device);
+			}
+			return;
+		}
+		
+		
 		String preAlarmText = "";
 		if (preAlarm!=null){
 			preAlarmText = preAlarm.getAlarmText();
 		}
+		
+		
+		
 		JYAlarmTypeCollect collect = device.getCabinet().getAlarmTypeCollect();
 		JYAlarmType type1 = collect.getAlarmType1();
 		JYAlarmType type2 = collect.getAlarmType2();
@@ -157,7 +183,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 		if (alarmText.length()>0){
 			if (device.getAlarm()!=null&&device.getAlarm().getAlarmText().equals(alarmText)&&preAlarmText.equals(alarmText)){
 				preAlarm.setTimes(preAlarm.getTimes()+1);
-				this.alarmDAO.saveJYAlarm(preAlarm);
+				this.alarmDAO.updateJYAlarm(preAlarm);
 				//this.deviceDAO.updateJYDevice(device);
 			}else
 			{

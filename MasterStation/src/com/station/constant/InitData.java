@@ -1,3 +1,6 @@
+/**
+ * 启动服务时候会将初始化数据
+ */
 package com.station.constant;
 
 import java.io.File;
