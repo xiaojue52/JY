@@ -172,27 +172,34 @@ public class SocketHandler {
 		String tempStr = "2100000|" + command[1] + "|1XCR";
 		this.sendCommand(tempStr, client);
 	}
+	
+	
 	/**
-	 * 解析子站读取上传时间命令
+	 * 解析温度上传时间
 	 * @param str
 	 * @param client
 	 * @return
 	 */
-	public void parseMonitorTime(String str,Socket client){
-		// Mes = "3000000|#000000|10XCR";
-		// Ret = "3100000|#000000|0XCR";
+	public void parseMonitorTimeSetting(String str,Socket client){
+		// Mes = "3000000|#000000|XCR";
+		// Ret = "3100000|#000000|10|0XCR";
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 3 && command[0].length() == 7) {
+			//this.storeHeartBertOrder(command[1].substring(0, 5));
 			String cabId = command[1];
-			Map<String, String> order = this.orderMap.get(cabId);
-			if (order!=null){
-				order.put("monitorTimeOK", "1");
-				return;
+			String mTime = this.getMonitorTime(cabId);
+			if (mTime!=null){
+				String queryStr = "3100000|" + cabId + "|"+mTime+"|0XCR";
+				this.sendCommand(queryStr, client);
 			}
+		}	
+		else
+		{
+			String tempStr = "3100000|" + command[1] + "|00|1XCR";
+			this.sendCommand(tempStr, client);
 		}
-		String tempStr = SocketHandler.MONITORTIMEERROR;
-		this.sendCommand(tempStr, client);
 	}
+	
 	/**
 	 * 解析心跳命令，保存收到此次命令的时间，以便监测是否超时
 	 * @param str
@@ -279,6 +286,36 @@ public class SocketHandler {
 			this.sendCommand(tempStr, client);
 		}
 	}
+	
+	/**
+	 * 解析设置上传时间返回命令
+	 * @param str
+	 * @param client
+	 * @return
+	 */
+	public void parseReturnMonitorTimeSetting(String str,Socket client){
+		// Mes = "3200000|#000000|10|XCR";
+		// Ret = "3300000|#000000|0XCR";
+		String command[] = str.split("[|]");
+		String cabId = command[1];
+		if (command != null && command.length == 3 && command[0].length() == 7&&command[2].equals("0XCR")) {	
+			Map<String, String> order = this.orderMap.get(cabId);
+			if (order!=null){
+				order.put("monitorTimeOK", "1");
+				return;
+			}
+		}else{
+			String mTime = this.getMonitorTime(cabId);
+			if (mTime!=null){
+				String queryStr = "3200000|" + cabId + "|"+mTime+"|XCR";
+				this.sendCommand(queryStr, client);
+			}else{
+				String tempStr = SocketHandler.MONITORTIMEERROR;
+				this.sendCommand(tempStr, client);
+			}
+		}
+	}
+	
 	/**
 	 * 发送实时查询温度命令，返回超时的设备id数组
 	 * @param cabIdList 柜体id数组
@@ -341,34 +378,7 @@ public class SocketHandler {
 		}
 	}
 	
-	/**
-	 * 解析温度上传时间
-	 * @param str
-	 * @param client
-	 * @return
-	 */
-	public void parseMonitorTimeSetting(String str,Socket client){
-		// Mes = "3000000|#000000|XCR";
-		// Ret = "3100000|#000000|10|0XCR";
-		String command[] = str.split("[|]");
-		if (command != null && command.length == 3 && command[0].length() == 7) {
-			//this.storeHeartBertOrder(command[1].substring(0, 5));
-			String cabId = command[1];
-			JYCabinet cabinet = this.socketService.getCabinet(cabId);
-			if (cabinet==null)return;
-			String mTime = cabinet.getCabType().getSubValue();
-			if (mTime.length()==1){
-				mTime ="0"+mTime;
-			}
-			String queryStr = "3100000|" + cabId + "|"+mTime+"|0XCR";
-			this.sendCommand(queryStr, client);
-		}	
-		else
-		{
-			String tempStr = "3100000|" + command[1] + "|00|1XCR";
-			this.sendCommand(tempStr, client);
-		}
-	}
+	
 	/**
 	 * 解析温度
 	 * @param cabId
@@ -455,7 +465,7 @@ public class SocketHandler {
 	 */
 	public void removeOrderMap(String cabId) {
 		orderMap.remove(cabId);
-		clientMap.remove(cabId);
+		clientMap.remove(cabId);		
 	}
 	/**
 	 * 监测内存中是否加载了设备，（取决于主站是否添加且启用）
@@ -542,5 +552,19 @@ public class SocketHandler {
 			order.put("isLogined", "0");
 			orderMap.put(cabId, order);
 		}
+	}
+	/**
+	 * 获取柜体上传时间
+	 * @param cabId
+	 * @return
+	 */
+	private String getMonitorTime(String cabId){
+		JYCabinet cabinet = this.socketService.getCabinet(cabId);
+		if (cabinet==null)return null;
+		String mTime = cabinet.getCabType().getSubValue();
+		if (mTime.length()==1){
+			mTime ="0"+mTime;
+		}
+		return mTime;
 	}
 }

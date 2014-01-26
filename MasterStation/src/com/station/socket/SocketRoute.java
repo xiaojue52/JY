@@ -122,9 +122,9 @@ public class SocketRoute {
 		}
 		// Mes = "3000000|#000000|10XCR";
 		// Ret = "3100000|#000000|0XCR";
-		if (orderStr.equals("31")) {// 上传周期
+		if (orderStr.equals("33")) {// 上传周期
 			if (this.socketHandler.isLogined(cabId)){
-				socketHandler.parseMonitorTime(str, client);
+				socketHandler.parseReturnMonitorTimeSetting(str, client);
 				return;
 			}
 			else

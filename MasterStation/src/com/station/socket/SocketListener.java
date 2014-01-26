@@ -73,8 +73,6 @@ public class SocketListener extends Thread {
 						StringBuilder sb = new StringBuilder();
 						int c;
 						while( (c=in.read())!=-1){
-							//ST开始CR结束
-							//以收到时间为准
 							sb.append((char)c);
 							String str = sb.toString();
 							if (str.length()>7&&str.substring(str.length()-2).equals("CR")){
