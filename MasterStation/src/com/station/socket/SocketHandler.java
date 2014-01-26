@@ -114,35 +114,7 @@ public class SocketHandler {
 		else
 			socketService.updateCabinetStatus(cabId);
 	}
-	/**
-	 * 解析实时温度
-	 * @param str
-	 * @param client
-	 * @return
-	 */
-	public void parseRealTempData(String str, Socket client) {
-		// Mes = "1000000|#000000|XCR"
-		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
-		// 此命令中的时间预留，系统以收到数据的时间为准
-		String command[] = str.split("[|]");
-		if (command != null && command.length == 5 && command[0].length() == 7
-				&& command[2].length() == 14) {
-			String cabId = command[1];
-			//String dateStr = command[2];
-			String tempData = command[3];
-			String taskNo = command[0].substring(2,7);
-			List<String> realCabList = this.realCabListMap.get(taskNo);
-			if (realCabList==null){
-				this.sendCommand(SocketHandler.REALTEMPERROR, client);
-				return;
-			}
-			realCabList.add(cabId);
-			String dateStr = Constant.getDateStr(new Date(), "yyyyMMddHHmmss");
-			this.setTempValue(cabId, tempData,dateStr);
-			return;
-		}
-		this.sendCommand(SocketHandler.REALTEMPERROR, client);
-	}
+	
 	/**
 	 * 解析上传温度
 	 * @param str
@@ -377,7 +349,35 @@ public class SocketHandler {
 			}
 		}
 	}
-	
+	/**
+	 * 解析实时温度
+	 * @param str
+	 * @param client
+	 * @return
+	 */
+	public void parseRealTempData(String str, Socket client) {
+		// Mes = "1000000|#000000|XCR"
+		// Ret = "1100000|#000000|20131206124730|0001+1235+0135+1240+0103*0002+2356+1111+0104+1432|0XCR"
+		// 此命令中的时间预留，系统以收到数据的时间为准
+		String command[] = str.split("[|]");
+		if (command != null && command.length == 5 && command[0].length() == 7
+				&& command[2].length() == 14) {
+			String cabId = command[1];
+			//String dateStr = command[2];
+			String tempData = command[3];
+			String taskNo = command[0].substring(2,7);
+			List<String> realCabList = this.realCabListMap.get(taskNo);
+			if (realCabList==null){
+				this.sendCommand(SocketHandler.REALTEMPERROR, client);
+				return;
+			}
+			realCabList.add(cabId);
+			String dateStr = Constant.getDateStr(new Date(), "yyyyMMddHHmmss");
+			this.setTempValue(cabId, tempData,dateStr);
+			return;
+		}
+		this.sendCommand(SocketHandler.REALTEMPERROR, client);
+	}
 	
 	/**
 	 * 解析温度

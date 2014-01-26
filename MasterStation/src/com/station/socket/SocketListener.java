@@ -88,7 +88,7 @@ public class SocketListener extends Thread {
 						break;
 					}
 				} catch (IOException ex) {
-					// ex.printStackTrace();
+					//ex.printStackTrace();
 					removedClient(client,in);
 				} 
 			}
