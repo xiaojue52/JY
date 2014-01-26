@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.servlet.ServletContextEvent;
 
 public class SocketListener extends Thread {
+	private SocketLog socketLog;
 	private ServerSocket server = null;
 	private final int port = 10000;
 	private SocketRoute socketRoute;
@@ -26,6 +27,7 @@ public class SocketListener extends Thread {
 	 */
 	public SocketListener(ServletContextEvent sce) {
 		socketRoute = new SocketRoute(sce);
+		socketLog = new SocketLog(sce);
 		try {
 			server = new ServerSocket(port);
 		} catch (IOException e) {
@@ -78,6 +80,7 @@ public class SocketListener extends Thread {
 							if (str.length()>7&&str.substring(str.length()-2).equals("CR")){
 								socketRoute.CheckString(str,client);
 								sb.setLength(0);
+								socketLog.saveLog(str);
 							}
 							System.out.print((char)c);
 						}
