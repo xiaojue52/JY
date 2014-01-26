@@ -46,7 +46,7 @@ public class DayChartAction extends ActionSupport {
 
 	class ChartData{
 		public String name;
-		public List<List<Object>> data;
+		public List<List<Object>> data = new ArrayList<List<Object>>();
 	}
 	public void listHistoryAction() throws Exception {
 		List<ChartData> listValue = new ArrayList<ChartData>();

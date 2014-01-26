@@ -1,10 +1,12 @@
+/**
+ * 主要用于html中调用，获取相关数据
+ */
 package com.station.data;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
 import com.station.po.JYConstant;
 import com.station.po.JYUser;
@@ -13,8 +15,7 @@ import com.station.service.JYConstantService;
 import com.station.service.JYUserGroupService;
 import com.station.service.JYUserService;
 
-@SuppressWarnings("serial")
-public class DataList extends ActionSupport {
+public class DataList{
 
 	private JYUserService userService;
 	private JYConstantService constantService;

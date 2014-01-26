@@ -1,3 +1,6 @@
+/**
+ * 数据对比中，选择监测单元对应的弹出层action
+ */
 package com.station.datahandler.chart.datapage.action;
 
 import java.util.ArrayList;

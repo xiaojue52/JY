@@ -1,3 +1,6 @@
+/**
+ * 设备状态action
+ */
 package com.station.monitor.action;
 
 

@@ -1,3 +1,6 @@
+/**
+ * 监控界面中，报警历史的action
+ */
 package com.station.monitor.action;
 
 import java.util.ArrayList;

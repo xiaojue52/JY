@@ -66,7 +66,7 @@ public class MonthChartAction extends ActionSupport {
 
 	class ChartData{
 		public String name;
-		public List<List<Object>> data;
+		public List<List<Object>> data = new ArrayList<List<Object>>();
 	}
 	@SuppressWarnings("deprecation")
 	private ChartData getChartData(String arg0,int arg1,int arg2){

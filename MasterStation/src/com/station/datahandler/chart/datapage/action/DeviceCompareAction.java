@@ -1,3 +1,6 @@
+/**
+ * 数据对比中，日对比、月对比对应的弹出层action
+ */
 package com.station.datahandler.chart.datapage.action;
 
 import java.util.ArrayList;

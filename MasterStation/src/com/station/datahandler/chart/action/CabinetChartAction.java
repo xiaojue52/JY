@@ -38,9 +38,14 @@ public class CabinetChartAction extends ActionSupport {
 		this.queryStartDate = queryStartDate;
 	}
 
+	/**
+	 * 图表数据
+	 * @author Administrator
+	 *
+	 */
 	class ChartData{
-		public String name;
-		public List<List<Object>> data = new ArrayList<List<Object>>();
+		public String name; //图表所显示的对象名称
+		public List<List<Object>> data = new ArrayList<List<Object>>(); //构成图表的数据
 	}
 	public void listAlarmAction() throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");

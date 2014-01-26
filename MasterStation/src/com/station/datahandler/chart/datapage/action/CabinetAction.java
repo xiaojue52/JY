@@ -1,3 +1,6 @@
+/**
+ * 数据对比中，选择柜体的弹出层对应的action
+ */
 package com.station.datahandler.chart.datapage.action;
 
 import java.util.ArrayList;

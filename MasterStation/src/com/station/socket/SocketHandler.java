@@ -1,6 +1,11 @@
 /**
  * 处理业务相关命令,
  * 心跳数据目前保留,但不处理
+ * 
+ * 内存中永远存放着启用的柜体信息（对应变量orderMap），每个终端连接上来都会到内存中查看是否存在该终端对应的柜体，
+ * 如果存在，就会在内存中保留连接信息（对应变量clientMap）
+ * 
+ * 当在主站中删除或者不启用柜体，相应的内存中会删除柜体信息和连接信息
  */
 package com.station.socket;
 
@@ -38,7 +43,7 @@ public class SocketHandler {
 	private JYSocketService socketService;
 	private Map<String,List<String>> realCabListMap = new HashMap<String,List<String>>();
 	private Map<String, Socket> clientMap = new HashMap<String, Socket>();//当前连接的设备
-	private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();//主站注册的设备
+	private Map<String, Map<String, String>> orderMap = new HashMap<String, Map<String, String>>();//主站启用的设备
 	private TimerEvent halfHourEvent;
 	private LoopCheckThread checkThread;
 	/**
