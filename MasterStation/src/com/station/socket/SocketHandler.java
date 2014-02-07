@@ -490,7 +490,8 @@ public class SocketHandler {
 				Socket temp = (Socket) mEntry.getValue();
 				String key = (String) mEntry.getKey();
 				if (temp == socket) {
-					clientMap.remove(key);
+					iter.remove();
+					//clientMap.remove(key);
 					this.Logout(key);
 				}
 			}
