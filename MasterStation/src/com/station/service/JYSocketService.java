@@ -14,7 +14,7 @@ public interface JYSocketService {
 	 * @param map Integer: 间隔序号 List: 监测端温度
 	 * @param createDate 时间字符串
 	 */
-	public void saveDate(String cabId,Map<Integer,List<Float>> map,String createDate);
+	public void saveData(String cabId,Map<Integer,List<Float>> map,String createDate);
 	//public void saveAlarmDate(String cabNumber,Map<Integer,List<Float>> map,String createDate);
 	/**
 	 * 清除报警，设备状态改为在线
@@ -28,7 +28,7 @@ public interface JYSocketService {
 	 * @param date 报警日期
 	 * @param content 报警内容
 	 */
-	public void saveAlarm(String cabId,int type,Date date,String content);
+	public void saveAlarm(String cabId,int type,Date date,String content,String condition);
 	/**
 	 * 获取柜体
 	 * @param cabId 柜体id

@@ -210,6 +210,9 @@
 		<property name="constantDAO">
 			<ref bean="jyConstantDAO" />
 		</property>
+		<property name="cabinetService">
+			<ref bean="jyCabinetService" />
+		</property>
 	</bean>
 	<bean id="jyAlarmTypeService" class="com.station.service.impl.JYAlarmTypeServiceImpl">
 		<property name="alarmTypeDAO">
@@ -524,6 +527,11 @@
 	<bean id="UserGroupAction" scope="request" class="com.station.group.action.UserGroupAction">
 		<property name="userGroupService">
 			<ref bean="jyUserGroupService" />
+		</property>
+	</bean>
+	<bean id="CabTypeAction" scope="request" class="com.station.system.action.CabTypeAction">
+		<property name="constantService">
+			<ref bean="jyConstantService" />
 		</property>
 	</bean>
 	

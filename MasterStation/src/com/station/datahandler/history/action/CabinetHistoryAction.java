@@ -1,15 +1,22 @@
 package com.station.datahandler.history.action;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jxl.write.WriteException;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
 import com.station.constant.LoginStatus;
 import com.station.data.DataList;
 import com.station.pagebean.PageBean;
+import com.station.po.JYCabinetHistory;
 import com.station.po.JYConstant;
 import com.station.po.JYUserGroup;
 import com.station.service.JYCabinetHistoryService;
@@ -163,6 +170,7 @@ public class CabinetHistoryAction extends ActionSupport {
 		//final String hql = "from JYCabinetHistory cabinetHistory";
 		//final String hql = "select t.collect_time,wm_concat(t.detector_id), wm_concat(d.device_id), wm_concat(de.cab_id)from jy_history t, jy_detector d,jy_device de,jy_cabinet c where d.detector_id = t.detector_id and de.cab_id = c.cab_id and d.device_id = de.device_id group by  t.collect_time";
 		this.pageBean = cabinetHistoryService.getPerPage(pageList, page, hql,parameters);
+		this.createExcel(this.pageBean.getList());
 		return SUCCESS;
 	}
 
@@ -198,6 +206,19 @@ public class CabinetHistoryAction extends ActionSupport {
 				+ ",'YYYY-MM-DD HH24:mi:ss') and "
 				+ "cabinetHistory.cabinet.userGroup.groupName like :queryUserGroup "+orderStr;
 		return hql;
+	}
+	
+	private void createExcel(List<JYCabinetHistory> list){
+		String path = ServletActionContext.getServletContext().getRealPath("/")+"files/history.xls";
+		try {
+			Constant.createExcel(list,new File(path));
+		} catch (WriteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

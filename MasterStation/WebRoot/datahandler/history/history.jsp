@@ -120,6 +120,10 @@
 									<span><input class="toolbarButton" type="submit"
 											value="查询"/> </span>
 								</td>
+								<td>
+									<span><input type="button" class="toolbarButton"
+											value="导出excel" onclick="javascrtpt:window.location.href='files/history.xls'"/></span>
+								</td>
 							</tr>
 				</table>			
 		</div>

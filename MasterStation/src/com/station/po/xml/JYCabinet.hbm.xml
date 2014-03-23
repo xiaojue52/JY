@@ -4,11 +4,11 @@
 
 <hibernate-mapping>
  <class name="com.station.po.JYCabinet" table="JY_Cabinet">
-	<id name="cabId" type="string" column="cab_id" length="10">
+	<id name="cabId" type="string" column="cab_id" length="12">
    	<generator class="com.station.generator.JYPrimaryKeyGenerator">
    			<param name="table">JY_Key_Generator</param>
    			<param name="column">cab_Id</param>
-   			<param name="prefix">Cab</param>
+   			<param name="prefix">#</param>
    	</generator>
  	 </id>
   <many-to-one name="line"

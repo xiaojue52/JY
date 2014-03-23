@@ -46,6 +46,4 @@ public class JYConstant {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
-
 }

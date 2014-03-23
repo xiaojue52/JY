@@ -157,7 +157,7 @@ public class CabinetAction extends ActionSupport{
 		hql = hql + "cabinet.line.name like :queryLine and "
 				+ "cabinet.cabNumber like :queryNumber and "
 				+ "cabinet.cabType.value like :queryType and " 
-				+ "cabinet.userGroup.groupName like :queryUserGroup and tag = 1 order by to_number(replace(cabinet.cabId,'Cab','')) desc";
+				+ "cabinet.userGroup.groupName like :queryUserGroup and tag = 1 order by to_number(cabinet.cabId) desc";
 		return hql;
 	}
 }

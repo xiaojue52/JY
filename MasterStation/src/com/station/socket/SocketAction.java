@@ -28,13 +28,14 @@ public class SocketAction extends ActionSupport {
 		//System.out.print("getTempDataAction");
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		String[] cabinetList = this.cabinetListStr.split(",");
-		if (cabinetList.length==0||cabinetList[0].length()==0)dataMap.put("data", 0);
+		/*if (cabinetList.length==0||cabinetList[0].length()==0)dataMap.put("data", 0);
 		List<String> list =socketRoute.sendCommandToGetTempWithCabIdList(cabinetList);
 		
 		if(list==null){
 			dataMap.put("data", 1);
 		}else
-			dataMap.put("data", list);
+			dataMap.put("data", list);*/
+		dataMap.put("data", 1);
 		Constant.flush(dataMap);
 	}
 }

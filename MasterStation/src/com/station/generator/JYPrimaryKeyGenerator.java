@@ -26,7 +26,17 @@ public class JYPrimaryKeyGenerator extends TableGenerator {
 	public synchronized Serializable generate(SessionImplementor session,
 			Object obj) throws HibernateException {
 		int val = ((Integer) super.generate(session, obj)).intValue();
-		return prefix + val;
+		if (prefix.equals("#")){
+			String temp = String.valueOf(val);			
+			return this.getPre(11-temp.length())+temp;
+		}else
+			return prefix + val;
 	}
-
+	private String getPre(int arg){
+		String prefix = "";
+		for(int i=0;i<arg;i++){
+			prefix += "0";
+		}
+		return prefix;
+	}
 }

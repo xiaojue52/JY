@@ -58,7 +58,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 
 	//private JYHistory history;
 	@Override
-	public void saveDate(String cabId,Map<Integer, List<Float>> map,String createDate) {
+	public void saveData(String cabId,Map<Integer, List<Float>> map,String createDate) {
 		// TODO Auto-generated method stub
 		JYCabinetHistory cabinetHistory = new JYCabinetHistory();
 		String h = "from JYDetector detector where detector.device.cabinet.cabId='" +
@@ -131,6 +131,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 			else{
 				JYAlarm alarm = new JYAlarm();
 				alarm.setAlarmText("温度无法解析");
+				alarm.setCondition("错误温度数据");
 				alarm.setType(String.valueOf(JYAlarm.TEMPERROR));
 				alarm.setTimes(1);
 				alarm.setDate(date);
@@ -160,6 +161,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 		JYAlarm alarm = new JYAlarm();
 		alarm.setDate(date);
 		String alarmText = "";
+		String condition = "";
 		if (type1.getEnable()==1){
 			String temp = "";
 			for (int i=0;i<3;i++){
@@ -167,17 +169,21 @@ public class JYSocketServiceImpl implements JYSocketService {
 					temp = temp + list.get(i).getName();
 				}
 			}
-			if (temp.length()>0)
+			if (temp.length()>0){
 				alarmText = temp+"温度高于设定值("+type1.getValue()+"℃)<br>";
+				condition = "T1="+type1.getValue()+"℃<br>";
+			}
 		}
 		if (type2.getEnable()==1){
 			if (Math.abs(a-b)>type2.getValue()||Math.abs(a-c)>type2.getValue()||Math.abs(b-c)>type3.getValue()){
 				alarmText = alarmText + "三相之间温差超出设定值("+type2.getValue()+"℃)<br>";
+				condition += "T2="+type2.getValue()+"℃<br>";
 			}
 		}
 		if (type3.getEnable()==1){
 			if (Math.abs(a-d)>type3.getValue()||Math.abs(b-d)>type3.getValue()||Math.abs(c-d)>type3.getValue()){
 				alarmText = alarmText + "三相与环境温差超出设定值("+type3.getValue()+"℃)";
+				condition += "T3="+type3.getValue()+"℃<br>";
 			}
 		}
 		if (alarmText.length()>0){
@@ -187,6 +193,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 				//this.deviceDAO.updateJYDevice(device);
 			}else
 			{
+				alarm.setCondition(condition);
 				alarm.setTimes(1);
 				alarm.setIsCabinet("0");
 				alarm.setDevice(device);
@@ -223,7 +230,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 	 */
 	@Override
 	public void saveAlarm(String cabId, int type, Date date,
-			String content) {
+			String content,String condition) {
 		// TODO Auto-generated method stub
 		
 		JYAlarm alarm = new JYAlarm();
@@ -245,6 +252,7 @@ public class JYSocketServiceImpl implements JYSocketService {
 				}
 				
 			}{
+				alarm.setCondition(condition);
 				alarm.setTimes(1);
 				alarm.setAlarmText(content);
 				alarm.setDate(date);

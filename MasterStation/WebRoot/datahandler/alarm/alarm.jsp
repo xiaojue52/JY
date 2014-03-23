@@ -155,6 +155,16 @@
 									<span><input class="toolbarButton" type="submit"
 											value="查询"/> </span>
 								</td>
+								<s:if test="#session.userLevel!=\"user\"">
+								<td>
+									<span><input class="toolbarButton" type="button"
+											value="批量确认" onclick="Alarm.updateMultiple.updateMultipleAlarm();"/> </span>
+								</td>
+								</s:if>
+								<td>
+									<span><input class="toolbarButton" type="button"
+											value="导出excel" onclick="javascrtpt:window.location.href='files/alarm.xls'"/> </span>
+								</td>
 							</tr>
 				</table>			
 		</div>
@@ -168,36 +178,45 @@
 				<div style="background-color:#f5f5f5;overflow: hidden;">
 	  	<table id="table_th" class="gridtable">
 	  	<tr>
-							<th width="10%">
+	  						<th width="5%">
+	  							<span><input type="checkbox" id="select_all_alarm" onclick="Alarm.selectAll();"/>序号</span>
+	  						</th>
+							<th width="8%">
 								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.date')">报警日期</span>
 							</th>
-							<th width="10%">
+							<th width="8%">
 								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.date')">报警时间</span>
 							</th>
 							<th width="10%">
 								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.device.cabinet.cabNumber')">报警设备</span>
 							</th>
-							<th width="20%">
+							<th width="15%">
 								<span>报警内容</span>
+							</th>
+							<th width="7%">
+								<span>报警类型</span>
+							</th>
+							<th width="7%">
+								<span>依据</span>
 							</th>
 							<th width="5%">
 								<span>次数</span>
 							</th>
-							<th width="10%">
+							<th width="7%">
 								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.device.cabinet.userGroup.groupName')">管理班组</span>
 							</th>
-							<th width="10%">
+							<th width="7%">
 								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.status')">状态</span>
 							</th>
 							<th width="5%">
 								<span class="comSpan" onclick="Control.orderByColumn('listAlarm.action','alarm.repairUser')">确认者</span>
 							</th>
 
-							<th width="10%">
+							<th width="8%">
 								<span>维修备注</span>
 							</th>
 							<s:if test="#session.userLevel!=\"user\"">
-							<th width="10%">
+							<th width="8%">
 								<span>操作</span>
 							</th>
 							</s:if>
@@ -217,10 +236,17 @@
 					<tr onmouseout="javascript:this.bgColor='#ffffff'"
  onmouseover="javascript:this.bgColor='#f5fafe'">
 				</s:else>
-								<td width="10%">
+								<td width="5%">
+								<s:if test="status==0">
+										<input class="history_checkbox" type="checkbox" value="${alarm.id}"/>
+									</s:if>
+						
+						<s:property value="#status.count+(pageList*(page-1))"/>
+					</td>
+								<td width="8%">
 									<s:date name="#alarm.date" format="yyyy-MM-dd" />
 								</td>
-								<td width="10%">
+								<td width="8%">
 									<s:date name="#alarm.date" format="HH:mm:ss" />
 								</td>
 								<td width="10%">
@@ -237,18 +263,29 @@
 									</s:else>
 								</td>
 
-								<td width="20%">
+								<td width="15%">
 									<s:property escape="false" value="alarmText"/>
+								</td>
+								<td width="7%">
+									<s:if test="#alarm.isCabinet == 0">
+										温度异常
+									</s:if>
+									<s:else>
+										设备故障
+									</s:else>
+								</td>
+								<td width="7%">
+									<s:property escape="false" value="condition"/>
 								</td>
 								<td width="5%">
 									<s:property value="times"/>
 								</td>
-								<td width="10%">
+								<td width="7%">
 										<s:if test="#alarm.device !=null">
 												<s:property value="#alarm.device.cabinet.userGroup.groupName" />
 										</s:if>
 								</td>
-								<td width="10%">
+								<td width="7%">
 									<s:if test="status==0">
 										未维修
 									</s:if>
@@ -260,12 +297,12 @@
 									<s:property value="repairUser" />
 
 								</td>
-								<td width="10%">
+								<td width="8%">
 									<s:property value="note" />
 
 								</td>
 								<s:if test="#session.userLevel!=\"user\"">
-								<td width="10%">
+								<td width="8%">
 								
 								
 								<s:if test="status==0">

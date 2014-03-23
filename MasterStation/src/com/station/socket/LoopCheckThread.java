@@ -102,15 +102,16 @@ public class LoopCheckThread extends Thread {
 			throws ParseException {
 		if (date == null || this.socketService.getCabinet(cabId) == null)
 			return;
-		long mTime = (Long.valueOf(this.socketService.getCabinet(cabId)
-				.getCabType().getSubValue()) + 1) * 60 * 1000;
+		int subValue = Integer.valueOf(this.socketService.getCabinet(cabId)
+				.getCabType().getSubValue()) + 1;
+		long mTime = subValue * 60 * 1000;
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date d1 = df.parse(date);
 		Date d2 = new Date();
 		long diff = d2.getTime() - d1.getTime();
 		if (diff >= mTime) {
 			this.socketService
-					.saveAlarm(cabId, JYAlarm.DEVICEOFFLINE, d2, "离线");
+					.saveAlarm(cabId, JYAlarm.DEVICEOFFLINE, d2, "离线",subValue+"分钟内未收到数据");
 		}
 	}
 

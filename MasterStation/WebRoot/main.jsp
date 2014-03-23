@@ -66,6 +66,8 @@
 		<div id="system_div" class="panelDiv">
 					<button  onclick="setFrameSrc('createTree.action','设备管理');" class="itemDiv">设备管理</button>
 				<button id="sys_config"  onclick="setFrameSrc('showAlarmType.action','系统参数设置');" class="itemDiv">系统参数设置</button>
+				
+				<button onclick="setFrameSrc('listCabTypes.action','柜体类型管理');" class="itemDiv">柜体类型管理</button>
 		</div>
 		<div id="history_div" class="panelDiv">
 				<button  onclick="setFrameSrc('listAlarm.action','报警记录');" class="itemDiv">报警记录</button>

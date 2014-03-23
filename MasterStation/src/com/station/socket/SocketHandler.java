@@ -84,7 +84,7 @@ public class SocketHandler {
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 4 && command[0].length() == 7) {
 			if (command[0].equals("0000000")) {
-				String cabId = command[1];
+				String cabId = command[1].substring(1);
 				String phoneNumber = command[2];
 
 				this.init(cabId, client, phoneNumber);
@@ -123,7 +123,7 @@ public class SocketHandler {
 			// 出现重复的终端
 			this.socketService.saveAlarm(cabId, JYAlarm.TERMINALREPEAT,
 					new Date(), "终端重复（号码：" + prePhoneNumber + "：" + phoneNumber
-							+ "）");
+							+ "）","号码重复");
 		} else
 			socketService.updateCabinetStatus(cabId);
 	}
@@ -143,7 +143,7 @@ public class SocketHandler {
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 5 && command[0].length() == 7
 				&& command[2].length() == 14) {
-			String cabId = command[1];
+			String cabId = command[1].substring(1);
 			// String dateStr = command[2];
 			Map<String, String> order = orderMap.get(cabId);
 			String dateStr = Constant.getDateStr(new Date(), "yyyyMMddHHmmss");
@@ -153,15 +153,33 @@ public class SocketHandler {
 			}
 			String tempData = command[3];
 			this.setTempValue(cabId, tempData, dateStr);
-			String tempStr = "2100000|" + command[1] + "|0XCR";
+			String mTime = this.getMonitorTime(cabId);
+			String tempStr = "2100000|" + command[1] +"|"+Constant.getDateStr(new Date(), "yyyyMMdd+HHmm") +"|T0"+"|C"+mTime+"|A70"+"|XCR";
 
 			this.sendCommand(tempStr, client);
 			return;
 		}
-		String tempStr = "2100000|" + command[1] + "|1XCR";
+		String tempStr = "2100000|" + command[1] +"|"+Constant.getDateStr(new Date(), "yyyyMMdd+HHmm") +"|T1"+"|CNU"+"|ANU"+"|XCR";
 		this.sendCommand(tempStr, client);
 	}
 
+	public void parseSetting(String str, Socket client){
+		String command[] = str.split("[|]");
+		if(command != null && command.length == 5 && command[0].length() == 7){
+			String cabId = command[1].substring(1);
+			String qr = command[4].substring(0,1);
+			if (qr.equals("0"))return;
+			else{
+				String mTime = this.getMonitorTime(cabId);
+				String tempStr = "2100000|" + command[1] +"|"+Constant.getDateStr(new Date(), "yyyyMMdd+HHmm") +"|T0"+"|C"+mTime+"|A70"+"|XCR";
+				this.sendCommand(tempStr, client);
+			}
+		}
+		else{
+			String tempStr = SocketHandler.CODEERROR;
+			this.sendCommand(tempStr, client);
+		}
+	}
 	/**
 	 * 解析温度上传时间
 	 * 
@@ -175,10 +193,10 @@ public class SocketHandler {
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 3 && command[0].length() == 7) {
 			// this.storeHeartBertOrder(command[1].substring(0, 5));
-			String cabId = command[1];
+			String cabId = command[1].substring(1);
 			String mTime = this.getMonitorTime(cabId);
 			if (mTime != null) {
-				String queryStr = "3100000|" + cabId + "|" + mTime + "|0XCR";
+				String queryStr = "3100000|" + command[1] + "|" + mTime + "|0XCR";
 				this.sendCommand(queryStr, client);
 			}
 		} else {
@@ -219,10 +237,10 @@ public class SocketHandler {
 		if (command != null && command.length == 3 && command[0].length() == 7) {
 			// this.storeHeartBertOrder(command[1].substring(0, 5));
 			String tempStr = "5100000|" + command[1] + "|0XCR";
-			String cabId = command[1];
+			String cabId = command[1].substring(1);
 			Date date = new Date();
 			this.socketService
-					.saveAlarm(cabId, JYAlarm.DEVICEREEOR, date, "故障");
+					.saveAlarm(cabId, JYAlarm.DEVICEREEOR, date, "故障","故障");
 			this.sendCommand(tempStr, client);
 			return;
 		}
@@ -271,7 +289,7 @@ public class SocketHandler {
 					continue;
 				order.put("monitorTimeOK", "0");
 
-				String tempStr = "3200000|" + cabId + "|" + mTime + "|XCR";
+				String tempStr = "3200000|#" + cabId + "|" + mTime + "|XCR";
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
@@ -294,7 +312,7 @@ public class SocketHandler {
 		// Mes = "3200000|#000000|10|XCR";
 		// Ret = "3300000|#000000|0XCR";
 		String command[] = str.split("[|]");
-		String cabId = command[1];
+		String cabId = command[1].substring(1);
 		if (command != null && command.length == 3 && command[0].length() == 7
 				&& command[2].equals("0XCR")) {
 			Map<String, String> order = this.orderMap.get(cabId);
@@ -305,7 +323,7 @@ public class SocketHandler {
 		} else {
 			String mTime = this.getMonitorTime(cabId);
 			if (mTime != null) {
-				String queryStr = "3200000|" + cabId + "|" + mTime + "|XCR";
+				String queryStr = "3200000|#" + cabId + "|" + mTime + "|XCR";
 				this.sendCommand(queryStr, client);
 			} else {
 				String tempStr = SocketHandler.MONITORTIMEERROR;
@@ -338,7 +356,7 @@ public class SocketHandler {
 		for (int i = 0; i < list.size(); i++) {
 			String cabId = list.get(i);
 			Socket client = clientMap.get(cabId);
-			String queryStr = "10" + taskNo + "|" + cabId + "|XCR";
+			String queryStr = "10" + taskNo + "|#" + cabId + "|XCR";
 			this.sendCommand(queryStr, client);
 		}
 		int delay = 0;
@@ -364,7 +382,7 @@ public class SocketHandler {
 					for (int i = 0; i < list.size(); i++) {
 						// Date date = new Date();
 						this.socketService.saveAlarm(list.get(i),
-								JYAlarm.DEVICEOFFLINE, date, "离线");
+								JYAlarm.DEVICEOFFLINE, date, "离线","离线");
 
 					}
 					realCabListMap.remove(taskNo);
@@ -393,7 +411,7 @@ public class SocketHandler {
 		String command[] = str.split("[|]");
 		if (command != null && command.length == 5 && command[0].length() == 7
 				&& command[2].length() == 14) {
-			String cabId = command[1];
+			String cabId = command[1].substring(1);
 			// String dateStr = command[2];
 			String tempData = command[3];
 			String taskNo = command[0].substring(2, 7);
@@ -470,7 +488,7 @@ public class SocketHandler {
 				}
 			}
 
-			socketService.saveDate(cabId, map, dateStr);
+			socketService.saveData(cabId, map, dateStr);
 			this.socketService.updateCabinetStatus(cabId);
 		}
 	}
@@ -551,6 +569,7 @@ public class SocketHandler {
 			out = new PrintWriter(client.getOutputStream());
 			out.print(str);
 			out.flush();
+			System.out.println("\nsend:"+str);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

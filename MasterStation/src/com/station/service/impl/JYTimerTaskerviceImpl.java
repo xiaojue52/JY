@@ -139,6 +139,7 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 	}
 	private void figureTemp(List<JYDetector> list){
 		String alarmText = "";
+		String condition = "";
 		if(list==null||list.size()==0)return;
 		
 		JYAlarmType alarmType = list.get(0).getDevice().getCabinet().getAlarmTypeCollect().getAlarmType4();
@@ -170,12 +171,12 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 				if(Math.abs(max-min)>subValue){
 					//TODO
 					alarmText = detector.getName()+":"+subValue+"分钟内温度变化超过设定值（"+value+"℃）<br>";
-					//alarm.setAlarmText(subValue+"分钟内温度超过设定值（"+value+"℃）!");
+					//alarm.setAlarmText(subValue+"分钟内温度超过设定值（"+value+"℃）!");	
 				}
 			}
 		}
 		if(alarmText.length()==0)return;
-		
+		condition = "T4="+subValue+"<br>T5="+value+"℃<br>";
 		String hql = "from JYAlarm alarm where alarm.type = '"+JYAlarm.TEMPCHANGTOFAST+"' and alarm.status = '0' and alarm.isCabinet = '0' and alarm.device.deviceId = '"+device.getDeviceId()+"' order by alarm.date desc";
 		List<JYAlarm> alarmList = this.alarmDAO.findJYAlarmByHql(hql);
 		if (alarmList.size()>0&&alarmList.get(0).getAlarmText().equals(alarmText)&&device.getAlarm().getAlarmText().equals(alarmText)){
@@ -191,6 +192,7 @@ public class JYTimerTaskerviceImpl implements JYTimerTaskService {
 			alarm.setTimes(1);
 			alarm.setType(String.valueOf(JYAlarm.TEMPCHANGTOFAST));
 			alarm.setAlarmText(alarmText);
+			alarm.setCondition(condition);
 			alarm.setId(String.valueOf(System.nanoTime()));
 			this.alarmDAO.saveJYAlarm(alarm);
 			device.setAlarm(alarm);

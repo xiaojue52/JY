@@ -181,7 +181,7 @@ public class MainAction extends ActionSupport {
 	public String createSql(){
 		String orderStr = "";
 		if (orderColumn.equals("cabinet.cabId")){
-			orderStr = "ORDER BY to_number(replace(cabinet.cabId,'Cab','')) DESC";
+			orderStr = "ORDER BY to_number(cabinet.cabId) DESC";
 		}
 		else
 			orderStr = "ORDER BY "+orderColumn;

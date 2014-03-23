@@ -65,6 +65,8 @@
   <action name="updateAlarm" class="AlarmAction" method="updateAlarmAction">
    <result name="success" type="redirect">/listAlarm.action</result>
   </action>
+  <action name="updateMultipleAlarm" class="AlarmAction" method="updateMultipleAlarmAction">
+      </action>
 </package>
 
 <package name="History" extends="abstract_struts" namespace="/">
@@ -189,6 +191,24 @@
  		<result name="success">/usergroup/group_list.jsp</result>
  	</action>
  	<action name="showUserGroup" class="UserGroupAction" method="showUserGroupAction"> 
+ 	</action>
+</package>
+
+<package name="CabType" extends="abstract_struts" namespace="/"> 
+	<action name="listCabTypes" class="CabTypeAction" method="listCabTypesAction"> 
+		<result name="success">/system/cab_type.jsp</result>
+ 	</action>
+ 	<action name="addCabType" class="CabTypeAction" method="addCabTypeAction"> 
+		<result name="success" type="redirect">listCabTypes.action</result>
+ 	</action>
+ 	<action name="showCabType" class="CabTypeAction" method="showCabTypeAction"> 
+ 	</action>
+ 	<action name="updateCabType" class="CabTypeAction" method="updateCabTypeAction"> 
+ 	    <result name="success" type="redirect">listCabTypes.action</result>
+ 	</action>
+ 	<action name="deleteCabType" class="CabTypeAction" method="deleteCabTypeAction"> 
+ 	    <result name="success" type="redirect">listCabTypes.action</result>
+ 	    <result name="error" type="redirect">listCabTypes.action?code=-1</result>
  	</action>
 </package>
 <!--include file="struts-jfreechart.xml"></include-->

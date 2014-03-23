@@ -8,6 +8,7 @@
    	<generator class="assigned" />
  	 </id>
   <property name="alarmText" type="string" column="alarm_Text" length="400"/>
+  <property name="condition" type="string" column="condition" length="400"/>
   <property name="note" type="string" column="note" length="400"/>
   <property name="repairUser" type="string" column="repair_User" length="20"/>
   <property name="status" type="string" column="status" length="2"/>

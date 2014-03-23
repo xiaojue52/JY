@@ -48,7 +48,7 @@ public class TreeService {
 		if (LoginStatus.checkUserAccess()==2){
 			temp = "(cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or cabinet.userGroup.groupName = '--') and ";
 		}
-		String hql = "from JYCabinet cabinet where "+temp+" cabinet.line.name like '%"+queryLine+"%' and cabinet.cabType.value like '%"+queryType+"%' and cabinet.cabNumber like '%"+queryNumber+"%' and cabinet.userGroup.groupName like '%"+queryUserGroup+"%' and tag = 1 order by to_number(replace(cabinet.cabId,'Cab','')) desc";
+		String hql = "from JYCabinet cabinet where "+temp+" cabinet.line.name like '%"+queryLine+"%' and cabinet.cabType.value like '%"+queryType+"%' and cabinet.cabNumber like '%"+queryNumber+"%' and cabinet.userGroup.groupName like '%"+queryUserGroup+"%' and tag = 1 order by to_number(cabinet.cabId) desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
 		
 
@@ -98,7 +98,7 @@ public class TreeService {
 		if (LoginStatus.checkUserAccess()==2){
 			temp = "(cabinet.userGroup.groupName = '"+Constant.getSessionStringAttr("userGroup")+"' or cabinet.userGroup.groupName = '--') and ";
 		}
-		String hql = "from JYCabinet cabinet where "+temp+" cabinet.line.lineId = '"+lineId+"' and tag = 1 order by to_number(replace(cabinet.cabId,'Cab','')) desc";
+		String hql = "from JYCabinet cabinet where "+temp+" cabinet.line.lineId = '"+lineId+"' and tag = 1 order by to_number(cabinet.cabId) desc";
 		List<JYCabinet> list = cabinetService.findJYCabinetByHql(hql);
 		String jsonString = null;
 		for (int i=0;i<list.size();i++){

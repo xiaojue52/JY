@@ -58,7 +58,7 @@ public class SocketRoute {
 	 */
 	public void CheckString(String str, Socket client) {
 		// Mes = "0101CR";
-		if (str.equals("0101CR")){
+		if (str.equals("010101CR")){
 			socketDTUHandle.parseDTUHeart();
 			return;
 		}
@@ -73,7 +73,7 @@ public class SocketRoute {
 		String command[] = str.split("[|]");
 		String cabId;
 		if(command.length>=2){
-			cabId = command[1];
+			cabId = command[1].substring(1);
 		}
 		else{
 			String tempStr = SocketHandler.CODEERROR;
@@ -112,6 +112,18 @@ public class SocketRoute {
 		if (orderStr.equals("20")) {// 温度
 			if (this.socketHandler.isLogined(cabId)){
 				socketHandler.parseTempData(str, client);
+				return;
+			}
+			else
+			{
+				this.socketHandler.sendCommand(SocketHandler.UNLOGINED, client);
+				return;
+			}
+		}
+		
+		if (orderStr.equals("22")){
+			if (this.socketHandler.isLogined(cabId)){
+				socketHandler.parseSetting(str, client);
 				return;
 			}
 			else

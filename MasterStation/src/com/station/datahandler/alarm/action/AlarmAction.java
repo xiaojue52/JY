@@ -1,10 +1,15 @@
 package com.station.datahandler.alarm.action;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+
+import jxl.write.WriteException;
+
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.station.constant.Constant;
@@ -37,7 +42,16 @@ public class AlarmAction extends ActionSupport {
 	private List<JYConstant> cabTypeList;
 	private JYAlarm alarmTemp;
 	private String orderColumn = "alarm.date";
+	private String alarmIdListStr = "";
 	
+
+	public String getAlarmIdListStr() {
+		return alarmIdListStr;
+	}
+
+	public void setAlarmIdListStr(String alarmIdListStr) {
+		this.alarmIdListStr = alarmIdListStr;
+	}
 
 	public String getOrderColumn() {
 		return orderColumn;
@@ -199,6 +213,7 @@ public class AlarmAction extends ActionSupport {
 		//final String hql = "from JYAlarm alarm where alarm.device.cabinet.user.username like '%%%' ORDER BY id DESC";
 		this.pageBean = this.alarmService.getPerPage(pageList, page, hql,parameters);
 		//page = 1;
+		createAlarmExcel(this.pageBean.getList());
 		return SUCCESS;
 	}
 
@@ -252,5 +267,35 @@ public class AlarmAction extends ActionSupport {
 		alarm.setStatus("1");
 		this.alarmService.updateJYAlarm(alarm);
 		return SUCCESS;
+	}
+	
+	public void updateMultipleAlarmAction(){
+		String[] list = this.alarmIdListStr.split(",");
+		
+		HttpSession session = ServletActionContext.getRequest ().getSession();
+		String username =  (String) session.getAttribute("username");
+		for (int i=0;list!=null&&list.length>0&&i<list.length;i++){
+			JYAlarm alarm = this.alarmService.findJYAlarmById(list[i]);
+			alarm.setNote("");
+			alarm.setRepairUser(username);
+			alarm.setStatus("1");
+			this.alarmService.updateJYAlarm(alarm);
+		}
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+        dataMap.put("unhandledCount", 1);
+        Constant.flush(dataMap);
+	}
+	
+	private void createAlarmExcel(List<JYAlarm> list){
+		String path = ServletActionContext.getServletContext().getRealPath("/")+"files/alarm.xls";
+		try {
+			Constant.createAlarmExcel(list, new File(path));
+		} catch (WriteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

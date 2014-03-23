@@ -18,7 +18,15 @@ public class JYAlarm {
 	private java.util.Date date;
 	private String type; //用来区分报警等级，针对柜子报警
 	private Integer times;//重复次数
+	private String condition;
 	
+	
+	public String getCondition() {
+		return condition;
+	}
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
 	public Integer getTimes() {
 		return times;
 	}

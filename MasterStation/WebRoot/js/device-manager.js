@@ -77,7 +77,7 @@ Ext.onReady(function(){
     	                $("#cabinetAddBtn").hide();
     	                $("#cabinetUpdateBtn").show();
     	                $("#cabinetId").val(node.id);
-    	                $("#terminal").val(node.id);
+    	                $("#terminal").val("#"+node.id);
     	                $("#userGroup").val(obj.cabinet.userGroup.id);
     	                $("#cabinetStatus").val(obj.cabinet.status);
     	                $("#alarmTypeCollect").val(obj.cabinet.alarmTypeCollect.id);

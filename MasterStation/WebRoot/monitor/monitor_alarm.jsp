@@ -51,20 +51,29 @@
 							<th width="10%">
 								<span>报警设备</span>
 							</th>
-							<th width="30%">
+							<th width="20%">
 								<span>报警内容</span>
 							</th>
-							<th width="10%">
+							<th width="7%">
+								<span>报警类型</span>
+							</th>
+							<th width="11%">
+								<span>依据</span>
+							</th>
+							<th width="5%">
+								<span>次数</span>
+							</th>
+							<th width="7%">
 								<span>管理班组</span>
 							</th>
-							<th width="10%">
+							<th width="7%">
 								<span>维修状态</span>
 							</th>
-							<th width="10%">
+							<th width="6%">
 								<span>维修者</span>
 							</th>
 
-							<th width="10%">
+							<th width="8%">
 								<span>维修备注</span>
 							</th>
 						</tr>
@@ -103,15 +112,29 @@
 									</s:else>
 								</td>
 
-								<td width="30%">
+								<td width="20%">
 									<s:property escape="false" value="alarmText" />
 								</td>
-								<td width="10%">
+								<td width="7%">
+									<s:if test="#alarm.isCabinet == 0">
+										温度异常
+									</s:if>
+									<s:else>
+										设备故障
+									</s:else>
+								</td>
+								<td width="11%">
+									<s:property escape="false" value="condition"/>
+								</td>
+								<td width="5%">
+									<s:property value="times"/>
+								</td>
+								<td width="7%">
 										<s:if test="#alarm.device !=null">
 											<s:property value="#alarm.device.cabinet.userGroup.groupName" />
 										</s:if>
 								</td>
-								<td width="10%">
+								<td width="7%">
 									<s:if test="status==0">
 										未维修
 									</s:if>
@@ -119,11 +142,11 @@
 										已维修
 									</s:else>
 								</td>
-								<td width="10%">
+								<td width="5%">
 									<s:property value="repairUser" />
 
 								</td>
-								<td width="10%">
+								<td width="8%">
 									<s:property value="note" />
 
 								</td>
